@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
 <div class="container">
@@ -14,7 +14,8 @@
                     </div>
                     @endif
 
-                    You are logged in!
+                    You are logged in, {{auth()->user()->name}}!
+                    <p>Youre email is {{auth()->user()->email}} </p>
                 </div>
             </div>
         </div>
