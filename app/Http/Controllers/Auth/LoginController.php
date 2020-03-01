@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Socialite;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -36,5 +38,42 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Handle redirect ke google.
+     *
+     * @return void
+     */
+    public function redirectToProvider($driver)
+    {
+        return Socialite::driver($driver)->redirect();
+    }
+
+    /**
+     * Handle callback yang membawa data dari proses otentikasi pada platform google
+     *
+     * @return void
+     */
+    public function handleProviderCallback($driver)
+    {
+        try {
+            $user = Socialite::driver($driver)->user();
+
+            $create = User::firstOrCreate([
+                'email' => $user->getEmail()
+            ], [
+                'socialite_name' => $driver,
+                'socialite_id' => $user->getId(),
+                'name' => $user->getName(),
+                'avatar' => $user->getAvatar(),
+                'email_verified_at' => now()
+            ]);
+
+            auth()->login($create, true);
+            return redirect($this->redirectPath());
+        } catch (\Exception $e) {
+            return redirect()->route('login');
+        }
     }
 }

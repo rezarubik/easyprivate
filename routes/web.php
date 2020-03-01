@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+// ! for testing
+Route::get('/test', 'HomeController@test')->name('test');
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('redirect/{driver}', 'Auth\LoginController@redirectToProvider')->name('login.provider');
+Route::get('{driver}/callback', 'Auth\LoginController@handleProviderCallback')->name('login.callback');
