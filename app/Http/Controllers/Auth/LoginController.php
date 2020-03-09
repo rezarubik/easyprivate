@@ -57,9 +57,11 @@ class LoginController extends Controller
      */
     public function handleProviderCallback($driver)
     {
+        // dd($driver);
         try {
             $user = Socialite::driver($driver)->user();
-
+            // dd($user->email);
+            $admin = 'rezarubik17@gmail.com';
             $create = User::firstOrCreate([
                 'email' => $user->getEmail()
             ], [
@@ -71,7 +73,11 @@ class LoginController extends Controller
             ]);
 
             auth()->login($create, true);
-            return redirect($this->redirectPath());
+            if ($user->email == $admin) {
+                return redirect('home_guru');
+            } else {
+                return redirect($this->redirectPath());
+            }
         } catch (\Exception $e) {
             return redirect()->route('login');
         }

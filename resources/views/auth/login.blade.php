@@ -50,7 +50,8 @@
             </div>
             <!-- start: LOGIN BOX -->
             <div class="box-login">
-                <form class="form-login" action="index.html">
+                <form class="form-login" method="POST" action="/home_guru">
+                    @csrf
                     <fieldset>
                         <legend>
                             Sign in to your account
