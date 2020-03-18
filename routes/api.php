@@ -18,5 +18,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//Pemesanan
 Route::get('pemesanan', 'PemesananController@index');
 Route::get('pemesanan/{id}', 'PemesananController@show');
+Route::get('pemesananByIdGuru/{id}', 'PemesananController@getPemesananByIdGuru');
+Route::get('pemesananByIdMurid/{id}', 'PemesananController@getPemesananByIdMurid');
+
+//Login guru
+Route::post('login/guru', 'UserController@getGuruById');
