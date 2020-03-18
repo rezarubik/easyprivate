@@ -29,3 +29,4 @@ Route::get('{driver}/callback', 'Auth\LoginController@handleProviderCallback')->
 
 // todo form pendaftaran guru
 Route::get('/form_pendaftaran_guru', 'GuruController@form_pendaftaran_guru');
+
