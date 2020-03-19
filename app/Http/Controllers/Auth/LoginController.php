@@ -61,7 +61,7 @@ class LoginController extends Controller
         try {
             $user = Socialite::driver($driver)->user();
             // dd($user->email);
-            $admin = 'rezarubik17@gmail.com';
+            $admin = 'muhammad.reza.pahlevi.y@gmail.com';
             $create = User::firstOrCreate([
                 'email' => $user->getEmail()
             ], [
@@ -74,9 +74,9 @@ class LoginController extends Controller
 
             auth()->login($create, true);
             if ($user->email == $admin) {
-                return redirect('home_guru');
-            } else {
                 return redirect($this->redirectPath());
+            } else {
+                return redirect('user/mentor-dashboard');
             }
         } catch (\Exception $e) {
             return redirect()->route('login');

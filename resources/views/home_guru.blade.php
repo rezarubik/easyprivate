@@ -1,6 +1,7 @@
 <!-- //! app untuk guru -->
 @extends('layouts.app')
 
+@section('title','Easy Private')
 @section('main-title', 'Dashbord Guru')
 @section('description', 'Ini adalah dashboard guru')
 @section('blank-page', 'Dashboard')
