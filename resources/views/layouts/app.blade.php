@@ -31,21 +31,19 @@
     <link href=" {{asset('vendor/perfect-scrollbar/perfect-scrollbar.min.css')}}" rel="stylesheet" media="screen">
     <link href=" {{asset('vendor/switchery/switchery.min.css')}}" rel="stylesheet" media="screen">
     <!-- end: MAIN CSS -->
+    <!-- start: CSS REQUIRED FOR DATEPICKER ONLY -->
+    <link href=" {{asset('vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')}}" rel="stylesheet" media="screen">
+    <link href=" {{asset('vendor/select2/select2.min.css')}}" rel="stylesheet" media="screen">
+    <link href=" {{asset('vendor/bootstrap-datepicker/bootstrap-datepicker3.standalone.min.css')}}" rel="stylesheet" media="screen">
+    <link href=" {{asset('vendor/bootstrap-timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet" media="screen">
+    <!-- end: CSS REQUIRED FOR DATEPICKER ONLY -->
+
     <!-- start: CLIP-TWO CSS -->
     <link rel="stylesheet" href=" {{asset('assets/css/styles.css')}}">
     <link rel="stylesheet" href=" {{asset('assets/css/plugins.css')}}">
     <link rel="stylesheet" href=" {{asset('assets/css/themes/theme-4.css')}}" id="skin_color" />
     <!-- end: CLIP-TWO CSS -->
-    <!-- start: CSS REQUIRED FOR DATEPICKER ONLY -->
-    <link href=" {{asset('vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')}}" rel="stylesheet" media="screen">
-    <link href=" {{asset('vendor/select2/select2.min.css')}}" rel="stylesheet" media="screen">
-    <link rel="stylesheet" href="{{url('/assets/css/leaflet.css')}}" />
-    <link href=" {{asset('vendor/bootstrap-datepicker/bootstrap-datepicker3.standalone.min.css')}}" rel="stylesheet" media="screen">
-    <link href=" {{asset('vendor/bootstrap-timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet" media="screen">
-    <!-- end: CSS REQUIRED FOR DATEPICKER ONLY -->
 
-    <!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
-    <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
 </head>
 <!-- end: HEAD -->
 
@@ -92,7 +90,7 @@
                         </li>
                         <!-- ? Nilai Gap -->
                         <li>
-                            <a href="{{url('/user/mentor-pendaftaran')}}">
+                            <a href="{{url('user/mentor-pendaftaran')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-settings"></i>
@@ -268,29 +266,37 @@
     <script src="{{asset('vendor/jquery.sparkline/jquery.sparkline.min.js')}}"></script>
     <!-- end: JAVASCRIPTS REQUIRED FOR THIS Chart Only -->
 
-    <!-- start: CLIP-TWO JAVASCRIPTS -->
-    <script src="{{asset('assets/js/main.js')}}"></script>
     <!-- start: JAVASCRIPTS REQUIRED FOR DATEPICKER ONLY -->
-
     <script src=" {{asset('vendor/maskedinput/jquery.maskedinput.min.js')}}"></script>
     <script src=" {{asset('vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js')}}"></script>
     <script src=" {{asset('vendor/autosize/autosize.min.js')}}"></script>
     <script src=" {{asset('vendor/selectFx/classie.js')}}"></script>
     <script src=" {{asset('vendor/selectFx/selectFx.js')}}"></script>
-    <!-- <script src=" {{asset('vendor/select2/select2.min.js')}}"></script> -->
-    <!-- <script src=" {{asset('vendor/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script> -->
-    <!-- <script src=" {{asset('vendor/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script> -->
+    <!-- <script src=" {{asset('vendor/select2/select2.min.js')}}"></script>
+    <script src=" {{asset('vendor/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+    <script src=" {{asset('vendor/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script> -->
     <!-- end: JAVASCRIPTS REQUIRED FOR DATEPICKER ONLY -->
 
     @yield('javascript')
 
+    <!-- start: CLIP-TWO JAVASCRIPTS -->
+    <script src="{{asset('assets/js/main.js')}}"></script>
     <!-- start: JavaScript Event Handlers for form elements page -->
-    <script src="{{asset('assets/js/index.js')}}"></script>
+    <!-- <script src="{{asset('assets/js/index.js')}}"></script> -->
     <script src="{{asset('assets/js/form-elements.js')}}"></script>
+    <!-- start: JAVASCRIPTS REQUIRED FOR MAPS -->
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script src="{{asset('vendor/gmaps/gmaps.js')}}"></script>
+    <!-- end: JAVASCRIPTS REQUIRED FOR MAPS -->
+    <!-- start: JavaScript Event Handlers for this page -->
+    <script src="{{asset('assets/js/maps.js')}}"></script>
+    <!-- end: JavaScript Event Handlers for this page -->
     <script>
         jQuery(document).ready(function() {
             Main.init();
+            // Index.init();
             FormElements.init();
+            Maps.init();
         });
     </script>
     <!-- end: JavaScript Event Handlers for form elements page -->

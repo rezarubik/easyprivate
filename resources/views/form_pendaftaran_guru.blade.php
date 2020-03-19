@@ -114,23 +114,6 @@
                                                     <h5 class="over-title margin-bottom-15">Basic <span class="text-bold">Map</span></h5>
                                                     <div class="map" id="map1"></div>
                                                 </div>
-                                                <!-- <div class="col-md-10">
-                                                    <div id="mapid"></div>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group {{($errors->has('latitude'))?'has-error':''}}">
-                                                        <label class="control-label">
-                                                            Latitude <span class="symbol required"></span>
-                                                        </label>
-                                                        <input type="text" placeholder="Latitude" class="form-control underline" id="lat" name="latitude" value="{{ old('latitude') }}">
-                                                    </div>
-                                                    <div class="form-group {{($errors->has('longitude'))?'has-error':''}}">
-                                                        <label class="control-label">
-                                                            Longitude <span class="symbol required"></span>
-                                                        </label>
-                                                        <input type="text" placeholder="Longitude" class="form-control underline" id="lng" name="longitude" value="{{ old('longitude') }}">
-                                                    </div>
-                                                </div> -->
                                             </div>
                                         </div>
                                     </div>
@@ -267,17 +250,5 @@
     $("#jenjang_3").select2();
     $("#mapel_3").select2();
 </script>
-<!-- start: JAVASCRIPTS REQUIRED FOR MAPS -->
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-<script src="{{asset('vendor/gmaps/gmaps.js')}}"></script>
-<!-- end: JAVASCRIPTS REQUIRED FOR MAPS -->
-<!-- start: JavaScript Event Handlers for this page -->
-<script src="{{asset('assets/js/maps.js')}}"></script>
-<script>
-    jQuery(document).ready(function() {
-        Main.init();
-        Maps.init();
-    });
-</script>
-<!-- end: JavaScript Event Handlers for this page -->
-@endsection
+
+@stop
