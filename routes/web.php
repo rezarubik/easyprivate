@@ -19,8 +19,7 @@ Auth::routes();
 
 // ! for testing
 Route::get('/test', 'HomeController@test')->name('test');
-// ? user Guru
-Route::get('/user/mentor-dashboard', 'GuruController@index');
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -28,5 +27,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('redirect/{driver}', 'Auth\LoginController@redirectToProvider')->name('login.provider');
 Route::get('{driver}/callback', 'Auth\LoginController@handleProviderCallback')->name('login.callback');
 
+// ? user Guru
+Route::get('/user/mentor-dashboard', 'GuruController@index');
 // todo form pendaftaran guru
 Route::get('/user/mentor-pendaftaran', 'GuruController@form_pendaftaran_guru');

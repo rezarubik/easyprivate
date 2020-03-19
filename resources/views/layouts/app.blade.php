@@ -90,7 +90,7 @@
                         </li>
                         <!-- ? Nilai Gap -->
                         <li>
-                            <a href="{{url('user/mentor-pendaftaran')}}">
+                            <a href="{{url('/user/mentor-pendaftaran')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-settings"></i>

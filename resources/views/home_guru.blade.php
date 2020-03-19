@@ -1,4 +1,3 @@
-<!-- //! app untuk guru -->
 @extends('layouts.app')
 
 @section('title','Easy Private')
