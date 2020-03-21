@@ -1,18 +1,11 @@
-<!-- //! app untuk guru -->
 @extends('layouts.app')
 
+@section('title','Easy Private')
+@section('main-title', 'Dashbord Guru')
+@section('description', 'Ini adalah dashboard guru')
+@section('blank-page', 'Dashboard')
 @section('content')
-<!-- start: DASHBOARD TITLE -->
-<section id="page-title" class="padding-top-15 padding-bottom-15">
-    <div class="row">
-        <div class="col-sm-7">
-            <h1 class="mainTitle">Form Pendaftaran Guru</h1>
-            <span class="mainDescription">Home </span>
-        </div>
-
-    </div>
-</section>
-<!-- end: DASHBOARD TITLE -->
+<!-- start: DASHBOARD GURU -->
 <div class="container-fluid container-fullw bg-white">
     <div class="row">
         <div class="col-md-12">
@@ -26,5 +19,6 @@
         </div>
     </div>
 </div>
+<!-- end: DASHBOARD GURU -->
 
 @endsection

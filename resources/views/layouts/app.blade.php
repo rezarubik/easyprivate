@@ -8,7 +8,7 @@
 <!-- start: HEAD -->
 
 <head>
-    <title>Dashboard Guru Private</title>
+    <title>@yield('title')</title>
     <!-- start: META -->
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
     <meta charset="utf-8" />
@@ -31,18 +31,24 @@
     <link href=" {{asset('vendor/perfect-scrollbar/perfect-scrollbar.min.css')}}" rel="stylesheet" media="screen">
     <link href=" {{asset('vendor/switchery/switchery.min.css')}}" rel="stylesheet" media="screen">
     <!-- end: MAIN CSS -->
+    <!-- start: CSS REQUIRED FOR DATEPICKER ONLY -->
+    <link href=" {{asset('vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')}}" rel="stylesheet" media="screen">
+    <link href=" {{asset('vendor/select2/select2.min.css')}}" rel="stylesheet" media="screen">
+    <link href=" {{asset('vendor/bootstrap-datepicker/bootstrap-datepicker3.standalone.min.css')}}" rel="stylesheet" media="screen">
+    <link href=" {{asset('vendor/bootstrap-timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet" media="screen">
+    <!-- end: CSS REQUIRED FOR DATEPICKER ONLY -->
+
     <!-- start: CLIP-TWO CSS -->
     <link rel="stylesheet" href=" {{asset('assets/css/styles.css')}}">
     <link rel="stylesheet" href=" {{asset('assets/css/plugins.css')}}">
     <link rel="stylesheet" href=" {{asset('assets/css/themes/theme-4.css')}}" id="skin_color" />
     <!-- end: CLIP-TWO CSS -->
-    <!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
-    <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
+
 </head>
 <!-- end: HEAD -->
 
 <body>
-    <div id="app">
+    <div id="app" class="app-navbar-fixed app-sidebar-fixed">
         <!-- sidebar -->
         <div class="sidebar app-aside" id="sidebar">
             <div class="sidebar-container perfect-scrollbar">
@@ -71,7 +77,7 @@
                     </div>
                     <ul class="main-navigation-menu">
                         <li class="active open">
-                            <a href="{{url('home_guru')}}">
+                            <a href="{{url('user/mentor-dashboard')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-home"></i>
@@ -82,20 +88,32 @@
                                 </div>
                             </a>
                         </li>
-                        <!-- ? Form Pendaftaran -->
+                        <!-- ? Nilai Gap -->
                         <li>
-                            <a href=" {{url('form_pendaftaran_guru')}} ">
+                            <a href="{{url('/user/mentor-pendaftaran')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-settings"></i>
                                     </div>
                                     <div class="item-inner">
-                                        <span class="title"> Form Pendaftaran </span>
+                                        <span class="title"> Form Pendaftaran Guru </span>
                                     </div>
                                 </div>
                             </a>
                         </li>
-                        <!-- ? End of Form Pendaftaran -->
+                        <!-- ? End of Nilai Gap -->
+                        <li>
+                            <a href="maps.html">
+                                <div class="item-content">
+                                    <div class="item-media">
+                                        <i class="ti-location-pin"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <span class="title"> Maps </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -167,6 +185,9 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <!-- <a href="login_signin.html">
+                                        Log Out
+                                    </a> -->
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
@@ -188,52 +209,98 @@
                     </div>
                     <!-- end: MENU TOGGLER FOR MOBILE DEVICES -->
                 </div>
-
+                <!-- end: NAVBAR COLLAPSE -->
             </header>
             <!-- end: TOP NAVBAR -->
-            <div class="main-content">
+            <div class="main-content" style="position:relative; top:auto; width: auto;">
                 <div class="wrap-content container" id="container">
+                    <!-- start: PAGE TITLE -->
+                    <section id="page-title" class="padding-top-15 padding-bottom-15">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <h1 class="mainTitle">@yield('main-title')</h1>
+                                <span class="mainDescription">@yield('description')</span>
+                            </div>
+                            <ol id="cl-effect-5" class="breadcrumb links cl-effect-5">
+                                <li>
+                                    <span data-hover="Home"><a href="{{url('home_guru')}}">Home</a></span>
+                                </li>
+                                <li class="active">
+                                    <span>@yield('blank-page')</span>
+                                </li>
+                            </ol>
+                        </div>
+                    </section>
+                    <!-- end: PAGE TITLE -->
+                    <!-- start: CONTENT -->
                     @yield('content')
+                    <!-- end: CONTENT -->
                 </div>
             </div>
-            <!-- start: FOOTER -->
-            <footer>
-                <div class="footer-inner">
-                    <div class="pull-left">
-                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase"> Easy Private</span>.
-                        <span>All rights reserved</span>
-                    </div>
-                    <div class="pull-right">
-                        <span class="go-top"><i class="ti-angle-up"></i></span>
-                    </div>
-                </div>
-            </footer>
-            <!-- end: FOOTER -->
         </div>
-        <!-- start: MAIN JAVASCRIPTS -->
-        <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
-        <script src="{{asset('vendor/bootstrap/js/bootstrap.min.js')}}"></script>
-        <script src="{{asset('vendor/modernizr/modernizr.js')}}"></script>
-        <script src="{{asset('vendor/jquery-cookie/jquery.cookie.js')}}"></script>
-        <script src="{{asset('vendor/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
-        <script src="{{asset('vendor/switchery/switchery.min.js')}}"></script>
-        <!-- end: MAIN JAVASCRIPTS -->
-        <!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
-        <script src="{{asset('vendor/Chart.js/Chart.min.js')}}"></script>
-        <script src="{{asset('vendor/jquery.sparkline/jquery.sparkline.min.js')}}"></script>
-        <!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
-        <!-- start: CLIP-TWO JAVASCRIPTS -->
-        <script src="{{asset('assets/js/main.js')}}"></script>
-        <!-- start: JavaScript Event Handlers for this page -->
-        <script src="{{asset('assets/js/index.js')}}"></script>
-        <script>
-            jQuery(document).ready(function() {
-                Main.init();
-                Index.init();
-            });
-        </script>
-        <!-- end: JavaScript Event Handlers for this page -->
-        <!-- end: CLIP-TWO JAVASCRIPTS -->
+        <!-- start: FOOTER -->
+        <footer>
+            <div class="footer-inner">
+                <div class="pull-left">
+                    &copy; <span class="current-year"></span><span class="text-bold text-uppercase"> Easy Private</span>.
+                    <span>All rights reserved</span>
+                </div>
+                <div class="pull-right">
+                    <span class="go-top"><i class="ti-angle-up"></i></span>
+                </div>
+            </div>
+        </footer>
+        <!-- end: FOOTER -->
+    </div>
+    <!-- start: MAIN JAVASCRIPTS -->
+    <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('vendor/modernizr/modernizr.js')}}"></script>
+    <script src="{{asset('vendor/jquery-cookie/jquery.cookie.js')}}"></script>
+    <script src="{{asset('vendor/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
+    <script src="{{asset('vendor/switchery/switchery.min.js')}}"></script>
+    <!-- end: MAIN JAVASCRIPTS -->
+
+    <!-- start: JAVASCRIPTS REQUIRED FOR THIS Chart Only -->
+    <script src="{{asset('vendor/Chart.js/Chart.min.js')}}"></script>
+    <script src="{{asset('vendor/jquery.sparkline/jquery.sparkline.min.js')}}"></script>
+    <!-- end: JAVASCRIPTS REQUIRED FOR THIS Chart Only -->
+
+    <!-- start: JAVASCRIPTS REQUIRED FOR DATEPICKER ONLY -->
+    <script src=" {{asset('vendor/maskedinput/jquery.maskedinput.min.js')}}"></script>
+    <script src=" {{asset('vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js')}}"></script>
+    <script src=" {{asset('vendor/autosize/autosize.min.js')}}"></script>
+    <script src=" {{asset('vendor/selectFx/classie.js')}}"></script>
+    <script src=" {{asset('vendor/selectFx/selectFx.js')}}"></script>
+    <!-- <script src=" {{asset('vendor/select2/select2.min.js')}}"></script>
+    <script src=" {{asset('vendor/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+    <script src=" {{asset('vendor/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script> -->
+    <!-- end: JAVASCRIPTS REQUIRED FOR DATEPICKER ONLY -->
+
+    @yield('javascript')
+
+    <!-- start: CLIP-TWO JAVASCRIPTS -->
+    <script src="{{asset('assets/js/main.js')}}"></script>
+    <!-- start: JavaScript Event Handlers for form elements page -->
+    <!-- <script src="{{asset('assets/js/index.js')}}"></script> -->
+    <script src="{{asset('assets/js/form-elements.js')}}"></script>
+    <!-- start: JAVASCRIPTS REQUIRED FOR MAPS -->
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script src="{{asset('vendor/gmaps/gmaps.js')}}"></script>
+    <!-- end: JAVASCRIPTS REQUIRED FOR MAPS -->
+    <!-- start: JavaScript Event Handlers for this page -->
+    <script src="{{asset('assets/js/maps.js')}}"></script>
+    <!-- end: JavaScript Event Handlers for this page -->
+    <script>
+        jQuery(document).ready(function() {
+            Main.init();
+            // Index.init();
+            FormElements.init();
+            Maps.init();
+        });
+    </script>
+    <!-- end: JavaScript Event Handlers for form elements page -->
+
 </body>
 
 </html>
