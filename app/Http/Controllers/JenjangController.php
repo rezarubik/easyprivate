@@ -7,11 +7,11 @@ use App\Jenjang;
 
 class JenjangController extends Controller
 {
-    public function index(){
+    public function getJenjang(){
         return Jenjang::get();
     }
 
-    public function show($id){
+    public function getJenjangById($id){
         return Jenjang::find($id);
     }
 }

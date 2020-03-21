@@ -3,34 +3,52 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\PendaftaranGuru;
 
 class UserController extends Controller
 {
     public function __construct(){
-        $this->relationshipGuru = ['alamat', 'pendaftaranGuru', 'pendaftaranGuru.microteaching'];
+        $this->relationshipGuru = ['alamat'];
         $this->relationshipMurid = ['alamat'];
     }
 
+    public function getMuridById($id)
+    {
+        return User::with($this->relationshipMurid)
+        ->find($id);
+    }
+
+    public function getGuruById($id)
+    {
+        return User::with($this->relationshipGuru)
+        ->find($id);
+    }
+
+    //Function untuk login guru
     public function loginGuru(Request $r){
-        //Get guru berdasarkan email
-        $guru = getGuruByEmail($r->email);
+        //Memanggil function getGuruByEmail
+        $guru = $this->getGuruByEmail($r->email);
+        $emptyGuru = new User;
+        $emptyGuru = $emptyGuru[0];
 
         //Memeriksa apakah guru sudah terdaftar atau belum
         if($guru != null){
-            $valid = isGuruValid($guru);
-
+            $valid = $this->isGuruValid($guru->id);
+            // dd($valid);
             if($valid){
                 return $guru;
             }
             else{
-                return null;
+                return $emptyGuru;
             }
 
         }else{
-            return null;
+            return $emptyGuru;
         }
     }
 
+    //Get guru berdasarkan email
     public function getGuruByEmail($email){
         //Get guru dengan role = 2 dan email dari request
         $guru = User::where([
@@ -43,16 +61,25 @@ class UserController extends Controller
         return $guru;
     }
 
-    public function isGuruValid(Guru $guru){
-        $pendaftaran = Pendaftaran::where([
-            'id_user' => $guru->id,
+    //Memeriksa apakah guru sudah lolos seleksi
+    public function isGuruValid(Request $r){
+        //Melihat tabel pendaftaran berdasarkan id guru dan statusnya
+        $pendaftaran = PendaftaranGuru::join('users', 'users.id', 'pendaftaran_guru.id_user')
+        ->where([
+            'users.email' => $r->email,
             'status' => 1
         ])->get();
 
-        if($pendaftaran != null){
-            return true;
+        if(!$pendaftaran->isEmpty()){
+            return 1;
         }else{
-            return false;
+            return 0;
         }
+    }
+
+    //Get guru berdasarkan email via POST
+    public function getGuruByEmailPost(Request $r)
+    {
+        return $this->getGuruByEmail($r->email);
     }
 }

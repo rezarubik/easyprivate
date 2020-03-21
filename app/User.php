@@ -42,6 +42,10 @@ class User extends Authenticatable
     }
 
     public function pendaftaranGuru(){
-        return $this->hasMany('App\PendaftaranGuru', 'id', 'id_user');
+        return $this->hasMany('App\PendaftaranGuru', 'id_user', 'id');
+    }
+
+    public function guruMapel(){
+        return $this->hasMany('App\GuruMapel', 'id_guru', 'id');
     }
 }

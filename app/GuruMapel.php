@@ -11,7 +11,7 @@ class GuruMapel extends Model
     public $timestamps = false;
 
     public function guru(){
-        return $this->hasOne('App\User', 'id', 'id_guru');
+        return $this->belongsTo('App\User', 'id', 'id_guru');
     }
 
     public function mataPelajaran(){

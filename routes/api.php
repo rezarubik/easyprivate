@@ -18,11 +18,33 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//Absen
+Route::get('absen', 'AbsenController@getAbsen');//Udah bisa
+Route::get('absen/{id}', 'AbsenController@getAbsenById');//Udah bisa
+Route::get('absen/guru/{id}', 'AbsenController@getAbsenByIdGuru');//Udah bisa
+Route::get('absen/murid/{id}', 'AbsenController@getAbsenByIdMurid');//Udah bisa
+Route::post('absen/store', 'AbsenController@store');//
+
+//Mata pelajaran
+Route::get('mapel', 'MataPelajaranController@getMapel');//Udah bisa
+Route::get('mapel/{id}', 'MataPelajaranController@getMapelById');//Udah bisa
+Route::get('mapel/jenjang/{id}', 'MataPelajaranController@getMapelByIdJenjang');//Udah bisa
+Route::get('mapel/guru/{id}', 'MataPelajaranController@getMapelByIdGuru');//Udah bisa
+
 //Pemesanan
-Route::get('pemesanan', 'PemesananController@index');
-Route::get('pemesanan/{id}', 'PemesananController@show');
-Route::get('pemesananByIdGuru/{id}', 'PemesananController@getPemesananByIdGuru');
-Route::get('pemesananByIdMurid/{id}', 'PemesananController@getPemesananByIdMurid');
+Route::get('pemesanan', 'PemesananController@getPemesanan');//Udah bisa
+Route::get('pemesanan/{id}', 'PemesananController@getPemesananById');//Udah bisa
+Route::get('pemesanan/guru/{id}', 'PemesananController@getPemesananByIdGuru'); //Udah bisa
+Route::get('pemesanan/murid/{id}', 'PemesananController@getPemesananByIdMurid'); //Udah bisa
+
+//Pembayaran
+Route::get('pembayaran', 'PembayaranController@getPembayaran');//Udah bisa
+Route::get('pembayaran/guru/{id}', 'PembayaranController@getPembayaranByIdGuru');//Udah bisa
+Route::get('pembayaran/murid/{id}', 'PembayaranController@getPembayaranByIdMurid');//Udah bisa
 
 //Login guru
-Route::post('login/guru', 'UserController@getGuruById');
+Route::post('login/guru', 'UserController@loginGuru');//Udah bisa
+Route::post('user/guru/valid', 'UserController@isGuruValid');    
+
+//User
+Route::post('user/guru', 'UserController@getGuruByEmailPost');
