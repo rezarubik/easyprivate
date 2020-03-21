@@ -240,6 +240,7 @@
 
 @section('javascript')
 <script src="{{asset('vendor/select2/select2.min.js')}}"></script>
+<script src="{{asset('assets/js/form-elements.js')}}"></script>
 <script src="{{asset('vendor/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
 <script src="{{asset('vendor/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script>
 <script>

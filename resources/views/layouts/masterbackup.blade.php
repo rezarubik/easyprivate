@@ -8,7 +8,7 @@
 <!-- start: HEAD -->
 
 <head>
-    <title>@yield('title')</title>
+    <title>Admin Easy Private</title>
     <!-- start: META -->
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
     <meta charset="utf-8" />
@@ -17,34 +17,32 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta content="" name="description" />
     <meta content="" name="author" />
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- end: META -->
     <!-- start: GOOGLE FONTS -->
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
     <!-- end: GOOGLE FONTS -->
     <!-- start: MAIN CSS -->
-    <link rel="stylesheet" href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('vendor/fontawesome/css/font-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{asset('vendor/themify-icons/themify-icons.min.css')}}">
-    <link href="{{asset('vendor/animate.css/animate.min.css')}}" rel="stylesheet" media="screen">
-    <link href="{{asset('vendor/perfect-scrollbar/perfect-scrollbar.min.css')}}" rel="stylesheet" media="screen">
-    <link href="{{asset('vendor/switchery/switchery.min.css')}}" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href=" {{asset('vendor/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href=" {{asset('vendor/fontawesome/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href=" {{asset('vendor/themify-icons/themify-icons.min.css')}}">
+    <link href=" {{asset('vendor/animate.css/animate.min.css')}}" rel="stylesheet" media="screen">
+    <link href=" {{asset('vendor/perfect-scrollbar/perfect-scrollbar.min.css')}}" rel="stylesheet" media="screen">
+    <link href=" {{asset('vendor/switchery/switchery.min.css')}}" rel="stylesheet" media="screen">
     <!-- end: MAIN CSS -->
     <!-- start: CLIP-TWO CSS -->
-    <link rel="stylesheet" href="{{asset('assets/css/styles.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/plugins.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/themes/theme-1.css')}}" id="skin_color" />
+    <link rel="stylesheet" href=" {{asset('assets/css/styles.css')}}">
+    <link rel="stylesheet" href=" {{asset('assets/css/plugins.css')}}">
+    <link rel="stylesheet" href=" {{asset('assets/css/themes/theme-4.css')}}" id="skin_color" />
     <!-- end: CLIP-TWO CSS -->
     <!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
     <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
-
-    <!-- start: Another Page CSS -->
-    @yield('css')
-    <!-- end Another Page CSS -->
 </head>
 <!-- end: HEAD -->
 
 <body>
-    <div id="app">
+    <div id="app" class="app-navbar-fixed app-sidebar-fixed">
         <!-- sidebar -->
         <div class="sidebar app-aside" id="sidebar">
             <div class="sidebar-container perfect-scrollbar">
@@ -73,7 +71,7 @@
                     </div>
                     <ul class="main-navigation-menu">
                         <li class="active open">
-                            <a href="{{url('admin/dashboard')}}">
+                            <a href="{{url('/home')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-home"></i>
@@ -98,12 +96,12 @@
                             </a>
                             <ul class="sub-menu">
                                 <li>
-                                    <a href="{{url('admin/users/data-murid')}}">
+                                    <a href="{{url('users/data-murid')}}">
                                         <span class="title"> Murid </span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{url('admin/users/data-guru')}}">
+                                    <a href="{{url('users/data-guru')}}">
                                         <span class="title"> Guru </span>
                                     </a>
                                 </li>
@@ -124,12 +122,12 @@
                             </a>
                             <ul class="sub-menu">
                                 <li>
-                                    <a href="{{url('admin/kriteria')}}">
+                                    <a href="ui_elements.html">
                                         <span class="title"> Kriteria </span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{url('admin/bobot')}}">
+                                    <a href="ui_buttons.html">
                                         <span class="title"> Bobot </span>
                                     </a>
                                 </li>
@@ -138,7 +136,7 @@
                         <!-- ? End of Kriteria dan Bobot -->
                         <!-- ? Nilai Gap -->
                         <li>
-                            <a href="{{url('admin/nilai-gap')}}">
+                            <a href="#">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-settings"></i>
@@ -152,7 +150,7 @@
                         <!-- ? End of Nilai Gap -->
                         <!-- ? Nilai Target -->
                         <li>
-                            <a href="{{url('admin/nilai-target')}}">
+                            <a href="#">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-settings"></i>
@@ -166,7 +164,7 @@
                         <!-- ? End of Nilai Target -->
                         <!-- ? Hasil Seleksi -->
                         <li>
-                            <a href="{{url('admin/hasil-seleksi')}}">
+                            <a href="#">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-settings"></i>
@@ -180,7 +178,7 @@
                         <!-- ? End of Hasil Seleksi -->
                         <!-- ? Microteaching -->
                         <li>
-                            <a href="{{url('admin/video-microteaching')}}">
+                            <a href="#">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-video-camera"></i>
@@ -194,7 +192,7 @@
                         <!-- ? End of Microteaching -->
                         <!-- ? Pemesanan -->
                         <li>
-                            <a href="{{url('admin/pemesanan')}}">
+                            <a href="#">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-settings"></i>
@@ -208,7 +206,7 @@
                         <!-- ? End of Pemesanan -->
                         <!-- ? Absensi -->
                         <li>
-                            <a href="{{url('admin/absensi')}}">
+                            <a href="#">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-settings"></i>
@@ -222,7 +220,7 @@
                         <!-- ? End of Absensi -->
                         <!-- ? Pemasukan -->
                         <li>
-                            <a href="{{url('admin/pemasukan')}}">
+                            <a href="#">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-money"></i>
@@ -236,7 +234,7 @@
                         <!-- ? End of Pemasukan -->
                         <!-- ? Pengeluaran -->
                         <li>
-                            <a href="{{url('admin/pengeluaran')}}">
+                            <a href="#">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-settings"></i>
@@ -249,7 +247,6 @@
                         </li>
                         <!-- ? End of Pengeluaran -->
                     </ul>
-                    <!-- end: MAIN NAVIGATION MENU -->
                 </nav>
             </div>
         </div>
@@ -263,7 +260,7 @@
                         <i class="ti-align-justify"></i>
                     </a>
                     <a class="navbar-brand" href="index.html">
-                        <!-- <img src="assets/images/logo.png" alt="Clip-Two" /> -->
+                        <!-- <img src="assets/images/logo.png" alt="Easy Private" /> -->
                         Easy Private
                     </a>
                     <a href="#" class="sidebar-toggler pull-right visible-md visible-lg" data-toggle-class="app-sidebar-closed" data-toggle-target="#app">
@@ -280,9 +277,23 @@
                     <ul class="nav navbar-right">
                         <!-- start: LANGUAGE SWITCHER -->
                         <!-- start: USER OPTIONS DROPDOWN -->
+                        <!-- Authentication Links -->
+                        @guest
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        </li>
+                        @endif
+                        @else
                         <li class="dropdown current-user">
                             <a href class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="assets/images/avatar-1.jpg" alt="Peter"> <span class="username">Peter <i class="ti-angle-down"></i></i></span>
+                                @if(auth()->user()->avatar)
+                                <img src="{{ auth()->user()->avatar }}" alt="avatar">
+                                @endif
+                                <span class="username">{{ auth()->user()->name }}<i class="ti-angle-down"></i></i></span>
                             </a>
                             <ul class="dropdown-menu dropdown-dark">
                                 <li>
@@ -291,42 +302,77 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="login_signin.html">
-                                        Log Out
+                                    <a href="pages_calendar.html">
+                                        My Calendar
                                     </a>
                                 </li>
+                                <li>
+                                    <a hef="pages_messages.html">
+                                        My Messages (3)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="login_lockscreen.html">
+                                        Lock Screen
+                                    </a>
+                                </li>
+                                <li>
+                                    <!-- <a href="login_signin.html">
+                                        Log Out
+                                    </a> -->
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </li>
+                                @endguest
                             </ul>
                         </li>
                         <!-- end: USER OPTIONS DROPDOWN -->
                     </ul>
+                    <!-- start: MENU TOGGLER FOR MOBILE DEVICES -->
+                    <div class="close-handle visible-xs-block menu-toggler" data-toggle="collapse" href=".navbar-collapse">
+                        <div class="arrow-left"></div>
+                        <div class="arrow-right"></div>
+                    </div>
+                    <!-- end: MENU TOGGLER FOR MOBILE DEVICES -->
                 </div>
+                <!-- <a class="dropdown-off-sidebar sidebar-mobile-toggler hidden-md hidden-lg" data-toggle-class="app-offsidebar-open" data-toggle-target="#app" data-toggle-click-outside="#off-sidebar">
+                    &nbsp;
+                </a>
+                <a class="dropdown-off-sidebar hidden-sm hidden-xs" data-toggle-class="app-offsidebar-open" data-toggle-target="#app" data-toggle-click-outside="#off-sidebar">
+                    &nbsp;
+                </a> -->
                 <!-- end: NAVBAR COLLAPSE -->
             </header>
             <!-- end: TOP NAVBAR -->
-            <div class="main-content">
+            <div class="main-content" style="position:relative; top:auto; width: auto;">
                 <div class="wrap-content container" id="container">
                     <!-- start: DASHBOARD TITLE -->
-                    <section id="page-title">
-                        <!-- class="padding-top-15 padding-bottom-15" -->
+                    <section id="page-title" class="padding-top-15 padding-bottom-15">
                         <div class="row">
                             <div class="col-sm-8">
                                 <h1 class="mainTitle">@yield('main-title')</h1>
                                 <span class="mainDescription">@yield('description')</span>
                             </div>
-                            <ol class="breadcrumb">
+                            <ol id="cl-effect-5" class="breadcrumb links cl-effect-5">
                                 <li>
-                                    <span>@yield('pages')</span>
+                                    <span data-hover="Home"><a href="{{url('home')}}">Home</a></span>
                                 </li>
                                 <li class="active">
-                                    <span>@yield('active-pages')</span>
+                                    <span>@yield('blank-page')</span>
                                 </li>
                             </ol>
                         </div>
                     </section>
                     <!-- end: DASHBOARD TITLE -->
-                    <!-- start: YOUR CONTENT HERE -->
+                    <!-- Main Content per Page -->
                     @yield('content')
-                    <!-- end: YOUR CONTENT HERE -->
+                    <!-- end: Main Content per Page -->
                 </div>
             </div>
         </div>
@@ -334,7 +380,7 @@
         <footer>
             <div class="footer-inner">
                 <div class="pull-left">
-                    &copy; <span class="current-year"></span><span class="text-bold text-uppercase"> ClipTheme</span>.
+                    &copy; <span class="current-year"></span><span class="text-bold text-uppercase"> Easy Private</span>.
                     <span>All rights reserved</span>
                 </div>
                 <div class="pull-right">
@@ -353,26 +399,17 @@
     <script src="{{asset('vendor/switchery/switchery.min.js')}}"></script>
     <!-- end: MAIN JAVASCRIPTS -->
     <!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
-    <!-- <script src="{{asset('vendor/Chart.js/Chart.min.js')}}"></script>
-    <script src="{{asset('vendor/jquery.sparkline/jquery.sparkline.min.js')}}"></script> -->
+    <script src="{{asset('vendor/Chart.js/Chart.min.js')}}"></script>
+    <script src="{{asset('vendor/jquery.sparkline/jquery.sparkline.min.js')}}"></script>
     <!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
-    <!-- start: JS For Another Page -->
-    <!-- @yield('js-pages') -->
-    <script src="{{asset('vendor/select2/select2.min.js')}}"></script>
-    <script src="{{asset('vendor/DataTables/jquery.dataTables.min.js')}}"></script>
-    <!-- ennd: JS For Another Page -->
     <!-- start: CLIP-TWO JAVASCRIPTS -->
     <script src="{{asset('assets/js/main.js')}}"></script>
     <!-- start: JavaScript Event Handlers for this page -->
     <script src="{{asset('assets/js/index.js')}}"></script>
-    <!-- start: JavaScript Event Handlers for additional page -->
-    <!-- @yield('js-handlers-additional') -->
-    <script src="{{asset('assets/js/table-data.js')}}"></script>
     <script>
         jQuery(document).ready(function() {
             Main.init();
-            // Index.init();
-            TableData.init();
+            Index.init();
         });
     </script>
     <!-- end: JavaScript Event Handlers for this page -->

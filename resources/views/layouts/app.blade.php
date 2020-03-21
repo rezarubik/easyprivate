@@ -24,60 +24,40 @@
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
     <!-- end: GOOGLE FONTS -->
     <!-- start: MAIN CSS -->
-    <link rel="stylesheet" href=" {{asset('vendor/bootstrap/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href=" {{asset('vendor/fontawesome/css/font-awesome.min.css')}}">
-    <link rel="stylesheet" href=" {{asset('vendor/themify-icons/themify-icons.min.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/fontawesome/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/themify-icons/themify-icons.min.css')}}">
     <link href=" {{asset('vendor/animate.css/animate.min.css')}}" rel="stylesheet" media="screen">
     <link href=" {{asset('vendor/perfect-scrollbar/perfect-scrollbar.min.css')}}" rel="stylesheet" media="screen">
     <link href=" {{asset('vendor/switchery/switchery.min.css')}}" rel="stylesheet" media="screen">
     <!-- end: MAIN CSS -->
-    <!-- start: CSS REQUIRED FOR DATEPICKER ONLY -->
-    <link href=" {{asset('vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')}}" rel="stylesheet" media="screen">
-    <link href=" {{asset('vendor/select2/select2.min.css')}}" rel="stylesheet" media="screen">
-    <link href=" {{asset('vendor/bootstrap-datepicker/bootstrap-datepicker3.standalone.min.css')}}" rel="stylesheet" media="screen">
-    <link href=" {{asset('vendor/bootstrap-timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet" media="screen">
-    <!-- end: CSS REQUIRED FOR DATEPICKER ONLY -->
-
+    <!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
+    <link href="{{asset('vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')}}" rel="stylesheet" media="screen">
+    <link href="{{asset('vendor/select2/select2.min.css')}}" rel="stylesheet" media="screen">
+    <link href="{{asset('vendor/bootstrap-datepicker/bootstrap-datepicker3.standalone.min.css')}}" rel="stylesheet" media="screen">
+    <link href="{{asset('vendor/bootstrap-timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet" media="screen">
+    <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
     <!-- start: CLIP-TWO CSS -->
-    <link rel="stylesheet" href=" {{asset('assets/css/styles.css')}}">
-    <link rel="stylesheet" href=" {{asset('assets/css/plugins.css')}}">
-    <link rel="stylesheet" href=" {{asset('assets/css/themes/theme-4.css')}}" id="skin_color" />
+    <link rel="stylesheet" href="{{asset('assets/css/styles.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/plugins.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/themes/theme-4.css')}}" id="skin_color" />
     <!-- end: CLIP-TWO CSS -->
-
 </head>
 <!-- end: HEAD -->
 
 <body>
-    <div id="app" class="app-navbar-fixed app-sidebar-fixed">
+    <div id="app">
         <!-- sidebar -->
         <div class="sidebar app-aside" id="sidebar">
             <div class="sidebar-container perfect-scrollbar">
                 <nav>
-                    <!-- start: SEARCH FORM -->
-                    <div class="search-form">
-                        <a class="s-open" href="#">
-                            <i class="ti-search"></i>
-                        </a>
-                        <form class="navbar-form" role="search">
-                            <a class="s-remove" href="#" target=".navbar-form">
-                                <i class="ti-close"></i>
-                            </a>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <button class="btn search-button" type="submit">
-                                    <i class="ti-search"></i>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- end: SEARCH FORM -->
                     <!-- start: MAIN NAVIGATION MENU -->
                     <div class="navbar-title">
                         <span>Main Navigation</span>
                     </div>
                     <ul class="main-navigation-menu">
                         <li class="active open">
-                            <a href="{{url('user/mentor-dashboard')}}">
+                            <a href="{{url('home')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-home"></i>
@@ -90,7 +70,7 @@
                         </li>
                         <!-- ? Nilai Gap -->
                         <li>
-                            <a href="{{url('/user/mentor-pendaftaran')}}">
+                            <a href="{{url('user/mentor-pendaftaran')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-settings"></i>
@@ -283,7 +263,7 @@
     <script src="{{asset('assets/js/main.js')}}"></script>
     <!-- start: JavaScript Event Handlers for form elements page -->
     <!-- <script src="{{asset('assets/js/index.js')}}"></script> -->
-    <script src="{{asset('assets/js/form-elements.js')}}"></script>
+    <!-- <script src="{{asset('assets/js/form-elements.js')}}"></script> -->
     <!-- start: JAVASCRIPTS REQUIRED FOR MAPS -->
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
     <script src="{{asset('vendor/gmaps/gmaps.js')}}"></script>

@@ -4,18 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class GuruController extends Controller
+class AdminController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -23,8 +13,15 @@ class GuruController extends Controller
      */
     public function index()
     {
-        // dd('ini guru controller');
-        return view('calon_guru.dashboard_guru');
+        return view('admin.admin_dashboard');
+    }
+
+    /**
+     * Display a listing of Data Guru
+     */
+    public function usersGuru()
+    {
+        return view('admin.users_guru');
     }
 
     /**
@@ -91,13 +88,5 @@ class GuruController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * Form Pendaftaran Guru
-     */
-    public function form_pendaftaran_guru()
-    {
-        return view('form_pendaftaran_guru');
     }
 }
