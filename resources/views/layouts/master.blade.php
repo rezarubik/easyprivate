@@ -18,6 +18,7 @@
     <meta content="" name="description" />
     <meta content="" name="author" />
     <!-- end: META -->
+    <link rel="shortcut icon" href="{{asset('assets/images/easyprivat-icon.png')}}" type="image/x-icon">
     <!-- start: GOOGLE FONTS -->
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
     <!-- end: GOOGLE FONTS -->
@@ -32,7 +33,7 @@
     <!-- start: CLIP-TWO CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/styles.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/plugins.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/themes/theme-1.css')}}" id="skin_color" />
+    <link rel="stylesheet" href="{{asset('assets/css/themes/theme-4.css')}}" id="skin_color" />
     <!-- end: CLIP-TWO CSS -->
     <!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
     <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
@@ -98,12 +99,12 @@
                             </a>
                             <ul class="sub-menu">
                                 <li>
-                                    <a href="{{url('admin/users/data-murid')}}">
+                                    <a href="{{url('users/data-murid')}}">
                                         <span class="title"> Murid </span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{url('admin/users/data-guru')}}">
+                                    <a href="{{url('users/data-guru')}}">
                                         <span class="title"> Guru </span>
                                     </a>
                                 </li>
@@ -112,33 +113,33 @@
                         <!-- ? End of Users -->
                         <!-- ? Kriteia dan Bobot -->
                         <li>
-                            <a href="javascript:void(0)">
+                            <a href="{{url('/kriteria-bobot')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-settings"></i>
                                     </div>
                                     <div class="item-inner">
-                                        <span class="title"> Kriteia dan Bobot </span><i class="icon-arrow"></i>
+                                        <span class="title"> Kriteia dan Bobot </span>
                                     </div>
                                 </div>
                             </a>
-                            <ul class="sub-menu">
+                            <!-- <ul class="sub-menu">
                                 <li>
-                                    <a href="{{url('admin/kriteria')}}">
+                                    <a href="{{url('kriteria')}}">
                                         <span class="title"> Kriteria </span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{url('admin/bobot')}}">
+                                    <a href="{{url('bobot')}}">
                                         <span class="title"> Bobot </span>
                                     </a>
                                 </li>
-                            </ul>
+                            </ul> -->
                         </li>
                         <!-- ? End of Kriteria dan Bobot -->
                         <!-- ? Nilai Gap -->
                         <li>
-                            <a href="{{url('admin/nilai-gap')}}">
+                            <a href="{{url('nilai-gap')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-settings"></i>
@@ -150,23 +151,23 @@
                             </a>
                         </li>
                         <!-- ? End of Nilai Gap -->
-                        <!-- ? Nilai Target -->
+                        <!-- ? Pembobotan Nilai Gap -->
                         <li>
-                            <a href="{{url('admin/nilai-target')}}">
+                            <a href="{{url('pembobotan-nilai-gap')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-settings"></i>
                                     </div>
                                     <div class="item-inner">
-                                        <span class="title"> Nilai Target </span>
+                                        <span class="title"> Pembobotan Nilai GAP </span>
                                     </div>
                                 </div>
                             </a>
                         </li>
-                        <!-- ? End of Nilai Target -->
+                        <!-- ? End of Pembobotan Nilai Gap -->
                         <!-- ? Hasil Seleksi -->
                         <li>
-                            <a href="{{url('admin/hasil-seleksi')}}">
+                            <a href="{{url('hasil-seleksi')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-settings"></i>
@@ -180,7 +181,7 @@
                         <!-- ? End of Hasil Seleksi -->
                         <!-- ? Microteaching -->
                         <li>
-                            <a href="{{url('admin/video-microteaching')}}">
+                            <a href="{{url('video-microteaching')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-video-camera"></i>
@@ -194,7 +195,7 @@
                         <!-- ? End of Microteaching -->
                         <!-- ? Pemesanan -->
                         <li>
-                            <a href="{{url('admin/pemesanan')}}">
+                            <a href="{{url('pemesanan')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-settings"></i>
@@ -208,7 +209,7 @@
                         <!-- ? End of Pemesanan -->
                         <!-- ? Absensi -->
                         <li>
-                            <a href="{{url('admin/absensi')}}">
+                            <a href="{{url('absensi')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-settings"></i>
@@ -222,7 +223,7 @@
                         <!-- ? End of Absensi -->
                         <!-- ? Pemasukan -->
                         <li>
-                            <a href="{{url('admin/pemasukan')}}">
+                            <a href="{{url('pemasukan')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-money"></i>
@@ -236,7 +237,7 @@
                         <!-- ? End of Pemasukan -->
                         <!-- ? Pengeluaran -->
                         <li>
-                            <a href="{{url('admin/pengeluaran')}}">
+                            <a href="{{url('pengeluaran')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-settings"></i>
@@ -262,8 +263,8 @@
                     <a href="#" class="sidebar-mobile-toggler pull-left hidden-md hidden-lg" class="btn btn-navbar sidebar-toggle" data-toggle-class="app-slide-off" data-toggle-target="#app" data-toggle-click-outside="#sidebar">
                         <i class="ti-align-justify"></i>
                     </a>
-                    <a class="navbar-brand" href="index.html">
-                        <!-- <img src="assets/images/logo.png" alt="Clip-Two" /> -->
+                    <a class="navbar-brand" href="{{url('/admin/dashboard')}}">
+                        <!-- <img src="{{asset('assets/images/easyprivate.png')}}" alt="Easy Private" /> -->
                         Easy Private
                     </a>
                     <a href="#" class="sidebar-toggler pull-right visible-md visible-lg" data-toggle-class="app-sidebar-closed" data-toggle-target="#app">
@@ -282,7 +283,7 @@
                         <!-- start: USER OPTIONS DROPDOWN -->
                         <li class="dropdown current-user">
                             <a href class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="assets/images/avatar-1.jpg" alt="Peter"> <span class="username">Peter <i class="ti-angle-down"></i></i></span>
+                                <img src="{{asset('assets/images/avatar-1.jpg')}}" alt="Admin"> <span class="username">Admin <i class="ti-angle-down"></i></i></span>
                             </a>
                             <ul class="dropdown-menu dropdown-dark">
                                 <li>
@@ -357,16 +358,14 @@
     <script src="{{asset('vendor/jquery.sparkline/jquery.sparkline.min.js')}}"></script> -->
     <!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
     <!-- start: JS For Another Page -->
-    <!-- @yield('js-pages') -->
     <script src="{{asset('vendor/select2/select2.min.js')}}"></script>
     <script src="{{asset('vendor/DataTables/jquery.dataTables.min.js')}}"></script>
     <!-- ennd: JS For Another Page -->
     <!-- start: CLIP-TWO JAVASCRIPTS -->
     <script src="{{asset('assets/js/main.js')}}"></script>
     <!-- start: JavaScript Event Handlers for this page -->
-    <script src="{{asset('assets/js/index.js')}}"></script>
+    <!-- <script src="{{asset('assets/js/index.js')}}"></script> -->
     <!-- start: JavaScript Event Handlers for additional page -->
-    <!-- @yield('js-handlers-additional') -->
     <script src="{{asset('assets/js/table-data.js')}}"></script>
     <script>
         jQuery(document).ready(function() {

@@ -4,18 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class GuruController extends Controller
+class KriteriaBobotController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-
     /**
      * Display a listing of the resource.
      *
@@ -23,8 +13,7 @@ class GuruController extends Controller
      */
     public function index()
     {
-        // dd('ini guru controller');
-        return view('admin.users_guru');
+        return view('admin.kriteria_bobot');
     }
 
     /**
@@ -34,7 +23,7 @@ class GuruController extends Controller
      */
     public function create()
     {
-        //
+        // 
     }
 
     /**
@@ -91,14 +80,5 @@ class GuruController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * Form Pendaftaran Guru
-     */
-    public function pendaftaranGuru()
-    {
-        $this->middleware('auth');
-        return view('calon_guru.pendaftaran_guru');
     }
 }

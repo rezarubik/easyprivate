@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
@@ -31,9 +31,17 @@ Route::get('{driver}/callback', 'Auth\LoginController@handleProviderCallback')->
 // ? User Calon Guru
 Route::get('user/mentor-dashboard', 'GuruController@index')->name('home');
 // todo form pendaftaran guru
-Route::get('/user/mentor-pendaftaran', 'GuruController@form_pendaftaran_guru');
+Route::get('user/mentor-pendaftaran', 'GuruController@pendaftaranGuru');
 
 // ? Admin
 // todo Guru
-Route::get('/admin/dashboard', 'AdminController@index');
-Route::get('/admin/users/data-guru', 'AdminController@usersGuru');
+Route::get('admin/dashboard', 'AdminController@index');
+Route::get('users/data-guru', 'UserController@dataGuru');
+Route::get('users/data-murid', 'UserController@dataMurid');
+Route::get('kriteria-bobot', 'KriteriaBobotController@index');
+Route::get('nilai-gap', 'UserController@nilaiGAP');
+Route::get('pembobotan-nilai-gap', 'UserController@pembobotanNilaiGAP');
+Route::get('hasil-seleksi', 'UserController@hasilSeleksi');
+Route::get('video-microteaching', 'UserController@videoMicroteaching');
+Route::get('pemesanan', 'PemesananController@index');
+Route::get('absensi', 'AbsenController@index');

@@ -18,22 +18,23 @@
             <h5 class="over-title margin-bottom-15">Basic <span class="text-bold">Data Table</span>
             </h5>
             <p>
-                DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible
-                tool, based upon the foundations of progressive enhancement, and will add advanced
-                interaction controls to any HTML table.
+                Untuk guru yang <b>telah diterima</b>, maka aksi hanya terdapat email untuk mengirimkan pesan pembayaran fee per bulan.
+            </p>
+            <p>
+                Untuk calon guru, maka aksi juga terdapat email untuk mengirimkan pesan berupa info kelulusan.
             </p>
             <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th>Bidang</th>
-                            <th>Curriculum Vitae</th>
-                            <th>Video <i>Microteaching</i></th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <th class="text-center">ID</th>
+                            <th class="text-center">Nama Guru</th>
+                            <th class="text-center">Email</th>
+                            <th class="text-center">Bidang</th>
+                            <th class="text-center">Curriculum Vitae</th>
+                            <th class="text-center">Video <i>Microteaching</i></th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,9 +51,8 @@
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
                             <td>Aktif/Tidak Aktif</td>
-                            <td>
-                                <a href="http://" class="label label-success" title="Terima"><i class="fa fa-check fa-white"></i></a>
-                                <a href="http://" class="label label-danger" title="Tolak"><i class="fa fa-times fa-white"></i></a>
+                            <td class="text-center">
+                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
                             </td>
                         </tr>
                         <tr>
@@ -68,9 +68,8 @@
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
                             <td>Aktif/Tidak Aktif</td>
-                            <td>
-                                <a href="http://" class="label label-success" title="Terima"><i class="fa fa-check fa-white"></i></a>
-                                <a href="http://" class="label label-danger" title="Tolak"><i class="fa fa-times fa-white"></i></a>
+                            <td class="text-center">
+                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
                             </td>
                         </tr>
                         <tr>
@@ -86,9 +85,8 @@
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
                             <td>Aktif/Tidak Aktif</td>
-                            <td>
-                                <a href="http://" class="label label-success" title="Terima"><i class="fa fa-check fa-white"></i></a>
-                                <a href="http://" class="label label-danger" title="Tolak"><i class="fa fa-times fa-white"></i></a>
+                            <td class="text-center">
+                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
                             </td>
                         </tr>
                         <tr>
@@ -104,9 +102,8 @@
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
                             <td>Aktif/Tidak Aktif</td>
-                            <td>
-                                <a href="http://" class="label label-success" title="Terima"><i class="fa fa-check fa-white"></i></a>
-                                <a href="http://" class="label label-danger" title="Tolak"><i class="fa fa-times fa-white"></i></a>
+                            <td class="text-center">
+                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
                             </td>
                         </tr>
                         <tr>
@@ -122,9 +119,8 @@
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
                             <td>Aktif/Tidak Aktif</td>
-                            <td>
-                                <a href="http://" class="label label-success" title="Terima"><i class="fa fa-check fa-white"></i></a>
-                                <a href="http://" class="label label-danger" title="Tolak"><i class="fa fa-times fa-white"></i></a>
+                            <td class="text-center">
+                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
                             </td>
                         </tr>
                         <tr>
@@ -140,9 +136,8 @@
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
                             <td>Aktif/Tidak Aktif</td>
-                            <td>
-                                <a href="http://" class="label label-success" title="Terima"><i class="fa fa-check fa-white"></i></a>
-                                <a href="http://" class="label label-danger" title="Tolak"><i class="fa fa-times fa-white"></i></a>
+                            <td class="text-center">
+                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
                             </td>
                         </tr>
                         <tr>
@@ -158,9 +153,8 @@
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
                             <td>Aktif/Tidak Aktif</td>
-                            <td>
-                                <a href="http://" class="label label-success" title="Terima"><i class="fa fa-check fa-white"></i></a>
-                                <a href="http://" class="label label-danger" title="Tolak"><i class="fa fa-times fa-white"></i></a>
+                            <td class="text-center">
+                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
                             </td>
                         </tr>
                         <tr>
@@ -176,9 +170,8 @@
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
                             <td>Aktif/Tidak Aktif</td>
-                            <td>
-                                <a href="http://" class="label label-success" title="Terima"><i class="fa fa-check fa-white"></i></a>
-                                <a href="http://" class="label label-danger" title="Tolak"><i class="fa fa-times fa-white"></i></a>
+                            <td class="text-center">
+                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
                             </td>
                         </tr>
                         <tr>
@@ -194,9 +187,8 @@
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
                             <td>Aktif/Tidak Aktif</td>
-                            <td>
-                                <a href="http://" class="label label-success" title="Terima"><i class="fa fa-check fa-white"></i></a>
-                                <a href="http://" class="label label-danger" title="Tolak"><i class="fa fa-times fa-white"></i></a>
+                            <td class="text-center">
+                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
                             </td>
                         </tr>
                         <tr>
@@ -212,9 +204,8 @@
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
                             <td>Aktif/Tidak Aktif</td>
-                            <td>
-                                <a href="http://" class="label label-success" title="Terima"><i class="fa fa-check fa-white"></i></a>
-                                <a href="http://" class="label label-danger" title="Tolak"><i class="fa fa-times fa-white"></i></a>
+                            <td class="text-center">
+                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
                             </td>
                         </tr>
                         <tr>
@@ -230,9 +221,8 @@
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
                             <td>Aktif/Tidak Aktif</td>
-                            <td>
-                                <a href="http://" class="label label-success" title="Terima"><i class="fa fa-check fa-white"></i></a>
-                                <a href="http://" class="label label-danger" title="Tolak"><i class="fa fa-times fa-white"></i></a>
+                            <td class="text-center">
+                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
                             </td>
                         </tr>
                         <tr>
@@ -248,9 +238,8 @@
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
                             <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
                             <td>Aktif/Tidak Aktif</td>
-                            <td>
-                                <a href="http://" class="label label-success" title="Terima"><i class="fa fa-check fa-white"></i></a>
-                                <a href="http://" class="label label-danger" title="Tolak"><i class="fa fa-times fa-white"></i></a>
+                            <td class="text-center">
+                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
                             </td>
                         </tr>
                     </tbody>
@@ -260,10 +249,3 @@
     </div>
 </div>
 @stop
-<!-- @section('js-pages') -->
-<!-- <script src="{{asset('vendor/select2/select2.min.js')}}"></script>
-<script src="{{asset('vendor/DataTables/jquery.dataTables.min.js')}}"></script> -->
-<!-- @stop -->
-<!-- @section('js-handlers-additional') -->
-<!-- <script src="{{asset('assets/js/table-data.js')}}"></script> -->
-<!-- @stop -->

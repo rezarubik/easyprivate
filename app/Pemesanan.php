@@ -10,15 +10,26 @@ class Pemesanan extends Model
     protected $primaryKey = 'id_pemesanan';
     public $timestamps = false;
 
-    public function murid(){
+    /**
+     * Menampilkan Data Pemesanan
+     */
+    public function index()
+    {
+        return view('admin.pemesanan');
+    }
+
+    public function murid()
+    {
         return $this->hasOne('App\User', 'id', 'id_murid');
     }
 
-    public function guru(){
+    public function guru()
+    {
         return $this->hasOne('App\User', 'id', 'id_guru');
     }
 
-    public function mataPelajaran(){
+    public function mataPelajaran()
+    {
         return $this->hasOne('App\MataPelajaran', 'id_mapel', 'id_mapel');
     }
 }
