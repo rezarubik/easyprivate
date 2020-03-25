@@ -7,6 +7,8 @@ use App\User;
 use App\PendaftaranGuru;
 use App\GuruMapel;
 use App\Alamat;
+use App\Jenjang;
+use App\MataPelajaran;
 use App\Microteaching;
 
 class UserController extends Controller
@@ -30,22 +32,15 @@ class UserController extends Controller
     }
 
     /**
-     * Menampilkan Halaman Pendafatarn Calon Guru
-     */
-    public function mentorPendaftaran()
-    {
-        // return User::all();
-        return view('calon_guru.mentor_pendaftaran');
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        return view('calon_guru.mentor_pendaftaran');
+        $mapel = MataPelajaran::all();
+        $jenjang = Jenjang::all();
+        return view('calon_guru.mentor_pendaftaran', ['mapel' => $mapel, 'jenjang' => $jenjang]);
     }
 
     /**
@@ -57,10 +52,23 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // dd($request);
+        $request->validate([
+            'birthday' => 'required',
+            'gender' => 'required',
+            'handphone_number' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'alamat_lengkap' => 'required',
+            'file_cv' => 'required',
+            'teach_experience' => 'required',
+            'ipk_score' => 'required',
+            'file_microteaching' => 'required'
+        ]);
         $user = User::findOrFail(Auth()->user()->id);
         $user->tanggal_lahir = date_format(date_create($request->birthday), "Y/m/d");
         $user->jenis_kelamin = $request->gender;
         $user->no_handphone = $request->handphone_number;
+        $user->role = 0;
         $user->save();
 
         $alamat = new Alamat;
@@ -89,7 +97,7 @@ class UserController extends Controller
         $pendaftaranGuru->id_user = $user->id;
         $pendaftaranGuru->dir_cv = $request->file_cv;
         $pendaftaranGuru->pengalaman_mengajar = $request->teach_experience;
-        $pendaftaranGuru->nilai_ipk = $request->score_ipk;
+        $pendaftaranGuru->nilai_ipk = $request->ipk_score;
         $pendaftaranGuru->save();
 
         $microteaching = new Microteaching();
@@ -97,7 +105,7 @@ class UserController extends Controller
         $microteaching->dir_video = $request->file_microteaching;
         $microteaching->save();
 
-        return redirect('/user/create');
+        return redirect('/user/create')->with('status', 'Aplikasi Anda berhasil di simpan!');
 
         // $data_alamat = [
         //     'latitude' => -6.23884,

@@ -7,6 +7,14 @@
 @section('content')
 <!-- //todo start: tabs -->
 <div class="container-fluid container-fullw bg-white">
+    @if(session('status'))
+    <div class="alert alert-success">
+        {{session('status')}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
     <!-- //todo start: form -->
     <form action="/user" method="post">
         @csrf
@@ -66,22 +74,32 @@
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="birthday">Tanggal Lahir</label>
                                                     <p class="input-group input-append datepicker date">
-                                                        <input type="text" name="birthday" class="form-control" />
-                                                        <span class="input-group-btn">
+                                                        <input type="text" name="birthday" placeholder="Pilih Tanggal Lahir Anda" class="form-control @error('birthday') symbol required @enderror" />
+                                                         <span class="input-group-btn">
                                                             <button type="button" class="btn btn-default">
                                                                 <i class="glyphicon glyphicon-calendar"></i>
                                                             </button> </span>
+                                                            @error('birthday')
+                                                            <div class="help-block"> {{$message}} </div>
+                                                            @enderror
                                                     </p>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="nilai_ipk">Nilai IPK</label>
-                                                    <input type="number" name="ipk_score" class="form-control" placeholder="Contoh: 4.0" step="0.01" min="0">
+                                                    <input type="number" name="ipk_score" class="form-control  @error('ipk_score') symbol required @enderror" placeholder="Contoh: 4.0" step="0.01" min="0">
+                                                    @error('ipk_score')
+                                                    <div class="help-block"> {{$message}} </div>
+                                                    @enderror
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label class="control-label" for="pengalaman_mengajar">Pengalaman Mengajar (tahun)</label>
-                                                    <input type="number" name="teach_experience" class="form-control" placeholder="Contoh: 4 tahun" min="0">
+                                                    <label class="control-label" for="pengalaman_mengajar">Pengalaman Mengajar (tahun)
+                                                    </label>
+                                                    <input type="number" name="teach_experience" class="form-control  @error('teach_experience') symbol required @enderror" placeholder="Contoh: 4 tahun" min="0">
+                                                    @error('teach_experience')
+                                                    <div class="help-block"> {{$message}} </div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -95,7 +113,10 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="no_hp">Nomor <i>Handphone</i> yang dapat dihubungi </label>
-                                                    <input type="number" name="handphone_number" class="form-control" placeholder="Contoh: 089501011011" min="0">
+                                                    <input type="number" name="handphone_number" class="form-control @error('handphone_number') symbol required @enderror " placeholder="Contoh: 089501011011" min="0">
+                                                    @error('handphone_number')
+                                                    <div class="help-block"> {{$message}} </div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -136,17 +157,24 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="jenjang_1">Jenjang 1</label>
-                                                    <select name="jenjang_1" name="jenjang_1" id="jenjang_1" class="form-control" style="width:100%;">
-                                                        <option value=""></option>
+                                                    <select name="jenjang_1" name="jenjang_1" id="jenjang_1" class="form-control" style="width:100%;" default="false">
+                                                        <option value="">Piilh Jenjang</option>
                                                         <option value="1">SD</option>
                                                         <option value="2">SMP</option>
                                                         <option value="3">SMA</option>
+                                                        <!-- @foreach($jenjang as $j)
+                                                        <option value="{{$j->id}}">{{$j->nama_jenjang}}</option>
+                                                        @endforeach -->
+
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="mapel_1">Mata Pelajaran 1</label>
                                                     <select name="mapel_1" name="mapel_1" id="mapel_1" class="form-control" style="width:100%;">
                                                         <option value=""></option>
+                                                        <!-- @foreach($mapel as $m)
+                                                        <option value="{{$m->id}}">{{$m->nama_mapel}}</option>
+                                                        @endforeach -->
                                                         <option value="1">Matematika</option>
                                                         <option value="2">Fisika</option>
                                                         <option value="3">Matematika</option>
@@ -213,13 +241,19 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label for="cv" class="control-label"><i>Curriculum Vitae</i></label>
-                                                    <input type="file" name="file_cv" class="form-control">
+                                                    <input type="file" name="file_cv" class="form-control @error('file_cv') symbol required @enderror">
                                                     <p class="margin-top-10">**NOTE</p>
+                                                    @error('file_cv')
+                                                    <div class="help-block"> {{$message}} </div>
+                                                    @enderror
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="video_microteaching" class="control-label"><i>Video Microteaching</i></label>
-                                                    <input type="file" name="file_microteaching" class="form-control">
+                                                    <input type="file" name="file_microteaching" class="form-control @error('file_microteaching') symbol required @enderror">
                                                     <p class="margin-top-10">**NOTE</p>
+                                                    @error('file_microteaching')
+                                                    <div class="help-block"> {{$message}} </div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
