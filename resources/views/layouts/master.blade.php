@@ -19,6 +19,9 @@
     <meta content="" name="author" />
     <!-- end: META -->
     <link rel="shortcut icon" href="{{asset('assets/images/easyprivat-icon.png')}}" type="image/x-icon">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- end: META -->
     <!-- start: GOOGLE FONTS -->
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
     <!-- end: GOOGLE FONTS -->
@@ -74,7 +77,7 @@
                     </div>
                     <ul class="main-navigation-menu">
                         <li class="active open">
-                            <a href="{{url('admin/dashboard')}}">
+                            <a href="{{url('dashboard')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-home"></i>
@@ -116,7 +119,7 @@
                             <a href="{{url('/kriteria-bobot')}}">
                                 <div class="item-content">
                                     <div class="item-media">
-                                        <i class="ti-settings"></i>
+                                        <i class="ti-star"></i>
                                     </div>
                                     <div class="item-inner">
                                         <span class="title"> Kriteia dan Bobot </span>
@@ -240,7 +243,7 @@
                             <a href="{{url('pengeluaran')}}">
                                 <div class="item-content">
                                     <div class="item-media">
-                                        <i class="ti-settings"></i>
+                                        <i class="ti-wallet"></i>
                                     </div>
                                     <div class="item-inner">
                                         <span class="title"> Pengeluaran </span>

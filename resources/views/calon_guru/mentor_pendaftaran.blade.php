@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard Guru')
+@section('title', 'Pendaftaran Calon Guru')
 @section('main-title', 'Pendaftaran Guru')
 @section('description', 'Form Pendaftaran Guru')
 @section('blank-page', 'Pendaftaran Guru')
@@ -8,7 +8,7 @@
 <!-- //todo start: tabs -->
 <div class="container-fluid container-fullw bg-white">
     <!-- //todo start: form -->
-    <form action="{{url('test')}}" method="post">
+    <form action="/user" method="post">
         @csrf
         <div class="row">
             <div class="form-group col-md-12">
@@ -55,18 +55,18 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="email">Email</label>
-                                                    <input type="email" class="form-control" placeholder="Contoh: nama@gmail.com">
+                                                    <input type="email" name="email" class="form-control" disabled="disabled" placeholder="Email Anda: {{auth()->user()->email}}">
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="nama_lengkap">Nama Lengkap</label>
-                                                    <input type="text" class="form-control" placeholder="Contoh: Muhammad Reza Pahlevi Y">
+                                                    <input type="text" name="full_name" class="form-control" disabled="disabled" placeholder="Nama Anda: {{auth()->user()->name}}">
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="birthday">Tanggal Lahir</label>
                                                     <p class="input-group input-append datepicker date">
-                                                        <input type="text" class="form-control" />
+                                                        <input type="text" name="birthday" class="form-control" />
                                                         <span class="input-group-btn">
                                                             <button type="button" class="btn btn-default">
                                                                 <i class="glyphicon glyphicon-calendar"></i>
@@ -77,17 +77,17 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="nilai_ipk">Nilai IPK</label>
-                                                    <input type="number" class="form-control" placeholder="Contoh: 4.0" step="0.01" min="0">
+                                                    <input type="number" name="ipk_score" class="form-control" placeholder="Contoh: 4.0" step="0.01" min="0">
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="pengalaman_mengajar">Pengalaman Mengajar (tahun)</label>
-                                                    <input type="number" class="form-control" placeholder="Contoh: 4 tahun" min="0">
+                                                    <input type="number" name="teach_experience" class="form-control" placeholder="Contoh: 4 tahun" min="0">
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="jenis_kelamin">Jenis Kelamin</label>
-                                                    <select id="jenis_kelamin" class="js-example-placeholder-single js-states form-control">
+                                                    <select id="jenis_kelamin" name="gender" class="js-example-placeholder-single js-states form-control">
                                                         <option value=""></option>
                                                         <option value="laki-laki">Laki-Laki</option>
                                                         <option value="perempuan">Perempuan</option>
@@ -95,7 +95,7 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="no_hp">Nomor <i>Handphone</i> yang dapat dihubungi </label>
-                                                    <input type="number" class="form-control" placeholder="Contoh: 089501011011" min="0">
+                                                    <input type="number" name="handphone_number" class="form-control" placeholder="Contoh: 089501011011" min="0">
                                                 </div>
                                             </div>
                                         </div>
@@ -136,40 +136,40 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="jenjang_1">Jenjang 1</label>
-                                                    <select name="jenjang_1" id="jenjang_1" class="form-control" style="width:100%;">
+                                                    <select name="jenjang_1" name="jenjang_1" id="jenjang_1" class="form-control" style="width:100%;">
                                                         <option value=""></option>
-                                                        <option value="sd">SD</option>
-                                                        <option value="smp">SMP</option>
-                                                        <option value="sma">SMA</option>
+                                                        <option value="1">SD</option>
+                                                        <option value="2">SMP</option>
+                                                        <option value="3">SMA</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="mapel_1">Mata Pelajaran 1</label>
-                                                    <select name="mapel_1" id="mapel_1" class="form-control" style="width:100%;">
+                                                    <select name="mapel_1" name="mapel_1" id="mapel_1" class="form-control" style="width:100%;">
                                                         <option value=""></option>
-                                                        <option value="matematika">Matematika</option>
-                                                        <option value="fisika">Fisika</option>
-                                                        <option value="kimia">Kimia</option>
+                                                        <option value="1">Matematika</option>
+                                                        <option value="2">Fisika</option>
+                                                        <option value="3">Matematika</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="jenjang_2">Jenjang 2</label>
-                                                    <select name="jenjang_2" id="jenjang_2" class="form-control" style="width:100%;">
+                                                    <select name="jenjang_2" name="jenjang_2" id="jenjang_2" class="form-control" style="width:100%;">
                                                         <option value=""></option>
-                                                        <option value="sd">SD</option>
-                                                        <option value="smp">SMP</option>
-                                                        <option value="sma">SMA</option>
+                                                        <option value="1">SD</option>
+                                                        <option value="2">SMP</option>
+                                                        <option value="3">SMA</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="mapel_2">Mata Pelajaran 2</label>
-                                                    <select name="mapel_2" id="mapel_2" class="form-control" style="width:100%;">
+                                                    <select name="mapel_2" name="mapel_2" id="mapel_2" class="form-control" style="width:100%;">
                                                         <option value=""></option>
-                                                        <option value="matematika">Matematika</option>
-                                                        <option value="fisika">Fisika</option>
-                                                        <option value="kimia">Kimia</option>
+                                                        <option value="1">Matematika</option>
+                                                        <option value="2">Fisika</option>
+                                                        <option value="3">Kimia</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -178,18 +178,18 @@
                                                     <label class="control-label" for="jenjang_3">Jenjang 3</label>
                                                     <select name="jenjang_3" id="jenjang_3" class="form-control" style="width:100%;">
                                                         <option value=""></option>
-                                                        <option value="sd">SD</option>
-                                                        <option value="smp">SMP</option>
-                                                        <option value="sma">SMA</option>
+                                                        <option value="1">SD</option>
+                                                        <option value="2">SMP</option>
+                                                        <option value="3">SMA</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="mapel_3">Mata Pelajaran 3</label>
                                                     <select name="mapel_3" id="mapel_3" class="form-control" style="width:100%;">
                                                         <option value=""></option>
-                                                        <option value="matematika">Matematika</option>
-                                                        <option value="fisika">Fisika</option>
-                                                        <option value="kimia">Kimia</option>
+                                                        <option value="1">Matematika</option>
+                                                        <option value="2">Fisika</option>
+                                                        <option value="3">Kimia</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -213,12 +213,12 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label for="cv" class="control-label"><i>Curriculum Vitae</i></label>
-                                                    <input type="file" class="form-control">
+                                                    <input type="file" name="file_cv" class="form-control">
                                                     <p class="margin-top-10">**NOTE</p>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="video_microteaching" class="control-label"><i>Video Microteaching</i></label>
-                                                    <input type="file" class="form-control">
+                                                    <input type="file" name="file_microteaching" class="form-control">
                                                     <p class="margin-top-10">**NOTE</p>
                                                 </div>
                                             </div>

@@ -11,10 +11,10 @@ class GuruController extends Controller
      *
      * @return void
      */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Display a listing of the resource.
@@ -96,9 +96,9 @@ class GuruController extends Controller
     /**
      * Form Pendaftaran Guru
      */
-    public function pendaftaranGuru()
+    public function mentorPendaftaran()
     {
         $this->middleware('auth');
-        return view('calon_guru.pendaftaran_guru');
+        return view('calon_guru.mentor_pendaftaran');
     }
 }

@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar'
+        'name', 'email', 'password', 'avatar', 'no_handphone'
     ];
 
     /**
@@ -37,15 +37,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function alamat(){
+    public function alamat()
+    {
         return $this->hasMany('App\Alamat', 'id_user', 'id');
     }
 
-    public function pendaftaranGuru(){
+    public function pendaftaranGuru()
+    {
         return $this->hasMany('App\PendaftaranGuru', 'id_user', 'id');
     }
 
-    public function guruMapel(){
+    public function guruMapel()
+    {
         return $this->hasMany('App\GuruMapel', 'id_guru', 'id');
     }
 }

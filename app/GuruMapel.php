@@ -10,11 +10,13 @@ class GuruMapel extends Model
     protected $primaryKey = 'id_guru_mapel';
     public $timestamps = false;
 
-    public function guru(){
+    public function guru()
+    {
         return $this->belongsTo('App\User', 'id', 'id_guru');
     }
 
-    public function mataPelajaran(){
+    public function mataPelajaran()
+    {
         return $this->hasOne('App\MataPelajaran', 'id_mapel', 'id_mapel');
     }
 }

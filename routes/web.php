@@ -11,37 +11,39 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Auth::routes();
 
 // ! for testing
 Route::get('/test', 'HomeController@test')->name('test');
 
-// Dashboard admin
-Route::get('/home', 'HomeController@index')->name('home');
-// Route::get('/home', 'HomeController@index')->name('home');
 
 // todo halaman login
 Route::get('redirect/{driver}', 'Auth\LoginController@redirectToProvider')->name('login.provider');
 Route::get('{driver}/callback', 'Auth\LoginController@handleProviderCallback')->name('login.callback');
 
+// Dashboard Calon Guru
+Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
+
 // ? User Calon Guru
-Route::get('user/mentor-dashboard', 'GuruController@index')->name('home');
+// Route::get('user/mentor-dashboard', 'GuruController@index');
 // todo form pendaftaran guru
-Route::get('user/mentor-pendaftaran', 'GuruController@pendaftaranGuru');
+Route::get('/user/create', 'UserController@create');
+Route::post('/user', 'UserController@store');
 
 // ? Admin
 // todo Guru
-Route::get('admin/dashboard', 'AdminController@index');
-Route::get('users/data-guru', 'UserController@dataGuru');
-Route::get('users/data-murid', 'UserController@dataMurid');
-Route::get('kriteria-bobot', 'KriteriaBobotController@index');
-Route::get('nilai-gap', 'UserController@nilaiGAP');
-Route::get('pembobotan-nilai-gap', 'UserController@pembobotanNilaiGAP');
-Route::get('hasil-seleksi', 'UserController@hasilSeleksi');
-Route::get('video-microteaching', 'UserController@videoMicroteaching');
-Route::get('pemesanan', 'PemesananController@index');
-Route::get('absensi', 'AbsenController@index');
+Route::get('/dashboard', 'AdminController@index');
+Route::get('/users/data-guru', 'UserController@dataGuru');
+Route::get('/users/data-murid', 'UserController@dataMurid');
+Route::get('/kriteria-bobot', 'KriteriaBobotController@index');
+Route::get('/nilai-gap', 'UserController@nilaiGAP');
+Route::get('/pembobotan-nilai-gap', 'UserController@pembobotanNilaiGAP');
+Route::get('/hasil-seleksi', 'UserController@hasilSeleksi');
+Route::get('/video-microteaching', 'UserController@videoMicroteaching');
+Route::get('/pemesanan', 'PemesananController@index');
+Route::get('/absensi', 'AbsenController@index');

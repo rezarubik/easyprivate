@@ -9,7 +9,7 @@
 <!-- start: HEAD -->
 
 <head>
-    <title>Login Admin Esay Private</title>
+    <title>Login Calon Guru</title>
     <!-- start: META -->
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
     <meta charset="utf-8" />
@@ -50,7 +50,7 @@
             </div>
             <!-- start: LOGIN BOX -->
             <div class="box-login">
-                <form class="form-login" method="POST" action="/home_guru">
+                <form class="form-login" method="POST" action="">
                     @csrf
                     <fieldset>
                         <legend>
