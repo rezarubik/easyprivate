@@ -36,6 +36,7 @@ Route::get('pemesanan', 'PemesananController@getPemesanan');//Udah bisa
 Route::get('pemesanan/{id}', 'PemesananController@getPemesananById');//Udah bisa
 Route::get('pemesanan/guru/{id}', 'PemesananController@getPemesananByIdGuru'); //Udah bisa
 Route::get('pemesanan/murid/{id}', 'PemesananController@getPemesananByIdMurid'); //Udah bisa
+Route::post('pemesanan/update', 'PemesananController@update');
 
 //Pembayaran
 Route::get('pembayaran', 'PembayaranController@getPembayaran');//Udah bisa

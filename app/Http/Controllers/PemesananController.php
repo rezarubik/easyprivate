@@ -44,7 +44,10 @@ class PemesananController extends Controller
         return Pemesanan::with($this->relationship)
             ->where([
                 'id_guru' => $id
-            ])->get();
+            ])
+            ->orderBy('status')
+            ->orderBy('waktu_pemesanan', 'desc')
+            ->get();
     }
 
     public function getPemesananByIdMurid($id)
@@ -64,6 +67,7 @@ class PemesananController extends Controller
     {
         $pemesanan = Pemesanan::find($r->id_pemesanan);
         $pemesanan->status = $r->status;
+        $pemesanan->save();
 
         return $pemesanan;
     }

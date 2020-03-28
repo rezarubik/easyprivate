@@ -9,7 +9,7 @@ class AbsenController extends Controller
 {
     public function __construct()
     {
-        $this->relationship = ['jadwalAjar', 'pemesanan'];
+        $this->relationship = ['jadwalAjar', 'pemesanan', 'pemesanan.murid', 'pemesanan.guru', 'pemesanan.mataPelajaran'];
         $this->datetimeFormat = "Y-M-d H:i:s";
         date_default_timezone_set('Asia/Jakarta');
     }
