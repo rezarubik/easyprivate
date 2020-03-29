@@ -38,9 +38,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        $mapel = MataPelajaran::all();
         $jenjang = Jenjang::all();
-        return view('calon_guru.mentor_pendaftaran', ['mapel' => $mapel, 'jenjang' => $jenjang]);
+        $mapel = MataPelajaran::all();
+        return view('calon_guru.mentor_pendaftaran', compact('jenjang', 'mapel'));
     }
 
     /**
@@ -51,7 +51,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        dd($request);
         $request->validate([
             'birthday' => 'required',
             'gender' => 'required',
@@ -64,6 +64,9 @@ class UserController extends Controller
             'ipk_score' => 'required',
             'file_microteaching' => 'required'
         ]);
+        $messages = [
+            'handphone_number.required' => ':attribute wajib diisi!'
+        ];
         $user = User::findOrFail(Auth()->user()->id);
         $user->tanggal_lahir = date_format(date_create($request->birthday), "Y/m/d");
         $user->jenis_kelamin = $request->gender;
@@ -106,27 +109,6 @@ class UserController extends Controller
         $microteaching->save();
 
         return redirect('/user/create')->with('status', 'Aplikasi Anda berhasil di simpan!');
-
-        // $data_alamat = [
-        //     'latitude' => -6.23884,
-        //     'longitude' => 106.912,
-        //     'alamat_lengkap' => 'Jl. Teluk Langsa 4 Blok C.8 No.4'
-        // ];
-        // $data_pendaftaran_guru = [
-        //     'nilai_ipk' => $request->score_ipk,
-        //     'pengalaman_mengajar' => $request->teach_experience
-        // ];
-        // $data_guru_mapel = [
-        //     $request->jenjang_1,
-        //     $request->mapel_1,
-        //     $request->jenjang_2,
-        //     $request->mapel_2,
-        //     $request->jenjang_3,
-        //     $request->mapel_3,
-        //     $request->file_cv,
-        //     $request->file_microteaching
-        // ];
-        // return $request;
     }
 
     /**

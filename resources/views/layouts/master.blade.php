@@ -33,6 +33,9 @@
     <link href="{{asset('vendor/perfect-scrollbar/perfect-scrollbar.min.css')}}" rel="stylesheet" media="screen">
     <link href="{{asset('vendor/switchery/switchery.min.css')}}" rel="stylesheet" media="screen">
     <!-- end: MAIN CSS -->
+    <!-- start: Css for another page -->
+    @yield('css')
+    <!-- end: Css for another page -->
     <!-- start: CLIP-TWO CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/styles.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/plugins.css')}}">

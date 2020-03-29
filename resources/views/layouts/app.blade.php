@@ -33,10 +33,7 @@
     <link href=" {{asset('vendor/switchery/switchery.min.css')}}" rel="stylesheet" media="screen">
     <!-- end: MAIN CSS -->
     <!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
-    <link href="{{asset('vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')}}" rel="stylesheet" media="screen">
-    <link href="{{asset('vendor/select2/select2.min.css')}}" rel="stylesheet" media="screen">
-    <link href="{{asset('vendor/bootstrap-datepicker/bootstrap-datepicker3.standalone.min.css')}}" rel="stylesheet" media="screen">
-    <link href="{{asset('vendor/bootstrap-timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet" media="screen">
+    @yield('css')
     <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
     <!-- start: CLIP-TWO CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/styles.css')}}">
@@ -236,20 +233,17 @@
     <!-- end: JAVASCRIPTS REQUIRED FOR THIS Chart Only -->
 
     <!-- start: JAVASCRIPTS REQUIRED FOR DATEPICKER ONLY -->
-    <script src=" {{asset('vendor/maskedinput/jquery.maskedinput.min.js')}}"></script>
-    <script src=" {{asset('vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js')}}"></script>
-    <script src=" {{asset('vendor/autosize/autosize.min.js')}}"></script>
-    <script src=" {{asset('vendor/selectFx/classie.js')}}"></script>
-    <script src=" {{asset('vendor/selectFx/selectFx.js')}}"></script>
+
     <!-- <script src=" {{asset('vendor/select2/select2.min.js')}}"></script>
     <script src=" {{asset('vendor/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
     <script src=" {{asset('vendor/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script> -->
     <!-- end: JAVASCRIPTS REQUIRED FOR DATEPICKER ONLY -->
-
+    <!-- start: javascript for this page only -->
     @yield('javascript')
-
+    <!-- end: javascript for this page only -->
     <!-- start: CLIP-TWO JAVASCRIPTS -->
     <script src="{{asset('assets/js/main.js')}}"></script>
+    <script src="{{asset('assets/js/form-elements.js')}}"></script>
     <!-- start: JavaScript Event Handlers for form elements page -->
     <!-- <script src="{{asset('assets/js/index.js')}}"></script> -->
     <!-- <script src="{{asset('assets/js/form-elements.js')}}"></script> -->
