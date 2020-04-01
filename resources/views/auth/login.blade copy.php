@@ -9,7 +9,7 @@
 <!-- start: HEAD -->
 
 <head>
-    <title>Login Calon Guru</title>
+    <title>Daftar - Easy Private</title>
     <!-- start: META -->
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
     <meta charset="utf-8" />
@@ -19,6 +19,7 @@
     <meta content="" name="description" />
     <meta content="" name="author" />
     <!-- end: META -->
+    <link rel="shortcut icon" href="{{asset('assets/images/easyprivat-icon.png')}}" type="image/x-icon">
     <!-- start: GOOGLE FONTS -->
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
     <!-- end: GOOGLE FONTS -->
@@ -46,18 +47,18 @@
     <div class="row">
         <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
             <div class="logo margin-top-30">
-                <img src="assets/images/logo.png" alt="Easy Private" />
+                Easy Private
             </div>
             <!-- start: LOGIN BOX -->
             <div class="box-login">
-                <form class="form-login" method="POST" action="{{route('login.provider')}}">
+                <form class="form-login" method="POST" action="">
                     @csrf
                     <fieldset>
                         <legend>
-                            Sign in to your account
+                            Masuk ke Easy Private
                         </legend>
                         <p>
-                            Please enter your name and password to log in.
+                            Silahkan masuk dengan Google
                         </p>
                         <div class="form-group">
                             <span class="input-icon">

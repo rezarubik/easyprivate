@@ -9,7 +9,7 @@
 <!-- start: HEAD -->
 
 <head>
-    <title>Login Calon Guru</title>
+    <title>Daftar - Easy Private</title>
     <!-- start: META -->
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
     <meta charset="utf-8" />
@@ -19,6 +19,7 @@
     <meta content="" name="description" />
     <meta content="" name="author" />
     <!-- end: META -->
+    <link rel="shortcut icon" href="{{asset('assets/images/easyprivat-icon.png')}}" type="image/x-icon">
     <!-- start: GOOGLE FONTS -->
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
     <!-- end: GOOGLE FONTS -->
@@ -46,7 +47,8 @@
     <div class="row">
         <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
             <div class="logo margin-top-30">
-                <img src="assets/images/logo.png" alt="Easy Private" />
+                <img style="width: 50px;" src="{{url('/')}}/assets/images/easyprivate-blue.png" alt="Easy Private">
+                <span>Easy Private</span>
             </div>
             <!-- start: LOGIN BOX -->
             <div class="box-login">
@@ -54,12 +56,21 @@
                     @csrf
                     <fieldset>
                         <legend>
-                            Sign in to your account
+                            Daftar ke Easy Private
                         </legend>
                         <p>
-                            Please enter your name and password to log in.
+                            Silahkan masuk dengan Google
                         </p>
                         <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12 text-center margin-top-20">
+                                    <!-- TAMBAHKAN LINE INI  UNTUK MEMBERIKAN BUTTON SIGN IN WITH GOOGLE-->
+                                    <a href="{{ route('login.provider', 'google') }}" class="btn btn-lg btn-danger"> <i class="fa fa-google"></i> {{ __('Google Sign in') }}</a>
+                                    <!-- TAMBAHKAN LINE INI -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">
                             <span class="input-icon">
                                 <input type="text" class="form-control" name="username" placeholder="Username">
                                 <i class="fa fa-user"></i> </span>
@@ -71,32 +82,32 @@
                                 <a class="forgot" href="login_forgot.html">
                                     I forgot my password
                                 </a> </span>
-                        </div>
+                        </div> -->
                         <div class="form-actions">
-                            <div class="checkbox clip-check check-primary">
+                            <!-- <div class="checkbox clip-check check-primary">
                                 <input type="checkbox" id="remember" value="1">
                                 <label for="remember">
                                     Keep me signed in
                                 </label>
-                            </div>
-                            <button type="submit" class="btn btn-primary pull-right">
+                            </div> -->
+                            <!-- <button type="submit" class="btn btn-primary pull-right">
                                 Login <i class="fa fa-arrow-circle-right"></i>
-                            </button>
+                            </button> -->
                             <!-- TAMBAHKAN LINE INI  UNTUK MEMBERIKAN BUTTON SIGN IN WITH GOOGLE-->
-                            <a href="{{ route('login.provider', 'google') }}" class="btn btn-danger">{{ __('Google Sign in') }}</a>
+                            <!-- <a href="{{ route('login.provider', 'google') }}" class="btn btn-danger">{{ __('Google Sign in') }}</a> -->
                             <!-- TAMBAHKAN LINE INI -->
                         </div>
-                        <div class="new-account">
+                        <!-- <div class="new-account">
                             Don't have an account yet?
                             <a href="login_registration.html">
                                 Create an account
                             </a>
-                        </div>
+                        </div> -->
                     </fieldset>
                 </form>
                 <!-- start: COPYRIGHT -->
                 <div class="copyright">
-                    &copy; <span class="current-year"></span><span class="text-bold text-uppercase"> ClipTheme</span>.
+                    &copy; <span class="current-year"></span><span class="text-bold text-uppercase"> Easy Private</span>.
                     <span>All rights reserved</span>
                 </div>
                 <!-- end: COPYRIGHT -->
