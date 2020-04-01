@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2020 at 11:58 AM
+-- Generation Time: Apr 01, 2020 at 06:03 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -61,7 +61,11 @@ CREATE TABLE `alamat` (
 --
 
 INSERT INTO `alamat` (`id_alamat`, `id_user`, `latitude`, `longitude`, `alamat_lengkap`) VALUES
-(1, 2, -6.23884, 106.912, 'Jl. Teluk Langsa 4 Blok C.8 No.4');
+(1, 2, -6.23884, 106.912, 'Jl. Teluk Langsa 4 Blok C.8 No.4'),
+(8, 1, -6.23884, 106.912, 'Jl. Teluk Langsa 4 Blok C.8 No.4'),
+(9, 11, -6.23884, 106.912, 'Jl. Teluk Langsa 4 Blok C.8 No.4'),
+(10, 9, -6.23884, 106.912, 'Jl. Teluk Langsa 4 Blok C.8 No.4'),
+(11, 9, -6.23884, 106.912, 'Jl. Teluk Langsa 4 Blok C.8 No.4');
 
 -- --------------------------------------------------------
 
@@ -95,7 +99,19 @@ CREATE TABLE `guru_mapel` (
 --
 
 INSERT INTO `guru_mapel` (`id_guru_mapel`, `id_guru`, `id_mapel`) VALUES
-(1, 3, 3);
+(1, 3, 1),
+(17, 1, 1),
+(18, 1, 1),
+(19, 1, 2),
+(20, 11, 1),
+(21, 11, 1),
+(22, 11, 2),
+(23, 9, 1),
+(24, 9, 1),
+(25, 9, 2),
+(26, 9, 1),
+(27, 9, 1),
+(28, 9, 2);
 
 -- --------------------------------------------------------
 
@@ -155,7 +171,9 @@ CREATE TABLE `mata_pelajaran` (
 --
 
 INSERT INTO `mata_pelajaran` (`id_mapel`, `id_jenjang`, `nama_mapel`) VALUES
-(1, 1, 'Matematika');
+(1, 1, 'Matematika SD'),
+(2, 2, 'Matematika SMP'),
+(3, 3, 'Matematika SMA');
 
 -- --------------------------------------------------------
 
@@ -165,19 +183,25 @@ INSERT INTO `mata_pelajaran` (`id_mapel`, `id_jenjang`, `nama_mapel`) VALUES
 
 CREATE TABLE `microteaching` (
   `id_microteaching` int(11) NOT NULL,
-  `id_pendaftaran` int(11) NOT NULL,
-  `volume_artikulasi_suara` int(11) NOT NULL,
-  `keefektifan_kalimat` int(11) NOT NULL,
-  `cara_mengajar` int(11) NOT NULL,
-  `penguasaan_materi` int(11) NOT NULL
+  `id_pendaftaran` int(11) DEFAULT NULL,
+  `dir_video` varchar(255) DEFAULT NULL,
+  `volume_artikulasi_suara` int(11) DEFAULT NULL,
+  `keefektifan_kalimat` int(11) DEFAULT NULL,
+  `cara_mengajar` int(11) DEFAULT NULL,
+  `penguasaan_materi` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `microteaching`
 --
 
-INSERT INTO `microteaching` (`id_microteaching`, `id_pendaftaran`, `volume_artikulasi_suara`, `keefektifan_kalimat`, `cara_mengajar`, `penguasaan_materi`) VALUES
-(1, 1, 2, 3, 4, 5);
+INSERT INTO `microteaching` (`id_microteaching`, `id_pendaftaran`, `dir_video`, `volume_artikulasi_suara`, `keefektifan_kalimat`, `cara_mengajar`, `penguasaan_materi`) VALUES
+(1, 1, '', 2, 3, 4, 5),
+(3, NULL, 'KTP.pdf', NULL, NULL, NULL, NULL),
+(4, 5, 'KTP.pdf', NULL, NULL, NULL, NULL),
+(5, 6, 'KTP.pdf', NULL, NULL, NULL, NULL),
+(6, 7, 'KTP.pdf', NULL, NULL, NULL, NULL),
+(7, 8, 'KTP.pdf', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -265,22 +289,25 @@ INSERT INTO `pemesanan` (`id_pemesanan`, `id_guru`, `id_murid`, `id_mapel`, `wak
 
 CREATE TABLE `pendaftaran_guru` (
   `id_pendaftaran` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `dir_cv` varchar(255) NOT NULL,
-  `dir_video` varchar(255) NOT NULL,
-  `pm_gap_score` int(11) NOT NULL,
-  `pm_result` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
-  `pengalaman_pengejar` int(11) NOT NULL,
-  `nilai_ipk` float NOT NULL
+  `id_user` int(11) DEFAULT NULL,
+  `dir_cv` varchar(255) DEFAULT NULL,
+  `pm_gap_score` int(11) DEFAULT NULL,
+  `pm_result` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `pengalaman_mengajar` int(11) DEFAULT NULL,
+  `nilai_ipk` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `pendaftaran_guru`
 --
 
-INSERT INTO `pendaftaran_guru` (`id_pendaftaran`, `id_user`, `dir_cv`, `dir_video`, `pm_gap_score`, `pm_result`, `status`, `pengalaman_pengejar`, `nilai_ipk`) VALUES
-(1, 3, '', '', 2, 1, 1, 2, 3.5);
+INSERT INTO `pendaftaran_guru` (`id_pendaftaran`, `id_user`, `dir_cv`, `pm_gap_score`, `pm_result`, `status`, `pengalaman_mengajar`, `nilai_ipk`) VALUES
+(1, 3, '', 2, 1, 1, 2, 3.5),
+(5, 1, 'KTP.pdf', NULL, NULL, NULL, 5, NULL),
+(6, 11, 'KTP.pdf', NULL, NULL, NULL, 3, NULL),
+(7, 9, 'KTP.pdf', NULL, NULL, NULL, 2, NULL),
+(8, 9, 'KTP.pdf', NULL, NULL, NULL, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -312,11 +339,12 @@ CREATE TABLE `users` (
   `socialite_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `socialite_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jenis_kelamin` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tanggal_lahir` date NOT NULL,
-  `role` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `jenis_kelamin` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tanggal_lahir` date DEFAULT NULL,
+  `no_handphone` varchar(14) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `role` int(11) DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -328,10 +356,12 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `socialite_id`, `socialite_name`, `avatar`, `name`, `email`, `jenis_kelamin`, `tanggal_lahir`, `role`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GiFmPv-D5PpYgTv9BLuiukJyZh7Alo_1ZSyLLFywg', 'Muhammad Reza Pahlevi', 'rezarubik17@gmail.com', 'laki-laki', '2017-03-18', 0, NULL, NULL, 'plThhgG8wOsaoJyzJGO4djFe6sQZj4vojtsdoYqL3zYDrpIJPRH5mpD0pBLX', '2020-03-01 09:12:47', '2020-03-01 09:12:47'),
-(2, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GhS1ETgrm04vNvoOeYgtUWtupkcC3UfxjwI5_tqxQ', 'Muhammad Reza Pahlevi Y', 'muhammad.reza.pahlevi.y@gmail.com', 'laki-laki', '1996-04-17', 1, NULL, NULL, 'QqMYK73pFS9clXVDV58bHyrOrJKmh3WEpm7q8f91OU5eaImv8tjpH7fl9AeM', '2020-03-04 03:14:31', '2020-03-04 03:14:31'),
-(3, NULL, NULL, NULL, 'Nadiah Tsamara Pratiwi', 'tspnadiah@gmail.com', 'perempuan', '1998-09-14', 2, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `users` (`id`, `socialite_id`, `socialite_name`, `avatar`, `name`, `email`, `jenis_kelamin`, `tanggal_lahir`, `no_handphone`, `role`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GiFmPv-D5PpYgTv9BLuiukJyZh7Alo_1ZSyLLFywg', 'Muhammad Reza Pahlevi', 'rezarubik17@gmail.com', 'laki-laki', '1996-04-17', '089501011011', 0, NULL, NULL, 'pSXGtVye6r2iQAcvIlxAXmhoHoGb1RlxydvU3TmiQCILjzPV65vq2v0gphOM', '2020-03-01 09:12:47', '2020-03-25 06:42:31'),
+(2, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GhS1ETgrm04vNvoOeYgtUWtupkcC3UfxjwI5_tqxQ', 'Muhammad Reza Pahlevi Y', 'muhammad.reza.pahlevi.y@gmail.com', 'laki-laki', '1996-04-17', '', 1, NULL, NULL, 'knxjo190gT4E6629bM0pvUuoZKmD9xcj4EeEdgjlXqcuNuzpHqQSkbygoYPB', '2020-03-04 03:14:31', '2020-03-04 03:14:31'),
+(9, NULL, NULL, 'https://lh3.googleusercontent.com/-9ULkHhZfMFQ/AAAAAAAAAAI/AAAAAAAAAAA/AKF05nAP8MT_SBQZAVN9DUgWtWnOw0OgtA/photo.jpg', 'Nadiah Tsp', 'tspnadiah@gmail.com', 'perempuan', '1998-09-14', '089799179002', 0, NULL, NULL, 'jhVmjUDuB36NqfG7YYfqRnu2TAk9f2AZIqfHDE2rNaXFFdcqdtxtD5UEC8Io', '2020-03-25 08:49:25', '2020-03-25 10:01:24'),
+(10, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GgwVwrMPKv_Cl_5p6mO5ov17NyOJehSy7QAgMkH', 'itsliza14', 'lizaconan2@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'X1SueeExr1vQrBmVgp78Kv20t4OM6jZFzbAt5bIqtBn0eyZUmnszxGg9R5fH', '2020-03-25 08:50:20', '2020-03-25 08:50:20'),
+(11, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GhtyWTOVvaJi6svRko32-coNW-yegA8w6k7Ccn0', 'Muhammad Reza Pahlevi Y', 'reza.pahlevi.oa@gmail.com', 'laki-laki', '2020-03-18', '089799129002', NULL, NULL, NULL, 'Y9XIIkCVU7uis5dSRroArXQSNymfD3fh4FsWeZG3cOAlGH8OmDXTGi2GVkrU', '2020-03-25 08:50:58', '2020-03-25 09:08:48');
 
 --
 -- Indexes for dumped tables
@@ -442,7 +472,7 @@ ALTER TABLE `absen`
 -- AUTO_INCREMENT for table `alamat`
 --
 ALTER TABLE `alamat`
-  MODIFY `id_alamat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_alamat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -454,7 +484,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `guru_mapel`
 --
 ALTER TABLE `guru_mapel`
-  MODIFY `id_guru_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_guru_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `jadwal_ajar`
@@ -472,13 +502,13 @@ ALTER TABLE `jenjang`
 -- AUTO_INCREMENT for table `mata_pelajaran`
 --
 ALTER TABLE `mata_pelajaran`
-  MODIFY `id_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `microteaching`
 --
 ALTER TABLE `microteaching`
-  MODIFY `id_microteaching` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_microteaching` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -502,7 +532,7 @@ ALTER TABLE `pemesanan`
 -- AUTO_INCREMENT for table `pendaftaran_guru`
 --
 ALTER TABLE `pendaftaran_guru`
-  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `rating`
@@ -514,7 +544,7 @@ ALTER TABLE `rating`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
