@@ -25,6 +25,10 @@ Route::get('absen/guru/{id}', 'AbsenController@getAbsenByIdGuru');//Udah bisa
 Route::get('absen/murid/{id}', 'AbsenController@getAbsenByIdMurid');//Udah bisa
 Route::post('absen/store', 'AbsenController@store');//
 
+//Jadwal ajar
+Route::get('jadwalAjar/{id}', 'JadwalAjarController@getJadwalAjarById');
+Route::get('jadwalAjar/guru/{id}', 'JadwalAjarController@getJadwalAjarByIdGuru');
+
 //Mata pelajaran
 Route::get('mapel', 'MataPelajaranController@getMapel');//Udah bisa
 Route::get('mapel/{id}', 'MataPelajaranController@getMapelById');//Udah bisa
@@ -36,7 +40,7 @@ Route::get('pemesanan', 'PemesananController@getPemesanan');//Udah bisa
 Route::get('pemesanan/{id}', 'PemesananController@getPemesananById');//Udah bisa
 Route::get('pemesanan/guru/{id}', 'PemesananController@getPemesananByIdGuru'); //Udah bisa
 Route::get('pemesanan/murid/{id}', 'PemesananController@getPemesananByIdMurid'); //Udah bisa
-Route::post('pemesanan/update', 'PemesananController@update');
+Route::post('pemesanan/update', 'PemesananController@update');//Udah bisa
 
 //Pembayaran
 Route::get('pembayaran', 'PembayaranController@getPembayaran');//Udah bisa
@@ -45,7 +49,7 @@ Route::get('pembayaran/murid/{id}', 'PembayaranController@getPembayaranByIdMurid
 
 //Login guru
 Route::post('login/guru', 'UserController@loginGuru');//Udah bisa
-Route::post('user/guru/valid', 'UserController@isGuruValid');    
+Route::post('user/guru/valid', 'UserController@isGuruValid');//Udah bisa
 
 //User
-Route::post('user/guru', 'UserController@getGuruByEmailPost');
+Route::post('user/guru', 'UserController@getGuruByEmailPost');//Udah bisa

@@ -9,7 +9,7 @@ class JadwalAjarController extends Controller
 {
     public function __construct()
     {
-        $this->relationship = ['pemesanan'];
+        $this->relationship = ['pemesanan', 'pemesanan.murid', 'pemesanan.murid.alamat', 'pemesanan.guru', 'pemesanan.mataPelajaran', 'pemesanan.mataPelajaran', 'pemesanan.mataPelajaran.jenjang'];
     }
 
     public function getJadwalAjarByIdGuru($id)
@@ -19,7 +19,13 @@ class JadwalAjarController extends Controller
         ->where([
             'pemesanan.id_guru' => $id
         ])
+        ->orderBy('jadwal_ajar.waktu_ajar', 'desc')
         ->select('jadwal_ajar.*')
         ->get();
+    }
+
+    public function getJadwalAjarById($id)
+    {
+        return JadwalAjar::with($this->relationship)->find($id);
     }
 }

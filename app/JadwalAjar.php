@@ -11,6 +11,6 @@ class JadwalAjar extends Model
     public $timestamps = false;
 
     public function pemesanan(){
-        return $this->belongTo('App\Pemesanan', 'id_pemesanan', 'id_pemesanan');
+        return $this->belongsTo('App\Pemesanan', 'id_pemesanan', 'id_pemesanan');
     }
 }
