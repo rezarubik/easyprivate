@@ -34,6 +34,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 // todo form pendaftaran guru
 Route::get('/user/create', 'UserController@create');
 Route::post('/user', 'UserController@store');
+Route::post('/getMapelperJenjang', 'MataPelajaranController@getMapelperJenjang')->name('getMapelperJenjang');
 
 // ? Admin
 // todo Guru
