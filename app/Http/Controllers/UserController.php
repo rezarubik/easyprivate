@@ -200,7 +200,7 @@ class UserController extends Controller
         ])
             ->with($this->relationshipGuru)
             ->first();
-
+        // dd($guru);
         return $guru;
     }
 
@@ -224,6 +224,7 @@ class UserController extends Controller
     //Get guru berdasarkan email via POST
     public function getGuruByEmailPost(Request $r)
     {
+        // dd($r);
         return $this->getGuruByEmail($r->email);
     }
 
