@@ -53,3 +53,4 @@ Route::post('user/guru/valid', 'UserController@isGuruValid');//Udah bisa
 
 //User
 Route::post('user/guru', 'UserController@getGuruByEmailPost');//Udah bisa
+Route::get('user/guru/{email}', 'UserController@getGuruByEmail');//Udah bisa

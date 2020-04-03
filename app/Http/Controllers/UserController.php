@@ -51,7 +51,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        // dd(Auth()->user());
+        // dd($request);
         $request->validate([
             'birthday' => 'required',
             'gender' => 'required',
@@ -68,6 +69,7 @@ class UserController extends Controller
             'handphone_number.required' => ':attribute wajib diisi!'
         ];
         $user = User::findOrFail(Auth()->user()->id);
+        // dd($user);
         $user->tanggal_lahir = date_format(date_create($request->birthday), "Y/m/d");
         $user->jenis_kelamin = $request->gender;
         $user->no_handphone = $request->handphone_number;
@@ -81,20 +83,26 @@ class UserController extends Controller
         $alamat->alamat_lengkap = 'Jl. Teluk Langsa 4 Blok C.8 No.4';
         $alamat->save();
 
-        $guruMapel1 = new GuruMapel;
-        $guruMapel1->id_guru = $user->id;
-        $guruMapel1->id_mapel = $request->mapel_1;
-        $guruMapel1->save();
+        if(isset($request->mapel_1)){
+            $guruMapel1 = new GuruMapel;
+            $guruMapel1->id_guru = $user->id;
+            $guruMapel1->id_mapel = $request->mapel_1;
+            $guruMapel1->save();
+        }
 
-        $guruMapel2 = new GuruMapel;
-        $guruMapel2->id_guru = $user->id;
-        $guruMapel2->id_mapel = $request->mapel_2;
-        $guruMapel2->save();
+        if(isset($request->mapel_2)){
+            $guruMapel2 = new GuruMapel;
+            $guruMapel2->id_guru = $user->id;
+            $guruMapel2->id_mapel = $request->mapel_2;
+            $guruMapel2->save();
+        }
 
-        $guruMapel3 = new GuruMapel;
-        $guruMapel3->id_guru = $user->id;
-        $guruMapel3->id_mapel = $request->mapel_3;
-        $guruMapel3->save();
+        if(isset($request->mapel_3)){
+            $guruMapel3 = new GuruMapel;
+            $guruMapel3->id_guru = $user->id;
+            $guruMapel3->id_mapel = $request->mapel_3;
+            $guruMapel3->save();
+        }
 
         $pendaftaranGuru = new PendaftaranGuru();
         $pendaftaranGuru->id_user = $user->id;
