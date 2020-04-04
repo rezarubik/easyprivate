@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\PendaftaranGuru;
 
-class UserController extends Controller
+class UserBackupController extends Controller
 {
     public function __construct()
     {
