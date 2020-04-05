@@ -12,6 +12,10 @@
 @section('pages', 'Home')
 @section('active-pages', 'Data Murid')
 @section('content')
+<?php
+// var_dump($user);
+// die();
+?>
 <div class="container-fluid container-fullw bg-white">
     <div class="row">
         <div class="col-md-12">
@@ -33,7 +37,24 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($user as $u)
                         <tr>
+                            <td>{{$u->id}}</td>
+                            <td>{{$u->name}}</td>
+                            <td>{{$u->email}}</td>
+                            <td>{{$u->no_handphone}}</td>
+                            <td>
+                                @foreach($u->alamat as $alamat)
+                                {{$alamat->alamat_lengkap}}
+                                <br>
+                                @endforeach
+                            </td>
+                            <td class="text-center">
+                                <a href="http://" class="label label-success" title="Kirim Email"><i class="ti-email"></i></a>
+                            </td>
+                        </tr>
+                        @endforeach
+                        <!-- <tr>
                             <td>1</td>
                             <td>Nadiah Tsamara Pratiwi</td>
                             <td>tspnadiah@gmail.com</td>
@@ -42,7 +63,7 @@
                             <td class="text-center">
                                 <a href="http://" class="label label-success" title="Kirim Email"><i class="ti-email"></i></a>
                             </td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
             </div>

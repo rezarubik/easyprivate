@@ -83,21 +83,21 @@ class UserController extends Controller
         $alamat->alamat_lengkap = 'Jl. Teluk Langsa 4 Blok C.8 No.4';
         $alamat->save();
 
-        if(isset($request->mapel_1)){
+        if (isset($request->mapel_1)) {
             $guruMapel1 = new GuruMapel;
             $guruMapel1->id_guru = $user->id;
             $guruMapel1->id_mapel = $request->mapel_1;
             $guruMapel1->save();
         }
 
-        if(isset($request->mapel_2)){
+        if (isset($request->mapel_2)) {
             $guruMapel2 = new GuruMapel;
             $guruMapel2->id_guru = $user->id;
             $guruMapel2->id_mapel = $request->mapel_2;
             $guruMapel2->save();
         }
 
-        if(isset($request->mapel_3)){
+        if (isset($request->mapel_3)) {
             $guruMapel3 = new GuruMapel;
             $guruMapel3->id_guru = $user->id;
             $guruMapel3->id_mapel = $request->mapel_3;
@@ -241,14 +241,20 @@ class UserController extends Controller
      */
     public function dataGuru()
     {
-        return view('admin.users_guru');
+        $user = User::where('role', 2)->with($this->relationshipGuru)->get();
+        // $guruMapel = GuruMapel::where('id_mapel')->with('mataPelajaran')->get();
+        // dd($guruMapel);
+        return view('admin.users_guru', compact('user'));
     }
     /**
      * Menampilkan Data Murid Pada Halaman Admin
      */
     public function dataMurid()
     {
-        return view('admin.users_murid');
+        $user = User::where('role', 1)->with($this->relationshipMurid)->get();
+        // $user = Alamat::all();
+        // dd($user);
+        return view('admin.users_murid', compact('user'));
     }
 
     /**

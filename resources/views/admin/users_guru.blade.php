@@ -38,13 +38,13 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($user as $u)
                         <tr>
-                            <td>1</td>
-                            <td>Muhammad Reza Pahlevi Y</td>
-                            <td>muhammad.reza.pahlevi.y@gmail.com</td>
+                            <td>{{$u->id}}</td>
+                            <td>{{$u->name}}</td>
+                            <td>{{$u->email}}</td>
                             <td>
                                 <ol>
-                                    <li>Matematika</li>
                                     <li>Fisika</li>
                                 </ol>
                             </td>
@@ -55,193 +55,7 @@
                                 <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
                             </td>
                         </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Muhammad Reza Pahlevi Y</td>
-                            <td>muhammad.reza.pahlevi.y@gmail.com</td>
-                            <td>
-                                <ol>
-                                    <li>Matematika</li>
-                                    <li>Fisika</li>
-                                </ol>
-                            </td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
-                            <td>Aktif/Tidak Aktif</td>
-                            <td class="text-center">
-                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Muhammad Reza Pahlevi Y</td>
-                            <td>muhammad.reza.pahlevi.y@gmail.com</td>
-                            <td>
-                                <ol>
-                                    <li>Matematika</li>
-                                    <li>Fisika</li>
-                                </ol>
-                            </td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
-                            <td>Aktif/Tidak Aktif</td>
-                            <td class="text-center">
-                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Muhammad Reza Pahlevi Y</td>
-                            <td>muhammad.reza.pahlevi.y@gmail.com</td>
-                            <td>
-                                <ol>
-                                    <li>Matematika</li>
-                                    <li>Fisika</li>
-                                </ol>
-                            </td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
-                            <td>Aktif/Tidak Aktif</td>
-                            <td class="text-center">
-                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Muhammad Reza Pahlevi Y</td>
-                            <td>muhammad.reza.pahlevi.y@gmail.com</td>
-                            <td>
-                                <ol>
-                                    <li>Matematika</li>
-                                    <li>Fisika</li>
-                                </ol>
-                            </td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
-                            <td>Aktif/Tidak Aktif</td>
-                            <td class="text-center">
-                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Muhammad Reza Pahlevi Y</td>
-                            <td>muhammad.reza.pahlevi.y@gmail.com</td>
-                            <td>
-                                <ol>
-                                    <li>Matematika</li>
-                                    <li>Fisika</li>
-                                </ol>
-                            </td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
-                            <td>Aktif/Tidak Aktif</td>
-                            <td class="text-center">
-                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Muhammad Reza Pahlevi Y</td>
-                            <td>muhammad.reza.pahlevi.y@gmail.com</td>
-                            <td>
-                                <ol>
-                                    <li>Matematika</li>
-                                    <li>Fisika</li>
-                                </ol>
-                            </td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
-                            <td>Aktif/Tidak Aktif</td>
-                            <td class="text-center">
-                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Muhammad Reza Pahlevi Y</td>
-                            <td>muhammad.reza.pahlevi.y@gmail.com</td>
-                            <td>
-                                <ol>
-                                    <li>Matematika</li>
-                                    <li>Fisika</li>
-                                </ol>
-                            </td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
-                            <td>Aktif/Tidak Aktif</td>
-                            <td class="text-center">
-                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Muhammad Reza Pahlevi Y</td>
-                            <td>muhammad.reza.pahlevi.y@gmail.com</td>
-                            <td>
-                                <ol>
-                                    <li>Matematika</li>
-                                    <li>Fisika</li>
-                                </ol>
-                            </td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
-                            <td>Aktif/Tidak Aktif</td>
-                            <td class="text-center">
-                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Muhammad Reza Pahlevi Y</td>
-                            <td>muhammad.reza.pahlevi.y@gmail.com</td>
-                            <td>
-                                <ol>
-                                    <li>Matematika</li>
-                                    <li>Fisika</li>
-                                </ol>
-                            </td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
-                            <td>Aktif/Tidak Aktif</td>
-                            <td class="text-center">
-                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Muhammad Reza Pahlevi Y</td>
-                            <td>muhammad.reza.pahlevi.y@gmail.com</td>
-                            <td>
-                                <ol>
-                                    <li>Matematika</li>
-                                    <li>Fisika</li>
-                                </ol>
-                            </td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
-                            <td>Aktif/Tidak Aktif</td>
-                            <td class="text-center">
-                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Muhammad Reza Pahlevi Y</td>
-                            <td>muhammad.reza.pahlevi.y@gmail.com</td>
-                            <td>
-                                <ol>
-                                    <li>Matematika</li>
-                                    <li>Fisika</li>
-                                </ol>
-                            </td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
-                            <td>Aktif/Tidak Aktif</td>
-                            <td class="text-center">
-                                <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
-                            </td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
