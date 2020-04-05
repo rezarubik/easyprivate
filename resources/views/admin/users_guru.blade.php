@@ -38,19 +38,35 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($user as $u)
+                        @foreach($pendaftaranGuru as $p)
+                        <?php
+                        // var_dump($p);
+                        // die
+                        ?>
                         <tr>
-                            <td>{{$u->id}}</td>
-                            <td>{{$u->name}}</td>
-                            <td>{{$u->email}}</td>
+                            <td>{{$p->user->id}}</td>
+                            <td>{{$p->user->name}}</td>
+                            <td>{{$p->user->email}}</td>
                             <td>
                                 <ol>
-                                    <li>Fisika</li>
+                                    @foreach($guruMapel as $mata_pelajaran)
+                                    @if($mata_pelajaran->id_guru == $p->user->id)
+                                    <li>
+                                        {{$mata_pelajaran->mataPelajaran->nama_mapel}}
+                                    </li>
+                                    @endif
+                                    @endforeach
                                 </ol>
                             </td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Download CV</button></td>
-                            <td><button type="button" class="btn btn-wide btn-o btn-info">Lihat Video</button></td>
-                            <td>Aktif/Tidak Aktif</td>
+                            <td><a href="" class="btn btn-wide btn-o btn-info">{{$p->dir_cv}}</a></td>
+                            <td><a hre="" class="btn btn-wide btn-o btn-info">{{$p->microteaching->dir_video}}</a></td>
+                            <td>
+                                @if($p->status == 1)
+                                <label for="" class="label label-success">Aktif</label>
+                                @elseif($p->status == 0)
+                                <label for="" class="label label-danger">Tidak Aktif</label>
+                                @endif
+                            </td>
                             <td class="text-center">
                                 <a href="http://" class="label label-success" title="Terima"><i class="ti-email"></i></a>
                             </td>

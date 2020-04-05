@@ -26,7 +26,17 @@ class PemesananController extends Controller
      */
     public function index()
     {
-        return view('admin.pemesanan');
+        $pemesanan = Pemesanan::with($this->relationship)
+            ->join('users as m', 'm.id', 'pemesanan.id_murid')
+            ->join('users as g', 'g.id', 'pemesanan.id_guru')
+            ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'pemesanan.id_mapel')
+            ->where('pemesanan.id_murid', '!=', '')
+            ->where('pemesanan.id_guru', '!=', '')
+            ->where('pemesanan.id_mapel', '!=', '')
+            ->select('pemesanan.*')
+            ->get();
+        // dd($pemesanan);
+        return view('admin.pemesanan', compact('pemesanan'));
     }
 
     public function getPemesanan()

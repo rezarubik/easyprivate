@@ -241,10 +241,18 @@ class UserController extends Controller
      */
     public function dataGuru()
     {
-        $user = User::where('role', 2)->with($this->relationshipGuru)->get();
-        // $guruMapel = GuruMapel::where('id_mapel')->with('mataPelajaran')->get();
-        // dd($guruMapel);
-        return view('admin.users_guru', compact('user'));
+        $pendaftaranGuru = PendaftaranGuru::with(['user', 'microteaching'])
+            ->join('users', 'users.id', 'pendaftaran_guru.id_user')
+            ->join('microteaching', 'microteaching.id_pendaftaran', 'pendaftaran_guru.id_pendaftaran')
+            ->has('murid.alamat')
+            ->select('pendaftaran_guru.*')
+            ->where('users.id', '!=', '')
+            ->where('microteaching.id_microteaching', '!=', '')
+            ->get();
+        // $pendaftaranGuru = PendaftaranGuru::with(['user'])->where('id_user', '!=', null)->get();
+        $guruMapel = GuruMapel::with('mataPelajaran')->get();
+        // dd($pendaftaranGuru);
+        return view('admin.users_guru', compact('pendaftaranGuru', 'guruMapel'));
     }
     /**
      * Menampilkan Data Murid Pada Halaman Admin
