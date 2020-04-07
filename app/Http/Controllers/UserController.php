@@ -236,6 +236,19 @@ class UserController extends Controller
         return $this->getGuruByEmail($r->email);
     }
 
+    public function updateGuru(Request $r)
+    {
+        $guru = User::find($r->id);
+
+        if(!$guru->isEmpty()){
+            $guru->avatar = $r->avatar;
+            $guru->nama = $r->nama;
+            $guru->save();
+        }
+
+        return $guru;
+    }
+
     /**
      * Menampilkan Data Guru Pada Halaman Admin
      */
