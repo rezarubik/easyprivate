@@ -16,6 +16,6 @@ class PendaftaranGuru extends Model
     }
     public function user()
     {
-        return $this->belongsTo('App\User', 'id_pendaftaran_guru', 'id_pendaftaran');
+        return $this->belongsTo('App\User', 'id_user', 'id');
     }
 }

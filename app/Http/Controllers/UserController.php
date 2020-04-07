@@ -83,21 +83,21 @@ class UserController extends Controller
         $alamat->alamat_lengkap = 'Jl. Teluk Langsa 4 Blok C.8 No.4';
         $alamat->save();
 
-        if(isset($request->mapel_1)){
+        if (isset($request->mapel_1)) {
             $guruMapel1 = new GuruMapel;
             $guruMapel1->id_guru = $user->id;
             $guruMapel1->id_mapel = $request->mapel_1;
             $guruMapel1->save();
         }
 
-        if(isset($request->mapel_2)){
+        if (isset($request->mapel_2)) {
             $guruMapel2 = new GuruMapel;
             $guruMapel2->id_guru = $user->id;
             $guruMapel2->id_mapel = $request->mapel_2;
             $guruMapel2->save();
         }
 
-        if(isset($request->mapel_3)){
+        if (isset($request->mapel_3)) {
             $guruMapel3 = new GuruMapel;
             $guruMapel3->id_guru = $user->id;
             $guruMapel3->id_mapel = $request->mapel_3;
@@ -254,14 +254,28 @@ class UserController extends Controller
      */
     public function dataGuru()
     {
-        return view('admin.users_guru');
+        $pendaftaranGuru = PendaftaranGuru::with(['user', 'microteaching'])
+            ->join('users', 'users.id', 'pendaftaran_guru.id_user')
+            ->join('microteaching', 'microteaching.id_pendaftaran', 'pendaftaran_guru.id_pendaftaran')
+            ->has('murid.alamat')
+            ->select('pendaftaran_guru.*')
+            ->where('users.id', '!=', '')
+            ->where('microteaching.id_microteaching', '!=', '')
+            ->get();
+        // $pendaftaranGuru = PendaftaranGuru::with(['user'])->where('id_user', '!=', null)->get();
+        $guruMapel = GuruMapel::with('mataPelajaran')->get();
+        // dd($pendaftaranGuru);
+        return view('admin.users_guru', compact('pendaftaranGuru', 'guruMapel'));
     }
     /**
      * Menampilkan Data Murid Pada Halaman Admin
      */
     public function dataMurid()
     {
-        return view('admin.users_murid');
+        $user = User::where('role', 1)->with($this->relationshipMurid)->get();
+        // $user = Alamat::all();
+        // dd($user);
+        return view('admin.users_murid', compact('user'));
     }
 
     /**
