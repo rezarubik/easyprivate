@@ -30,17 +30,27 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach($pemesanan as $p)
                 <tr>
-                    <td>1</td>
-                    <td>Nadiah Tsamara Pratiwi</td>
-                    <td>Muhammad Reza Pahlevi Y</td>
-                    <td>Matematika</td>
-                    <td>SMA</td>
-                    <td>Jl. Kalibata Tengah XVII No.29</td>
+                    <td>{{$p->id_pemesanan}}</td>
+                    <td>{{$p->murid->name}}</td>
+                    <td>{{$p->guru->name}}</td>
+                    <td>{{$p->mataPelajaran->nama_mapel}}</td>
+                    <td>{{$p->mataPelajaran->jenjang->nama_jenjang}}</td>
+                    <td>{{$p->murid->alamat[0]->alamat_lengkap}}</td>
                     <td>
-                        <span class="badge badge-primary">Waiting</span>
+                        @if($p->status==0)
+                        <span class="badge badge-warning">Waiting</span>
+                        @elseif($p->status==1)
+                        <span class="badge badge-primary">Diterima/Sedang Berjalan</span>
+                        @elseif($p->status==2)
+                        <span class="badge badge-danger">Ditolak</span>
+                        @elseif($p->status==3)
+                        <span class="badge badge-inverse">Selesai</span>
+                        @endif
                     </td>
                 </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

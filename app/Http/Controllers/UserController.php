@@ -291,19 +291,46 @@ class UserController extends Controller
         return $this->getMuridByEmail($r->email);
     }
 
+    public function updateGuru(Request $r)
+    {
+        $guru = User::find($r->id);
+
+        if(!$guru->isEmpty()){
+            $guru->avatar = $r->avatar;
+            $guru->nama = $r->nama;
+            $guru->save();
+        }
+
+        return $guru;
+    }
+
     /**
      * Menampilkan Data Guru Pada Halaman Admin
      */
     public function dataGuru()
     {
-        return view('admin.users_guru');
+        $pendaftaranGuru = PendaftaranGuru::with(['user', 'microteaching'])
+            ->join('users', 'users.id', 'pendaftaran_guru.id_user')
+            ->join('microteaching', 'microteaching.id_pendaftaran', 'pendaftaran_guru.id_pendaftaran')
+            ->has('murid.alamat')
+            ->select('pendaftaran_guru.*')
+            ->where('users.id', '!=', '')
+            ->where('microteaching.id_microteaching', '!=', '')
+            ->get();
+        // $pendaftaranGuru = PendaftaranGuru::with(['user'])->where('id_user', '!=', null)->get();
+        $guruMapel = GuruMapel::with('mataPelajaran')->get();
+        // dd($pendaftaranGuru);
+        return view('admin.users_guru', compact('pendaftaranGuru', 'guruMapel'));
     }
     /**
      * Menampilkan Data Murid Pada Halaman Admin
      */
     public function dataMurid()
     {
-        return view('admin.users_murid');
+        $user = User::where('role', 1)->with($this->relationshipMurid)->get();
+        // $user = Alamat::all();
+        // dd($user);
+        return view('admin.users_murid', compact('user'));
     }
 
     /**
