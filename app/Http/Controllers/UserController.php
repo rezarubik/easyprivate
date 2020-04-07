@@ -83,21 +83,21 @@ class UserController extends Controller
         $alamat->alamat_lengkap = 'Jl. Teluk Langsa 4 Blok C.8 No.4';
         $alamat->save();
 
-        if(isset($request->mapel_1)){
+        if (isset($request->mapel_1)) {
             $guruMapel1 = new GuruMapel;
             $guruMapel1->id_guru = $user->id;
             $guruMapel1->id_mapel = $request->mapel_1;
             $guruMapel1->save();
         }
 
-        if(isset($request->mapel_2)){
+        if (isset($request->mapel_2)) {
             $guruMapel2 = new GuruMapel;
             $guruMapel2->id_guru = $user->id;
             $guruMapel2->id_mapel = $request->mapel_2;
             $guruMapel2->save();
         }
 
-        if(isset($request->mapel_3)){
+        if (isset($request->mapel_3)) {
             $guruMapel3 = new GuruMapel;
             $guruMapel3->id_guru = $user->id;
             $guruMapel3->id_mapel = $request->mapel_3;
@@ -169,7 +169,32 @@ class UserController extends Controller
         return User::with($this->relationshipMurid)
             ->find($id);
     }
-
+    public function daftarMurid(Request $r)
+    {
+        $murid = User::where(['email' =>$r->email])->first();
+        if($murid == null ){
+        $u = new User();
+        $u->name = $r->name;
+        $u->email = $r->email;
+        $u->avatar = $r->avatar;
+        $u->jenis_kelamin = $r->jenis_kelamin;
+        $u->tanggal_lahir = $r->tanggal_lahir;
+        $u->no_handphone = $r->no_handphone;
+        $u->role = 1;
+        $u->save();
+        $alamat = new Alamat();
+        $alamat->id_user = $u->id_user;
+        $alamat->latitude = $r->latitude;
+        $alamat->longitude = $r->longitude;
+        $alamat->alamat_lengkap = $r->alamat_lengkap;
+        $alamat->save();
+        return $murid;
+        }
+    else
+    {
+        return null;
+    }
+    }
     public function getGuruById($id)
     {
         return User::with($this->relationshipGuru)
@@ -211,6 +236,31 @@ class UserController extends Controller
         // dd($guru);
         return $guru;
     }
+    public function getMuridByEmail($email)
+    {
+        $murid = User::where([
+            'role' => 1,
+            'email' => $email
+        ])
+            ->with($this->relationshipMurid)
+            ->first();
+        //dd($murid);
+        return $murid;
+    }
+
+    public function validMurid(Request $r)
+    {
+        $murid = User::where([
+            'email' => $r->email,
+            'role'=>1
+        ])->get();
+
+    if (!$murid->isEmpty()) {
+        return 1;
+    } else {
+        return 0;
+    }
+    }
 
     //Memeriksa apakah guru sudah lolos seleksi
     public function isGuruValid(Request $r)
@@ -234,6 +284,11 @@ class UserController extends Controller
     {
         // dd($r);
         return $this->getGuruByEmail($r->email);
+    }
+    //Get Murid bersadrkan email via POST
+    public function getMuridByEmailPost(Request $r)
+    {
+        return $this->getMuridByEmail($r->email);
     }
 
     /**
