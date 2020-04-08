@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use App\Pemesanan;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -53,3 +55,10 @@ Route::post('user/guru/valid', 'UserController@isGuruValid'); //Udah bisa
 
 //User
 Route::post('user/guru', 'UserController@getGuruByEmailPost');//Udah bisa
+Route::post('user/murid', 'UserController@getMuridByEmailPost');//done
+
+//Daftar Murid
+Route::post('user/daftar', 'UserController@daftarMurid');
+
+//Lpgin Murid
+Route::post('user/murid/valid','UserController@validMurid');
