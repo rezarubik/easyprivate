@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2020 at 06:03 PM
+-- Generation Time: Apr 08, 2020 at 04:15 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -279,7 +279,7 @@ CREATE TABLE `pemesanan` (
 --
 
 INSERT INTO `pemesanan` (`id_pemesanan`, `id_guru`, `id_murid`, `id_mapel`, `waktu_pemesanan`, `status`, `jumlah_pertemuan`) VALUES
-(1, 3, 2, 1, '2020-03-16 00:00:00', 1, 2);
+(1, 11, 2, 1, '2020-03-16 00:00:00', 3, 2);
 
 -- --------------------------------------------------------
 
@@ -303,11 +303,9 @@ CREATE TABLE `pendaftaran_guru` (
 --
 
 INSERT INTO `pendaftaran_guru` (`id_pendaftaran`, `id_user`, `dir_cv`, `pm_gap_score`, `pm_result`, `status`, `pengalaman_mengajar`, `nilai_ipk`) VALUES
-(1, 3, '', 2, 1, 1, 2, 3.5),
-(5, 1, 'KTP.pdf', NULL, NULL, NULL, 5, NULL),
-(6, 11, 'KTP.pdf', NULL, NULL, NULL, 3, NULL),
-(7, 9, 'KTP.pdf', NULL, NULL, NULL, 2, NULL),
-(8, 9, 'KTP.pdf', NULL, NULL, NULL, 2, NULL);
+(5, 1, 'KTP.pdf', NULL, NULL, 0, 5, NULL),
+(6, 11, 'KTP.pdf', NULL, NULL, 1, 3, NULL),
+(7, 9, 'KTP.pdf', NULL, NULL, 1, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -357,11 +355,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `socialite_id`, `socialite_name`, `avatar`, `name`, `email`, `jenis_kelamin`, `tanggal_lahir`, `no_handphone`, `role`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GiFmPv-D5PpYgTv9BLuiukJyZh7Alo_1ZSyLLFywg', 'Muhammad Reza Pahlevi', 'rezarubik17@gmail.com', 'laki-laki', '1996-04-17', '089501011011', 0, NULL, NULL, 'pSXGtVye6r2iQAcvIlxAXmhoHoGb1RlxydvU3TmiQCILjzPV65vq2v0gphOM', '2020-03-01 09:12:47', '2020-03-25 06:42:31'),
-(2, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GhS1ETgrm04vNvoOeYgtUWtupkcC3UfxjwI5_tqxQ', 'Muhammad Reza Pahlevi Y', 'muhammad.reza.pahlevi.y@gmail.com', 'laki-laki', '1996-04-17', '', 1, NULL, NULL, 'knxjo190gT4E6629bM0pvUuoZKmD9xcj4EeEdgjlXqcuNuzpHqQSkbygoYPB', '2020-03-04 03:14:31', '2020-03-04 03:14:31'),
-(9, NULL, NULL, 'https://lh3.googleusercontent.com/-9ULkHhZfMFQ/AAAAAAAAAAI/AAAAAAAAAAA/AKF05nAP8MT_SBQZAVN9DUgWtWnOw0OgtA/photo.jpg', 'Nadiah Tsp', 'tspnadiah@gmail.com', 'perempuan', '1998-09-14', '089799179002', 0, NULL, NULL, 'jhVmjUDuB36NqfG7YYfqRnu2TAk9f2AZIqfHDE2rNaXFFdcqdtxtD5UEC8Io', '2020-03-25 08:49:25', '2020-03-25 10:01:24'),
+(1, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GiFmPv-D5PpYgTv9BLuiukJyZh7Alo_1ZSyLLFywg', 'Muhammad Reza Pahlevi', 'rezarubik17@gmail.com', 'laki-laki', '1996-04-17', '089501011011', 0, NULL, NULL, 'RvRWGFG4lOCkPQccr9xKdFJgwL043DN3gamgL8ZdviWzrRaNX8YYmgh7ET91', '2020-03-01 09:12:47', '2020-03-25 06:42:31'),
+(2, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GhS1ETgrm04vNvoOeYgtUWtupkcC3UfxjwI5_tqxQ', 'Muhammad Reza Pahlevi Y', 'muhammad.reza.pahlevi.y@gmail.com', 'laki-laki', '1996-04-17', '089699179002', 1, NULL, NULL, 'knxjo190gT4E6629bM0pvUuoZKmD9xcj4EeEdgjlXqcuNuzpHqQSkbygoYPB', '2020-03-04 03:14:31', '2020-03-04 03:14:31'),
+(9, NULL, NULL, 'https://lh3.googleusercontent.com/-9ULkHhZfMFQ/AAAAAAAAAAI/AAAAAAAAAAA/AKF05nAP8MT_SBQZAVN9DUgWtWnOw0OgtA/photo.jpg', 'Nadiah Tsp', 'tspnadiah@gmail.com', 'perempuan', '1998-09-14', '089799179002', 2, NULL, NULL, 'cjhfTyzCys64cLNyjZMu1A1q8nlp6pKwoFLhxT2VJ6q8ZzmilVwKfLDtlSx3', '2020-03-25 08:49:25', '2020-03-25 10:01:24'),
 (10, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GgwVwrMPKv_Cl_5p6mO5ov17NyOJehSy7QAgMkH', 'itsliza14', 'lizaconan2@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'X1SueeExr1vQrBmVgp78Kv20t4OM6jZFzbAt5bIqtBn0eyZUmnszxGg9R5fH', '2020-03-25 08:50:20', '2020-03-25 08:50:20'),
-(11, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GhtyWTOVvaJi6svRko32-coNW-yegA8w6k7Ccn0', 'Muhammad Reza Pahlevi Y', 'reza.pahlevi.oa@gmail.com', 'laki-laki', '2020-03-18', '089799129002', NULL, NULL, NULL, 'Y9XIIkCVU7uis5dSRroArXQSNymfD3fh4FsWeZG3cOAlGH8OmDXTGi2GVkrU', '2020-03-25 08:50:58', '2020-03-25 09:08:48');
+(11, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GhtyWTOVvaJi6svRko32-coNW-yegA8w6k7Ccn0', 'Muhammad Reza Pahlevi Y', 'reza.pahlevi.oa@gmail.com', 'laki-laki', '2020-03-18', '089799129002', 2, NULL, NULL, 'Y9XIIkCVU7uis5dSRroArXQSNymfD3fh4FsWeZG3cOAlGH8OmDXTGi2GVkrU', '2020-03-25 08:50:58', '2020-03-25 09:08:48'),
+(12, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GgESZJE3qYF18m9XYY1q5KDYpUe6gJ3QXKjYs8eEA', 'M. Rafi Nugroho', 'mrafiapex96@gmail.com', NULL, NULL, '31531358', 0, NULL, NULL, '3283iyHezaOefbmg2OUkiq8lcyL0C3PZ4YL1f0e32lAR816LrAV1oOnNqEMW', '2020-04-02 07:32:51', '2020-04-02 07:32:51');
 
 --
 -- Indexes for dumped tables
@@ -544,7 +543,7 @@ ALTER TABLE `rating`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

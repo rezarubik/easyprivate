@@ -241,6 +241,7 @@ class UserController extends Controller
      */
     public function dataGuru()
     {
+        dd('hai');
         $pendaftaranGuru = PendaftaranGuru::with(['user', 'microteaching'])
             ->join('users', 'users.id', 'pendaftaran_guru.id_user')
             ->join('microteaching', 'microteaching.id_pendaftaran', 'pendaftaran_guru.id_pendaftaran')
@@ -251,7 +252,8 @@ class UserController extends Controller
             ->get();
         // $pendaftaranGuru = PendaftaranGuru::with(['user'])->where('id_user', '!=', null)->get();
         $guruMapel = GuruMapel::with('mataPelajaran')->get();
-        // dd($pendaftaranGuru);
+        dd($pendaftaranGuru);
+        // dd($guruMapel);
         return view('admin.users_guru', compact('pendaftaranGuru', 'guruMapel'));
     }
     /**
