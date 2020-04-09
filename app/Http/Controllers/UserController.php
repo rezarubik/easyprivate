@@ -10,7 +10,6 @@ use App\Alamat;
 use App\Jenjang;
 use App\MataPelajaran;
 use App\Microteaching;
-use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -239,30 +238,15 @@ class UserController extends Controller
 
     public function updateGuru(Request $r)
     {
-        $guru = User::where([
-            'id' => $r->id
-            ])->first();
+        $guru = User::find($r->id);
 
-        $dir = 'assets/avatars';
-
-        if($guru != null){
-            if($r->file('avatar') != null){
-                $file = $r->avatar;
-                $fileName = 'avatar_'.$r->id.'.'.$file->getClientOriginalExtension();
-    
-                $file->move($dir,$fileName);
-                $guru->avatar = $fileName;
-            }
-            $guru->name = $r->name;
+        if(!$guru->isEmpty()){
+            $guru->avatar = $r->avatar;
+            $guru->nama = $r->nama;
             $guru->save();
         }
 
         return $guru;
-    }
-
-    public function getImage()
-    {
-        return Storage::download('avatars/13');
     }
 
     /**
