@@ -43,10 +43,6 @@
     <!-- end: CLIP-TWO CSS -->
     <!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
     <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
-
-    <!-- start: Another Page CSS -->
-    @yield('css')
-    <!-- end Another Page CSS -->
 </head>
 <!-- end: HEAD -->
 
@@ -351,6 +347,7 @@
         </footer>
         <!-- end: FOOTER -->
     </div>
+    @yield('javascript')
     <!-- start: MAIN JAVASCRIPTS -->
     <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('vendor/bootstrap/js/bootstrap.min.js')}}"></script>
@@ -359,10 +356,11 @@
     <script src="{{asset('vendor/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
     <script src="{{asset('vendor/switchery/switchery.min.js')}}"></script>
     <!-- end: MAIN JAVASCRIPTS -->
-    <!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
-    <!-- <script src="{{asset('vendor/Chart.js/Chart.min.js')}}"></script>
-    <script src="{{asset('vendor/jquery.sparkline/jquery.sparkline.min.js')}}"></script> -->
-    <!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+    <!-- start: JAVASCRIPTS REQUIRED FOR Graph ONLY -->
+    <script src="{{asset('vendor/Chart.js/Chart.min.js')}}"></script>
+    <script src="{{asset('vendor/jquery.sparkline/jquery.sparkline.min.js')}}"></script>
+    <!-- @yield('javascript') -->
+    <!-- end: JAVASCRIPTS REQUIRED FOR Graph ONLY -->
     <!-- start: JS For Another Page -->
     <script src="{{asset('vendor/select2/select2.min.js')}}"></script>
     <script src="{{asset('vendor/DataTables/jquery.dataTables.min.js')}}"></script>
@@ -370,18 +368,19 @@
     <!-- start: CLIP-TWO JAVASCRIPTS -->
     <script src="{{asset('assets/js/main.js')}}"></script>
     <!-- start: JavaScript Event Handlers for this page -->
-    <!-- <script src="{{asset('assets/js/index.js')}}"></script> -->
+    <script src="{{asset('assets/js/index.js')}}"></script>
     <!-- start: JavaScript Event Handlers for additional page -->
     <script src="{{asset('assets/js/table-data.js')}}"></script>
     <script>
         jQuery(document).ready(function() {
             Main.init();
-            // Index.init();
+            Index.init();
             TableData.init();
         });
     </script>
     <!-- end: JavaScript Event Handlers for this page -->
     <!-- end: CLIP-TWO JAVASCRIPTS -->
+    @yield('footer')
 </body>
 
 </html>
