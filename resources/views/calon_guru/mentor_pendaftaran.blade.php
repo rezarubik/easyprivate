@@ -195,14 +195,14 @@
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="mapel_2">Mata Pelajaran 2</label>
                                                     <select name="mapel_2" id="mapel_2" class="form-control" style="width:100%;">
-                                                        <option value="" selected>Pilih Mata Pelajran</option>
+                                                        <option value="" selected>Pilih Mata Pelajaran</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="jenjang_3">Jenjang 3</label>
-                                                    <select name="jenjang_3" id="jenjang_3" class="form-control" style="width:100%;">
+                                                    <select name="jenjang_3" id="jenjang_3" class="form-control dynamic" style="width:100%;" data-dependent="mapel_3">
                                                         <option value="" selected>Pilih Jenjang</option>
                                                         @foreach($jenjang as $j)
                                                         <option value="{{$j->id_jenjang}}">{{$j->nama_jenjang}}</option>
@@ -212,10 +212,7 @@
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="mapel_3">Mata Pelajaran 3</label>
                                                     <select name="mapel_3" id="mapel_3" class="form-control" style="width:100%;">
-                                                        <option value="" selected>Pilih Mata Pelajran</option>
-                                                        @foreach($mapel as $mp)
-                                                        <option value="{{$mp->id_mapel}}">{{$mp->nama_mapel}}</option>
-                                                        @endforeach
+                                                        <option value="" selected>Pilih Mata Pelajaran</option>
                                                     </select>
                                                 </div>
                                             </div>

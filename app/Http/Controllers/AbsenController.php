@@ -9,7 +9,7 @@ class AbsenController extends Controller
 {
     public function __construct()
     {
-        $this->relationship = ['jadwalAjar', 'pemesanan', 'pemesanan.murid', 'pemesanan.guru', 'pemesanan.mataPelajaran'];
+        $this->relationship = ['jadwalAjar', 'pemesanan', 'pemesanan.murid', 'pemesanan.guru', 'pemesanan.mataPelajaran', 'pemesanan.mataPelajaran.jenjang'];
         $this->datetimeFormat = "Y-M-d H:i:s";
         date_default_timezone_set('Asia/Jakarta');
     }
@@ -19,7 +19,17 @@ class AbsenController extends Controller
      */
     public function index()
     {
-        return view('admin.absensi');
+        $absen = Absen::with($this->relationship)
+            ->join('pemesanan', 'pemesanan.id_pemesanan', 'absen.id_pemesanan')
+            ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'pemesanan.id_pemesanan')
+            ->join('users as m', 'm.id', 'pemesanan.id_murid')
+            ->join('users as g', 'g.id', 'pemesanan.id_murid')
+            ->join('jenjang', 'jenjang.id_jenjang', 'mata_pelajaran.id_jenjang')
+            ->select('absen.*')
+            ->get();
+        // dd($absen);
+
+        return view('admin.absensi', compact('absen'));
     }
 
     public function getAbsen()

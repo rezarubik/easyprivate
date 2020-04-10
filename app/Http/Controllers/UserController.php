@@ -51,8 +51,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // $file_cv = $request->file('file_cv');
+        // $file = $request->file_cv;
+        // dd($file);
         // dd(Auth()->user());
         // dd($request);
+        // $this->validate($request, [
+        //     'file' => 'required',
+        //     'file_cv' => 'required'
+        // ]);
         $request->validate([
             'birthday' => 'required',
             'gender' => 'required',
@@ -104,9 +111,11 @@ class UserController extends Controller
             $guruMapel3->save();
         }
 
+        $file_cv = $request->file('file_cv'); // menyimpan file CV
         $pendaftaranGuru = new PendaftaranGuru();
         $pendaftaranGuru->id_user = $user->id;
         $pendaftaranGuru->dir_cv = $request->file_cv;
+        // $pendaftaranGuru->dir_cv = $file_cv->move('data_cv', $file_cv->getClientOriginalName());
         $pendaftaranGuru->pengalaman_mengajar = $request->teach_experience;
         $pendaftaranGuru->nilai_ipk = $request->ipk_score;
         $pendaftaranGuru->save();
@@ -171,29 +180,27 @@ class UserController extends Controller
     }
     public function daftarMurid(Request $r)
     {
-        $murid = User::where(['email' =>$r->email])->first();
-        if($murid == null ){
-        $u = new User();
-        $u->name = $r->name;
-        $u->email = $r->email;
-        $u->avatar = $r->avatar;
-        $u->jenis_kelamin = $r->jenis_kelamin;
-        $u->tanggal_lahir = $r->tanggal_lahir;
-        $u->no_handphone = $r->no_handphone;
-        $u->role = 1;
-        $u->save();
-        $alamat = new Alamat();
-        $alamat->id_user = $u->id_user;
-        $alamat->latitude = $r->latitude;
-        $alamat->longitude = $r->longitude;
-        $alamat->alamat_lengkap = $r->alamat_lengkap;
-        $alamat->save();
-        return $murid;
+        $murid = User::where(['email' => $r->email])->first();
+        if ($murid == null) {
+            $u = new User();
+            $u->name = $r->name;
+            $u->email = $r->email;
+            $u->avatar = $r->avatar;
+            $u->jenis_kelamin = $r->jenis_kelamin;
+            $u->tanggal_lahir = $r->tanggal_lahir;
+            $u->no_handphone = $r->no_handphone;
+            $u->role = 1;
+            $u->save();
+            $alamat = new Alamat();
+            $alamat->id_user = $u->id_user;
+            $alamat->latitude = $r->latitude;
+            $alamat->longitude = $r->longitude;
+            $alamat->alamat_lengkap = $r->alamat_lengkap;
+            $alamat->save();
+            return $murid;
+        } else {
+            return null;
         }
-    else
-    {
-        return null;
-    }
     }
     public function getGuruById($id)
     {
@@ -252,14 +259,14 @@ class UserController extends Controller
     {
         $murid = User::where([
             'email' => $r->email,
-            'role'=>1
+            'role' => 1
         ])->get();
 
-    if (!$murid->isEmpty()) {
-        return 1;
-    } else {
-        return 0;
-    }
+        if (!$murid->isEmpty()) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     //Memeriksa apakah guru sudah lolos seleksi
@@ -295,7 +302,7 @@ class UserController extends Controller
     {
         $guru = User::find($r->id);
 
-        if(!$guru->isEmpty()){
+        if (!$guru->isEmpty()) {
             $guru->avatar = $r->avatar;
             $guru->nama = $r->nama;
             $guru->save();
@@ -309,18 +316,17 @@ class UserController extends Controller
      */
     public function dataGuru()
     {
-        dd('hai');
+        // dd('hai');
         $pendaftaranGuru = PendaftaranGuru::with(['user', 'microteaching'])
             ->join('users', 'users.id', 'pendaftaran_guru.id_user')
             ->join('microteaching', 'microteaching.id_pendaftaran', 'pendaftaran_guru.id_pendaftaran')
-            ->has('murid.alamat')
             ->select('pendaftaran_guru.*')
             ->where('users.id', '!=', '')
             ->where('microteaching.id_microteaching', '!=', '')
             ->get();
         // $pendaftaranGuru = PendaftaranGuru::with(['user'])->where('id_user', '!=', null)->get();
         $guruMapel = GuruMapel::with('mataPelajaran')->get();
-        dd($pendaftaranGuru);
+        // dd($pendaftaranGuru);
         // dd($guruMapel);
         return view('admin.users_guru', compact('pendaftaranGuru', 'guruMapel'));
     }

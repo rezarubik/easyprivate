@@ -12,10 +12,6 @@
 @section('pages', 'Home')
 @section('active-pages', 'Data Guru')
 @section('content')
-<?php
-var_dump('hai');
-die();
-?>
 <div class="container-fluid container-fullw bg-white">
     <div class="row">
         <div class="col-md-12">
