@@ -10,6 +10,7 @@ use App\Alamat;
 use App\Jenjang;
 use App\MataPelajaran;
 use App\Microteaching;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -178,6 +179,7 @@ class UserController extends Controller
         return User::with($this->relationshipMurid)
             ->find($id);
     }
+
     public function daftarMurid(Request $r)
     {
         $murid = User::where(['email' => $r->email])->first();
@@ -202,6 +204,38 @@ class UserController extends Controller
             return null;
         }
     }
+
+    public function getMuridByEmail($email)
+    {
+        $murid = User::where([
+            'role' => 1,
+            'email' => $email
+        ])
+            ->with($this->relationshipMurid)
+            ->first();
+        //dd($murid);
+        return $murid;
+    }
+
+    public function validMurid(Request $r)
+    {
+        $murid = User::where([
+            'email' => $r->email,
+            'role' => 1
+        ])->get();
+
+        if (!$murid->isEmpty()) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public function getMuridByEmailPost(Request $r)
+    {
+        return $this->getMuridByEmail($r->email);
+    }
+
     public function getGuruById($id)
     {
         return User::with($this->relationshipGuru)
@@ -243,31 +277,6 @@ class UserController extends Controller
         // dd($guru);
         return $guru;
     }
-    public function getMuridByEmail($email)
-    {
-        $murid = User::where([
-            'role' => 1,
-            'email' => $email
-        ])
-            ->with($this->relationshipMurid)
-            ->first();
-        //dd($murid);
-        return $murid;
-    }
-
-    public function validMurid(Request $r)
-    {
-        $murid = User::where([
-            'email' => $r->email,
-            'role' => 1
-        ])->get();
-
-        if (!$murid->isEmpty()) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
 
     //Memeriksa apakah guru sudah lolos seleksi
     public function isGuruValid(Request $r)
@@ -292,23 +301,33 @@ class UserController extends Controller
         // dd($r);
         return $this->getGuruByEmail($r->email);
     }
-    //Get Murid bersadrkan email via POST
-    public function getMuridByEmailPost(Request $r)
-    {
-        return $this->getMuridByEmail($r->email);
-    }
 
     public function updateGuru(Request $r)
     {
-        $guru = User::find($r->id);
+        $guru = User::where([
+            'id' => $r->id
+        ])->first();
 
-        if (!$guru->isEmpty()) {
-            $guru->avatar = $r->avatar;
-            $guru->nama = $r->nama;
+        $dir = 'assets/avatars';
+
+        if ($guru != null) {
+            if ($r->file('avatar') != null) {
+                $file = $r->avatar;
+                $fileName = 'avatar_' . $r->id . '.' . $file->getClientOriginalExtension();
+
+                $file->move($dir, $fileName);
+                $guru->avatar = $fileName;
+            }
+            $guru->name = $r->name;
             $guru->save();
         }
 
         return $guru;
+    }
+
+    public function getImage()
+    {
+        return Storage::download('avatars/13');
     }
 
     /**
