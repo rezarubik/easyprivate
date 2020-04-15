@@ -39,9 +39,11 @@ class UserController extends Controller
      */
     public function create()
     {
+        // dd('test')
         $jenjang = Jenjang::all();
         $mapel = MataPelajaran::all();
-        return view('calon_guru.mentor_pendaftaran', compact('jenjang', 'mapel'));
+        $users = User::with($this->relationshipGuru)->find(Auth()->user()->id);
+        return view('calon_guru.mentor_pendaftaran', compact('jenjang', 'mapel', 'users'));
     }
 
     /**
@@ -56,7 +58,7 @@ class UserController extends Controller
         // $file = $request->file_cv;
         // dd($file);
         // dd(Auth()->user());
-        // dd($request);
+        dd($request);
         // $this->validate($request, [
         //     'file' => 'required',
         //     'file_cv' => 'required'
@@ -86,8 +88,8 @@ class UserController extends Controller
 
         $alamat = new Alamat;
         $alamat->id_user = $user->id;
-        $alamat->latitude = -6.23884;
-        $alamat->longitude = 106.912;
+        $alamat->latitude = $request->lat;
+        $alamat->longitude = $request->lng;
         $alamat->alamat_lengkap = 'Jl. Teluk Langsa 4 Blok C.8 No.4';
         $alamat->save();
 
