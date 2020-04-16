@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2020 at 06:03 PM
+-- Generation Time: Apr 16, 2020 at 12:45 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -135,6 +135,34 @@ INSERT INTO `jadwal_ajar` (`id_jadwal_ajar`, `id_pemesanan`, `waktu_ajar`) VALUE
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `jadwal_available`
+--
+
+CREATE TABLE `jadwal_available` (
+  `id_jadwal_available` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `hari` varchar(9) NOT NULL,
+  `start` time NOT NULL,
+  `end` time NOT NULL,
+  `available` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jadwal_pemesanan_perminggu`
+--
+
+CREATE TABLE `jadwal_pemesanan_perminggu` (
+  `id_jadwal_pemesanan_perminggu` int(11) NOT NULL,
+  `id_pemesanan` int(11) NOT NULL,
+  `hari` varchar(9) NOT NULL,
+  `jam` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `jenjang`
 --
 
@@ -247,6 +275,7 @@ CREATE TABLE `pembayaran` (
   `id_pembayaran` int(11) NOT NULL,
   `id_pemesanan` int(11) NOT NULL,
   `status` int(11) NOT NULL,
+  `jumlah_bayar` int(11) NOT NULL,
   `tanggal_bayar` date NOT NULL,
   `tanggal_tagihan` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -255,8 +284,8 @@ CREATE TABLE `pembayaran` (
 -- Dumping data for table `pembayaran`
 --
 
-INSERT INTO `pembayaran` (`id_pembayaran`, `id_pemesanan`, `status`, `tanggal_bayar`, `tanggal_tagihan`) VALUES
-(1, 1, 0, '2020-03-15', '2020-03-08');
+INSERT INTO `pembayaran` (`id_pembayaran`, `id_pemesanan`, `status`, `jumlah_bayar`, `tanggal_bayar`, `tanggal_tagihan`) VALUES
+(1, 1, 0, 0, '2020-03-15', '2020-03-08');
 
 -- --------------------------------------------------------
 
@@ -279,7 +308,7 @@ CREATE TABLE `pemesanan` (
 --
 
 INSERT INTO `pemesanan` (`id_pemesanan`, `id_guru`, `id_murid`, `id_mapel`, `waktu_pemesanan`, `status`, `jumlah_pertemuan`) VALUES
-(1, 3, 2, 1, '2020-03-16 00:00:00', 1, 2);
+(1, 11, 2, 1, '2020-03-16 00:00:00', 3, 2);
 
 -- --------------------------------------------------------
 
@@ -303,11 +332,9 @@ CREATE TABLE `pendaftaran_guru` (
 --
 
 INSERT INTO `pendaftaran_guru` (`id_pendaftaran`, `id_user`, `dir_cv`, `pm_gap_score`, `pm_result`, `status`, `pengalaman_mengajar`, `nilai_ipk`) VALUES
-(1, 3, '', 2, 1, 1, 2, 3.5),
-(5, 1, 'KTP.pdf', NULL, NULL, NULL, 5, NULL),
-(6, 11, 'KTP.pdf', NULL, NULL, NULL, 3, NULL),
-(7, 9, 'KTP.pdf', NULL, NULL, NULL, 2, NULL),
-(8, 9, 'KTP.pdf', NULL, NULL, NULL, 2, NULL);
+(5, 1, 'KTP.pdf', NULL, NULL, 0, 5, NULL),
+(6, 11, 'KTP.pdf', NULL, NULL, 1, 3, NULL),
+(7, 9, 'KTP.pdf', NULL, NULL, 1, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -327,6 +354,20 @@ CREATE TABLE `rating` (
 
 INSERT INTO `rating` (`id_rating`, `id_pembayaran`, `jumlah_rating`) VALUES
 (1, 1, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `upah_guru`
+--
+
+CREATE TABLE `upah_guru` (
+  `id_upah_guru` int(11) NOT NULL,
+  `id_guru` int(11) NOT NULL,
+  `id_jenjang` int(11) NOT NULL,
+  `jumlah_upah` int(11) NOT NULL,
+  `tanggal_upah` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -357,11 +398,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `socialite_id`, `socialite_name`, `avatar`, `name`, `email`, `jenis_kelamin`, `tanggal_lahir`, `no_handphone`, `role`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GiFmPv-D5PpYgTv9BLuiukJyZh7Alo_1ZSyLLFywg', 'Muhammad Reza Pahlevi', 'rezarubik17@gmail.com', 'laki-laki', '1996-04-17', '089501011011', 0, NULL, NULL, 'pSXGtVye6r2iQAcvIlxAXmhoHoGb1RlxydvU3TmiQCILjzPV65vq2v0gphOM', '2020-03-01 09:12:47', '2020-03-25 06:42:31'),
-(2, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GhS1ETgrm04vNvoOeYgtUWtupkcC3UfxjwI5_tqxQ', 'Muhammad Reza Pahlevi Y', 'muhammad.reza.pahlevi.y@gmail.com', 'laki-laki', '1996-04-17', '', 1, NULL, NULL, 'knxjo190gT4E6629bM0pvUuoZKmD9xcj4EeEdgjlXqcuNuzpHqQSkbygoYPB', '2020-03-04 03:14:31', '2020-03-04 03:14:31'),
-(9, NULL, NULL, 'https://lh3.googleusercontent.com/-9ULkHhZfMFQ/AAAAAAAAAAI/AAAAAAAAAAA/AKF05nAP8MT_SBQZAVN9DUgWtWnOw0OgtA/photo.jpg', 'Nadiah Tsp', 'tspnadiah@gmail.com', 'perempuan', '1998-09-14', '089799179002', 0, NULL, NULL, 'jhVmjUDuB36NqfG7YYfqRnu2TAk9f2AZIqfHDE2rNaXFFdcqdtxtD5UEC8Io', '2020-03-25 08:49:25', '2020-03-25 10:01:24'),
+(1, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GiFmPv-D5PpYgTv9BLuiukJyZh7Alo_1ZSyLLFywg', 'Muhammad Reza Pahlevi', 'rezarubik17@gmail.com', 'laki-laki', '1996-04-17', '089501011011', 0, NULL, NULL, 'qCX7yF91wuD0hhfiTBQXHpODHSPWAYRrnUylViEN5Nebh6KcQunJ8tyzLElK', '2020-03-01 09:12:47', '2020-03-25 06:42:31'),
+(2, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GhS1ETgrm04vNvoOeYgtUWtupkcC3UfxjwI5_tqxQ', 'Muhammad Reza Pahlevi Y', 'muhammad.reza.pahlevi.y@gmail.com', 'laki-laki', '1996-04-17', '089699179002', 1, NULL, NULL, 'knxjo190gT4E6629bM0pvUuoZKmD9xcj4EeEdgjlXqcuNuzpHqQSkbygoYPB', '2020-03-04 03:14:31', '2020-03-04 03:14:31'),
+(9, NULL, NULL, 'https://lh3.googleusercontent.com/-9ULkHhZfMFQ/AAAAAAAAAAI/AAAAAAAAAAA/AKF05nAP8MT_SBQZAVN9DUgWtWnOw0OgtA/photo.jpg', 'Nadiah Tsp', 'tspnadiah@gmail.com', 'perempuan', '1998-09-14', '089799179002', 2, NULL, NULL, 'cjhfTyzCys64cLNyjZMu1A1q8nlp6pKwoFLhxT2VJ6q8ZzmilVwKfLDtlSx3', '2020-03-25 08:49:25', '2020-03-25 10:01:24'),
 (10, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GgwVwrMPKv_Cl_5p6mO5ov17NyOJehSy7QAgMkH', 'itsliza14', 'lizaconan2@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'X1SueeExr1vQrBmVgp78Kv20t4OM6jZFzbAt5bIqtBn0eyZUmnszxGg9R5fH', '2020-03-25 08:50:20', '2020-03-25 08:50:20'),
-(11, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GhtyWTOVvaJi6svRko32-coNW-yegA8w6k7Ccn0', 'Muhammad Reza Pahlevi Y', 'reza.pahlevi.oa@gmail.com', 'laki-laki', '2020-03-18', '089799129002', NULL, NULL, NULL, 'Y9XIIkCVU7uis5dSRroArXQSNymfD3fh4FsWeZG3cOAlGH8OmDXTGi2GVkrU', '2020-03-25 08:50:58', '2020-03-25 09:08:48');
+(11, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GhtyWTOVvaJi6svRko32-coNW-yegA8w6k7Ccn0', 'Muhammad Reza Pahlevi Y Guru', 'reza.pahlevi.oa@gmail.com', 'laki-laki', '2020-03-18', '089799129002', 2, NULL, NULL, 'Y9XIIkCVU7uis5dSRroArXQSNymfD3fh4FsWeZG3cOAlGH8OmDXTGi2GVkrU', '2020-03-25 08:50:58', '2020-03-25 09:08:48'),
+(12, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GgESZJE3qYF18m9XYY1q5KDYpUe6gJ3QXKjYs8eEA', 'M. Rafi Nugroho', 'mrafiapex96@gmail.com', NULL, NULL, '31531358', 0, NULL, NULL, '3283iyHezaOefbmg2OUkiq8lcyL0C3PZ4YL1f0e32lAR816LrAV1oOnNqEMW', '2020-04-02 07:32:51', '2020-04-02 07:32:51');
 
 --
 -- Indexes for dumped tables
@@ -396,6 +438,18 @@ ALTER TABLE `guru_mapel`
 --
 ALTER TABLE `jadwal_ajar`
   ADD PRIMARY KEY (`id_jadwal_ajar`);
+
+--
+-- Indexes for table `jadwal_available`
+--
+ALTER TABLE `jadwal_available`
+  ADD PRIMARY KEY (`id_jadwal_available`);
+
+--
+-- Indexes for table `jadwal_pemesanan_perminggu`
+--
+ALTER TABLE `jadwal_pemesanan_perminggu`
+  ADD PRIMARY KEY (`id_jadwal_pemesanan_perminggu`);
 
 --
 -- Indexes for table `jenjang`
@@ -452,6 +506,12 @@ ALTER TABLE `rating`
   ADD PRIMARY KEY (`id_rating`);
 
 --
+-- Indexes for table `upah_guru`
+--
+ALTER TABLE `upah_guru`
+  ADD PRIMARY KEY (`id_upah_guru`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -491,6 +551,18 @@ ALTER TABLE `guru_mapel`
 --
 ALTER TABLE `jadwal_ajar`
   MODIFY `id_jadwal_ajar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `jadwal_available`
+--
+ALTER TABLE `jadwal_available`
+  MODIFY `id_jadwal_available` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `jadwal_pemesanan_perminggu`
+--
+ALTER TABLE `jadwal_pemesanan_perminggu`
+  MODIFY `id_jadwal_pemesanan_perminggu` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `jenjang`
@@ -541,10 +613,16 @@ ALTER TABLE `rating`
   MODIFY `id_rating` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `upah_guru`
+--
+ALTER TABLE `upah_guru`
+  MODIFY `id_upah_guru` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
