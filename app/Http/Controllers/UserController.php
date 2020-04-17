@@ -183,12 +183,12 @@ class UserController extends Controller
         $u->role = 1;
         $u->save();
         $alamat = new Alamat();
-        $alamat->id_user = $u->id_user;
+        $alamat->id_user = $u->id;
         $alamat->latitude = $r->latitude;
         $alamat->longitude = $r->longitude;
         $alamat->alamat_lengkap = $r->alamat_lengkap;
         $alamat->save();
-        return $murid;
+        return User::with($this->relationshipMurid)->where(['id'=>$u->id])->first();
         }
     else
     {
