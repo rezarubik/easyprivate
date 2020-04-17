@@ -25,6 +25,11 @@
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
     <!-- end: GOOGLE FONTS -->
     <!-- start: MAIN CSS -->
+    <link href="{{url('/vendor/select2/select2.min.css')}}" rel="stylesheet" media="screen">
+    <link href="{{url('/')}}/vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" media="screen">
+    <link href="{{url('/')}}/vendor/bootstrap-datepicker/bootstrap-datepicker3.standalone.min.css" rel="stylesheet" media="screen">
+    <link href="{{url('/')}}/vendor/bootstrap-timepicker/bootstrap-timepicker.min.css" rel="stylesheet" media="screen">
+
     <link rel="stylesheet" href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/fontawesome/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/themify-icons/themify-icons.min.css')}}">
@@ -32,14 +37,14 @@
     <link href=" {{asset('vendor/perfect-scrollbar/perfect-scrollbar.min.css')}}" rel="stylesheet" media="screen">
     <link href=" {{asset('vendor/switchery/switchery.min.css')}}" rel="stylesheet" media="screen">
     <!-- end: MAIN CSS -->
-    <!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
-    @yield('css')
-    <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
     <!-- start: CLIP-TWO CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/styles.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/plugins.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/themes/theme-4.css')}}" id="skin_color" />
     <!-- end: CLIP-TWO CSS -->
+    <!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
+    @yield('css')
+    <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
 </head>
 <!-- end: HEAD -->
 
@@ -219,7 +224,7 @@
         <!-- end: FOOTER -->
     </div>
     <!-- start: MAIN JAVASCRIPTS -->
-    <script src="{{url('/')}}/../vendor/jquery/jquery.min.js"></script>
+    <script src="{{url('/')}}/vendor/jquery/jquery.min.js"></script>
     <script src="{{asset('vendor/bootstrap/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('vendor/modernizr/modernizr.js')}}"></script>
     <script src="{{asset('vendor/jquery-cookie/jquery.cookie.js')}}"></script>
@@ -238,31 +243,24 @@
     <script src=" {{asset('vendor/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
     <script src=" {{asset('vendor/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script> -->
     <!-- end: JAVASCRIPTS REQUIRED FOR DATEPICKER ONLY -->
-    <!-- start: javascript for this page only -->
-    @yield('javascript')
-    <!-- end: javascript for this page only -->
+
     <!-- start: CLIP-TWO JAVASCRIPTS -->
     <script src="{{asset('assets/js/main.js')}}"></script>
     <script src="{{asset('assets/js/form-elements.js')}}"></script>
     <!-- start: JavaScript Event Handlers for form elements page -->
     <!-- <script src="{{asset('assets/js/index.js')}}"></script> -->
     <!-- <script src="{{asset('assets/js/form-elements.js')}}"></script> -->
-    <!-- start: JAVASCRIPTS REQUIRED FOR MAPS -->
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-    <script src="{{asset('vendor/gmaps/gmaps.js')}}"></script>
-    <!-- end: JAVASCRIPTS REQUIRED FOR MAPS -->
-    <!-- start: JavaScript Event Handlers for this page -->
-    <script src="{{asset('assets/js/maps.js')}}"></script>
-    <!-- end: JavaScript Event Handlers for this page -->
     <script>
         jQuery(document).ready(function() {
             Main.init();
             // Index.init();
             FormElements.init();
-            Maps.init();
         });
     </script>
     <!-- end: JavaScript Event Handlers for form elements page -->
+    <!-- start: javascript for this page only -->
+    @yield('javascript')
+    <!-- end: javascript for this page only -->
 
 </body>
 

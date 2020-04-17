@@ -39,7 +39,7 @@ class User extends Authenticatable
 
     public function alamat()
     {
-        return $this->hasMany('App\Alamat', 'id_user', 'id');
+        return $this->hasOne('App\Alamat', 'id_user', 'id');
     }
 
     public function pendaftaranGuru()

@@ -10,6 +10,7 @@ use App\Alamat;
 use App\Jenjang;
 use App\MataPelajaran;
 use App\Microteaching;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -38,9 +39,11 @@ class UserController extends Controller
      */
     public function create()
     {
+        // dd('test')
         $jenjang = Jenjang::all();
         $mapel = MataPelajaran::all();
-        return view('calon_guru.mentor_pendaftaran', compact('jenjang', 'mapel'));
+        $users = User::with($this->relationshipGuru)->find(Auth()->user()->id);
+        return view('calon_guru.mentor_pendaftaran', compact('jenjang', 'mapel', 'users'));
     }
 
     /**
@@ -51,20 +54,27 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // $file_cv = $request->file('file_cv');
+        // $file = $request->file_cv;
+        // dd($file);
         // dd(Auth()->user());
         // dd($request);
-        $request->validate([
-            'birthday' => 'required',
-            'gender' => 'required',
-            'handphone_number' => 'required',
-            'latitude' => 'required',
-            'longitude' => 'required',
-            'alamat_lengkap' => 'required',
-            'file_cv' => 'required',
-            'teach_experience' => 'required',
-            'ipk_score' => 'required',
-            'file_microteaching' => 'required'
-        ]);
+        // $this->validate($request, [
+        //     'file' => 'required',
+        //     'file_cv' => 'required'
+        // ]);
+        // $request->validate([
+        //     'birthday' => 'required',
+        //     'gender' => 'required',
+        //     'handphone_number' => 'required',
+        //     'latitude' => 'required',
+        //     'longitude' => 'required',
+        //     'alamat_lengkap' => 'required',
+        //     'file_cv' => 'required',
+        //     'teach_experience' => 'required',
+        //     'ipk_score' => 'required',
+        //     'file_microteaching' => 'required'
+        // ]);
         $messages = [
             'handphone_number.required' => ':attribute wajib diisi!'
         ];
@@ -78,8 +88,8 @@ class UserController extends Controller
 
         $alamat = new Alamat;
         $alamat->id_user = $user->id;
-        $alamat->latitude = -6.23884;
-        $alamat->longitude = 106.912;
+        $alamat->latitude = $request->lat;
+        $alamat->longitude = $request->lng;
         $alamat->alamat_lengkap = 'Jl. Teluk Langsa 4 Blok C.8 No.4';
         $alamat->save();
 
@@ -104,9 +114,11 @@ class UserController extends Controller
             $guruMapel3->save();
         }
 
+        $file_cv = $request->file('file_cv'); // menyimpan file CV
         $pendaftaranGuru = new PendaftaranGuru();
         $pendaftaranGuru->id_user = $user->id;
         $pendaftaranGuru->dir_cv = $request->file_cv;
+        // $pendaftaranGuru->dir_cv = $file_cv->move('data_cv', $file_cv->getClientOriginalName());
         $pendaftaranGuru->pengalaman_mengajar = $request->teach_experience;
         $pendaftaranGuru->nilai_ipk = $request->ipk_score;
         $pendaftaranGuru->save();
@@ -169,32 +181,63 @@ class UserController extends Controller
         return User::with($this->relationshipMurid)
             ->find($id);
     }
+
     public function daftarMurid(Request $r)
     {
-        $murid = User::where(['email' =>$r->email])->first();
-        if($murid == null ){
-        $u = new User();
-        $u->name = $r->name;
-        $u->email = $r->email;
-        $u->avatar = $r->avatar;
-        $u->jenis_kelamin = $r->jenis_kelamin;
-        $u->tanggal_lahir = $r->tanggal_lahir;
-        $u->no_handphone = $r->no_handphone;
-        $u->role = 1;
-        $u->save();
-        $alamat = new Alamat();
-        $alamat->id_user = $u->id;
-        $alamat->latitude = $r->latitude;
-        $alamat->longitude = $r->longitude;
-        $alamat->alamat_lengkap = $r->alamat_lengkap;
-        $alamat->save();
-        return User::with($this->relationshipMurid)->where(['id'=>$u->id])->first();
+        $murid = User::where(['email' => $r->email])->first();
+        if ($murid == null) {
+            $u = new User();
+            $u->name = $r->name;
+            $u->email = $r->email;
+            $u->avatar = $r->avatar;
+            $u->jenis_kelamin = $r->jenis_kelamin;
+            $u->tanggal_lahir = $r->tanggal_lahir;
+            $u->no_handphone = $r->no_handphone;
+            $u->role = 1;
+            $u->save();
+            $alamat = new Alamat();
+            $alamat->id_user = $u->id_user;
+            $alamat->latitude = $r->latitude;
+            $alamat->longitude = $r->longitude;
+            $alamat->alamat_lengkap = $r->alamat_lengkap;
+            $alamat->save();
+            return $murid;
+        } else {
+            return null;
         }
-    else
+    }
+
+    public function getMuridByEmail($email)
     {
-        return null;
+        $murid = User::where([
+            'role' => 1,
+            'email' => $email
+        ])
+            ->with($this->relationshipMurid)
+            ->first();
+        //dd($murid);
+        return $murid;
     }
+
+    public function validMurid(Request $r)
+    {
+        $murid = User::where([
+            'email' => $r->email,
+            'role' => 1
+        ])->get();
+
+        if (!$murid->isEmpty()) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
+
+    public function getMuridByEmailPost(Request $r)
+    {
+        return $this->getMuridByEmail($r->email);
+    }
+
     public function getGuruById($id)
     {
         return User::with($this->relationshipGuru)
@@ -236,31 +279,6 @@ class UserController extends Controller
         // dd($guru);
         return $guru;
     }
-    public function getMuridByEmail($email)
-    {
-        $murid = User::where([
-            'role' => 1,
-            'email' => $email
-        ])
-            ->with($this->relationshipMurid)
-            ->first();
-        //dd($murid);
-        return $murid;
-    }
-
-    public function validMurid(Request $r)
-    {
-        $murid = User::where([
-            'email' => $r->email,
-            'role'=>1
-        ])->get();
-
-    if (!$murid->isEmpty()) {
-        return 1;
-    } else {
-        return 0;
-    }
-    }
 
     //Memeriksa apakah guru sudah lolos seleksi
     public function isGuruValid(Request $r)
@@ -285,23 +303,34 @@ class UserController extends Controller
         // dd($r);
         return $this->getGuruByEmail($r->email);
     }
-    //Get Murid bersadrkan email via POST
-    public function getMuridByEmailPost(Request $r)
-    {
-        return $this->getMuridByEmail($r->email);
-    }
 
     public function updateGuru(Request $r)
     {
-        $guru = User::find($r->id);
+        $guru = User::where([
+            'id' => $r->id
+        ])->first();
 
-        if(!$guru->isEmpty()){
-            $guru->avatar = $r->avatar;
-            $guru->nama = $r->nama;
+        $dir = 'assets/avatars';
+
+        if ($guru != null) {
+            if ($r->file('avatar') != null) {
+                $file = $r->avatar;
+                $fileName = 'avatar_' . $r->id . '.' . $file->getClientOriginalExtension();
+
+                $file->move($dir, $fileName);
+                $guru->avatar = $fileName;
+            }
+            $guru->name = $r->name;
+            $guru->no_handphone = $r->no_handphone;
             $guru->save();
         }
 
         return $guru;
+    }
+
+    public function getImage()
+    {
+        return Storage::download('avatars/13');
     }
 
     /**
@@ -309,10 +338,10 @@ class UserController extends Controller
      */
     public function dataGuru()
     {
+        // dd('hai');
         $pendaftaranGuru = PendaftaranGuru::with(['user', 'microteaching'])
             ->join('users', 'users.id', 'pendaftaran_guru.id_user')
             ->join('microteaching', 'microteaching.id_pendaftaran', 'pendaftaran_guru.id_pendaftaran')
-            ->has('murid.alamat')
             ->select('pendaftaran_guru.*')
             ->where('users.id', '!=', '')
             ->where('microteaching.id_microteaching', '!=', '')
@@ -320,6 +349,7 @@ class UserController extends Controller
         // $pendaftaranGuru = PendaftaranGuru::with(['user'])->where('id_user', '!=', null)->get();
         $guruMapel = GuruMapel::with('mataPelajaran')->get();
         // dd($pendaftaranGuru);
+        // dd($guruMapel);
         return view('admin.users_guru', compact('pendaftaranGuru', 'guruMapel'));
     }
     /**

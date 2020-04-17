@@ -2,10 +2,7 @@
 
 @section('title', 'Pendaftaran Calon Guru')
 @section('css')
-<link href="{{url('/vendor/select2/select2.min.css')}}" rel="stylesheet" media="screen">
-<link href="{{url('/')}}/vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" media="screen">
-<link href="{{url('/')}}/vendor/bootstrap-datepicker/bootstrap-datepicker3.standalone.min.css" rel="stylesheet" media="screen">
-<link href="{{url('/')}}/vendor/bootstrap-timepicker/bootstrap-timepicker.min.css" rel="stylesheet" media="screen">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 @stop
 @section('main-title', 'Pendaftaran Guru')
 @section('description', 'Form Pendaftaran Guru')
@@ -26,7 +23,7 @@
     </div>
     @endif
     <!-- //todo start: form -->
-    <form action="/user" method="post">
+    <form action="/user" method="post" id="signupForm">
         @csrf
         <div class="row">
             <div class="form-group col-md-12">
@@ -84,7 +81,11 @@
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="birthday">Tanggal Lahir</label>
                                                     <p class="input-group input-append datepicker date">
-                                                        <input type="text" name="birthday" placeholder="Pilih Tanggal Lahir Anda" class="form-control @error('birthday') symbol required @enderror" />
+                                                        <input type="text" name="birthday" value="<?php
+                                                                                                    if (isset($users)) {
+                                                                                                        echo $users->tanggal_lahir;
+                                                                                                    }
+                                                                                                    ?>" placeholder="Pilih Tanggal Lahir Anda" class="form-control @error('birthday') symbol required @enderror" />
                                                         <span class="input-group-btn">
                                                             <button type="button" class="btn btn-default">
                                                                 <i class="glyphicon glyphicon-calendar"></i>
@@ -142,9 +143,20 @@
                                             <div class="row">
                                                 <h5 class="over-title margin-bottom-15">Alamat Lengkap</h5>
                                                 <div class="col-sm-12">
-                                                    <h5 class="over-title margin-bottom-15">Basic <span class="text-bold">Map</span></h5>
-                                                    <div class="map" id="map"></div>
-                                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.173842211692!2d106.82202801440098!3d-6.371543964099168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ec04b217fe09%3A0x2f054fe3a0295245!2sPoliteknik+Negeri+Jakarta!5e0!3m2!1sen!2sid!4v1527524060872" width="100%" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="lat">lat</label>
+                                                        <input type="text" id="lat" name="lat" placeholder="Your lat..">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="lng">lng</label>
+                                                        <input type="text" id="lng" name="lng" placeholder="Your lng..">
+                                                    </div>
+                                                    <div class="form-group col-sm-12">
+                                                        <div class="geocoder">
+                                                            <div id="geocoder"></div>
+                                                        </div>
+                                                        <div id="map" style="width:927px; height:500px;"></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -195,14 +207,14 @@
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="mapel_2">Mata Pelajaran 2</label>
                                                     <select name="mapel_2" id="mapel_2" class="form-control" style="width:100%;">
-                                                        <option value="" selected>Pilih Mata Pelajran</option>
+                                                        <option value="" selected>Pilih Mata Pelajaran</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="jenjang_3">Jenjang 3</label>
-                                                    <select name="jenjang_3" id="jenjang_3" class="form-control" style="width:100%;">
+                                                    <select name="jenjang_3" id="jenjang_3" class="form-control dynamic" style="width:100%;" data-dependent="mapel_3">
                                                         <option value="" selected>Pilih Jenjang</option>
                                                         @foreach($jenjang as $j)
                                                         <option value="{{$j->id_jenjang}}">{{$j->nama_jenjang}}</option>
@@ -212,10 +224,7 @@
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="mapel_3">Mata Pelajaran 3</label>
                                                     <select name="mapel_3" id="mapel_3" class="form-control" style="width:100%;">
-                                                        <option value="" selected>Pilih Mata Pelajran</option>
-                                                        @foreach($mapel as $mp)
-                                                        <option value="{{$mp->id_mapel}}">{{$mp->nama_mapel}}</option>
-                                                        @endforeach
+                                                        <option value="" selected>Pilih Mata Pelajaran</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -271,6 +280,103 @@
 @endsection
 
 @section('javascript')
+<!-- mapbox -->
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.css' rel='stylesheet' />
+
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
+<script>
+    var user_location = [106.816666, -6.200000];
+    mapboxgl.accessToken = 'pk.eyJ1IjoicmV6YXJ1YmlrIiwiYSI6ImNrOHd2YWUxZDB1aGgzaW83aG5yODI3ejUifQ.-52Xu5WVXif31PzIBWBnQA';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v9',
+        center: user_location,
+        zoom: 10
+    });
+    //  geocoder here
+    var geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        // limit results to Australia
+        //country: 'IN',
+    });
+
+    var marker;
+    const geolocate = new mapboxgl.GeolocateControl({
+        positionOptions: {
+            enableHighAccuracy: true
+        },
+        trackUserLocation: true
+    });
+
+    // After the map style has loaded on the page, add a source layer and default
+    // styling for a single point.
+    map.on('load', function() {
+        geolocate.trigger();
+        // addMarker(user_location, 'load'); //for marker
+        // Listen for the `result` event from the MapboxGeocoder that is triggered when a user
+        // makes a selection and add a symbol that matches the result.
+        geocoder.on('result', function(ev) {
+            // alert("aaaaa");
+            console.log(ev.result.center);
+
+        });
+    });
+
+    // Add geolocate control to the map. Current Location
+    map.addControl(
+        geolocate
+        // new mapboxgl.GeolocateControl({
+        //     positionOptions: {
+        //         enableHighAccuracy: true
+        //     },
+        //     trackUserLocation: true
+        // })
+    );
+    geolocate.on('geolocate', function() {
+        //Get the updated user location, this returns a javascript object.
+        var loc = geolocate._lastKnownPosition;
+        //Your work here - Get coordinates like so
+        var lat = loc.coords.latitude;
+        var lng = loc.coords.longitude;
+        var latlng = [lng, lat];
+        addMarker(latlng, 'click');
+    });
+    map.on('click', function(e) {
+        addMarker(e.lngLat, 'click');
+        //console.log(e.lngLat.lat);
+    });
+
+    function addMarker(ltlng, event) {
+        if (marker != null) {
+            console.log('marker tidak sama dengan null cuy!');
+            marker.remove();
+        }
+        console.log('Mapnya udah ditekan coy!');
+        user_location = ltlng;
+        // if (event === 'click') {}
+        marker = new mapboxgl.Marker({
+                draggable: true,
+                color: "#d02922"
+            })
+            .setLngLat(user_location)
+            .addTo(map)
+            .on('dragend', onDragEnd);
+        document.getElementById("lat").value = marker.getLngLat().lat;
+        document.getElementById("lng").value = marker.getLngLat().lng;
+    }
+
+    function onDragEnd() {
+        var lngLat = marker.getLngLat();
+        document.getElementById("lat").value = lngLat.lat;
+        document.getElementById("lng").value = lngLat.lng;
+        console.log('lng: ' + lngLat.lng + '<br />lat: ' + lngLat.lat);
+    }
+    document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+</script>
+<!-- mapbox -->
+
 <script src="{{asset('vendor/select2/select2.min.js')}}"></script>
 <script src="{{asset('vendor/maskedinput/jquery.maskedinput.min.js')}}"></script>
 <script src="{{asset('vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js')}}"></script>
@@ -336,4 +442,4 @@
     // });
 </script>
 
-@stop
+@endsection

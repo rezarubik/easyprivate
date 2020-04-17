@@ -29,14 +29,16 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach($absen as $ab)
                 <tr>
-                    <td>1</td>
-                    <td>Nadiah Tsamara Pratiwi</td>
-                    <td>Muhammad Reza Pahlevi Y</td>
-                    <td>Matematika</td>
-                    <td>SMA</td>
-                    <td>2020-03-18 14:17:18</td>
+                    <td>{{$ab->id_absen}}</td>
+                    <td>{{$ab->pemesanan->murid->name}}</td>
+                    <td>{{$ab->pemesanan->guru->name}}</td>
+                    <td>{{$ab->pemesanan->mataPelajaran->nama_mapel}}</td>
+                    <td>{{$ab->pemesanan->mataPelajaran->jenjang->nama_jenjang}}</td>
+                    <td>{{$ab->waktu_absen}}</td>
                 </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
