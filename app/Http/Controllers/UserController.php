@@ -58,23 +58,23 @@ class UserController extends Controller
         // $file = $request->file_cv;
         // dd($file);
         // dd(Auth()->user());
-        dd($request);
+        // dd($request);
         // $this->validate($request, [
         //     'file' => 'required',
         //     'file_cv' => 'required'
         // ]);
-        $request->validate([
-            'birthday' => 'required',
-            'gender' => 'required',
-            'handphone_number' => 'required',
-            'latitude' => 'required',
-            'longitude' => 'required',
-            'alamat_lengkap' => 'required',
-            'file_cv' => 'required',
-            'teach_experience' => 'required',
-            'ipk_score' => 'required',
-            'file_microteaching' => 'required'
-        ]);
+        // $request->validate([
+        //     'birthday' => 'required',
+        //     'gender' => 'required',
+        //     'handphone_number' => 'required',
+        //     'latitude' => 'required',
+        //     'longitude' => 'required',
+        //     'alamat_lengkap' => 'required',
+        //     'file_cv' => 'required',
+        //     'teach_experience' => 'required',
+        //     'ipk_score' => 'required',
+        //     'file_microteaching' => 'required'
+        // ]);
         $messages = [
             'handphone_number.required' => ':attribute wajib diisi!'
         ];
