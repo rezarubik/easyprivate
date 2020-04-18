@@ -7,6 +7,7 @@ use App\User;
 use App\PendaftaranGuru;
 use App\GuruMapel;
 use App\Alamat;
+use App\Http\Requests\UserRequest;
 use App\Jenjang;
 use App\MataPelajaran;
 use App\Microteaching;
@@ -52,7 +53,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         $user = User::findOrFail(Auth()->user()->id);
         // dd($user);

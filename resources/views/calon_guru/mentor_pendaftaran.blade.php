@@ -75,7 +75,7 @@
                                                     <input type="text" name="full_name" class="form-control" disabled="disabled" placeholder="Nama Anda: {{auth()->user()->name}}">
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label class="control-label" for="birthday">Tanggal Lahir</label>
+                                                    <label class="control-label" for="birthday">Tanggal Lahir <span class="symbol required"></span></label>
                                                     <p class="input-group input-append datepicker date">
                                                         <input type="text" name="birthday" value="<?php
                                                                                                     if (isset($users)) {
@@ -87,7 +87,7 @@
                                                                 <i class="glyphicon glyphicon-calendar"></i>
                                                             </button> </span>
                                                         @error('birthday')
-                                                        <div class="help-block"> {{$message}} </div>
+                                                        <div class="text-danger text-large"> {{$message}} </div>
                                                         @enderror
                                                     </p>
                                                 </div>
@@ -387,6 +387,20 @@
 <!-- <script src="{{asset('assets/js/form-elements.js')}}"></script> -->
 <script src="{{asset('vendor/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
 <script src="{{asset('vendor/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script>
+<!-- form validation -->
+<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+<script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>
+<script src="{{asset('vendor/ckeditor/adapters/jquery.js')}}"></script>
+<script src="{{asset('vendor/jquery-validation/jquery.validate.min.js')}}"></script>
+<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+<script src="{{asset('assets/js/form-validation.js')}}"></script>
+<script>
+    jQuery(document).ready(function() {
+        Main.init();
+        FormValidator.init();
+    });
+</script>
+<!-- end validation -->
 <script>
     $("#jenis_kelamin").select2();
     $("#jenjang_1").select2();
