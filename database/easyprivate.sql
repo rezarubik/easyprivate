@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2020 at 12:45 PM
+-- Generation Time: Apr 18, 2020 at 05:25 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -144,7 +144,7 @@ CREATE TABLE `jadwal_available` (
   `hari` varchar(9) NOT NULL,
   `start` time NOT NULL,
   `end` time NOT NULL,
-  `available` tinyint(1) NOT NULL
+  `available` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------

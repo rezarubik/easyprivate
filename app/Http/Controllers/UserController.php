@@ -54,30 +54,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // $file_cv = $request->file('file_cv');
-        // $file = $request->file_cv;
-        // dd($file);
-        // dd(Auth()->user());
-        dd($request);
-        // $this->validate($request, [
-        //     'file' => 'required',
-        //     'file_cv' => 'required'
-        // ]);
-        $request->validate([
-            'birthday' => 'required',
-            'gender' => 'required',
-            'handphone_number' => 'required',
-            'latitude' => 'required',
-            'longitude' => 'required',
-            'alamat_lengkap' => 'required',
-            'file_cv' => 'required',
-            'teach_experience' => 'required',
-            'ipk_score' => 'required',
-            'file_microteaching' => 'required'
-        ]);
-        $messages = [
-            'handphone_number.required' => ':attribute wajib diisi!'
-        ];
         $user = User::findOrFail(Auth()->user()->id);
         // dd($user);
         $user->tanggal_lahir = date_format(date_create($request->birthday), "Y/m/d");
@@ -85,13 +61,15 @@ class UserController extends Controller
         $user->no_handphone = $request->handphone_number;
         $user->role = 0;
         $user->save();
+        // dd($user);
 
         $alamat = new Alamat;
         $alamat->id_user = $user->id;
         $alamat->latitude = $request->lat;
         $alamat->longitude = $request->lng;
-        $alamat->alamat_lengkap = 'Jl. Teluk Langsa 4 Blok C.8 No.4';
+        $alamat->alamat_lengkap = $request->alamat_lengkap;
         $alamat->save();
+        // dd($alamat);
 
         if (isset($request->mapel_1)) {
             $guruMapel1 = new GuruMapel;
@@ -114,19 +92,19 @@ class UserController extends Controller
             $guruMapel3->save();
         }
 
-        $file_cv = $request->file('file_cv'); // menyimpan file CV
         $pendaftaranGuru = new PendaftaranGuru();
         $pendaftaranGuru->id_user = $user->id;
         $pendaftaranGuru->dir_cv = $request->file_cv;
-        // $pendaftaranGuru->dir_cv = $file_cv->move('data_cv', $file_cv->getClientOriginalName());
         $pendaftaranGuru->pengalaman_mengajar = $request->teach_experience;
         $pendaftaranGuru->nilai_ipk = $request->ipk_score;
         $pendaftaranGuru->save();
+        // dd($pendaftaranGuru);
 
         $microteaching = new Microteaching();
         $microteaching->id_pendaftaran = $pendaftaranGuru->id_pendaftaran;
         $microteaching->dir_video = $request->file_microteaching;
         $microteaching->save();
+        // dd($microteaching);
 
         return redirect('/user/create')->with('status', 'Aplikasi Anda berhasil di simpan!');
     }
