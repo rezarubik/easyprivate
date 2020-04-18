@@ -299,6 +299,7 @@ class UserController extends Controller
                 $guru->avatar = $fileName;
             }
             $guru->name = $r->name;
+            $guru->no_handphone = $r->no_handphone;
             $guru->save();
         }
 
