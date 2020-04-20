@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2020 at 05:25 AM
+-- Generation Time: Apr 20, 2020 at 04:41 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -53,7 +53,7 @@ CREATE TABLE `alamat` (
   `id_user` int(11) NOT NULL,
   `latitude` float NOT NULL,
   `longitude` float NOT NULL,
-  `alamat_lengkap` text NOT NULL
+  `alamat_lengkap` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -62,10 +62,12 @@ CREATE TABLE `alamat` (
 
 INSERT INTO `alamat` (`id_alamat`, `id_user`, `latitude`, `longitude`, `alamat_lengkap`) VALUES
 (1, 2, -6.23884, 106.912, 'Jl. Teluk Langsa 4 Blok C.8 No.4'),
-(8, 1, -6.23884, 106.912, 'Jl. Teluk Langsa 4 Blok C.8 No.4'),
+(8, 1, 0, 0, 'Jl. Teluk Langsa 4 Blok C.8 No.4'),
 (9, 11, -6.23884, 106.912, 'Jl. Teluk Langsa 4 Blok C.8 No.4'),
 (10, 9, -6.23884, 106.912, 'Jl. Teluk Langsa 4 Blok C.8 No.4'),
-(11, 9, -6.23884, 106.912, 'Jl. Teluk Langsa 4 Blok C.8 No.4');
+(11, 9, -6.23884, 106.912, 'Jl. Teluk Langsa 4 Blok C.8 No.4'),
+(12, 13, -6.17284, 106.871, 'Jl. Teluk Langsa 4'),
+(13, 13, -6.2391, 106.912, 'Jl. Teluk Langsa 4 C.8 / 4');
 
 -- --------------------------------------------------------
 
@@ -111,7 +113,13 @@ INSERT INTO `guru_mapel` (`id_guru_mapel`, `id_guru`, `id_mapel`) VALUES
 (25, 9, 2),
 (26, 9, 1),
 (27, 9, 1),
-(28, 9, 2);
+(28, 9, 2),
+(29, 13, 1),
+(30, 13, 2),
+(31, 13, 3),
+(32, 13, 1),
+(33, 13, 2),
+(34, 13, 3);
 
 -- --------------------------------------------------------
 
@@ -190,18 +198,59 @@ INSERT INTO `jenjang` (`id_jenjang`, `nama_jenjang`, `harga_per_pertemuan`, `upa
 
 CREATE TABLE `mata_pelajaran` (
   `id_mapel` int(11) NOT NULL,
-  `id_jenjang` int(11) NOT NULL,
-  `nama_mapel` varchar(50) NOT NULL
+  `nama_mapel` varchar(100) NOT NULL,
+  `id_jenjang` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `mata_pelajaran`
 --
 
-INSERT INTO `mata_pelajaran` (`id_mapel`, `id_jenjang`, `nama_mapel`) VALUES
-(1, 1, 'Matematika SD'),
-(2, 2, 'Matematika SMP'),
-(3, 3, 'Matematika SMA');
+INSERT INTO `mata_pelajaran` (`id_mapel`, `nama_mapel`, `id_jenjang`) VALUES
+(1, 'IPA SD', 1),
+(2, 'IPS SD', 1),
+(3, 'BAHASA INGGRIS SD', 1),
+(4, 'BAHASA INDONESIA SD', 1),
+(5, 'MATEMATIKA SD', 1),
+(6, 'BAHASA ARAB SD', 1),
+(7, 'KOMPUTER SD', 1),
+(8, 'KEWARGANEGARAAN SD', 1),
+(9, 'PENGETAHUAN UMUM SD', 1),
+(10, 'IPA SMP', 2),
+(11, 'IPS SMP', 2),
+(12, 'BAHASA INGGRIS SMP', 2),
+(13, 'BAHASA INDONESIA SMP', 2),
+(14, 'BAHASA ARAB SMP', 2),
+(15, 'MATEMATIKA SMP', 2),
+(16, 'FISIKA SMP', 2),
+(17, 'BIOLOGI SMP', 2),
+(18, 'KIMIA SMP', 2),
+(19, 'KOMPUTER SMP', 2),
+(20, 'KEWARGANEGARAAN SMP', 2),
+(21, 'MATEMATIKA IPA SMA', 3),
+(22, 'MATEMATIKA IPS SMA', 3),
+(23, 'MATEMATIKA SMA', 3),
+(24, 'MATEMATIKA FISIKA KIMIA SMA', 3),
+(25, 'STATISTIKA SMA', 3),
+(26, 'GEOGRAFI SMA', 3),
+(27, 'EKONOMI SMA', 3),
+(28, 'SOSIOLOGI SMA', 3),
+(29, 'AKUNTANSI SMA', 3),
+(30, 'ADMINISTRASI PERKANTORAN SMA', 3),
+(31, 'FISIKA SMA', 3),
+(32, 'BIOLOGI SMA', 3),
+(33, 'KIMIA SMA', 3),
+(34, 'BAHASA INGGRIS SMA', 3),
+(35, 'BAHASA INDONESIA SMA', 3),
+(36, 'BAHASA ARAB SMA', 3),
+(37, 'BAHASA SPANYOL SMA', 3),
+(38, 'BAHASA JEPANG SMA', 3),
+(39, 'BAHASA JERMAN SMA', 3),
+(40, 'BAHASA PERANCIS SMA', 3),
+(41, 'BAHASA MANDARIN SMA', 3),
+(42, 'KOMPUTER SMA', 3),
+(43, 'KEWARGANEGARAAN SMA', 3),
+(44, 'SEJARAH SMA', 3);
 
 -- --------------------------------------------------------
 
@@ -229,7 +278,9 @@ INSERT INTO `microteaching` (`id_microteaching`, `id_pendaftaran`, `dir_video`, 
 (4, 5, 'KTP.pdf', NULL, NULL, NULL, NULL),
 (5, 6, 'KTP.pdf', NULL, NULL, NULL, NULL),
 (6, 7, 'KTP.pdf', NULL, NULL, NULL, NULL),
-(7, 8, 'KTP.pdf', NULL, NULL, NULL, NULL);
+(7, 8, 'KTP.pdf', NULL, NULL, NULL, NULL),
+(8, 9, 'CV Muhammad Reza Pahlevi Y Web Developer - New.pdf', NULL, NULL, NULL, NULL),
+(9, 10, 'CV Muhammad Reza Pahlevi Y Web Developer - New.pdf', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -298,6 +349,7 @@ CREATE TABLE `pemesanan` (
   `id_guru` int(11) NOT NULL,
   `id_murid` int(11) NOT NULL,
   `id_mapel` int(11) NOT NULL,
+  `kelas` int(11) NOT NULL,
   `waktu_pemesanan` datetime NOT NULL,
   `status` int(11) NOT NULL,
   `jumlah_pertemuan` int(11) NOT NULL
@@ -307,8 +359,8 @@ CREATE TABLE `pemesanan` (
 -- Dumping data for table `pemesanan`
 --
 
-INSERT INTO `pemesanan` (`id_pemesanan`, `id_guru`, `id_murid`, `id_mapel`, `waktu_pemesanan`, `status`, `jumlah_pertemuan`) VALUES
-(1, 11, 2, 1, '2020-03-16 00:00:00', 3, 2);
+INSERT INTO `pemesanan` (`id_pemesanan`, `id_guru`, `id_murid`, `id_mapel`, `kelas`, `waktu_pemesanan`, `status`, `jumlah_pertemuan`) VALUES
+(1, 11, 2, 1, 0, '2020-03-16 00:00:00', 3, 2);
 
 -- --------------------------------------------------------
 
@@ -334,7 +386,9 @@ CREATE TABLE `pendaftaran_guru` (
 INSERT INTO `pendaftaran_guru` (`id_pendaftaran`, `id_user`, `dir_cv`, `pm_gap_score`, `pm_result`, `status`, `pengalaman_mengajar`, `nilai_ipk`) VALUES
 (5, 1, 'KTP.pdf', NULL, NULL, 0, 5, NULL),
 (6, 11, 'KTP.pdf', NULL, NULL, 1, 3, NULL),
-(7, 9, 'KTP.pdf', NULL, NULL, 1, 2, NULL);
+(7, 9, 'KTP.pdf', NULL, NULL, 1, 2, NULL),
+(9, 13, 'CV Muhammad Reza Pahlevi Y - New.pdf', NULL, NULL, NULL, 4, 4),
+(10, 13, 'CV Muhammad Reza Pahlevi Y - New.pdf', NULL, NULL, NULL, 4, 4);
 
 -- --------------------------------------------------------
 
@@ -398,12 +452,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `socialite_id`, `socialite_name`, `avatar`, `name`, `email`, `jenis_kelamin`, `tanggal_lahir`, `no_handphone`, `role`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GiFmPv-D5PpYgTv9BLuiukJyZh7Alo_1ZSyLLFywg', 'Muhammad Reza Pahlevi', 'rezarubik17@gmail.com', 'laki-laki', '1996-04-17', '089501011011', 0, NULL, NULL, 'qCX7yF91wuD0hhfiTBQXHpODHSPWAYRrnUylViEN5Nebh6KcQunJ8tyzLElK', '2020-03-01 09:12:47', '2020-03-25 06:42:31'),
+(1, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GiFmPv-D5PpYgTv9BLuiukJyZh7Alo_1ZSyLLFywg', 'Muhammad Reza Pahlevi', 'rezarubik17@gmail.com', 'laki-laki', '1996-04-17', '089501011011', 0, NULL, NULL, 'Mc9SKGnzAArfhbMhKTsDKNhqj5tRFCDr2geZJmUeNJeJOaLPAl7xzYVNa4YN', '2020-03-01 09:12:47', '2020-03-25 06:42:31'),
 (2, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GhS1ETgrm04vNvoOeYgtUWtupkcC3UfxjwI5_tqxQ', 'Muhammad Reza Pahlevi Y', 'muhammad.reza.pahlevi.y@gmail.com', 'laki-laki', '1996-04-17', '089699179002', 1, NULL, NULL, 'knxjo190gT4E6629bM0pvUuoZKmD9xcj4EeEdgjlXqcuNuzpHqQSkbygoYPB', '2020-03-04 03:14:31', '2020-03-04 03:14:31'),
 (9, NULL, NULL, 'https://lh3.googleusercontent.com/-9ULkHhZfMFQ/AAAAAAAAAAI/AAAAAAAAAAA/AKF05nAP8MT_SBQZAVN9DUgWtWnOw0OgtA/photo.jpg', 'Nadiah Tsp', 'tspnadiah@gmail.com', 'perempuan', '1998-09-14', '089799179002', 2, NULL, NULL, 'cjhfTyzCys64cLNyjZMu1A1q8nlp6pKwoFLhxT2VJ6q8ZzmilVwKfLDtlSx3', '2020-03-25 08:49:25', '2020-03-25 10:01:24'),
 (10, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GgwVwrMPKv_Cl_5p6mO5ov17NyOJehSy7QAgMkH', 'itsliza14', 'lizaconan2@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'X1SueeExr1vQrBmVgp78Kv20t4OM6jZFzbAt5bIqtBn0eyZUmnszxGg9R5fH', '2020-03-25 08:50:20', '2020-03-25 08:50:20'),
 (11, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GhtyWTOVvaJi6svRko32-coNW-yegA8w6k7Ccn0', 'Muhammad Reza Pahlevi Y Guru', 'reza.pahlevi.oa@gmail.com', 'laki-laki', '2020-03-18', '089799129002', 2, NULL, NULL, 'Y9XIIkCVU7uis5dSRroArXQSNymfD3fh4FsWeZG3cOAlGH8OmDXTGi2GVkrU', '2020-03-25 08:50:58', '2020-03-25 09:08:48'),
-(12, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GgESZJE3qYF18m9XYY1q5KDYpUe6gJ3QXKjYs8eEA', 'M. Rafi Nugroho', 'mrafiapex96@gmail.com', NULL, NULL, '31531358', 0, NULL, NULL, '3283iyHezaOefbmg2OUkiq8lcyL0C3PZ4YL1f0e32lAR816LrAV1oOnNqEMW', '2020-04-02 07:32:51', '2020-04-02 07:32:51');
+(12, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GgESZJE3qYF18m9XYY1q5KDYpUe6gJ3QXKjYs8eEA', 'M. Rafi Nugroho', 'mrafiapex96@gmail.com', NULL, NULL, '31531358', 0, NULL, NULL, '3283iyHezaOefbmg2OUkiq8lcyL0C3PZ4YL1f0e32lAR816LrAV1oOnNqEMW', '2020-04-02 07:32:51', '2020-04-02 07:32:51'),
+(13, NULL, NULL, 'https://lh4.googleusercontent.com/-Jv_CRvUzISA/AAAAAAAAAAI/AAAAAAAAAAA/AAKWJJN2g7jjT7DC5xnLbYMdykpm-OVPYQ/photo.jpg', 'nur mailis', 'nurmailis2407@gmail.com', 'perempuan', '1974-07-25', '082114254075', 0, NULL, NULL, 'tlgcBg3WwgXdyJ2bBGTlM8g634PILwoalX5hgpVo6wkWHCLDzPuXPvl9MxGb', '2020-04-18 08:49:11', '2020-04-18 09:50:28');
 
 --
 -- Indexes for dumped tables
@@ -532,7 +587,7 @@ ALTER TABLE `absen`
 -- AUTO_INCREMENT for table `alamat`
 --
 ALTER TABLE `alamat`
-  MODIFY `id_alamat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_alamat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -544,7 +599,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `guru_mapel`
 --
 ALTER TABLE `guru_mapel`
-  MODIFY `id_guru_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_guru_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `jadwal_ajar`
@@ -574,13 +629,13 @@ ALTER TABLE `jenjang`
 -- AUTO_INCREMENT for table `mata_pelajaran`
 --
 ALTER TABLE `mata_pelajaran`
-  MODIFY `id_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `microteaching`
 --
 ALTER TABLE `microteaching`
-  MODIFY `id_microteaching` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_microteaching` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -604,7 +659,7 @@ ALTER TABLE `pemesanan`
 -- AUTO_INCREMENT for table `pendaftaran_guru`
 --
 ALTER TABLE `pendaftaran_guru`
-  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `rating`
@@ -622,7 +677,7 @@ ALTER TABLE `upah_guru`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
