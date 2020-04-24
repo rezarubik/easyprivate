@@ -117,4 +117,10 @@ class PemesananController extends Controller
 
         return $pemesanan;
     }
+    
+    public function cariGuru(Request $r)
+    {
+        
+        
+    }
 }
