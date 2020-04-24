@@ -363,6 +363,10 @@ class UserController extends Controller
         return view('admin.users_murid', compact('user'));
     }
 
+    public function cariGuru(Type $var = null)
+    {
+        # code...
+    }
     /**
      * Menampilkan Data Nilai GAP
      */
