@@ -43,6 +43,7 @@ Route::get('mapel/guru/{id}', 'MataPelajaranController@getMapelByIdGuru'); //Uda
 
 //Pemesanan
 Route::get('pemesanan', 'PemesananController@getPemesanan'); //Udah bisa
+Route::post('pemesanan/filter', 'PemesananController@getPemesananFiltered');
 Route::get('pemesanan/{id}', 'PemesananController@getPemesananById'); //Udah bisa
 Route::get('pemesanan/guru/{id}', 'PemesananController@getPemesananByIdGuru'); //Udah bisa
 Route::get('pemesanan/murid/{id}', 'PemesananController@getPemesananByIdMurid'); //Udah bisa
@@ -58,13 +59,13 @@ Route::post('login/guru', 'UserController@loginGuru'); //Udah bisa
 Route::post('user/guru/valid', 'UserController@isGuruValid'); //Udah bisa
 
 //User
-Route::post('user/guru', 'UserController@getGuruByEmailPost');//Udah bisa
+Route::post('user/guru', 'UserController@getGuruByEmailPost'); //Udah bisa
 Route::post('user/guru/update', 'UserController@updateGuru');
 Route::get('user/guru/getImage', 'UserController@getImage');
-Route::post('user/murid', 'UserController@getMuridByEmailPost');//done
+Route::post('user/murid', 'UserController@getMuridByEmailPost'); //done
 
 //Daftar Murid
 Route::post('user/daftar', 'UserController@daftarMurid');
 
 //Lpgin Murid
-Route::post('user/murid/valid','UserController@validMurid');
+Route::post('user/murid/valid', 'UserController@validMurid');

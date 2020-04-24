@@ -3,16 +3,12 @@
 @section('title', 'Pendaftaran Calon Guru')
 @section('css')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="{{url('/assets/css/leaflet.css')}}" />
 @stop
 @section('main-title', 'Pendaftaran Guru')
 @section('description', 'Form Pendaftaran Guru')
 @section('blank-page', 'Pendaftaran Guru')
 @section('content')
-<!-- //todo start: tabs -->
-<?php
-// echo $jenjang;
-// die();
-?>
 <div class="container-fluid container-fullw bg-white">
     @if(session('status'))
     <div class="alert alert-success">
@@ -23,7 +19,7 @@
     </div>
     @endif
     <!-- //todo start: form -->
-    <form action="/user" method="post" id="signupForm">
+    <form action="/user" method="post">
         @csrf
         <div class="row">
             <div class="form-group col-md-12">
@@ -31,7 +27,7 @@
                     <p>
                         <button type="submit" class="btn btn-wide btn-primary"><i class="fa fa-floppy-o"></i> Simpan
                         </button>
-                        <a class="btn btn-wide btn-default" href="{{url('user/mentor-dashboard')}}"><i class="fa fa-remove"></i> Batal</a>
+                        <a class="btn btn-wide btn-default" href="{{url('home')}}"><i class="fa fa-remove"></i> Batal</a>
                     </p>
                 </div>
             </div>
@@ -79,7 +75,7 @@
                                                     <input type="text" name="full_name" class="form-control" disabled="disabled" placeholder="Nama Anda: {{auth()->user()->name}}">
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label class="control-label" for="birthday">Tanggal Lahir</label>
+                                                    <label class="control-label" for="birthday">Tanggal Lahir <span class="symbol required"></span></label>
                                                     <p class="input-group input-append datepicker date">
                                                         <input type="text" name="birthday" value="<?php
                                                                                                     if (isset($users)) {
@@ -91,7 +87,7 @@
                                                                 <i class="glyphicon glyphicon-calendar"></i>
                                                             </button> </span>
                                                         @error('birthday')
-                                                        <div class="help-block"> {{$message}} </div>
+                                                        <div class="text-danger text-large"> {{$message}} </div>
                                                         @enderror
                                                     </p>
                                                 </div>
@@ -124,7 +120,7 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="no_hp">Nomor <i>Handphone</i> yang dapat dihubungi </label>
-                                                    <input type="number" name="handphone_number" class="form-control @error('handphone_number') symbol required @enderror " placeholder="Contoh: 089501011011" min="0">
+                                                    <input type="text" name="handphone_number" class="form-control @error('handphone_number') symbol required @enderror " placeholder="Contoh: 089501011011">
                                                     @error('handphone_number')
                                                     <div class="help-block"> {{$message}} </div>
                                                     @enderror
@@ -139,27 +135,31 @@
                             <div class="row padding-20">
                                 <div class="col-md-12">
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <h5 class="over-title margin-bottom-15">Alamat Lengkap</h5>
-                                                <div class="col-sm-12">
-                                                    <div class="form-group col-md-6">
-                                                        <label for="lat">lat</label>
-                                                        <input type="text" id="lat" name="lat" placeholder="Your lat..">
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label for="lng">lng</label>
-                                                        <input type="text" id="lng" name="lng" placeholder="Your lng..">
-                                                    </div>
-                                                    <div class="form-group col-sm-12">
-                                                        <div class="geocoder">
-                                                            <div id="geocoder"></div>
-                                                        </div>
-                                                        <div id="map" style="width:927px; height:500px;"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="col-sm-12">
+                                            <h5 class="over-title margin-bottom-15">Alamat Lengkap</h5>
+                                            <input style="width: 100%;" type="text" class="form-control" placeholder="Masukkan alamat lengkap rumah Anda disini" id="address" name="alamat_lengkap">
                                         </div>
+                                    </div>
+                                    <div class="row margin-top-30">
+                                        <div class="col-sm-12">
+                                            <h5 class="over-title margin-bottom-15">Temukan daerah disekitar rumah Anda</h5>
+                                            <div class="geocoder">
+                                                <div id="geocoder"></div>
+                                            </div>
+                                            <div id="map" style="height:250px; position:relative; top:0px; left:0px; right:0px; bottom:0px; "></div>
+                                            <input type="hidden" id="lat" name="lat" placeholder="Your lat..">
+                                            <input type="hidden" id="lng" name="lng" placeholder="Your lng..">
+                                        </div>
+                                        <!-- <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label" for="">Latitude</label>
+                                                <input type="hidden" id="lat" name="lat" placeholder="Your lat..">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label" for="">Longitude</label>
+                                                <input type="hidden" id="lng" name="lng" placeholder="Your lng..">
+                                            </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -285,6 +285,7 @@
 <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.css' rel='stylesheet' />
 
 <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
+<script src="{{asset('assets/js/leaflet.js')}}"></script>
 <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
 <script>
     var user_location = [106.816666, -6.200000];
@@ -386,6 +387,20 @@
 <!-- <script src="{{asset('assets/js/form-elements.js')}}"></script> -->
 <script src="{{asset('vendor/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
 <script src="{{asset('vendor/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script>
+<!-- form validation -->
+<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+<script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>
+<script src="{{asset('vendor/ckeditor/adapters/jquery.js')}}"></script>
+<script src="{{asset('vendor/jquery-validation/jquery.validate.min.js')}}"></script>
+<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+<script src="{{asset('assets/js/form-validation.js')}}"></script>
+<script>
+    jQuery(document).ready(function() {
+        Main.init();
+        FormValidator.init();
+    });
+</script>
+<!-- end validation -->
 <script>
     $("#jenis_kelamin").select2();
     $("#jenjang_1").select2();

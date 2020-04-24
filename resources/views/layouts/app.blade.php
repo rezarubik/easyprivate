@@ -250,6 +250,7 @@
     <!-- start: JavaScript Event Handlers for form elements page -->
     <!-- <script src="{{asset('assets/js/index.js')}}"></script> -->
     <!-- <script src="{{asset('assets/js/form-elements.js')}}"></script> -->
+    @yield('javascript')
     <script>
         jQuery(document).ready(function() {
             Main.init();
@@ -259,7 +260,7 @@
     </script>
     <!-- end: JavaScript Event Handlers for form elements page -->
     <!-- start: javascript for this page only -->
-    @yield('javascript')
+
     <!-- end: javascript for this page only -->
 
 </body>
