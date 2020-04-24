@@ -52,4 +52,9 @@ class User extends Authenticatable
         // return $this->hasMany('App\GuruMapel', 'id_guru', 'id');
         return $this->belongsToMany('App\GuruMapel', 'id_guru', 'id');
     }
+
+    public function jadwalAvailable()
+    {
+        return $this->hasMany('App\JadwalAvailable', 'id_user', 'id');
+    }
 }
