@@ -39,6 +39,7 @@ Route::get('mapel/guru/{id}', 'MataPelajaranController@getMapelByIdGuru'); //Uda
 
 //Pemesanan
 Route::get('pemesanan', 'PemesananController@getPemesanan'); //Udah bisa
+Route::post('pemesanan/filter', 'PemesananController@getPemesananFiltered');
 Route::get('pemesanan/{id}', 'PemesananController@getPemesananById'); //Udah bisa
 Route::get('pemesanan/guru/{id}', 'PemesananController@getPemesananByIdGuru'); //Udah bisa
 Route::get('pemesanan/murid/{id}', 'PemesananController@getPemesananByIdMurid'); //Udah bisa

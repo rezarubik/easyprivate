@@ -9,7 +9,7 @@ class JadwalAjarController extends Controller
 {
     public function __construct()
     {
-        $this->relationship = ['pemesanan', 'pemesanan.murid', 'pemesanan.murid.alamat', 'pemesanan.guru', 'pemesanan.mataPelajaran', 'pemesanan.mataPelajaran', 'pemesanan.mataPelajaran.jenjang'];
+        $this->relationship = ['pemesanan', 'pemesanan.murid', 'pemesanan.murid.alamat', 'pemesanan.guru', 'pemesanan.mataPelajaran', 'pemesanan.mataPelajaran.jenjang'];
     }
 
     public function getJadwalAjarByIdGuru($id)
