@@ -39,14 +39,20 @@ class PemesananController extends Controller
         return view('admin.pemesanan', compact('pemesanan'));
     }
 
+    //Get semua pemesanan
     public function getPemesanan()
     {
+        //With untuk get relationship
         return Pemesanan::with($this->relationship)->get();
+        // return Pemesanan::get();
     }
 
     public function getPemesananById($id)
     {
         return Pemesanan::with($this->relationship)->find($id);
+        // return Pemesanan::with($this->relationship)->where(['id_pemesanan'=>$id])->first();
+
+        //->where(['id' => $id]);
     }
 
     public function getPemesananByIdGuru($id)
@@ -55,6 +61,36 @@ class PemesananController extends Controller
             ->where([
                 'id_guru' => $id
             ])
+            ->orderBy('status')
+            ->orderBy('waktu_pemesanan', 'desc')
+            ->get();
+    }
+
+    public function getPemesananFiltered(Request $r)
+    {
+        $where = [];
+
+        // if($r->id_pemesanan != null && $r->id_pemesanan != ''){
+
+        // }
+        if(isset($r->id_pemesanan)){
+            $where['id_pemesanan'] = $r->id_pemesanan;
+        }
+
+        if(isset($r->id_guru)){
+            $where['id_guru'] = $r->id_guru;
+        }
+
+        if(isset($r->id_murid)){
+            $where['id_murid'] = $r->id_murid;
+        }
+
+        if(isset($r->status)){
+            $where['status'] = $r->status;
+        }
+
+        return Pemesanan::with($this->relationship)
+            ->where($where)
             ->orderBy('status')
             ->orderBy('waktu_pemesanan', 'desc')
             ->get();
@@ -80,5 +116,11 @@ class PemesananController extends Controller
         $pemesanan->save();
 
         return $pemesanan;
+    }
+    
+    public function cariGuru(Request $r)
+    {
+        
+        
     }
 }

@@ -31,6 +31,10 @@ Route::post('absen/store', 'AbsenController@store'); //
 Route::get('jadwalAjar/{id}', 'JadwalAjarController@getJadwalAjarById');
 Route::get('jadwalAjar/guru/{id}', 'JadwalAjarController@getJadwalAjarByIdGuru');
 
+//jenjang
+Route::get('jenjang', 'JenjangController@getJenjang'); //Udah bisa
+Route::get('jenjang/{id}', 'JenjangController@getJenjangById');
+
 //Mata pelajaran
 Route::get('mapel', 'MataPelajaranController@getMapel'); //Udah bisa
 Route::get('mapel/{id}', 'MataPelajaranController@getMapelById'); //Udah bisa
@@ -39,6 +43,7 @@ Route::get('mapel/guru/{id}', 'MataPelajaranController@getMapelByIdGuru'); //Uda
 
 //Pemesanan
 Route::get('pemesanan', 'PemesananController@getPemesanan'); //Udah bisa
+Route::post('pemesanan/filter', 'PemesananController@getPemesananFiltered');
 Route::get('pemesanan/{id}', 'PemesananController@getPemesananById'); //Udah bisa
 Route::get('pemesanan/guru/{id}', 'PemesananController@getPemesananByIdGuru'); //Udah bisa
 Route::get('pemesanan/murid/{id}', 'PemesananController@getPemesananByIdMurid'); //Udah bisa
