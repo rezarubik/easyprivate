@@ -68,6 +68,19 @@ class UserController extends Controller
 
 
         $user->tanggal_lahir = date_format(date_create($request->birthday), "Y/m/d");
+        // todo 
+        if ($age > 20 && $age <= 25) {
+            $nilai['age'] = 5;
+        } elseif ($age > 25 && $age <= 30) {
+            $nilai['age'] = 4;
+        } elseif ($age > 30 && $age <= 35) {
+            $nilai['age'] = 3;
+        } elseif ($age > 35 && $age <= 40) {
+            $nilai['age'] = 2;
+        } elseif ($age > 40) {
+            $nilai['age'] = 1;
+        }
+
         $user->jenis_kelamin = $request->gender;
         $user->no_handphone = $request->handphone_number;
         $user->role = 0;
@@ -130,13 +143,19 @@ class UserController extends Controller
         } elseif ($pk > 24) {
             $nilai['pk'] = 5;
         }
-
         $pendaftaranGuru->pengalaman_mengajar = $request->teach_experience;
+
         //  todo nilai ipk
         if ($ipk <= 2) {
             $nilai['ipk'] = 1;
         } elseif ($ipk > 2 && $ipk <= 2.5) {
             $nilai['ipk'] = 2;
+        } elseif ($ipk > 2.5 && $ipk <= 3.0) {
+            $nilai['ipk'] = 3;
+        } elseif ($ipk > 3.0 && $ipk <= 3.5) {
+            $nilai['ipk'] = 4;
+        } elseif ($ipk > 3.5 && $ipk <= 4.0) {
+            $nilai['ipk'] = 5;
         }
         $pendaftaranGuru->nilai_ipk = $request->ipk_score;
         $pendaftaranGuru->save();
