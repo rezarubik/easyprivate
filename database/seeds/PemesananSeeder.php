@@ -42,7 +42,7 @@ class PemesananSeeder extends Seeder
             ],
             [
                 'id_guru' => 6,
-                'id_murid' => 10,
+                'id_murid' => 4,
                 'id_mapel' => 3,
                 'waktu_pemesanan' => '2020-04-01 13:42:14',
                 'status' => 2,

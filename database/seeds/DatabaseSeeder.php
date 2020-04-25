@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call('ProfileMatchingSeeder');
         $this->call('JenjangSeeder');
         $this->call('MataPelajaranSeeder');
+        $this->call('GuruMapelSeeder');
         $this->call('PemesananSeeder');
         $this->call('JadwalAjarSeeder');
         $this->call('JadwalAvailableSeeder');
