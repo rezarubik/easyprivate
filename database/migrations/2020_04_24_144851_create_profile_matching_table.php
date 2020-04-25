@@ -24,7 +24,7 @@ class CreateProfileMatchingTable extends Migration
             $table->integer('pm_ipk')->nullable();
             $table->integer('pm_usia')->nullable();
             $table->integer('pm_km')->nullable();
-            $table->integer('pm_result')->nullable();
+            $table->float('pm_result')->nullable();
             $table->timestamps();
         });
     }
