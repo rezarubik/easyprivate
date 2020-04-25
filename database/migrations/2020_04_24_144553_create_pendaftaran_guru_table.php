@@ -17,8 +17,6 @@ class CreatePendaftaranGuruTable extends Migration
             $table->bigIncrements('id_pendaftaran');
             $table->integer('id_user')->nullable();
             $table->string('dir_cv', 255)->nullable();
-            $table->integer('pm_gap_score')->nullable();
-            $table->integer('pm_result')->nullable();
             $table->integer('status')->nullable();
             $table->integer('pengalaman_mengajar')->nullable();
             $table->float('nilai_ipk')->nullable();
