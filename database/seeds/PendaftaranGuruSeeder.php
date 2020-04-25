@@ -18,24 +18,21 @@ class PendaftaranGuruSeeder extends Seeder
         $data = [
             [
                 'id_user' => 3,
-                'pm_result' => 4.45,
                 'pengalaman_mengajar' => 25,
                 'nilai_ipk' => 3.40
             ],
             [
                 'id_user' => 5,
-                'pm_result' => 3.89,
                 'pengalaman_mengajar' => 26,
                 'nilai_ipk' => 3.45
             ],
             [
                 'id_user' => 6,
-                'pm_result' => 4.24,
                 'pengalaman_mengajar' => 14,
                 'nilai_ipk' => 3.49
             ]
         ];
 
-        PendaftaranGuru::insert();
+        PendaftaranGuru::insert($data);
     }
 }
