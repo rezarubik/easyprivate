@@ -3,7 +3,7 @@
 @section('title', 'Pendaftaran Calon Guru')
 @section('css')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<link rel="stylesheet" href="{{url('/assets/css/leaflet.css')}}" />
+<!-- <link rel="stylesheet" href="{{url('/assets/css/leaflet.css')}}" /> -->
 @stop
 @section('main-title', 'Pendaftaran Guru')
 @section('description', 'Form Pendaftaran Guru')
@@ -188,7 +188,7 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="mapel_1">Mata Pelajaran 1</label>
-                                                    <select name="mapel_1" id="mapel_1" class="form-control jenjang_1" style="width:100%;">
+                                                    <select name="mapel_1" id="mapel_1" class="form-control" style="width:100%;">
                                                         <option value="" selected>Pilih Mata Pelajaran</option>
 
                                                     </select>
