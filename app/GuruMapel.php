@@ -17,6 +17,6 @@ class GuruMapel extends Model
 
     public function mataPelajaran()
     {
-        return $this->hasOne('App\MataPelajaran', 'id_mapel', 'id_mapel');
+        return $this->hasOne('App\MataPelajaran', 'id_mata_pelajaran', 'id_mapel');
     }
 }
