@@ -355,8 +355,8 @@ class UserController extends Controller
         if(isset($r->id_jenjang)){
             $where['id_jenjang'] = $r->id_jenjang;
         }
-        if(isset())
-        $where['jenis_kelamin'] = $r->jenis_kelamin;
+        // if(isset())
+        // $where['jenis_kelamin'] = $r->jenis_kelamin;
 
         return User::with($this->relationshipCariGuru)
             ->where($where)
