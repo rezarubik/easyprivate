@@ -63,7 +63,7 @@ Route::post('user/guru', 'UserController@getGuruByEmailPost'); //Udah bisa
 Route::post('user/guru/update', 'UserController@updateGuru');
 Route::get('user/guru/getImage', 'UserController@getImage');
 Route::post('user/murid', 'UserController@getMuridByEmailPost'); //done
-
+Route::post('user/cari_guru', 'UserController@cariGuru');
 //Daftar Murid
 Route::post('user/daftar', 'UserController@daftarMurid');
 
