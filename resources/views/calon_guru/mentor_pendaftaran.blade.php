@@ -228,6 +228,40 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label class="control-label" for="jenjang_4">Jenjang 4</label>
+                                                    <select name="jenjang_4" id="jenjang_4" class="form-control dynamic" style="width:100%;" data-dependent="mapel_4">
+                                                        <option value="" selected>Pilih Jenjang</option>
+                                                        @foreach($jenjang as $j)
+                                                        <option value="{{$j->id_jenjang}}">{{$j->nama_jenjang}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label class="control-label" for="mapel_4">Mata Pelajaran 4</label>
+                                                    <select name="mapel_4" id="mapel_4" class="form-control" style="width:100%;">
+                                                        <option value="" selected>Pilih Mata Pelajaran</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label class="control-label" for="jenjang_5">Jenjang 5</label>
+                                                    <select name="jenjang_5" id="jenjang_5" class="form-control dynamic" style="width:100%;" data-dependent="mapel_5">
+                                                        <option value="" selected>Pilih Jenjang</option>
+                                                        @foreach($jenjang as $j)
+                                                        <option value="{{$j->id_jenjang}}">{{$j->nama_jenjang}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label class="control-label" for="mapel_5">Mata Pelajaran 5</label>
+                                                    <select name="mapel_5" id="mapel_5" class="form-control" style="width:100%;">
+                                                        <option value="" selected>Pilih Mata Pelajaran</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -409,6 +443,10 @@
     $("#mapel_2").select2();
     $("#jenjang_3").select2();
     $("#mapel_3").select2();
+    $("#jenjang_4").select2();
+    $("#mapel_4").select2();
+    $("#jenjang_5").select2();
+    $("#mapel_5").select2();
 </script>
 <script>
     $(document).ready(function() {

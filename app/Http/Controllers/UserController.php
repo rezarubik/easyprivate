@@ -58,7 +58,32 @@ class UserController extends Controller
     {
         $user = User::findOrFail(Auth()->user()->id);
         // dd($user);
+        $score = [];
+        // todo Pengalaman Kerja
+        $pk = $request->teach_experience;
+        // todo Nilai IPK
+        $ipk = $request->ipk_score;
+        // todo Usia
+        $currentYear = new DateTime("now");
+        
+        $age = $user->tanggal_lahir;
+        // todo Ketersediaan Mata Pelajaran
+
+
         $user->tanggal_lahir = date_format(date_create($request->birthday), "Y/m/d");
+        // todo 
+        if ($age > 20 && $age <= 25) {
+            $nilai['age'] = 5;
+        } elseif ($age > 25 && $age <= 30) {
+            $nilai['age'] = 4;
+        } elseif ($age > 30 && $age <= 35) {
+            $nilai['age'] = 3;
+        } elseif ($age > 35 && $age <= 40) {
+            $nilai['age'] = 2;
+        } elseif ($age > 40) {
+            $nilai['age'] = 1;
+        }
+
         $user->jenis_kelamin = $request->gender;
         $user->no_handphone = $request->handphone_number;
         $user->role = 0;
@@ -93,15 +118,50 @@ class UserController extends Controller
             $guruMapel3->id_mapel = $request->mapel_3;
             $guruMapel3->save();
         }
+        if (isset($request->mapel_4)) {
+            $guruMapel4 = new GuruMapel;
+            $guruMapel4->id_guru = $user->id;
+            $guruMapel4->id_mapel = $request->mapel_4;
+            $guruMapel4->save();
+        }
+        if (isset($request->mapel_5)) {
+            $guruMapel5 = new GuruMapel;
+            $guruMapel5->id_guru = $user->id;
+            $guruMapel5->id_mapel = $request->mapel_5;
+            $guruMapel5->save();
+        }
 
         $pendaftaranGuru = new PendaftaranGuru();
         $pendaftaranGuru->id_user = $user->id;
         $pendaftaranGuru->dir_cv = $request->file_cv;
+        // todo rules pm pengalaman kerja
+        if ($pk <= 6) {
+            $nilai['pk'] = 1;
+        } elseif ($pk > 6 && $pk <= 12) {
+            $nilai['pk'] = 2;
+        } elseif ($pk > 12 && $pk <= 18) {
+            $nilai['pk'] = 3;
+        } elseif ($pk > 18 && $pk <= 24) {
+            $nilai['pk'] = 4;
+        } elseif ($pk > 24) {
+            $nilai['pk'] = 5;
+        }
         $pendaftaranGuru->pengalaman_mengajar = $request->teach_experience;
+
+        //  todo nilai ipk
+        if ($ipk <= 2) {
+            $nilai['ipk'] = 1;
+        } elseif ($ipk > 2 && $ipk <= 2.5) {
+            $nilai['ipk'] = 2;
+        } elseif ($ipk > 2.5 && $ipk <= 3.0) {
+            $nilai['ipk'] = 3;
+        } elseif ($ipk > 3.0 && $ipk <= 3.5) {
+            $nilai['ipk'] = 4;
+        } elseif ($ipk > 3.5 && $ipk <= 4.0) {
+            $nilai['ipk'] = 5;
+        }
         $pendaftaranGuru->nilai_ipk = $request->ipk_score;
         $pendaftaranGuru->save();
-        // dd($pendaftaranGuru);
-
         $microteaching = new Microteaching();
         $microteaching->id_pendaftaran = $pendaftaranGuru->id_pendaftaran;
         $microteaching->dir_video = $request->file_microteaching;
