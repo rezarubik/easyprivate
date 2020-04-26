@@ -21,6 +21,7 @@ class UserController extends Controller
         // $this->middleware('auth');
         $this->relationshipGuru = ['alamat'];
         $this->relationshipMurid = ['alamat'];
+        $this->relationshipCariGuru = ['alamat', 'guruMapel.mataPelajaran', 'guruMapel.mataPelajaran.jenjang','guruMapel'];
     }
 
     /**
@@ -342,9 +343,26 @@ class UserController extends Controller
         return view('admin.users_murid', compact('user'));
     }
 
-    public function cariGuru(Type $var = null)
+    public function cariGuru(Request $r)
     {
-        # code...
+        $where = [];
+
+        $where['role'] = 2;
+
+        if(isset($r->id_mapel)){
+            $where['id_mapel'] = $r->id_mapel;
+        }
+        if(isset($r->id_jenjang)){
+            $where['id_jenjang'] = $r->id_jenjang;
+        }
+        if(isset())
+        $where['jenis_kelamin'] = $r->jenis_kelamin;
+
+        return User::with($this->relationshipCariGuru)
+            ->where($where)
+            // ->orderBy('status')
+            // ->orderBy('waktu_pemesanan', 'desc')
+            ->get();
     }
     /**
      * Menampilkan Data Nilai GAP
