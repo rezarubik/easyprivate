@@ -63,6 +63,8 @@ class UserController extends Controller
         // todo Nilai IPK
         $ipk = $request->ipk_score;
         // todo Usia
+        $currentYear = new DateTime("now");
+        
         $age = $user->tanggal_lahir;
         // todo Ketersediaan Mata Pelajaran
 
