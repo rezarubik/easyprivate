@@ -18,7 +18,6 @@ class CreateAbsenTable extends Migration
             $table->integer('id_jadwal_ajar')->nullable();
             $table->integer('id_pemesanan')->nullable();
             $table->dateTime('waktu_absen')->nullable();
-            $table->timestamps();
         });
     }
 

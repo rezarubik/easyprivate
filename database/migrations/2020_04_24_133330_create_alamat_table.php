@@ -19,7 +19,6 @@ class CreateAlamatTable extends Migration
             $table->float('latitude')->nullable();
             $table->float('longitude')->nullable();
             $table->text('alamat_lengkap')->nullable();
-            $table->timestamps();
         });
     }
 

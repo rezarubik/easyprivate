@@ -19,7 +19,6 @@ class CreateJadwalPemesananPermingguTable extends Migration
             $table->string('hari', 9)->nullable();
             $table->time('start')->nullable();
             $table->time('end')->nullable();
-            $table->timestamps();
         });
     }
 

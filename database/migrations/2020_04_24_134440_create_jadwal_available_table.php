@@ -20,7 +20,6 @@ class CreateJadwalAvailableTable extends Migration
             $table->time('start')->nullable();
             $table->time('end')->nullable();
             $table->integer('available')->nullable();
-            $table->timestamps();
         });
     }
 

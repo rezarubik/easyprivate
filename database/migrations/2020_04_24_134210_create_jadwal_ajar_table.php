@@ -17,7 +17,6 @@ class CreateJadwalAjarTable extends Migration
             $table->bigIncrements('id_jadwal_ajar');
             $table->integer('id_pemesanan')->nullable();
             $table->dateTime('waktu_ajar')->nullable();
-            $table->timestamps();
         });
     }
 

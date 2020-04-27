@@ -18,7 +18,6 @@ class CreateJenjangTable extends Migration
             $table->string('nama_jenjang', 50)->nullable();
             $table->integer('harga_per_pertemuan')->nullable();
             $table->integer('upah_guru_per_pertemuan')->nullable();
-            $table->timestamps();
         });
     }
 
