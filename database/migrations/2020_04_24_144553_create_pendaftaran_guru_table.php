@@ -21,7 +21,6 @@ class CreatePendaftaranGuruTable extends Migration
             $table->integer('status')->nullable();
             $table->integer('pengalaman_mengajar')->nullable();
             $table->float('nilai_ipk')->nullable();
-            $table->timestamps();
         });
     }
 

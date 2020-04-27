@@ -17,7 +17,6 @@ class CreateRatingTable extends Migration
             $table->bigIncrements('id_rating');
             $table->integer('id_pembayaran')->nullable();
             $table->float('jumlah_rating')->nullable();
-            $table->timestamps();
         });
     }
 

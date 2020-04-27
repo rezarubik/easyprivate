@@ -68,11 +68,21 @@ class AbsenSeeder extends Seeder
             ],
             [
                 'id_jadwal_ajar' => 11,
+                'id_pemesanan' => 3,
+                'waktu_absen' => '2020-04-21 14:55:00'
+            ],
+            [
+                'id_jadwal_ajar' => 12,
                 'id_pemesanan' => 1,
                 'waktu_absen' => '2020-04-23 15:24:00'
             ],
             [
-                'id_jadwal_ajar' => 12,
+                'id_jadwal_ajar' => 13,
+                'id_pemesanan' => 3,
+                'waktu_absen' => '2020-04-24 14:59:00'
+            ],
+            [
+                'id_jadwal_ajar' => 14,
                 'id_pemesanan' => 1,
                 'waktu_absen' => '2020-04-26 15:24:00'
             ]

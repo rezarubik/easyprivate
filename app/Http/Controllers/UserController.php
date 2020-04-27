@@ -469,6 +469,7 @@ class UserController extends Controller
         ->join('jadwal_available', 'jadwal_available.id_user', 'users.id')
             ->where($where)
             ->whereIn('jadwal_available.hari',$jadwalAvailable)
+            ->select('users.*')
             // ->orderBy('status')
             // ->orderBy('waktu_pemesanan', 'desc')
             ->get();

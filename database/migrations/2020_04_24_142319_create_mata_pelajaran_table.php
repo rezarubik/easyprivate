@@ -17,7 +17,6 @@ class CreateMataPelajaranTable extends Migration
             $table->bigIncrements('id_mapel');
             $table->integer('id_jenjang')->nullable();
             $table->string('nama_mapel', 100);
-            $table->timestamps();
         });
     }
 

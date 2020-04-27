@@ -22,7 +22,6 @@ class CreatePemesananTable extends Migration
             $table->dateTime('waktu_pemesanan')->nullable();
             $table->integer('status')->nullable();
             $table->integer('jumlah_pertemuan')->nullable();
-            $table->timestamps();
         });
     }
 

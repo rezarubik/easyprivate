@@ -19,7 +19,6 @@ class CreateUpahGuruTable extends Migration
             $table->integer('id_jenjang')->nullable();
             $table->integer('jumlah_upah')->nullable();
             $table->integer('tanggal_upah')->nullable();
-            $table->timestamps();
         });
     }
 

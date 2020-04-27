@@ -243,19 +243,21 @@
     <script src=" {{asset('vendor/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
     <script src=" {{asset('vendor/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script> -->
     <!-- end: JAVASCRIPTS REQUIRED FOR DATEPICKER ONLY -->
-
+    @yield('javascript')
     <!-- start: CLIP-TWO JAVASCRIPTS -->
     <script src="{{asset('assets/js/main.js')}}"></script>
     <script src="{{asset('assets/js/form-elements.js')}}"></script>
+    <script src="{{asset('assets/js/form-validation.js')}}"></script>
     <!-- start: JavaScript Event Handlers for form elements page -->
     <!-- <script src="{{asset('assets/js/index.js')}}"></script> -->
     <!-- <script src="{{asset('assets/js/form-elements.js')}}"></script> -->
-    @yield('javascript')
+    <!-- awalnya yield javascript disini -->
     <script>
         jQuery(document).ready(function() {
             Main.init();
             // Index.init();
             FormElements.init();
+            FormValidator.init();
         });
     </script>
     <!-- end: JavaScript Event Handlers for form elements page -->

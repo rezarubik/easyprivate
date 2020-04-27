@@ -50,7 +50,6 @@ class User extends Authenticatable
     public function guruMapel()
     {
         return $this->hasMany('App\GuruMapel', 'id_guru', 'id');
-
     }
 
     public function jadwalAvailable()
