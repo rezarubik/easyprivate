@@ -432,8 +432,8 @@ class UserController extends Controller
         $where['jenis_kelamin'] = $r->jenis_kelamin;
         }
         return User::with($this->relationshipCariGuru)
-            ->join('guru_mapel', 'guru_mapel.id_guru', 'users.id')
-            ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'guru_mapel.id_mapel')
+        ->join('guru_mapel', 'guru_mapel.id_guru', 'users.id')
+        ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'guru_mapel.id_mapel')
             ->where($where)
             ->select('users.*')
             // ->orderBy('status')

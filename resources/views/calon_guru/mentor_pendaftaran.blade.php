@@ -411,11 +411,10 @@
     document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 </script>
 <!-- mapbox -->
-
-<script src="{{asset('vendor/select2/select2.min.js')}}"></script>
 <script src="{{asset('vendor/maskedinput/jquery.maskedinput.min.js')}}"></script>
 <script src="{{asset('vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js')}}"></script>
 <script src="{{asset('vendor/autosize/autosize.min.js')}}"></script>
+<script src="{{asset('vendor/select2/select2.min.js')}}"></script>
 <script src="{{asset('vendor/selectFx/classie.js')}}"></script>
 <script src="{{asset('vendor/selectFx/selectFx.js')}}"></script>
 <!-- <script src="{{asset('assets/js/form-elements.js')}}"></script> -->
@@ -430,8 +429,8 @@
 <script src="{{asset('assets/js/form-validation.js')}}"></script>
 <script>
     jQuery(document).ready(function() {
-        Main.init();
-        FormValidator.init();
+        // Main.init();
+        // FormValidator.init();
     });
 </script>
 <!-- end validation -->
