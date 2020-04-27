@@ -19,27 +19,32 @@ class JadwalPemesananPermingguSeeder extends Seeder
             [
                 'id_pemesanan' => 1,
                 'hari' => 'Kamis',
-                'jam' => '14:00'
+                'start' => '14:00',
+                'end' => '15:30'
             ],
             [
                 'id_pemesanan' => 1,
                 'hari' => 'Minggu',
-                'jam' => '14:00'
+                'start' => '14:00',
+                'end' => '15:30'
             ],
             [
                 'id_pemesanan' => 2,
                 'hari' => 'Rabu',
-                'jam' => '15:00'
+                'start' => '15:00',
+                'end' => '15:30'
             ],
             [
                 'id_pemesanan' => 3,
                 'hari' => 'Jumat',
-                'jam' => '10:00'
+                'start' => '10:00',
+                'end' => '11:30'
             ],
             [
                 'id_pemesanan' => 4,
                 'hari' => 'Sabtu',
-                'jam' => '10:30'
+                'start' => '10:30',
+                'end' => '11:30'
             ]
         ];
 
