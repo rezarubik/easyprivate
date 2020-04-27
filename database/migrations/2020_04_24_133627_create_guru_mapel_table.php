@@ -17,7 +17,6 @@ class CreateGuruMapelTable extends Migration
             $table->bigIncrements('id_guru_mapel');
             $table->integer('id_guru')->nullable();
             $table->integer('id_mapel')->nullable();
-            $table->timestamps();
         });
     }
 
