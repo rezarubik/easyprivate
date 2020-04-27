@@ -22,7 +22,8 @@ class UserController extends Controller
         // $this->middleware('auth');
         $this->relationshipGuru = ['alamat'];
         $this->relationshipMurid = ['alamat'];
-        $this->relationshipCariGuru = ['alamat', 'guruMapel.mataPelajaran', 'guruMapel.mataPelajaran.jenjang','guruMapel'];
+        $this->relationshipCariGuru = ['alamat', 'guruMapel.mataPelajaran', 'guruMapel.mataPelajaran.jenjang', 'guruMapel'];
+        $this->relationshipPendaftaranGuru = ['user', 'profileMatching'];
     }
 
     /**
@@ -57,6 +58,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+        $pg = PendaftaranGuru::where('id_user', Auth()->user->id)->get();
         $user = User::findOrFail(Auth()->user()->id);
         // dd($user);
         $score = [];
@@ -150,6 +152,7 @@ class UserController extends Controller
         $pendaftaranGuru = new PendaftaranGuru();
         $pendaftaranGuru->id_user = $user->id;
         $pendaftaranGuru->dir_cv = $request->file_cv;
+        
         // todo rules pm pengalaman kerja
         if ($pk <= 6) {
             $nilai['pm_pk'] = 1;
@@ -178,10 +181,25 @@ class UserController extends Controller
         }
         $pendaftaranGuru->nilai_ipk = $request->ipk_score;
         $pendaftaranGuru->save();
+        // dir
+        $dir = 'assets/video_microteaching';
+        // file
+        $file = $request->file('file_microteaching');
+        // dd($file);
+        // file name
+        $fileName = 'video_microteaching_' . $pendaftaranGuru->id_pendaftaran . '.' . $file->getClientOriginalExtension();
+        // file move to directory
+        $file->move($dir, $fileName);
+        // dd($file);
+        PendaftaranGuru::where('id_pendaftaran', $pendaftaranGuru->id_pendaftaran)
+        ->update([
+            'dir_video' => $fileName
+        ]);
+        // dd($pendaftaranGuru);
 
         // todo Profile Matching
-        $nilai['id_pendaftaran_guru'] = $pendaftaranGuru->id_pendaftaran_guru;
-        $profileMatching = ProfileMatching::create($nilai);
+        $nilai['id_pendaftaran_guru'] = $pendaftaranGuru->id_pendaftaran;
+        $profileMatching = ProfileMatching::insert($nilai);
 
         return redirect('/user/create')->with('status', 'Aplikasi Anda berhasil di simpan!');
     }
@@ -394,12 +412,10 @@ class UserController extends Controller
     public function dataGuru()
     {
         // dd('hai');
-        $pendaftaranGuru = PendaftaranGuru::with(['user', 'microteaching'])
+        $pendaftaranGuru = PendaftaranGuru::with(['user'])
             ->join('users', 'users.id', 'pendaftaran_guru.id_user')
-            ->join('microteaching', 'microteaching.id_pendaftaran', 'pendaftaran_guru.id_pendaftaran')
             ->select('pendaftaran_guru.*')
             ->where('users.id', '!=', '')
-            ->where('microteaching.id_microteaching', '!=', '')
             ->get();
         // $pendaftaranGuru = PendaftaranGuru::with(['user'])->where('id_user', '!=', null)->get();
         $guruMapel = GuruMapel::with('mataPelajaran')->get();
@@ -424,16 +440,16 @@ class UserController extends Controller
 
         $where['role'] = 2;
 
-        if(isset($r->id_mapel)){
+        if (isset($r->id_mapel)) {
             $where['mata_pelajaran.id_mapel'] = $r->id_mapel;
         }
 
-        if(isset($r->jenis_kelamin)){
-        $where['jenis_kelamin'] = $r->jenis_kelamin;
+        if (isset($r->jenis_kelamin)) {
+            $where['jenis_kelamin'] = $r->jenis_kelamin;
         }
         return User::with($this->relationshipCariGuru)
-        ->join('guru_mapel', 'guru_mapel.id_guru', 'users.id')
-        ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'guru_mapel.id_mapel')
+            ->join('guru_mapel', 'guru_mapel.id_guru', 'users.id')
+            ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'guru_mapel.id_mapel')
             ->where($where)
             ->select('users.*')
             // ->orderBy('status')
@@ -469,6 +485,19 @@ class UserController extends Controller
      */
     public function videoMicroteaching()
     {
-        return view('admin.video_microteaching');
+        $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)->get();
+        // dd($pendaftaranGuru);
+        return view('admin.video_microteaching', compact('pendaftaranGuru'));
+    }
+    public function scoreVideoMicroteaching(Request $request){
+        $data = [
+            'pm_vas' => $request->vas,
+            'pm_kk' => $request->kk,
+            'pm_cm' => $request->cm,
+            'pm_pemat' => $request->pemat
+        ];
+        $profileMatching = ProfileMatching::where('id_pendaftaran_guru', $request->id_pendaftaran)
+        ->update($data);
+        return redirect('video-microteaching');
     }
 }
