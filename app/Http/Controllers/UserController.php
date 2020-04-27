@@ -424,6 +424,8 @@ class UserController extends Controller
 
         $where['role'] = 2;
 
+        $jadwalAvailable = array();
+
         if(isset($r->id_mapel)){
             $where['mata_pelajaran.id_mapel'] = $r->id_mapel;
         }
@@ -431,10 +433,42 @@ class UserController extends Controller
         if(isset($r->jenis_kelamin)){
         $where['jenis_kelamin'] = $r->jenis_kelamin;
         }
+
+         if(isset($r->senin)){
+             
+                array_push($jadwalAvailable, 'Senin');
+            }
+            if(isset($r->selasa)){
+             
+                array_push($jadwalAvailable, 'Selasa');
+            }
+            if(isset($r->rabu)){
+             
+                array_push($jadwalAvailable, 'Rabu');
+            }
+            if(isset($r->kamis)){
+             
+                array_push($jadwalAvailable, 'Kamis');
+            }
+            if(isset($r->jumat)){
+             
+                array_push($jadwalAvailable, 'Jumat');
+            }
+            if(isset($r->sabtu)){
+             
+                array_push($jadwalAvailable, 'Sabtu');
+            }
+            if(isset($r->minggu)){
+             
+                array_push($jadwalAvailable, 'Minggu');
+            }
+
         return User::with($this->relationshipCariGuru)
         ->join('guru_mapel', 'guru_mapel.id_guru', 'users.id')
         ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'guru_mapel.id_mapel')
+        ->join('jadwal_available', 'jadwal_available.id_user', 'users.id')
             ->where($where)
+            ->whereIn('jadwal_available.hari',$jadwalAvailable)
             // ->orderBy('status')
             // ->orderBy('waktu_pemesanan', 'desc')
             ->get();
