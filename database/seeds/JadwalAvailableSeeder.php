@@ -25,51 +25,9 @@ class JadwalAvailableSeeder extends Seeder
             ],
             [
                 'id_user' => 3,
-                'hari' => 'Senin',
-                'start' => '12:01',
-                'end' => '15:00',
-                'available' => 1
-            ],
-            [
-                'id_user' => 3,
-                'hari' => 'Senin',
-                'start' => '15:01',
-                'end' => '18:00',
-                'available' => 1
-            ],
-            [
-                'id_user' => 3,
-                'hari' => 'Senin',
-                'start' => '18:01',
-                'end' => '21:00',
-                'available' => 1
-            ],
-            [
-                'id_user' => 3,
                 'hari' => 'Selasa',
                 'start' => '09:00',
                 'end' => '12:00',
-                'available' => 0
-            ],
-            [
-                'id_user' => 3,
-                'hari' => 'Selasa',
-                'start' => '12:01',
-                'end' => '15:00',
-                'available' => 0
-            ],
-            [
-                'id_user' => 3,
-                'hari' => 'Selasa',
-                'start' => '15:01',
-                'end' => '18:00',
-                'available' => 0
-            ],
-            [
-                'id_user' => 3,
-                'hari' => 'Selasa',
-                'start' => '18:01',
-                'end' => '21:00',
                 'available' => 0
             ],
             [
@@ -81,27 +39,6 @@ class JadwalAvailableSeeder extends Seeder
             ],
             [
                 'id_user' => 3,
-                'hari' => 'Rabu',
-                'start' => '12:01',
-                'end' => '15:00',
-                'available' => 1
-            ],
-            [
-                'id_user' => 3,
-                'hari' => 'Rabu',
-                'start' => '15:01',
-                'end' => '18:00',
-                'available' => 1
-            ],
-            [
-                'id_user' => 3,
-                'hari' => 'Rabu',
-                'start' => '18:01',
-                'end' => '21:00',
-                'available' => 1
-            ],
-            [
-                'id_user' => 3,
                 'hari' => 'Kamis',
                 'start' => '09:00',
                 'end' => '12:00',
@@ -109,51 +46,9 @@ class JadwalAvailableSeeder extends Seeder
             ],
             [
                 'id_user' => 3,
-                'hari' => 'Kamis',
-                'start' => '12:01',
-                'end' => '15:00',
-                'available' => 1
-            ],
-            [
-                'id_user' => 3,
-                'hari' => 'Kamis',
-                'start' => '15:01',
-                'end' => '18:00',
-                'available' => 1
-            ],
-            [
-                'id_user' => 3,
-                'hari' => 'Kamis',
-                'start' => '18:01',
-                'end' => '21:00',
-                'available' => 1
-            ],
-            [
-                'id_user' => 3,
                 'hari' => 'Jumat',
                 'start' => '09:00',
                 'end' => '12:00',
-                'available' => 1
-            ],
-            [
-                'id_user' => 3,
-                'hari' => 'Jumat',
-                'start' => '12:01',
-                'end' => '15:00',
-                'available' => 1
-            ],
-            [
-                'id_user' => 3,
-                'hari' => 'Jumat',
-                'start' => '15:01',
-                'end' => '18:00',
-                'available' => 1
-            ],
-            [
-                'id_user' => 3,
-                'hari' => 'Jumat',
-                'start' => '18:01',
-                'end' => '21:00',
                 'available' => 1
             ],
             [

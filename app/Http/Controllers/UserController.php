@@ -425,16 +425,17 @@ class UserController extends Controller
         $where['role'] = 2;
 
         if(isset($r->id_mapel)){
-            $where['id_mapel'] = $r->id_mapel;
+            $where['mata_pelajaran.id_mapel'] = $r->id_mapel;
         }
 
         if(isset($r->jenis_kelamin)){
         $where['jenis_kelamin'] = $r->jenis_kelamin;
         }
         return User::with($this->relationshipCariGuru)
-        ->join('guru_mapel', 'guru_mapel.id_guru', 'users.id')
-        ->join('mata_pelajaran', 'mata_pelajaran.id_mata_pelajaran', 'guru_mapel.id_mapel')
+            ->join('guru_mapel', 'guru_mapel.id_guru', 'users.id')
+            ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'guru_mapel.id_mapel')
             ->where($where)
+            ->select('users.*')
             // ->orderBy('status')
             // ->orderBy('waktu_pemesanan', 'desc')
             ->get();
