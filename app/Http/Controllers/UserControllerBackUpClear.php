@@ -512,8 +512,7 @@ class UserController extends Controller
      */
     public function hasilSeleksi()
     {
-        $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)->get();
-        return view('admin.hasil_seleksi', compact('pendaftaranGuru'));
+        return view('admin.hasil_seleksi');
     }
 
     /**
@@ -540,11 +539,7 @@ class UserController extends Controller
     // todo perhitungan profile matching
     public function hitungProfileMatching()
     {
-        $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
-            ->join('profile_matching', 'pendaftaran_guru.id_pendaftaran', 'profile_matching.id_pendaftaran_guru')
-            ->where(['profile_matching.pm_result' => null])
-            ->select('pendaftaran_guru.*')
-            ->get();
+        $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)->get();
         $nt = []; //* nilai target
         // * Core Factor
         $nt['pm_pk'] = 4;
@@ -567,7 +562,7 @@ class UserController extends Controller
             $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_ipk'] = $pg->profileMatching->pm_ipk;
             $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_usia'] = $pg->profileMatching->pm_usia;
             $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_km'] = $pg->profileMatching->pm_km;
-            // todo mendapatkan nilai gap = user - target
+        // todo mendapatkan nilai gap = user - target
             $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_pk'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_pk'] - $nt['pm_pk'];
             $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_vas'] =  $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_vas'] - $nt['pm_vas'];
             $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_kk'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_kk'] - $nt['pm_kk'];
@@ -576,7 +571,7 @@ class UserController extends Controller
             $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_ipk'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_ipk'] - $nt['pm_ipk'];
             $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_usia'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_usia'] - $nt['pm_usia'];
             $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_km'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_km'] - $nt['pm_km'];
-            // todo mendapatkan nilai pembobotan
+        // todo mendapatkan nilai pembobotan
             $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_pk'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_pk']);
             $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_vas'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_vas']);
             $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_kk'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_kk']);
@@ -585,7 +580,7 @@ class UserController extends Controller
             $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_ipk'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_ipk']);
             $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_usia'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_usia']);
             $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_km'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_km']);
-            // todo average NCF
+        // todo average NCF
             $pht[$pg->profileMatching->id_profile_matching]['ncf'] =
                 ($pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_pk'] +
                     $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_vas'] +
@@ -596,15 +591,12 @@ class UserController extends Controller
                 ($pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_ipk'] +
                     $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_usia'] +
                     $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_km']) / 3;
-            // todo nilai akhir
+        // todo nilai akhir
             $pht[$pg->profileMatching->id_profile_matching]['nilai_akhir'] = $pht[$pg->profileMatching->id_profile_matching]['ncf'] * 0.7 + $pht[$pg->profileMatching->id_profile_matching]['scf'] * 0.3;
         }
-        // dd($pht);
-        foreach ($pht as $key => $value) {
-            // var_dump($value);
-            ProfileMatching::where('id_profile_matching', $key)->update(['pm_result' => $value['nilai_akhir']]);
+        foreach($pht as $key => $value){
+            ProfileMatching::where('id_profile_matching', $key)->update('pm_result', $value[$key]['nilai_akhir']);
         }
-        $this->getPesertaLulus();
     }
     public function hitungBobot($bobot)
     {
@@ -637,24 +629,5 @@ class UserController extends Controller
                 return 1;
                 break;
         }
-    }
-    public function getPesertaLulus()
-    {
-        $id_peserta_lulus = array();
-        $pesertaLulus = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
-            ->join('profile_matching', 'pendaftaran_guru.id_pendaftaran', 'profile_matching.id_pendaftaran_guru')
-            ->orderBy('profile_matching.pm_result')
-            ->limit(3)
-            ->select('pendaftaran_guru.*')
-            ->get();
-        foreach ($pesertaLulus as $pl) {
-            array_push($id_peserta_lulus, $pl->id_pendaftaran);
-        }
-        $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
-            ->whereIn('pendaftaran_guru.id_pendaftaran', $id_peserta_lulus)
-            ->update(['pendaftaran_guru.status' => 1]);
-        $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
-            ->where('pendaftaran_guru.status', 0)
-            ->update(['pendaftaran_guru.status' => 2]);
     }
 }

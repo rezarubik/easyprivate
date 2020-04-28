@@ -56,3 +56,4 @@ Route::get('/video-microteaching', 'UserController@videoMicroteaching');
 Route::post('/score-video-microteaching', 'UserController@scoreVideoMicroteaching');
 Route::get('/pemesanan', 'PemesananController@index');
 Route::get('/absensi', 'AbsenController@index');
+Route::get('test-pm', 'UserController@hitungProfileMatching');

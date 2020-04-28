@@ -30,6 +30,11 @@ class PendaftaranGuruSeeder extends Seeder
                 'id_user' => 6,
                 'pengalaman_mengajar' => 14,
                 'nilai_ipk' => 3.49
+            ],
+            [
+                'id_user' => 1,
+                'pengalaman_mengajar' => 25,
+                'nilai_ipk' => 3.40
             ]
         ];
 

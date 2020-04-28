@@ -51,6 +51,18 @@ class ProfileMatchingSeeder extends Seeder
                 'pm_usia' => 5,
                 'pm_km' => 5,
                 'pm_result' => 4.24
+            ],
+            [
+                'id_pendaftaran_guru' => 4,
+                'pm_pk' => 5,
+                'pm_vas' => 4,
+                'pm_kk' => 3,
+                'pm_cm' => 5,
+                'pm_pemat' => 4,
+                'pm_ipk' => 4,
+                'pm_usia' => 5,
+                'pm_km' => 5,
+                'pm_result' => 4.45
             ]
         ];
 
