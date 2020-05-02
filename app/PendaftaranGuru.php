@@ -14,8 +14,14 @@ class PendaftaranGuru extends Model
     {
         return $this->hasOne('App\Microteaching', 'id_pendaftaran', 'id_pendaftaran');
     }
+
     public function user()
     {
         return $this->belongsTo('App\User', 'id_user', 'id');
+    }
+
+    public function season()
+    {
+        return $this->belongsTo('App\Season', 'id_season', 'id_season');
     }
 }
