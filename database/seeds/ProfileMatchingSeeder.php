@@ -61,7 +61,8 @@ class ProfileMatchingSeeder extends Seeder
                 'pm_pemat' => 1,
                 'pm_ipk' => 4,
                 'pm_usia' => 5,
-                'pm_km' => 3
+                'pm_km' => 3,
+                'pm_result' => null
             ],
             [
                 'id_pendaftaran_guru' => 5,
@@ -72,7 +73,8 @@ class ProfileMatchingSeeder extends Seeder
                 'pm_pemat' => 5,
                 'pm_ipk' => 1,
                 'pm_usia' => 5,
-                'pm_km' => 3
+                'pm_km' => 3,
+                'pm_result' => null
             ],
             [
                 'id_pendaftaran_guru' => 6,
@@ -83,7 +85,8 @@ class ProfileMatchingSeeder extends Seeder
                 'pm_pemat' => 1,
                 'pm_ipk' => 2,
                 'pm_usia' => 5,
-                'pm_km' => 4
+                'pm_km' => 4,
+                'pm_result' => null
             ],
             [
                 'id_pendaftaran_guru' => 7,
@@ -94,7 +97,8 @@ class ProfileMatchingSeeder extends Seeder
                 'pm_pemat' => 1,
                 'pm_ipk' => 4,
                 'pm_usia' => 5,
-                'pm_km' => 3
+                'pm_km' => 3,
+                'pm_result' => null
             ],
             [
                 'id_pendaftaran_guru' => 8,
@@ -105,7 +109,8 @@ class ProfileMatchingSeeder extends Seeder
                 'pm_pemat' => 4,
                 'pm_ipk' => 5,
                 'pm_usia' => 5,
-                'pm_km' => 2
+                'pm_km' => 2,
+                'pm_result' => null
             ],
             [
                 'id_pendaftaran_guru' => 9,
@@ -116,7 +121,8 @@ class ProfileMatchingSeeder extends Seeder
                 'pm_pemat' => 5,
                 'pm_ipk' => 1,
                 'pm_usia' => 5,
-                'pm_km' => 3
+                'pm_km' => 3,
+                'pm_result' => null
             ],
             [
                 'id_pendaftaran_guru' => 10,
@@ -127,7 +133,8 @@ class ProfileMatchingSeeder extends Seeder
                 'pm_pemat' => 1,
                 'pm_ipk' => 2,
                 'pm_usia' => 5,
-                'pm_km' => 4
+                'pm_km' => 4,
+                'pm_result' => null
             ],
             [
                 'id_pendaftaran_guru' => 11,
@@ -138,7 +145,8 @@ class ProfileMatchingSeeder extends Seeder
                 'pm_pemat' => 1,
                 'pm_ipk' => 4,
                 'pm_usia' => 5,
-                'pm_km' => 3
+                'pm_km' => 3,
+                'pm_result' => null
             ],
             [
                 'id_pendaftaran_guru' => 12,
@@ -149,7 +157,8 @@ class ProfileMatchingSeeder extends Seeder
                 'pm_pemat' => 4,
                 'pm_ipk' => 5,
                 'pm_usia' => 5,
-                'pm_km' => 2
+                'pm_km' => 2,
+                'pm_result' => null
             ],
             [
                 'id_pendaftaran_guru' => 13,
@@ -160,7 +169,8 @@ class ProfileMatchingSeeder extends Seeder
                 'pm_pemat' => 5,
                 'pm_ipk' => 1,
                 'pm_usia' => 5,
-                'pm_km' => 3
+                'pm_km' => 3,
+                'pm_result' => null
             ],
             [
                 'id_pendaftaran_guru' => 14,
@@ -171,7 +181,8 @@ class ProfileMatchingSeeder extends Seeder
                 'pm_pemat' => 1,
                 'pm_ipk' => 2,
                 'pm_usia' => 5,
-                'pm_km' => 4
+                'pm_km' => 4,
+                'pm_result' => null
             ],
             [
                 'id_pendaftaran_guru' => 15,
@@ -182,7 +193,8 @@ class ProfileMatchingSeeder extends Seeder
                 'pm_pemat' => 1,
                 'pm_ipk' => 4,
                 'pm_usia' => 5,
-                'pm_km' => 3
+                'pm_km' => 3,
+                'pm_result' => null
             ],
             [
                 'id_pendaftaran_guru' => 16,
@@ -193,7 +205,8 @@ class ProfileMatchingSeeder extends Seeder
                 'pm_pemat' => 4,
                 'pm_ipk' => 5,
                 'pm_usia' => 5,
-                'pm_km' => 2
+                'pm_km' => 2,
+                'pm_result' => null
             ],
             [
                 'id_pendaftaran_guru' => 17,
@@ -204,7 +217,8 @@ class ProfileMatchingSeeder extends Seeder
                 'pm_pemat' => 5,
                 'pm_ipk' => 1,
                 'pm_usia' => 5,
-                'pm_km' => 3
+                'pm_km' => 3,
+                'pm_result' => null
             ],
             [
                 'id_pendaftaran_guru' => 18,
@@ -215,7 +229,8 @@ class ProfileMatchingSeeder extends Seeder
                 'pm_pemat' => 1,
                 'pm_ipk' => 2,
                 'pm_usia' => 5,
-                'pm_km' => 4
+                'pm_km' => 4,
+                'pm_result' => null
             ],
             [
                 'id_pendaftaran_guru' => 19,
@@ -226,7 +241,8 @@ class ProfileMatchingSeeder extends Seeder
                 'pm_pemat' => 1,
                 'pm_ipk' => 4,
                 'pm_usia' => 5,
-                'pm_km' => 3
+                'pm_km' => 3,
+                'pm_result' => null
             ],
             [
                 'id_pendaftaran_guru' => 20,
@@ -237,7 +253,8 @@ class ProfileMatchingSeeder extends Seeder
                 'pm_pemat' => 4,
                 'pm_ipk' => 5,
                 'pm_usia' => 5,
-                'pm_km' => 2
+                'pm_km' => 2,
+                'pm_result' => null
             ]
         ];
 
