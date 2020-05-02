@@ -8,12 +8,7 @@ class PendaftaranGuru extends Model
 {
     protected $table = 'pendaftaran_guru';
     protected $primaryKey = 'id_pendaftaran';
-    public $timestamps = true;
-
-    public function microteaching()
-    {
-        return $this->hasOne('App\Microteaching', 'id_pendaftaran', 'id_pendaftaran');
-    }
+    public $timestamps = false;
 
     public function user()
     {
@@ -23,5 +18,10 @@ class PendaftaranGuru extends Model
     public function season()
     {
         return $this->belongsTo('App\Season', 'id_season', 'id_season');
+    }
+    
+    public function profileMatching()
+    {
+        return $this->hasOne('App\ProfileMatching', 'id_pendaftaran_guru', 'id_pendaftaran');
     }
 }

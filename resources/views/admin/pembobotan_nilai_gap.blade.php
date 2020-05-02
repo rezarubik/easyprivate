@@ -79,30 +79,20 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($pendaftaranGuru as $pg)
                         <tr>
-                            <td>1</td>
-                            <td>Muhammad Reza Pahlevi Y</td>
-                            <td>5</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>4</td>
-                            <td>2</td>
-                            <td>4</td>
-                            <td>3</td>
-                            <td>5</td>
+                            <td>{{$pg->id_pendaftaran}}</td>
+                            <td>{{$pg->user->name}}</td>
+                            <td>{{$pg->profileMatching->pm_pk}}</td>
+                            <td>{{$pg->profileMatching->pm_vas}}</td>
+                            <td>{{$pg->profileMatching->pm_kk}}</td>
+                            <td>{{$pg->profileMatching->pm_cm}}</td>
+                            <td>{{$pg->profileMatching->pm_pemat}}</td>
+                            <td>{{$pg->profileMatching->pm_ipk}}</td>
+                            <td>{{$pg->profileMatching->pm_usia}}</td>
+                            <td>{{$pg->profileMatching->pm_km}}</td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Nadiah Tsamara Pratiwi</td>
-                            <td>5</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>4</td>
-                            <td>2</td>
-                            <td>4</td>
-                            <td>3</td>
-                            <td>5</td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
