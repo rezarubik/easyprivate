@@ -32,7 +32,6 @@
                             <th class="text-center">Email</th>
                             <th class="text-center">Bidang</th>
                             <th class="text-center">Curriculum Vitae</th>
-                            <th class="text-center">Video <i>Microteaching</i></th>
                             <th class="text-center">Status</th>
                             <th class="text-center">Action</th>
                         </tr>
@@ -59,7 +58,6 @@
                                 </ol>
                             </td>
                             <td><a href="" class="btn btn-wide btn-o btn-info">{{$p->dir_cv}}</a></td>
-                            <td><a hre="" class="btn btn-wide btn-o btn-info">{{$p->microteaching->dir_video}}</a></td>
                             <td>
                                 @if($p->status == 1)
                                 <label for="" class="label label-success">Aktif</label>

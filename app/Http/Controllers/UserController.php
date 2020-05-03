@@ -23,6 +23,7 @@ class UserController extends Controller
         $this->relationshipGuru = ['alamat'];
         $this->relationshipMurid = ['alamat'];
         $this->relationshipCariGuru = ['alamat', 'guruMapel.mataPelajaran', 'guruMapel.mataPelajaran.jenjang','guruMapel','jadwalAvailable'];
+        $this->relationshipPendaftaranGuru = ['user', 'profileMatching'];
     }
 
     /**
@@ -57,6 +58,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+        $pg = PendaftaranGuru::where('id_user', Auth()->user->id)->get();
         $user = User::findOrFail(Auth()->user()->id);
         // dd($user);
         $score = [];
@@ -150,6 +152,7 @@ class UserController extends Controller
         $pendaftaranGuru = new PendaftaranGuru();
         $pendaftaranGuru->id_user = $user->id;
         $pendaftaranGuru->dir_cv = $request->file_cv;
+
         // todo rules pm pengalaman kerja
         if ($pk <= 6) {
             $nilai['pm_pk'] = 1;
@@ -178,10 +181,25 @@ class UserController extends Controller
         }
         $pendaftaranGuru->nilai_ipk = $request->ipk_score;
         $pendaftaranGuru->save();
+        // dir
+        $dir = 'assets/video_microteaching';
+        // file
+        $file = $request->file('file_microteaching');
+        // dd($file);
+        // file name
+        $fileName = 'video_microteaching_' . $pendaftaranGuru->id_pendaftaran . '.' . $file->getClientOriginalExtension();
+        // file move to directory
+        $file->move($dir, $fileName);
+        // dd($file);
+        PendaftaranGuru::where('id_pendaftaran', $pendaftaranGuru->id_pendaftaran)
+            ->update([
+                'dir_video' => $fileName
+            ]);
+        // dd($pendaftaranGuru);
 
         // todo Profile Matching
-        $nilai['id_pendaftaran_guru'] = $pendaftaranGuru->id_pendaftaran_guru;
-        $profileMatching = ProfileMatching::create($nilai);
+        $nilai['id_pendaftaran_guru'] = $pendaftaranGuru->id_pendaftaran;
+        $profileMatching = ProfileMatching::insert($nilai);
 
         return redirect('/user/create')->with('status', 'Aplikasi Anda berhasil di simpan!');
     }
@@ -394,12 +412,10 @@ class UserController extends Controller
     public function dataGuru()
     {
         // dd('hai');
-        $pendaftaranGuru = PendaftaranGuru::with(['user', 'microteaching'])
+        $pendaftaranGuru = PendaftaranGuru::with(['user'])
             ->join('users', 'users.id', 'pendaftaran_guru.id_user')
-            ->join('microteaching', 'microteaching.id_pendaftaran', 'pendaftaran_guru.id_pendaftaran')
             ->select('pendaftaran_guru.*')
             ->where('users.id', '!=', '')
-            ->where('microteaching.id_microteaching', '!=', '')
             ->get();
         // $pendaftaranGuru = PendaftaranGuru::with(['user'])->where('id_user', '!=', null)->get();
         $guruMapel = GuruMapel::with('mataPelajaran')->get();
@@ -426,49 +442,49 @@ class UserController extends Controller
 
         $jadwalAvailable = array();
 
-        if(isset($r->id_mapel)){
+        if (isset($r->id_mapel)) {
             $where['mata_pelajaran.id_mapel'] = $r->id_mapel;
         }
 
-        if(isset($r->jenis_kelamin)){
-        $where['jenis_kelamin'] = $r->jenis_kelamin;
+        if (isset($r->jenis_kelamin)) {
+            $where['jenis_kelamin'] = $r->jenis_kelamin;
         }
 
-         if(isset($r->senin)){
-             
-                array_push($jadwalAvailable, 'Senin');
-            }
-            if(isset($r->selasa)){
-             
-                array_push($jadwalAvailable, 'Selasa');
-            }
-            if(isset($r->rabu)){
-             
-                array_push($jadwalAvailable, 'Rabu');
-            }
-            if(isset($r->kamis)){
-             
-                array_push($jadwalAvailable, 'Kamis');
-            }
-            if(isset($r->jumat)){
-             
-                array_push($jadwalAvailable, 'Jumat');
-            }
-            if(isset($r->sabtu)){
-             
-                array_push($jadwalAvailable, 'Sabtu');
-            }
-            if(isset($r->minggu)){
-             
-                array_push($jadwalAvailable, 'Minggu');
-            }
+        if (isset($r->senin)) {
+
+            array_push($jadwalAvailable, 'Senin');
+        }
+        if (isset($r->selasa)) {
+
+            array_push($jadwalAvailable, 'Selasa');
+        }
+        if (isset($r->rabu)) {
+
+            array_push($jadwalAvailable, 'Rabu');
+        }
+        if (isset($r->kamis)) {
+
+            array_push($jadwalAvailable, 'Kamis');
+        }
+        if (isset($r->jumat)) {
+
+            array_push($jadwalAvailable, 'Jumat');
+        }
+        if (isset($r->sabtu)) {
+
+            array_push($jadwalAvailable, 'Sabtu');
+        }
+        if (isset($r->minggu)) {
+
+            array_push($jadwalAvailable, 'Minggu');
+        }
 
         return User::with($this->relationshipCariGuru)
-        ->join('guru_mapel', 'guru_mapel.id_guru', 'users.id')
-        ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'guru_mapel.id_mapel')
-        ->join('jadwal_available', 'jadwal_available.id_user', 'users.id')
+            ->join('guru_mapel', 'guru_mapel.id_guru', 'users.id')
+            ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'guru_mapel.id_mapel')
+            ->join('jadwal_available', 'jadwal_available.id_user', 'users.id')
             ->where($where)
-            ->whereIn('jadwal_available.hari',$jadwalAvailable)
+            ->whereIn('jadwal_available.hari', $jadwalAvailable)
             ->select('users.*')
             // ->orderBy('status')
             // ->orderBy('waktu_pemesanan', 'desc')
@@ -487,7 +503,8 @@ class UserController extends Controller
      */
     public function pembobotanNilaiGAP()
     {
-        return view('admin.pembobotan_nilai_gap');
+        $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)->get();
+        return view('admin.pembobotan_nilai_gap', compact('pendaftaranGuru'));
     }
 
     /**
@@ -495,7 +512,8 @@ class UserController extends Controller
      */
     public function hasilSeleksi()
     {
-        return view('admin.hasil_seleksi');
+        $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)->get();
+        return view('admin.hasil_seleksi', compact('pendaftaranGuru'));
     }
 
     /**
@@ -503,6 +521,140 @@ class UserController extends Controller
      */
     public function videoMicroteaching()
     {
-        return view('admin.video_microteaching');
+        $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)->get();
+        // dd($pendaftaranGuru);
+        return view('admin.video_microteaching', compact('pendaftaranGuru'));
+    }
+    public function scoreVideoMicroteaching(Request $request)
+    {
+        $data = [
+            'pm_vas' => $request->vas,
+            'pm_kk' => $request->kk,
+            'pm_cm' => $request->cm,
+            'pm_pemat' => $request->pemat
+        ];
+        $profileMatching = ProfileMatching::where('id_pendaftaran_guru', $request->id_pendaftaran)
+            ->update($data);
+        return redirect('video-microteaching');
+    }
+    // todo perhitungan profile matching
+    public function hitungProfileMatching()
+    {
+        $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
+            ->join('profile_matching', 'pendaftaran_guru.id_pendaftaran', 'profile_matching.id_pendaftaran_guru')
+            ->where(['profile_matching.pm_result' => null])
+            ->select('pendaftaran_guru.*')
+            ->get();
+        $nt = []; //* nilai target
+        // * Core Factor
+        $nt['pm_pk'] = 4;
+        $nt['pm_vas'] = 4;
+        $nt['pm_kk'] = 3;
+        $nt['pm_cm'] = 4;
+        $nt['pm_pemat'] = 5;
+        // * Secondary Factor
+        $nt['pm_ipk'] = 4;
+        $nt['pm_usia'] = 4;
+        $nt['pm_km'] = 3;
+        $pht = []; //* perhitungan
+        foreach ($pendaftaranGuru as $pg) {
+            $pht[$pg->profileMatching->id_profile_matching]['name'] = $pg->user->name;
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_pk'] = $pg->profileMatching->pm_pk;
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_vas'] = $pg->profileMatching->pm_vas;
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_kk'] = $pg->profileMatching->pm_kk;
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_cm'] = $pg->profileMatching->pm_cm;
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_pemat'] = $pg->profileMatching->pm_pemat;
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_ipk'] = $pg->profileMatching->pm_ipk;
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_usia'] = $pg->profileMatching->pm_usia;
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_km'] = $pg->profileMatching->pm_km;
+            // todo mendapatkan nilai gap = user - target
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_pk'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_pk'] - $nt['pm_pk'];
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_vas'] =  $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_vas'] - $nt['pm_vas'];
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_kk'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_kk'] - $nt['pm_kk'];
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_cm'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_cm'] - $nt['pm_cm'];
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_pemat'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_pemat'] - $nt['pm_pemat'];
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_ipk'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_ipk'] - $nt['pm_ipk'];
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_usia'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_usia'] - $nt['pm_usia'];
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_km'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_km'] - $nt['pm_km'];
+            // todo mendapatkan nilai pembobotan
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_pk'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_pk']);
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_vas'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_vas']);
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_kk'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_kk']);
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_cm'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_cm']);
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_pemat'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_pemat']);
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_ipk'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_ipk']);
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_usia'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_usia']);
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_km'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_km']);
+            // todo average NCF
+            $pht[$pg->profileMatching->id_profile_matching]['ncf'] =
+                ($pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_pk'] +
+                    $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_vas'] +
+                    $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_kk'] +
+                    $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_cm'] +
+                    $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_pemat']) / 5;
+            $pht[$pg->profileMatching->id_profile_matching]['scf'] =
+                ($pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_ipk'] +
+                    $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_usia'] +
+                    $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_km']) / 3;
+            // todo nilai akhir
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_akhir'] = $pht[$pg->profileMatching->id_profile_matching]['ncf'] * 0.7 + $pht[$pg->profileMatching->id_profile_matching]['scf'] * 0.3;
+        }
+        // dd($pht);
+        foreach ($pht as $key => $value) {
+            // var_dump($value);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_result' => $value['nilai_akhir']]);
+        }
+        $this->getPesertaLulus();
+    }
+    public function hitungBobot($bobot)
+    {
+        switch ($bobot) {
+            case 0:
+                return 5;
+                break;
+            case 1:
+                return 4.5;
+                break;
+            case -1:
+                return 4;
+                break;
+            case 2:
+                return 3.5;
+                break;
+            case -2:
+                return 3;
+                break;
+            case 3:
+                return 2.5;
+                break;
+            case -3:
+                return 2;
+                break;
+            case 4:
+                return 1.5;
+                break;
+            case -4:
+                return 1;
+                break;
+        }
+    }
+    public function getPesertaLulus()
+    {
+        $id_peserta_lulus = array();
+        $pesertaLulus = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
+            ->join('profile_matching', 'pendaftaran_guru.id_pendaftaran', 'profile_matching.id_pendaftaran_guru')
+            ->orderBy('profile_matching.pm_result')
+            ->limit(3)
+            ->select('pendaftaran_guru.*')
+            ->get();
+        foreach ($pesertaLulus as $pl) {
+            array_push($id_peserta_lulus, $pl->id_pendaftaran);
+        }
+        $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
+            ->whereIn('pendaftaran_guru.id_pendaftaran', $id_peserta_lulus)
+            ->update(['pendaftaran_guru.status' => 1]);
+        $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
+            ->where('pendaftaran_guru.status', 0)
+            ->update(['pendaftaran_guru.status' => 2]);
     }
 }

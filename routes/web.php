@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Requests\Request;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -24,6 +26,11 @@ Route::get('/test', 'HomeController@test')->name('test');
 // todo halaman login
 Route::get('redirect/{driver}', 'Auth\LoginController@redirectToProvider')->name('login.provider');
 Route::get('{driver}/callback', 'Auth\LoginController@handleProviderCallback')->name('login.callback');
+
+// test
+Route::get('test', function () {
+    return 'Success';
+});
 
 // Dashboard Calon Guru
 Route::get('/home', 'HomeController@index')->name('home');
@@ -46,5 +53,7 @@ Route::get('/nilai-gap', 'UserController@nilaiGAP');
 Route::get('/pembobotan-nilai-gap', 'UserController@pembobotanNilaiGAP');
 Route::get('/hasil-seleksi', 'UserController@hasilSeleksi');
 Route::get('/video-microteaching', 'UserController@videoMicroteaching');
+Route::post('/score-video-microteaching', 'UserController@scoreVideoMicroteaching');
 Route::get('/pemesanan', 'PemesananController@index');
 Route::get('/absensi', 'AbsenController@index');
+Route::get('test-pm', 'UserController@hitungProfileMatching');

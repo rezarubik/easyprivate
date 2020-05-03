@@ -16,14 +16,18 @@ class CreateProfileMatchingTable extends Migration
         Schema::create('profile_matching', function (Blueprint $table) {
             $table->bigIncrements('id_profile_matching');
             $table->integer('id_pendaftaran_guru')->nullable();
-            $table->integer('pm_pk')->nullable();
-            $table->integer('pm_vas')->nullable();
-            $table->integer('pm_kk')->nullable();
-            $table->integer('pm_cm')->nullable();
-            $table->integer('pm_pemat')->nullable();
-            $table->integer('pm_ipk')->nullable();
-            $table->integer('pm_usia')->nullable();
-            $table->integer('pm_km')->nullable();
+            $table->float('pm_pk')->nullable();
+            $table->float('pm_vas')->nullable();
+            $table->float('pm_kk')->nullable();
+            $table->float('pm_cm')->nullable();
+            $table->float('pm_pemat')->nullable();
+            $table->float('pm_ipk')->nullable();
+            $table->float('pm_usia')->nullable();
+            $table->float('pm_km')->nullable();
+            $table->float('pm_gap')->nullable();
+            $table->float('pm_bobot')->nullable();
+            $table->float('pm_ncf')->nullable();
+            $table->float('pm_scf')->nullable();
             $table->float('pm_result')->nullable();
         });
     }

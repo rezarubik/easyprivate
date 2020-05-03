@@ -19,7 +19,7 @@
     </div>
     @endif
     <!-- //todo start: form -->
-    <form action="/user" method="post">
+    <form action="/user" method="post" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="form-group col-md-12">
@@ -282,7 +282,7 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label for="cv" class="control-label"><i>Curriculum Vitae</i></label>
-                                                    <input type="file" name="file_cv" class="form-control @error('file_cv') symbol required @enderror">
+                                                    <input type="file" name="file_cv" class="form-control @error('file_cv') symbol required @enderror" accept="application/pdf">
                                                     <p class="margin-top-10">**NOTE</p>
                                                     @error('file_cv')
                                                     <div class="help-block"> {{$message}} </div>
@@ -290,7 +290,7 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="video_microteaching" class="control-label"><i>Video Microteaching</i></label>
-                                                    <input type="file" name="file_microteaching" class="form-control @error('file_microteaching') symbol required @enderror">
+                                                    <input name="file_microteaching" type="file" class="form-control @error('file_microteaching') symbol required @enderror" accept="video/*">
                                                     <p class="margin-top-10">**NOTE</p>
                                                     @error('file_microteaching')
                                                     <div class="help-block"> {{$message}} </div>

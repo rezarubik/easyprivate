@@ -30,28 +30,31 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @foreach($pendaftaranGuru as $pg)
                         <tr>
-                            <td>1</td>
-                            <td>Muhammad Reza Pahlevi Y</td>
-                            <td>muhammad.reza.pahlevi.y@gmail.com</td>
+                            <td>{{$pg->user->id}}</td>
+                            <td>{{$pg->user->name}}</td>
+                            <td>{{$pg->user->email}}</td>
                             <td>
-                                <a href="" class="badge badge-success">Lulus</a>
+                                @if($pg->status == null)
+                                <label class="badge badge-warning">
+                                    Belum diproses
+                                </label>
+                                @elseif($pg->status == 1)
+                                <label class="badge badge-success">
+                                    Lulus
+                                </label>
+                                @elseif($pg->status == 2)
+                                <label class="badge badge-danger">
+                                    Tidak Lulus
+                                </label>
+                                @endif
                             </td>
                             <td class="text-center">
                                 <a href="http://" class="label label-success" title="Kirim Email"><i class="ti-email"></i></a>
                             </td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Nadiah Tsamara Pratiwi</td>
-                            <td>tspnadiah@gmail.com</td>
-                            <td>
-                                <a href="" class="badge badge-success">Lulus</a>
-                            </td>
-                            <td class="text-center">
-                                <a href="http://" class="label label-success" title="Kirim Email"><i class="ti-email"></i></a>
-                            </td>
-                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>

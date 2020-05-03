@@ -44,10 +44,7 @@
                             <td>{{$u->email}}</td>
                             <td>{{$u->no_handphone}}</td>
                             <td>
-                                @foreach($u->alamat as $alamat)
-                                {{$alamat->alamat_lengkap}}
-                                <br>
-                                @endforeach
+                                {{$u->alamat->alamat_lengkap}}
                             </td>
                             <td class="text-center">
                                 <a href="http://" class="label label-success" title="Kirim Email"><i class="ti-email"></i></a>
