@@ -495,7 +495,8 @@ class UserController extends Controller
      */
     public function nilaiGAP()
     {
-        return view('admin.nilai_gap');
+        $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)->get();
+        return view('admin.nilai_gap', compact('pendaftaranGuru'));
     }
 
     /**
@@ -504,7 +505,7 @@ class UserController extends Controller
     public function pembobotanNilaiGAP()
     {
         $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)->get();
-        return view('admin.pembobotan_nilai_gap', compact('pendaftaranGuru'));
+        return view('admin.pembobotan_nilai_gap',compact('pendaftaranGuru'));
     }
 
     /**
