@@ -32,4 +32,9 @@ class Pemesanan extends Model
     {
         return $this->hasOne('App\MataPelajaran', 'id_mapel', 'id_mapel');
     }
+
+    public function jadwalPemesananPerminggu()
+    {
+        return $this->hasMany('App\JadwalPemesananPerminggu', 'id_pemesanan', 'id_pemesanan');
+    }
 }

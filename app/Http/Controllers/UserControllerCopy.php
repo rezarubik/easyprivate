@@ -14,7 +14,7 @@ use App\ProfileMatching;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
-class UserController extends Controller
+class UserControllerCopy extends Controller
 {
     public function __construct()
     {
