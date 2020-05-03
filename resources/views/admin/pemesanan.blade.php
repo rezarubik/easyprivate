@@ -37,7 +37,7 @@
                     <td>{{$p->guru->name}}</td>
                     <td>{{$p->mataPelajaran->nama_mapel}}</td>
                     <td>{{$p->mataPelajaran->jenjang->nama_jenjang}}</td>
-                    <td>{{$p->murid->alamat[0]->alamat_lengkap}}</td>
+                    <td>{{$p->murid->alamat->alamat_lengkap}}</td>
                     <td>
                         @if($p->status==0)
                         <span class="badge badge-warning">Waiting</span>

@@ -23,7 +23,7 @@ class UserController extends Controller
         $this->relationshipGuru = ['alamat'];
         $this->relationshipMurid = ['alamat'];
         $this->relationshipCariGuru = ['alamat', 'guruMapel.mataPelajaran', 'guruMapel.mataPelajaran.jenjang', 'guruMapel'];
-        $this->relationshipPendaftaranGuru = ['user', 'profileMatching'];
+        $this->relationshipPendaftaranGuru = ['user', 'season','profileMatching'];
     }
 
     /**
@@ -46,8 +46,14 @@ class UserController extends Controller
         // dd('test')
         $jenjang = Jenjang::all();
         $mapel = MataPelajaran::all();
-        $users = User::with($this->relationshipGuru)->find(Auth()->user()->id);
-        return view('calon_guru.mentor_pendaftaran', compact('jenjang', 'mapel', 'users'));
+        // $users = User::with($this->relationshipGuru)->find(Auth()->user()->id);
+        $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
+        ->join('users', 'users.id', 'pendaftaran_guru.id_user')
+        // ->join('users as al', 'al.id', 'alamat.id_user')
+        ->select('pendaftaran_guru.*')
+        ->where('users.id', Auth()->user()->id)->first();
+        // dd($pendaftaranGuru);
+        return view('calon_guru.mentor_pendaftaran', compact('jenjang', 'mapel', 'pendaftaranGuru'));
     }
 
     /**

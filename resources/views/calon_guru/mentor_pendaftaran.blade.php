@@ -34,6 +34,15 @@
         </div>
         <div class="row">
             <div class="col-md-12">
+                @if(isset($pendaftaranGuru))
+                <div class="alert alert-success">
+                    <p class="text-center text-primary text-large">Data Anda Telah Terisi</p>
+                </div>
+                @endif
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <div class="tabbable">
                     <ul class="nav nav-tabs tab-padding tab-space-3 tab-blue" id="myTab4">
                         <li class="active">
@@ -77,11 +86,13 @@
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="birthday">Tanggal Lahir <span class="symbol required"></span></label>
                                                     <p class="input-group input-append datepicker date">
-                                                        <input type="text" name="birthday" value="<?php
-                                                                                                    if (isset($users)) {
-                                                                                                        echo $users->tanggal_lahir;
-                                                                                                    }
-                                                                                                    ?>" placeholder="Pilih Tanggal Lahir Anda" class="form-control @error('birthday') symbol required @enderror" />
+                                                        <input type="text" name="birthday" placeholder="Pilih Tanggal Lahir Anda" class="form-control @error('birthday') symbol required @enderror" 
+                                                        value="<?php
+                                                        if(isset($pendaftaranGuru)){
+                                                            echo $pendaftaranGuru->user->tanggal_lahir;
+                                                        }
+                                                        ?>"
+                                                        />
                                                         <span class="input-group-btn">
                                                             <button type="button" class="btn btn-default">
                                                                 <i class="glyphicon glyphicon-calendar"></i>
@@ -95,15 +106,27 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="nilai_ipk">Nilai IPK</label>
-                                                    <input type="number" name="ipk_score" class="form-control  @error('ipk_score') symbol required @enderror" placeholder="Contoh: 4.0" step="0.01" min="0" max="4">
+                                                    <input type="number" name="ipk_score" class="form-control  @error('ipk_score') symbol required @enderror" placeholder="Contoh: 4.0" step="0.01" min="0" max="4" placeholder="Pilih Tanggal Lahir Anda" class="form-control @error('birthday') symbol required @enderror" 
+                                                    value="<?php
+                                                    if(isset($pendaftaranGuru)){
+                                                        echo $pendaftaranGuru->nilai_ipk;
+                                                    }
+                                                    ?>"
+                                                    />
                                                     @error('ipk_score')
                                                     <div class="help-block"> {{$message}} </div>
                                                     @enderror
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label class="control-label" for="pengalaman_mengajar">Pengalaman Mengajar (tahun)
+                                                    <label class="control-label" for="pengalaman_mengajar">Pengalaman Mengajar <b>(bulan)</b>
                                                     </label>
-                                                    <input type="number" name="teach_experience" class="form-control  @error('teach_experience') symbol required @enderror" placeholder="Contoh: 4" min="0">
+                                                    <input type="number" name="teach_experience" class="form-control  @error('teach_experience') symbol required @enderror" placeholder="Contoh: 12" min="0"
+                                                    value="<?php
+                                                    if(isset($pendaftaranGuru)){
+                                                        echo $pendaftaranGuru->pengalaman_mengajar;
+                                                    }
+                                                    ?>"
+                                                    />
                                                     @error('teach_experience')
                                                     <div class="help-block"> {{$message}} </div>
                                                     @enderror
@@ -113,14 +136,36 @@
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="jenis_kelamin">Jenis Kelamin</label>
                                                     <select id="jenis_kelamin" name="gender" class=" form-control">
-                                                        <option value="" selected>Piilih Jenis Kelamin</option>
-                                                        <option value="laki-laki">Laki-Laki</option>
-                                                        <option value="perempuan">Perempuan</option>
+                                                        <option selected>Piilih Jenis Kelamin</option>
+                                                        <option value="laki-laki" 
+                                                        <?php
+                                                        if(isset($pendaftaranGuru)){
+                                                            if($pendaftaranGuru->user->jenis_kelamin == 'laki-laki'){
+                                                                echo 'selected';
+                                                            }
+                                                        }
+                                                        ?>
+                                                        >Laki-Laki</option>
+                                                        <option value="perempuan"
+                                                        <?php
+                                                        if(isset($pendaftaranGuru)){
+                                                            if($pendaftaranGuru->user->jenis_kelamin == 'perempuan'){
+                                                                echo 'selected';
+                                                            }
+                                                        }
+                                                        ?>
+                                                        >Perempuan</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="no_hp">Nomor <i>Handphone</i> yang dapat dihubungi </label>
-                                                    <input type="text" name="handphone_number" class="form-control @error('handphone_number') symbol required @enderror " placeholder="Contoh: 089501011011">
+                                                    <input type="text" name="handphone_number" class="form-control @error('handphone_number') symbol required @enderror " placeholder="Contoh: 089501011011"
+                                                    value="<?php
+                                                    if(isset($pendaftaranGuru)){
+                                                        echo $pendaftaranGuru->user->no_handphone;
+                                                    }
+                                                    ?>"
+                                                    >
                                                     @error('handphone_number')
                                                     <div class="help-block"> {{$message}} </div>
                                                     @enderror
@@ -137,7 +182,13 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <h5 class="over-title margin-bottom-15">Alamat Lengkap</h5>
-                                            <input style="width: 100%;" type="text" class="form-control" placeholder="Masukkan alamat lengkap rumah Anda disini" id="address" name="alamat_lengkap">
+                                            <input style="width: 100%;" type="text" class="form-control" placeholder="Masukkan alamat lengkap rumah Anda disini" id="address" name="alamat_lengkap"
+                                            value="<?php
+                                            if(isset($pendaftaranGuru)){
+                                                echo $pendaftaranGuru->user->alamat->alamat_lengkap;
+                                            }
+                                            ?>"
+                                            >
                                         </div>
                                     </div>
                                     <div class="row margin-top-30">
@@ -147,19 +198,21 @@
                                                 <div id="geocoder"></div>
                                             </div>
                                             <div id="map" style="height:250px; position:relative; top:0px; left:0px; right:0px; bottom:0px; "></div>
-                                            <input type="hidden" id="lat" name="lat" placeholder="Your lat..">
-                                            <input type="hidden" id="lng" name="lng" placeholder="Your lng..">
+                                            <input type="hidden" id="lat" name="lat" placeholder="Your lat.."
+                                            value="<?php
+                                            if(isset($pendaftaranGuru)){
+                                                echo $pendaftaranGuru->user->alamat->latitude;
+                                            }
+                                            ?>"
+                                            >
+                                            <input type="hidden" id="lng" name="lng" placeholder="Your lng.."
+                                            value="<?php
+                                            if(isset($pendaftaranGuru)){
+                                                echo $pendaftaranGuru->user->alamat->longitude;
+                                            }
+                                            ?>"
+                                            >
                                         </div>
-                                        <!-- <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="control-label" for="">Latitude</label>
-                                                <input type="hidden" id="lat" name="lat" placeholder="Your lat..">
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label" for="">Longitude</label>
-                                                <input type="hidden" id="lng" name="lng" placeholder="Your lng..">
-                                            </div>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>
