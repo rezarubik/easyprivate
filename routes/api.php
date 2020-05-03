@@ -69,3 +69,5 @@ Route::post('user/daftar', 'UserController@daftarMurid');
 
 //Lpgin Murid
 Route::post('user/murid/valid', 'UserController@validMurid');
+
+//Jadwal Available

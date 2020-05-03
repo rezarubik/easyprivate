@@ -38,49 +38,49 @@ class PendaftaranGuruSeeder extends Seeder
                 'id_user' => 1,
                 'id_season' => 1,
                 'pengalaman_mengajar' => 25,
-                'nilai_ipk' => 3.40
+                'nilai_ipk' => 3.20
             ],
             [
                 'id_user' => 7,
                 'id_season' => 1,
                 'pengalaman_mengajar' => 25,
-                'nilai_ipk' => 3.40
+                'nilai_ipk' => 3.15
             ],
             [
                 'id_user' => 8,
                 'id_season' => 1,
                 'pengalaman_mengajar' => 25,
-                'nilai_ipk' => 3.40
+                'nilai_ipk' => 3.26
             ],
             [
                 'id_user' => 9,
                 'id_season' => 1,
                 'pengalaman_mengajar' => 25,
-                'nilai_ipk' => 3.40
+                'nilai_ipk' => 3.47
             ],
             [
                 'id_user' => 10,
                 'id_season' => 1,
                 'pengalaman_mengajar' => 25,
-                'nilai_ipk' => 3.40
+                'nilai_ipk' => 3.49
             ],
             [
                 'id_user' => 11,
                 'id_season' => 1,
                 'pengalaman_mengajar' => 25,
-                'nilai_ipk' => 3.40
+                'nilai_ipk' => 3.42
             ],
             [
                 'id_user' => 12,
                 'id_season' => 1,
                 'pengalaman_mengajar' => 25,
-                'nilai_ipk' => 3.40
+                'nilai_ipk' => 3.30
             ],
             [
                 'id_user' => 13,
                 'id_season' => 1,
                 'pengalaman_mengajar' => 25,
-                'nilai_ipk' => 3.40
+                'nilai_ipk' => 3.30
             ],
             [
                 'id_user' => 14,
@@ -92,13 +92,13 @@ class PendaftaranGuruSeeder extends Seeder
                 'id_user' => 15,
                 'id_season' => 1,
                 'pengalaman_mengajar' => 25,
-                'nilai_ipk' => 3.40
+                'nilai_ipk' => 3.45
             ],
             [
                 'id_user' => 16,
                 'id_season' => 1,
                 'pengalaman_mengajar' => 25,
-                'nilai_ipk' => 3.40
+                'nilai_ipk' => 3.25
             ],
             [
                 'id_user' => 17,
@@ -128,13 +128,13 @@ class PendaftaranGuruSeeder extends Seeder
                 'id_user' => 21,
                 'id_season' => 1,
                 'pengalaman_mengajar' => 25,
-                'nilai_ipk' => 3.40
+                'nilai_ipk' => 3.39
             ],
             [
                 'id_user' => 22,
                 'id_season' => 1,
                 'pengalaman_mengajar' => 25,
-                'nilai_ipk' => 3.40
+                'nilai_ipk' => 3.47
             ]
         ];
 
