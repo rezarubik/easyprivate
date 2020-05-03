@@ -16,9 +16,7 @@ class CreateJadwalPemesananPermingguTable extends Migration
         Schema::create('jadwal_pemesanan_perminggu', function (Blueprint $table) {
             $table->bigIncrements('id_jadwal_pemesanan_perminggu');
             $table->integer('id_pemesanan')->nullable();
-            $table->string('hari', 9)->nullable();
-            $table->time('start')->nullable();
-            $table->time('end')->nullable();
+            $table->integer('id_jadwal_available')->nullable();
         });
     }
 
