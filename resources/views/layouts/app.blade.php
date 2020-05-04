@@ -15,8 +15,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta content="" name="description" />
-    <meta content="" name="author" />
+    <meta content="Easy Private adalah Aplikasi Pencarian Guru Privat" name="description" />
+    <meta content="Easy Private" name="author" />
     <link rel="shortcut icon" href="{{asset('assets/images/easyprivat-icon.png')}}" type="image/x-icon">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -41,6 +41,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/styles.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/plugins.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/themes/theme-4.css')}}" id="skin_color" />
+    <link rel="stylesheet" href="{{asset('assets/css/themes/theme-4.css')}}" id="skin_color" />
     <!-- end: CLIP-TWO CSS -->
     <!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
     @yield('css')
@@ -59,7 +60,7 @@
                         <span>Main Navigation</span>
                     </div>
                     <ul class="main-navigation-menu">
-                        <li class="active open">
+                        <li class="{{(Request::is('/', 'home')) ? 'active open' : ''}}">
                             <a href="{{url('home')}}">
                                 <div class="item-content">
                                     <div class="item-media">
@@ -72,7 +73,7 @@
                             </a>
                         </li>
                         <!-- ? Nilai Gap -->
-                        <li>
+                        <li class="{{(Request::is('/', 'user/create')) ? 'active open' : ''}}">
                             <a href="{{url('/user/create')}}">
                                 <div class="item-content">
                                     <div class="item-media">
@@ -194,7 +195,7 @@
                             </div>
                             <ol id="cl-effect-5" class="breadcrumb links cl-effect-5">
                                 <li>
-                                    <span data-hover="Home"><a href="{{url('home_guru')}}">Home</a></span>
+                                    <span data-hover="Home"><a href="{{url('home')}}">Dashboard</a></span>
                                 </li>
                                 <li class="active">
                                     <span>@yield('blank-page')</span>

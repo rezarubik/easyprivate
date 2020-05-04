@@ -3,7 +3,6 @@
 @section('title', 'Dashboard Admin')
 @section('main-title', 'Grafik Data Les Private')
 @section('description', 'Menjelaskan beberapa grafik data perusahaan Easy Private')
-@section('pages', 'Home')
 @section('active-pages', 'Dashboard')
 @section('content')
 <div class="container-fluid container-fullw bg-white">
