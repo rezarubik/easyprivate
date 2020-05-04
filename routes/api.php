@@ -70,4 +70,6 @@ Route::post('user/daftar', 'UserController@daftarMurid');
 //Lpgin Murid
 Route::post('user/murid/valid', 'UserController@validMurid');
 
-//Jadwal Available
+//Jadwal Pemesanan Perminggu
+Route::post('pemesanan/jadwal/filter', 'JadwalPemesananPermingguController@getJadwalPemesananPermingguFiltered');
+Route::get('pemesanan/jadwal/{id}', 'JadwalPemesananPermingguController@getJadwalPemesananPermingguById');
