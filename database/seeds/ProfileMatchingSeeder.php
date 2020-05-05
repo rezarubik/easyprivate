@@ -26,7 +26,7 @@ class ProfileMatchingSeeder extends Seeder
                 'pm_ipk' => 4,
                 'pm_usia' => 5,
                 'pm_km' => 5,
-                'pm_result' => 4.45
+                'pm_result' => null
             ],
             [
                 'id_pendaftaran_guru' => 2,
@@ -38,7 +38,7 @@ class ProfileMatchingSeeder extends Seeder
                 'pm_ipk' => 4,
                 'pm_usia' => 5,
                 'pm_km' => 5,
-                'pm_result' => 3.89
+                'pm_result' => null
             ],
             [
                 'id_pendaftaran_guru' => 3,
@@ -50,7 +50,7 @@ class ProfileMatchingSeeder extends Seeder
                 'pm_ipk' => 4,
                 'pm_usia' => 5,
                 'pm_km' => 5,
-                'pm_result' => 4.24
+                'pm_result' => null
             ],
             [
                 'id_pendaftaran_guru' => 4,

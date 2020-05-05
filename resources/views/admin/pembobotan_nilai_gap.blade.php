@@ -16,11 +16,8 @@
     <div class="row">
         <div class="col-md-12">
             <h5 class="over-title margin-bottom-15">
-                Pemetaan Pembobotan Nilai GAP Seleksi Penerimaan Guru Private
-            </h5>
-            <p>
                 Pemberian bobot pada nilai GAP mengikuti aturan berikut
-            </p>
+            </h5>
             <div class="table-responsive margin-bottom-30">
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
@@ -32,33 +29,56 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>-2</td>
-                            <td>2</td>
-                            <td>Kompetensi Individu kekurangan 2 tingkat</td>
-                        </tr>
-                        <tr>
-                            <td>-1</td>
-                            <td>2.5</td>
-                            <td>Kompetensi Individu kekurangan 1 tingkat</td>
-                        </tr>
-                        <tr>
                             <td>0</td>
                             <td>5</td>
                             <td>Kompetensi Individu sesuai dengan yang dibutuhkan (tidak ada selisih)</td>
                         </tr>
                         <tr>
                             <td>1</td>
-                            <td>4</td>
+                            <td>4.5</td>
                             <td>Kompetensi Individu kelebihan 1 tingkat</td>
                         </tr>
                         <tr>
+                            <td>-1</td>
+                            <td>4</td>
+                            <td>Kompetensi Individu kekurangan 1 tingkat</td>
+                        </tr>
+                        <tr>
                             <td>2</td>
-                            <td>3</td>
+                            <td>3.5</td>
                             <td>Kompetensi Individu kelebihan 2 tingkat</td>
+                        </tr>
+                        <tr>
+                            <td>-2</td>
+                            <td>3</td>
+                            <td>Kompetensi Individu kekurangan 2 tingkat</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>2.5</td>
+                            <td>Kompetensi Individu kelebihan 3 tingkat</td>
+                        </tr>
+                        <tr>
+                            <td>-3</td>
+                            <td>2</td>
+                            <td>Kompetensi Individu kekurangan 3 tingkat</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>1.5</td>
+                            <td>Kompetensi Individu kelebihan 4 tingkat</td>
+                        </tr>
+                        <tr>
+                            <td>-4</td>
+                            <td>1</td>
+                            <td>Kompetensi Individu kekurangan 4 tingkat</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+            <h5 class="over-title margin-bottom-15">
+                Pemetaan Pembobotan Nilai GAP Seleksi Penerimaan Guru Private
+            </h5>
             <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover" id="sample_1">
                     <thead>
