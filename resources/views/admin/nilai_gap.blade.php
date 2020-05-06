@@ -45,14 +45,14 @@
                         <tr>
                             <td>{{$pg->id_pendaftaran}}</td>
                             <td>{{$pg->user->name}}</td>
-                            <td>{{$pg->profileMatching->pm_pk}}</td>
-                            <td>{{$pg->profileMatching->pm_vas}}</td>
-                            <td>{{$pg->profileMatching->pm_kk}}</td>
-                            <td>{{$pg->profileMatching->pm_cm}}</td>
-                            <td>{{$pg->profileMatching->pm_pemat}}</td>
-                            <td>{{$pg->profileMatching->pm_ipk}}</td>
-                            <td>{{$pg->profileMatching->pm_usia}}</td>
-                            <td>{{$pg->profileMatching->pm_km}}</td>
+                            <td>{{$pg->profileMatching->pm_gap_pk}}</td>
+                            <td>{{$pg->profileMatching->pm_gap_vas}}</td>
+                            <td>{{$pg->profileMatching->pm_gap_kk}}</td>
+                            <td>{{$pg->profileMatching->pm_gap_cm}}</td>
+                            <td>{{$pg->profileMatching->pm_gap_pemat}}</td>
+                            <td>{{$pg->profileMatching->pm_gap_ipk}}</td>
+                            <td>{{$pg->profileMatching->pm_gap_usia}}</td>
+                            <td>{{$pg->profileMatching->pm_gap_km}}</td>
                         </tr>
                         @endforeach
                     </tbody>
