@@ -103,14 +103,14 @@
                         <tr>
                             <td>{{$pg->id_pendaftaran}}</td>
                             <td>{{$pg->user->name}}</td>
-                            <td>{{$pg->profileMatching->pm_pk}}</td>
-                            <td>{{$pg->profileMatching->pm_vas}}</td>
-                            <td>{{$pg->profileMatching->pm_kk}}</td>
-                            <td>{{$pg->profileMatching->pm_cm}}</td>
-                            <td>{{$pg->profileMatching->pm_pemat}}</td>
-                            <td>{{$pg->profileMatching->pm_ipk}}</td>
-                            <td>{{$pg->profileMatching->pm_usia}}</td>
-                            <td>{{$pg->profileMatching->pm_km}}</td>
+                            <td>{{$pg->profileMatching->pm_bobot_pk}}</td>
+                            <td>{{$pg->profileMatching->pm_bobot_vas}}</td>
+                            <td>{{$pg->profileMatching->pm_bobot_kk}}</td>
+                            <td>{{$pg->profileMatching->pm_bobot_cm}}</td>
+                            <td>{{$pg->profileMatching->pm_bobot_pemat}}</td>
+                            <td>{{$pg->profileMatching->pm_bobot_ipk}}</td>
+                            <td>{{$pg->profileMatching->pm_bobot_usia}}</td>
+                            <td>{{$pg->profileMatching->pm_bobot_km}}</td>
                         </tr>
                         @endforeach
                     </tbody>
