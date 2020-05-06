@@ -607,11 +607,33 @@ class UserController extends Controller
             // todo nilai akhir
             $pht[$pg->profileMatching->id_profile_matching]['nilai_akhir'] = $pht[$pg->profileMatching->id_profile_matching]['ncf'] * 0.7 + $pht[$pg->profileMatching->id_profile_matching]['scf'] * 0.3;
         }
-        dd($pht);
+        // dd($pht);
 
-        // todo update nilai akhir
         foreach ($pht as $key => $value) {
             // var_dump($value);
+            // todo update nilai gap
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_pk' => $value['nilai_gap']['pm_pk']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_vas' => $value['nilai_gap']['pm_vas']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_kk' => $value['nilai_gap']['pm_kk']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_cm' => $value['nilai_gap']['pm_cm']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_pemat' => $value['nilai_gap']['pm_pemat']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_ipk' => $value['nilai_gap']['pm_ipk']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_usia' => $value['nilai_gap']['pm_usia']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_km' => $value['nilai_gap']['pm_km']]);
+            // todo update nilai bobot gap
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_pk' => $value['nilai_bobot']['pm_pk']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_vas' => $value['nilai_bobot']['pm_vas']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_kk' => $value['nilai_bobot']['pm_kk']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_cm' => $value['nilai_bobot']['pm_cm']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_pemat' => $value['nilai_bobot']['pm_pemat']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_ipk' => $value['nilai_bobot']['pm_ipk']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_usia' => $value['nilai_bobot']['pm_usia']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_km' => $value['nilai_bobot']['pm_km']]);
+            // todo update nilai ncf
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_ncf' => $value['ncf']]);
+            // todo update nilai scf
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_scf' => $value['scf']]);
+            // todo update nilai akhir
             ProfileMatching::where('id_profile_matching', $key)->update(['pm_result' => $value['nilai_akhir']]);
         }
         $this->getPesertaLulus();
