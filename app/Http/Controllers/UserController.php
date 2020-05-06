@@ -11,6 +11,7 @@ use App\Http\Requests\UserRequest;
 use App\Jenjang;
 use App\MataPelajaran;
 use App\ProfileMatching;
+use App\KriteriaBobotTarget;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
@@ -555,15 +556,16 @@ class UserController extends Controller
             ->get();
         $nt = []; //* nilai target
         // * Core Factor
-        $nt['pm_pk'] = 4;
-        $nt['pm_vas'] = 4;
-        $nt['pm_kk'] = 3;
-        $nt['pm_cm'] = 4;
-        $nt['pm_pemat'] = 5;
+        $nt['pm_pk'] = KriteriaBobotTarget::where('kriteria', 'Pengalaman Mengajar')->first()->nilai_target; // 4
+        $nt['pm_vas'] = KriteriaBobotTarget::where('kriteria', 'Volume dan Artikulasi Suara Video Microteaching')->first()->nilai_target; // 4
+        $nt['pm_kk'] = KriteriaBobotTarget::where('kriteria', 'Keefektifan Kalimat Video Microteaching')->first()->nilai_target; // 3
+        $nt['pm_cm'] = KriteriaBobotTarget::where('kriteria', 'Cara Mengajar Video Microteaching')->first()->nilai_target; //4
+        $nt['pm_pemat'] = KriteriaBobotTarget::where('kriteria', 'Penguasaan Materi Video Microteaching')->first()->nilai_target; // 5
         // * Secondary Factor
-        $nt['pm_ipk'] = 4;
-        $nt['pm_usia'] = 4;
-        $nt['pm_km'] = 3;
+        $nt['pm_ipk'] = KriteriaBobotTarget::where('kriteria', 'Nilai Indeks Prestasi Terakhir (IPK)')->first()->nilai_target; // 4
+        $nt['pm_usia'] = KriteriaBobotTarget::where('kriteria', 'Usia Guru')->first()->nilai_target; // 4
+        $nt['pm_km'] = KriteriaBobotTarget::where('kriteria', 'Ketersediaan Mata Pelajaran')->first()->nilai_target; // 3
+        // dd($nt);
         $pht = []; //* perhitungan
         foreach ($pendaftaranGuru as $pg) {
             $pht[$pg->profileMatching->id_profile_matching]['name'] = $pg->user->name;
@@ -607,7 +609,7 @@ class UserController extends Controller
             // todo nilai akhir
             $pht[$pg->profileMatching->id_profile_matching]['nilai_akhir'] = $pht[$pg->profileMatching->id_profile_matching]['ncf'] * 0.7 + $pht[$pg->profileMatching->id_profile_matching]['scf'] * 0.3;
         }
-        // dd($pht);
+        dd($pht);
 
         foreach ($pht as $key => $value) {
             // var_dump($value);
