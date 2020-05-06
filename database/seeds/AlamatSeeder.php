@@ -51,6 +51,102 @@ class AlamatSeeder extends Seeder
                 'latitude' => -6.500221,
                 'longitude' => 106.807824,
                 'alamat_lengkap' => 'Jl. Beo Raya, Sukahati'
+            ],
+            [
+                'id_user' => 7,
+                'latitude' => -6.500221,
+                'longitude' => 106.807824,
+                'alamat_lengkap' => 'Jl. Beo Raya, Sukahati'
+            ],
+            [
+                'id_user' => 8,
+                'latitude' => -6.500221,
+                'longitude' => 106.807824,
+                'alamat_lengkap' => 'Jl. Beo Raya, Sukahati'
+            ],
+            [
+                'id_user' => 9,
+                'latitude' => -6.500221,
+                'longitude' => 106.807824,
+                'alamat_lengkap' => 'Jl. Beo Raya, Sukahati'
+            ],
+            [
+                'id_user' => 10,
+                'latitude' => -6.500221,
+                'longitude' => 106.807824,
+                'alamat_lengkap' => 'Jl. Beo Raya, Sukahati'
+            ],
+            [
+                'id_user' => 11,
+                'latitude' => -6.500221,
+                'longitude' => 106.807824,
+                'alamat_lengkap' => 'Jl. Beo Raya, Sukahati'
+            ],
+            [
+                'id_user' => 12,
+                'latitude' => -6.500221,
+                'longitude' => 106.807824,
+                'alamat_lengkap' => 'Jl. Beo Raya, Sukahati'
+            ],
+            [
+                'id_user' => 13,
+                'latitude' => -6.500221,
+                'longitude' => 106.807824,
+                'alamat_lengkap' => 'Jl. Beo Raya, Sukahati'
+            ],
+            [
+                'id_user' => 14,
+                'latitude' => -6.500221,
+                'longitude' => 106.807824,
+                'alamat_lengkap' => 'Jl. Beo Raya, Sukahati'
+            ],
+            [
+                'id_user' => 15,
+                'latitude' => -6.500221,
+                'longitude' => 106.807824,
+                'alamat_lengkap' => 'Jl. Beo Raya, Sukahati'
+            ],
+            [
+                'id_user' => 16,
+                'latitude' => -6.500221,
+                'longitude' => 106.807824,
+                'alamat_lengkap' => 'Jl. Beo Raya, Sukahati'
+            ],
+            [
+                'id_user' => 17,
+                'latitude' => -6.500221,
+                'longitude' => 106.807824,
+                'alamat_lengkap' => 'Jl. Beo Raya, Sukahati'
+            ],
+            [
+                'id_user' => 18,
+                'latitude' => -6.500221,
+                'longitude' => 106.807824,
+                'alamat_lengkap' => 'Jl. Beo Raya, Sukahati'
+            ],
+            [
+                'id_user' => 19,
+                'latitude' => -6.500221,
+                'longitude' => 106.807824,
+                'alamat_lengkap' => 'Jl. Beo Raya, Sukahati'
+            ],
+            [
+                'id_user' => 20,
+                'latitude' => -6.500221,
+                'longitude' => 106.807824,
+                'alamat_lengkap' => 'Jl. Beo Raya, Sukahati'
+            ],
+            [
+                'id_user' => 21,
+                'latitude' => -6.500221,
+                'longitude' => 106.807824,
+                'alamat_lengkap' => 'Jl. Beo Raya, Sukahati'
+            ],
+            [
+                'id_user' => 22,
+                'latitude' => -6.500221,
+                'longitude' => 106.807824,
+                'alamat_lengkap' => 'Jl. Beo Raya, Sukahati'
             ]
         ];
         
