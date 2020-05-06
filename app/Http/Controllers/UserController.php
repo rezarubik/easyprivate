@@ -609,7 +609,7 @@ class UserController extends Controller
             // todo nilai akhir
             $pht[$pg->profileMatching->id_profile_matching]['nilai_akhir'] = $pht[$pg->profileMatching->id_profile_matching]['ncf'] * 0.7 + $pht[$pg->profileMatching->id_profile_matching]['scf'] * 0.3;
         }
-        dd($pht);
+        // dd($pht);
 
         foreach ($pht as $key => $value) {
             // var_dump($value);
