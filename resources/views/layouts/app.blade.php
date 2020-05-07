@@ -131,7 +131,7 @@
                         <li class="dropdown current-user">
                             <a href class="dropdown-toggle" data-toggle="dropdown">
                                 @if(auth()->user()->avatar)
-                                <img src="{{ auth()->user()->avatar }}" alt="avatar">
+                                <img src="{{URL::asset('/assets/avatars/')}}/{{ auth()->user()->avatar }}" alt="avatar">
                                 @endif
                                 <span class="username">{{ auth()->user()->name }}<i class="ti-angle-down"></i></i></span>
                             </a>
@@ -243,7 +243,7 @@
     <!-- <script src=" {{asset('vendor/select2/select2.min.js')}}"></script>
     <script src=" {{asset('vendor/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
     <script src=" {{asset('vendor/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script> -->
-    <!-- end: JAVASCRIPTS REQUIRED FOR DATEPICKER ONLY -->
+    <!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGES ONLY -->
     @yield('javascript')
     <!-- start: CLIP-TWO JAVASCRIPTS -->
     <script src="{{asset('assets/js/main.js')}}"></script>

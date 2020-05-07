@@ -2,6 +2,7 @@
 
 @section('title', 'Pendaftaran Calon Guru')
 @section('css')
+<link href="{{asset('vendor/bootstrap-fileinput/jasny-bootstrap.min.css')}}" rel="stylesheet" media="screen">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <!-- <link rel="stylesheet" href="{{url('/assets/css/leaflet.css')}}" /> -->
 @stop
@@ -86,13 +87,11 @@
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="birthday">Tanggal Lahir <span class="symbol required"></span></label>
                                                     <p class="input-group input-append datepicker date">
-                                                        <input type="text" name="birthday" placeholder="Pilih Tanggal Lahir Anda" class="form-control @error('birthday') symbol required @enderror" 
-                                                        value="<?php
-                                                        if(isset($pendaftaranGuru)){
-                                                            echo $pendaftaranGuru->user->tanggal_lahir;
-                                                        }
-                                                        ?>"
-                                                        />
+                                                        <input type="text" name="birthday" placeholder="Pilih Tanggal Lahir Anda" class="form-control @error('birthday') symbol required @enderror" value="<?php
+                                                                                                                                                                                                            if (isset($pendaftaranGuru)) {
+                                                                                                                                                                                                                echo $pendaftaranGuru->user->tanggal_lahir;
+                                                                                                                                                                                                            }
+                                                                                                                                                                                                            ?>" />
                                                         <span class="input-group-btn">
                                                             <button type="button" class="btn btn-default">
                                                                 <i class="glyphicon glyphicon-calendar"></i>
@@ -106,13 +105,11 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="nilai_ipk">Nilai IPK</label>
-                                                    <input type="number" name="ipk_score" class="form-control  @error('ipk_score') symbol required @enderror" placeholder="Contoh: 4.0" step="0.01" min="0" max="4" placeholder="Pilih Tanggal Lahir Anda" class="form-control @error('birthday') symbol required @enderror" 
-                                                    value="<?php
-                                                    if(isset($pendaftaranGuru)){
-                                                        echo $pendaftaranGuru->nilai_ipk;
-                                                    }
-                                                    ?>"
-                                                    />
+                                                    <input type="number" name="ipk_score" class="form-control  @error('ipk_score') symbol required @enderror" placeholder="Contoh: 4.0" step="0.01" min="0" max="4" placeholder="Pilih Tanggal Lahir Anda" class="form-control @error('birthday') symbol required @enderror" value="<?php
+                                                                                                                                                                                                                                                                                                                                    if (isset($pendaftaranGuru)) {
+                                                                                                                                                                                                                                                                                                                                        echo $pendaftaranGuru->nilai_ipk;
+                                                                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                                                                    ?>" />
                                                     @error('ipk_score')
                                                     <div class="help-block"> {{$message}} </div>
                                                     @enderror
@@ -120,13 +117,11 @@
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="pengalaman_mengajar">Pengalaman Mengajar <b>(bulan)</b>
                                                     </label>
-                                                    <input type="number" name="teach_experience" class="form-control  @error('teach_experience') symbol required @enderror" placeholder="Contoh: 12" min="0"
-                                                    value="<?php
-                                                    if(isset($pendaftaranGuru)){
-                                                        echo $pendaftaranGuru->pengalaman_mengajar;
-                                                    }
-                                                    ?>"
-                                                    />
+                                                    <input type="number" name="teach_experience" class="form-control  @error('teach_experience') symbol required @enderror" placeholder="Contoh: 12" min="0" value="<?php
+                                                                                                                                                                                                                    if (isset($pendaftaranGuru)) {
+                                                                                                                                                                                                                        echo $pendaftaranGuru->pengalaman_mengajar;
+                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                    ?>" />
                                                     @error('teach_experience')
                                                     <div class="help-block"> {{$message}} </div>
                                                     @enderror
@@ -137,35 +132,29 @@
                                                     <label class="control-label" for="jenis_kelamin">Jenis Kelamin</label>
                                                     <select id="jenis_kelamin" name="gender" class=" form-control">
                                                         <option selected>Piilih Jenis Kelamin</option>
-                                                        <option value="laki-laki" 
-                                                        <?php
-                                                        if(isset($pendaftaranGuru)){
-                                                            if($pendaftaranGuru->user->jenis_kelamin == 'laki-laki'){
-                                                                echo 'selected';
-                                                            }
-                                                        }
-                                                        ?>
-                                                        >Laki-Laki</option>
-                                                        <option value="perempuan"
-                                                        <?php
-                                                        if(isset($pendaftaranGuru)){
-                                                            if($pendaftaranGuru->user->jenis_kelamin == 'perempuan'){
-                                                                echo 'selected';
-                                                            }
-                                                        }
-                                                        ?>
-                                                        >Perempuan</option>
+                                                        <option value="laki-laki" <?php
+                                                                                    if (isset($pendaftaranGuru)) {
+                                                                                        if ($pendaftaranGuru->user->jenis_kelamin == 'laki-laki') {
+                                                                                            echo 'selected';
+                                                                                        }
+                                                                                    }
+                                                                                    ?>>Laki-Laki</option>
+                                                        <option value="perempuan" <?php
+                                                                                    if (isset($pendaftaranGuru)) {
+                                                                                        if ($pendaftaranGuru->user->jenis_kelamin == 'perempuan') {
+                                                                                            echo 'selected';
+                                                                                        }
+                                                                                    }
+                                                                                    ?>>Perempuan</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="no_hp">Nomor <i>Handphone</i> yang dapat dihubungi </label>
-                                                    <input type="text" name="handphone_number" class="form-control @error('handphone_number') symbol required @enderror " placeholder="Contoh: 089501011011"
-                                                    value="<?php
-                                                    if(isset($pendaftaranGuru)){
-                                                        echo $pendaftaranGuru->user->no_handphone;
-                                                    }
-                                                    ?>"
-                                                    >
+                                                    <input type="text" name="handphone_number" class="form-control @error('handphone_number') symbol required @enderror " placeholder="Contoh: 089501011011" value="<?php
+                                                                                                                                                                                                                    if (isset($pendaftaranGuru)) {
+                                                                                                                                                                                                                        echo $pendaftaranGuru->user->no_handphone;
+                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                    ?>">
                                                     @error('handphone_number')
                                                     <div class="help-block"> {{$message}} </div>
                                                     @enderror
@@ -182,13 +171,11 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <h5 class="over-title margin-bottom-15">Alamat Lengkap</h5>
-                                            <input style="width: 100%;" type="text" class="form-control" placeholder="Masukkan alamat lengkap rumah Anda disini" id="address" name="alamat_lengkap"
-                                            value="<?php
-                                            if(isset($pendaftaranGuru)){
-                                                echo $pendaftaranGuru->user->alamat->alamat_lengkap;
-                                            }
-                                            ?>"
-                                            >
+                                            <input style="width: 100%;" type="text" class="form-control" placeholder="Masukkan alamat lengkap rumah Anda disini" id="address" name="alamat_lengkap" value="<?php
+                                                                                                                                                                                                            if (isset($pendaftaranGuru)) {
+                                                                                                                                                                                                                echo $pendaftaranGuru->user->alamat->alamat_lengkap;
+                                                                                                                                                                                                            }
+                                                                                                                                                                                                            ?>">
                                         </div>
                                     </div>
                                     <div class="row margin-top-30">
@@ -198,20 +185,16 @@
                                                 <div id="geocoder"></div>
                                             </div>
                                             <div id="map" style="height:250px; position:relative; top:0px; left:0px; right:0px; bottom:0px; "></div>
-                                            <input type="hidden" id="lat" name="lat" placeholder="Your lat.."
-                                            value="<?php
-                                            if(isset($pendaftaranGuru)){
-                                                echo $pendaftaranGuru->user->alamat->latitude;
-                                            }
-                                            ?>"
-                                            >
-                                            <input type="hidden" id="lng" name="lng" placeholder="Your lng.."
-                                            value="<?php
-                                            if(isset($pendaftaranGuru)){
-                                                echo $pendaftaranGuru->user->alamat->longitude;
-                                            }
-                                            ?>"
-                                            >
+                                            <input type="hidden" id="lat" name="lat" placeholder="Your lat.." value="<?php
+                                                                                                                        if (isset($pendaftaranGuru)) {
+                                                                                                                            echo $pendaftaranGuru->user->alamat->latitude;
+                                                                                                                        }
+                                                                                                                        ?>">
+                                            <input type="hidden" id="lng" name="lng" placeholder="Your lng.." value="<?php
+                                                                                                                        if (isset($pendaftaranGuru)) {
+                                                                                                                            echo $pendaftaranGuru->user->alamat->longitude;
+                                                                                                                        }
+                                                                                                                        ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -343,11 +326,44 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="video_microteaching" class="control-label"><i>Video Microteaching</i></label>
-                                                    <input name="file_microteaching" type="file" class="form-control @error('file_microteaching') symbol required @enderror" accept="video/*">
+                                                    <input name="file_microteaching" type="file" class="form-control @error('file_microteaching') symbol required @enderror" accept="video/*"
+                                                    value="<?php
+                                                        if(isset($pendaftaranGuru)){
+                                                            $pendaftaranGuru->dir_video;
+                                                        }
+                                                    ?>"
+                                                    >
                                                     <p class="margin-top-10">**NOTE</p>
                                                     @error('file_microteaching')
                                                     <div class="help-block"> {{$message}} </div>
                                                     @enderror
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="avatar" class="control-label">Foto Profil</label>
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="fileinput-new thumbnail">
+                                                            @if(auth()->user()->avatar)
+                                                            <img src="{{URL::asset('assets/avatars/')}}/{{ auth()->user()->avatar }}" alt="avatar">
+                                                            @endif
+                                                        </div>
+                                                        <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                                        <div class="user-edit-image-buttons">
+                                                            <span class="btn btn-azure btn-file"><span class="fileinput-new"><i class="fa fa-picture"></i> Select image</span><span class="fileinput-exists"><i class="fa fa-picture"></i> Change</span>
+                                                                <input type="file" name="foto_profile" accept="image/*"
+                                                                value="<?php
+                                                                    if(isset($pendaftaranGuru)){
+                                                                        $pendaftaranGuru->user->avatar;
+                                                                    }
+                                                                ?>"
+                                                                >
+                                                            </span>
+                                                            <a href="#" class="btn fileinput-exists btn-red" data-dismiss="fileinput">
+															    <i class="fa fa-times"></i> Remove
+															</a>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -463,7 +479,7 @@
     }
     document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 </script>
-<!-- mapbox -->
+<!-- end mapbox -->
 <script src="{{asset('vendor/maskedinput/jquery.maskedinput.min.js')}}"></script>
 <script src="{{asset('vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js')}}"></script>
 <script src="{{asset('vendor/autosize/autosize.min.js')}}"></script>
@@ -473,6 +489,7 @@
 <!-- <script src="{{asset('assets/js/form-elements.js')}}"></script> -->
 <script src="{{asset('vendor/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
 <script src="{{asset('vendor/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script>
+<script src="{{asset('vendor/bootstrap-fileinput/jasny-bootstrap.js')}}"></script>
 <!-- form validation -->
 <!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 <script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>
