@@ -38,15 +38,15 @@ class MataPelajaranController extends Controller
         $value = $request->get('value');
         $dependent = $request->get('dependent');
 
-        $data = MataPelajaran::where([
+        $mapels = MataPelajaran::where([
             'id_jenjang' => $value
-        ])->get();
-
-        $output = '<option value="" selected>Pilih Mata Pelajaran</option>';
-        foreach ($data as $row) {
-            $output .= '<option value="' . $row->id_mapel . '">' . $row->nama_mapel . '</option>';
-        }
-        echo $output;
+        ])->pluck("nama_mapel", "id_mapel");
+        // $output = '<option value="" selected>Pilih Mata Pelajaran</option>';
+        // foreach ($data as $row) {
+        //     $output .= '<option value="' . $row->id_mapel . '">' . $row->nama_mapel . '</option>';
+        // }
+        // echo $output;
+        return response()->json($mapels);
     }
 
     public function getMapelByIdGuru($id)

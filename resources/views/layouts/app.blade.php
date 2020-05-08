@@ -72,7 +72,7 @@
                                 </div>
                             </a>
                         </li>
-                        <!-- ? Nilai Gap -->
+                        <!-- ? Pendaftaran Guru -->
                         <li class="{{(Request::is('/', 'user/create')) ? 'active open' : ''}}">
                             <a href="{{url('/user/create')}}">
                                 <div class="item-content">
@@ -85,7 +85,21 @@
                                 </div>
                             </a>
                         </li>
-                        <!-- ? End of Nilai Gap -->
+                        <!-- ? End of Pendaftaran Guru -->
+                        <!-- ? Pendaftaran Guru Profile -->
+                        <li class="{{(Request::is('/', 'user-profile/create')) ? 'active open' : ''}}">
+                            <a href="{{url('/user-profile/create')}}">
+                                <div class="item-content">
+                                    <div class="item-media">
+                                        <i class="ti-settings"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <span class="title"> Form Pendaftaran Profile Guru </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <!-- ? End of Pendaftaran Guru Profile -->
                     </ul>
                 </nav>
             </div>

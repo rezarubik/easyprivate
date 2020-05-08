@@ -41,6 +41,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 // todo form pendaftaran guru
 Route::get('/user/create', 'UserController@create');
 Route::post('/user', 'UserController@store');
+Route::get('/user-profile/create', 'UserController@createProfile');
+Route::post('/user-profile', 'UserController@storeProfile');
 Route::post('/getMapelperJenjang', 'MataPelajaranController@getMapelperJenjang')->name('getMapelperJenjang');
 
 // ? Admin

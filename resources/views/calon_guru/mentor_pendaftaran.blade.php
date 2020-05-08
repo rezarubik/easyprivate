@@ -52,11 +52,6 @@
                             </a>
                         </li>
                         <li>
-                            <a data-toggle="tab" href="#alamat">
-                                Alamat
-                            </a>
-                        </li>
-                        <li>
                             <a data-toggle="tab" href="#mata_pelajaran">
                                 Mata Pelajaran
                             </a>
@@ -73,35 +68,6 @@
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="form-group col-md-6">
-                                                    <label class="control-label" for="email">Email</label>
-                                                    <input type="email" name="email" class="form-control" disabled="disabled" placeholder="Email Anda: {{auth()->user()->email}}">
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-6">
-                                                    <label class="control-label" for="nama_lengkap">Nama Lengkap</label>
-                                                    <input type="text" name="full_name" class="form-control" disabled="disabled" placeholder="Nama Anda: {{auth()->user()->name}}">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label class="control-label" for="birthday">Tanggal Lahir <span class="symbol required"></span></label>
-                                                    <p class="input-group input-append datepicker date">
-                                                        <input type="text" name="birthday" placeholder="Pilih Tanggal Lahir Anda" class="form-control @error('birthday') symbol required @enderror" value="<?php
-                                                                                                                                                                                                            if (isset($pendaftaranGuru)) {
-                                                                                                                                                                                                                echo $pendaftaranGuru->user->tanggal_lahir;
-                                                                                                                                                                                                            }
-                                                                                                                                                                                                            ?>" />
-                                                        <span class="input-group-btn">
-                                                            <button type="button" class="btn btn-default">
-                                                                <i class="glyphicon glyphicon-calendar"></i>
-                                                            </button> </span>
-                                                        @error('birthday')
-                                                        <div class="text-danger text-large"> {{$message}} </div>
-                                                        @enderror
-                                                    </p>
-                                                </div>
-                                            </div>
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="nilai_ipk">Nilai IPK</label>
@@ -123,39 +89,6 @@
                                                                                                                                                                                                                     }
                                                                                                                                                                                                                     ?>" />
                                                     @error('teach_experience')
-                                                    <div class="help-block"> {{$message}} </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-6">
-                                                    <label class="control-label" for="jenis_kelamin">Jenis Kelamin</label>
-                                                    <select id="jenis_kelamin" name="gender" class=" form-control">
-                                                        <option selected>Piilih Jenis Kelamin</option>
-                                                        <option value="laki-laki" <?php
-                                                                                    if (isset($pendaftaranGuru)) {
-                                                                                        if ($pendaftaranGuru->user->jenis_kelamin == 'laki-laki') {
-                                                                                            echo 'selected';
-                                                                                        }
-                                                                                    }
-                                                                                    ?>>Laki-Laki</option>
-                                                        <option value="perempuan" <?php
-                                                                                    if (isset($pendaftaranGuru)) {
-                                                                                        if ($pendaftaranGuru->user->jenis_kelamin == 'perempuan') {
-                                                                                            echo 'selected';
-                                                                                        }
-                                                                                    }
-                                                                                    ?>>Perempuan</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label class="control-label" for="no_hp">Nomor <i>Handphone</i> yang dapat dihubungi </label>
-                                                    <input type="text" name="handphone_number" class="form-control @error('handphone_number') symbol required @enderror " placeholder="Contoh: 089501011011" value="<?php
-                                                                                                                                                                                                                    if (isset($pendaftaranGuru)) {
-                                                                                                                                                                                                                        echo $pendaftaranGuru->user->no_handphone;
-                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                    ?>">
-                                                    @error('handphone_number')
                                                     <div class="help-block"> {{$message}} </div>
                                                     @enderror
                                                 </div>
@@ -218,7 +151,13 @@
                                                     <select name="jenjang_1" id="jenjang_1" class="form-control dynamic" style="width:100%;" data-dependent="mapel_1">
                                                         <option value="" selected>Pilih Jenjang</option>
                                                         @foreach($jenjang as $j)
-                                                        <option value="{{$j->id_jenjang}}">{{$j->nama_jenjang}}</option>
+                                                        <option value="{{$j->id_jenjang}}" <?php
+                                                                                            if (isset($guruMapel[0])) {
+                                                                                                if ($guruMapel[0]->mataPelajaran->id_jenjang == $j->id_jenjang) {
+                                                                                                    echo 'selected';
+                                                                                                }
+                                                                                            }
+                                                                                            ?>>{{$j->nama_jenjang}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -226,7 +165,17 @@
                                                     <label class="control-label" for="mapel_1">Mata Pelajaran 1</label>
                                                     <select name="mapel_1" id="mapel_1" class="form-control" style="width:100%;">
                                                         <option value="" selected>Pilih Mata Pelajaran</option>
-
+                                                        @if(isset($mapel1))
+                                                        @foreach($mapel1 as $mp1)
+                                                        <option value="{{$mp1->id_mapel}}" <?php
+                                                                                            if (isset($guruMapel[0])) {
+                                                                                                if ($guruMapel[0]->mataPelajaran->id_mapel == $mp1->id_mapel) {
+                                                                                                    echo 'selected';
+                                                                                                }
+                                                                                            }
+                                                                                            ?>> {{$mp1->nama_mapel}} </option>
+                                                        @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -236,7 +185,13 @@
                                                     <select name="jenjang_2" id="jenjang_2" class="form-control dynamic" style="width:100%;" data-dependent="mapel_2">
                                                         <option value="" selected>Pilih Jenjang</option>
                                                         @foreach($jenjang as $j)
-                                                        <option value="{{$j->id_jenjang}}">{{$j->nama_jenjang}}</option>
+                                                        <option value="{{$j->id_jenjang}}" <?php
+                                                                                            if (isset($guruMapel[1])) {
+                                                                                                if ($guruMapel[1]->mataPelajaran->id_jenjang == $j->id_jenjang) {
+                                                                                                    echo 'selected';
+                                                                                                }
+                                                                                            }
+                                                                                            ?>>{{$j->nama_jenjang}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -244,6 +199,17 @@
                                                     <label class="control-label" for="mapel_2">Mata Pelajaran 2</label>
                                                     <select name="mapel_2" id="mapel_2" class="form-control" style="width:100%;">
                                                         <option value="" selected>Pilih Mata Pelajaran</option>
+                                                        @if(isset($mapel2))
+                                                        @foreach($mapel2 as $mp2)
+                                                        <option value="{{$mp2->id_mapel}}" <?php
+                                                                                            if (isset($guruMapel[1])) {
+                                                                                                if ($guruMapel[1]->mataPelajaran->id_mapel == $mp2->id_mapel) {
+                                                                                                    echo 'selected';
+                                                                                                }
+                                                                                            }
+                                                                                            ?>> {{$mp2->nama_mapel}} </option>
+                                                        @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -253,7 +219,13 @@
                                                     <select name="jenjang_3" id="jenjang_3" class="form-control dynamic" style="width:100%;" data-dependent="mapel_3">
                                                         <option value="" selected>Pilih Jenjang</option>
                                                         @foreach($jenjang as $j)
-                                                        <option value="{{$j->id_jenjang}}">{{$j->nama_jenjang}}</option>
+                                                        <option value="{{$j->id_jenjang}}" <?php
+                                                                                            if (isset($guruMapel[2])) {
+                                                                                                if ($guruMapel[2]->mataPelajaran->id_jenjang == $j->id_jenjang) {
+                                                                                                    echo 'selected';
+                                                                                                }
+                                                                                            }
+                                                                                            ?>>{{$j->nama_jenjang}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -261,6 +233,17 @@
                                                     <label class="control-label" for="mapel_3">Mata Pelajaran 3</label>
                                                     <select name="mapel_3" id="mapel_3" class="form-control" style="width:100%;">
                                                         <option value="" selected>Pilih Mata Pelajaran</option>
+                                                        @if(isset($mapel3))
+                                                        @foreach($mapel3 as $mp3)
+                                                        <option value="{{$mp3->id_mapel}}" <?php
+                                                                                            if (isset($guruMapel[2])) {
+                                                                                                if ($guruMapel[2]->mataPelajaran->id_mapel == $mp3->id_mapel) {
+                                                                                                    echo 'selected';
+                                                                                                }
+                                                                                            }
+                                                                                            ?>> {{$mp3->nama_mapel}} </option>
+                                                        @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -270,7 +253,13 @@
                                                     <select name="jenjang_4" id="jenjang_4" class="form-control dynamic" style="width:100%;" data-dependent="mapel_4">
                                                         <option value="" selected>Pilih Jenjang</option>
                                                         @foreach($jenjang as $j)
-                                                        <option value="{{$j->id_jenjang}}">{{$j->nama_jenjang}}</option>
+                                                        <option value="{{$j->id_jenjang}}" <?php
+                                                                                            if (isset($guruMapel[3])) {
+                                                                                                if ($guruMapel[3]->mataPelajaran->id_jenjang == $j->id_jenjang) {
+                                                                                                    echo 'selected';
+                                                                                                }
+                                                                                            }
+                                                                                            ?>>{{$j->nama_jenjang}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -278,6 +267,17 @@
                                                     <label class="control-label" for="mapel_4">Mata Pelajaran 4</label>
                                                     <select name="mapel_4" id="mapel_4" class="form-control" style="width:100%;">
                                                         <option value="" selected>Pilih Mata Pelajaran</option>
+                                                        @if(isset($mapel4))
+                                                        @foreach($mapel4 as $mp4)
+                                                        <option value="{{$mp4->id_mapel}}" <?php
+                                                                                            if (isset($guruMapel[3])) {
+                                                                                                if ($guruMapel[3]->mataPelajaran->id_mapel == $mp4->id_mapel) {
+                                                                                                    echo 'selected';
+                                                                                                }
+                                                                                            }
+                                                                                            ?>> {{$mp4->nama_mapel}} </option>
+                                                        @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -287,7 +287,13 @@
                                                     <select name="jenjang_5" id="jenjang_5" class="form-control dynamic" style="width:100%;" data-dependent="mapel_5">
                                                         <option value="" selected>Pilih Jenjang</option>
                                                         @foreach($jenjang as $j)
-                                                        <option value="{{$j->id_jenjang}}">{{$j->nama_jenjang}}</option>
+                                                        <option value="{{$j->id_jenjang}}" <?php
+                                                                                            if (isset($guruMapel[4])) {
+                                                                                                if ($guruMapel[4]->mataPelajaran->id_jenjang == $j->id_jenjang) {
+                                                                                                    echo 'selected';
+                                                                                                }
+                                                                                            }
+                                                                                            ?>>{{$j->nama_jenjang}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -295,6 +301,17 @@
                                                     <label class="control-label" for="mapel_5">Mata Pelajaran 5</label>
                                                     <select name="mapel_5" id="mapel_5" class="form-control" style="width:100%;">
                                                         <option value="" selected>Pilih Mata Pelajaran</option>
+                                                        @if(isset($mapel5))
+                                                        @foreach($mapel5 as $mp5)
+                                                        <option value="{{$mp5->id_mapel}}" <?php
+                                                                                            if (isset($guruMapel[4])) {
+                                                                                                if ($guruMapel[4]->mataPelajaran->id_mapel == $mp5->id_mapel) {
+                                                                                                    echo 'selected';
+                                                                                                }
+                                                                                            }
+                                                                                            ?>> {{$mp5->nama_mapel}} </option>
+                                                        @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -326,44 +343,15 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="video_microteaching" class="control-label"><i>Video Microteaching</i></label>
-                                                    <input name="file_microteaching" type="file" class="form-control @error('file_microteaching') symbol required @enderror" accept="video/*"
-                                                    value="<?php
-                                                        if(isset($pendaftaranGuru)){
-                                                            $pendaftaranGuru->dir_video;
-                                                        }
-                                                    ?>"
-                                                    >
+                                                    <input name="file_microteaching" type="file" class="form-control @error('file_microteaching') symbol required @enderror" accept="video/*" value="<?php
+                                                                                                                                                                                                        if (isset($pendaftaranGuru)) {
+                                                                                                                                                                                                            $pendaftaranGuru->dir_video;
+                                                                                                                                                                                                        }
+                                                                                                                                                                                                        ?>">
                                                     <p class="margin-top-10">**NOTE</p>
                                                     @error('file_microteaching')
                                                     <div class="help-block"> {{$message}} </div>
                                                     @enderror
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="avatar" class="control-label">Foto Profil</label>
-                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                        <div class="fileinput-new thumbnail">
-                                                            @if(auth()->user()->avatar)
-                                                            <img src="{{URL::asset('assets/avatars/')}}/{{ auth()->user()->avatar }}" alt="avatar">
-                                                            @endif
-                                                        </div>
-                                                        <div class="fileinput-preview fileinput-exists thumbnail"></div>
-                                                        <div class="user-edit-image-buttons">
-                                                            <span class="btn btn-azure btn-file"><span class="fileinput-new"><i class="fa fa-picture"></i> Select image</span><span class="fileinput-exists"><i class="fa fa-picture"></i> Change</span>
-                                                                <input type="file" name="foto_profile" accept="image/*"
-                                                                value="<?php
-                                                                    if(isset($pendaftaranGuru)){
-                                                                        $pendaftaranGuru->user->avatar;
-                                                                    }
-                                                                ?>"
-                                                                >
-                                                            </span>
-                                                            <a href="#" class="btn fileinput-exists btn-red" data-dismiss="fileinput">
-															    <i class="fa fa-times"></i> Remove
-															</a>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -544,8 +532,14 @@
                         _token: _token,
                         dependent: dependent
                     },
-                    success: function(result) {
-                        $('#' + dependent).html(result);
+                    success: function(mapels) {
+                        $('#' + dependent).empty(); // untuk nge empty
+                        console.log(mapels);
+                        $('#' + dependent).append('<option value="" selected>' + 'Pilih Mata Pelajaran' + '</option>');
+                        $.each(mapels, function(index, mapel) {
+                            // console.log(mapels[index]);
+                            $('#' + dependent).append('<option value="' + index + '">' + mapel + '</option>');
+                        })
                     }
                 })
             }
