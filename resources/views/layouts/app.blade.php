@@ -145,7 +145,7 @@
                         <li class="dropdown current-user">
                             <a href class="dropdown-toggle" data-toggle="dropdown">
                                 @if(auth()->user()->avatar)
-                                <img src="{{URL::asset('/assets/avatars/')}}/{{ auth()->user()->avatar }}" alt="avatar">
+                                <img src="{{URL::asset('/assets/avatars/')}}/{{ auth()->user()->avatar }}" alt="avatar" style="height: 39px; object-fit:cover;">
                                 @endif
                                 <span class="username">{{ auth()->user()->name }}<i class="ti-angle-down"></i></i></span>
                             </a>

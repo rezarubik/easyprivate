@@ -3,7 +3,7 @@
 @section('title', 'Pendaftaran Calon Guru')
 @section('css')
 <link href="{{asset('vendor/bootstrap-fileinput/jasny-bootstrap.min.css')}}" rel="stylesheet" media="screen">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
 <!-- <link rel="stylesheet" href="{{url('/assets/css/leaflet.css')}}" /> -->
 @stop
 @section('main-title', 'Pendaftaran Guru')
@@ -35,20 +35,11 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                @if(isset($pendaftaranGuru))
-                <div class="alert alert-success">
-                    <p class="text-center text-primary text-large">Data Anda Telah Terisi</p>
-                </div>
-                @endif
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
                 <div class="tabbable">
                     <ul class="nav nav-tabs tab-padding tab-space-3 tab-blue" id="myTab4">
                         <li class="active">
                             <a data-toggle="tab" href="#data_diri">
-                                Data Diri
+                                Data Akademik
                             </a>
                         </li>
                         <li>
@@ -93,41 +84,6 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="alamat" class="tab-pane fade in">
-                            <div class="row padding-20">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <h5 class="over-title margin-bottom-15">Alamat Lengkap</h5>
-                                            <input style="width: 100%;" type="text" class="form-control" placeholder="Masukkan alamat lengkap rumah Anda disini" id="address" name="alamat_lengkap" value="<?php
-                                                                                                                                                                                                            if (isset($pendaftaranGuru)) {
-                                                                                                                                                                                                                echo $pendaftaranGuru->user->alamat->alamat_lengkap;
-                                                                                                                                                                                                            }
-                                                                                                                                                                                                            ?>">
-                                        </div>
-                                    </div>
-                                    <div class="row margin-top-30">
-                                        <div class="col-sm-12">
-                                            <h5 class="over-title margin-bottom-15">Temukan daerah disekitar rumah Anda</h5>
-                                            <div class="geocoder">
-                                                <div id="geocoder"></div>
-                                            </div>
-                                            <div id="map" style="height:250px; position:relative; top:0px; left:0px; right:0px; bottom:0px; "></div>
-                                            <input type="hidden" id="lat" name="lat" placeholder="Your lat.." value="<?php
-                                                                                                                        if (isset($pendaftaranGuru)) {
-                                                                                                                            echo $pendaftaranGuru->user->alamat->latitude;
-                                                                                                                        }
-                                                                                                                        ?>">
-                                            <input type="hidden" id="lng" name="lng" placeholder="Your lng.." value="<?php
-                                                                                                                        if (isset($pendaftaranGuru)) {
-                                                                                                                            echo $pendaftaranGuru->user->alamat->longitude;
-                                                                                                                        }
-                                                                                                                        ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -337,18 +293,24 @@
                                                     <label for="cv" class="control-label"><i>Curriculum Vitae</i></label>
                                                     <input type="file" name="file_cv" class="form-control @error('file_cv') symbol required @enderror" accept="application/pdf">
                                                     <p class="margin-top-10">**NOTE</p>
+                                                    @if(isset($pendaftaranGuru->dir_cv))
+                                                    <a href="{{asset('assets/cv_guru/' . $pendaftaranGuru->dir_cv)}}" class="btn-sm btn-primary btn-o">
+                                                        Lihat CV
+                                                    </a>
+                                                    @endif
                                                     @error('file_cv')
                                                     <div class="help-block"> {{$message}} </div>
                                                     @enderror
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="video_microteaching" class="control-label"><i>Video Microteaching</i></label>
-                                                    <input name="file_microteaching" type="file" class="form-control @error('file_microteaching') symbol required @enderror" accept="video/*" value="<?php
-                                                                                                                                                                                                        if (isset($pendaftaranGuru)) {
-                                                                                                                                                                                                            $pendaftaranGuru->dir_video;
-                                                                                                                                                                                                        }
-                                                                                                                                                                                                        ?>">
+                                                    <input name="file_microteaching" type="file" class="form-control @error('file_microteaching') symbol required @enderror" accept="video/mp4">
                                                     <p class="margin-top-10">**NOTE</p>
+                                                    @if(isset($pendaftaranGuru->dir_video))
+                                                    <button type="button" class="btn-sm btn-primary btn-o" data-toggle="modal" data-target="#videoMicroteaching{{$pendaftaranGuru->id_pendaftaran}}">
+                                                        Lihat Video
+                                                    </button>
+                                                    @endif
                                                     @error('file_microteaching')
                                                     <div class="help-block"> {{$message}} </div>
                                                     @enderror
@@ -365,109 +327,44 @@
         </div>
     </form>
     <!-- //todo end: form -->
+    <!-- Modal Menampilkan Video Microteaching -->
+    @if(isset($pendaftaranGuru->dir_video))
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="modal fade" id="videoMicroteaching{{$pendaftaranGuru->id_pendaftaran}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <input type="hidden" name="id_pendaftaran" value='{{$pendaftaranGuru->id_pendaftaran}}'>
+                                    <h4 class="modal-title" id="myModalLabel">Video yang telah Anda upload</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="text-center form-group col-md-12">
+                                            <video width="320" height="240" controls>
+                                                <source src="{{URL::asset('/assets/video_microteaching/')}}/{{$pendaftaranGuru->dir_video}}" type="video/mp4">
+                                            </video>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+    <!-- /Modal Menampilkan Video Microteaching -->
 </div>
 <!-- //todo end: tabs -->
 
 @endsection
 
 @section('javascript')
-<!-- mapbox -->
-<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.js'></script>
-<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.css' rel='stylesheet' />
-
-<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
-<script src="{{asset('assets/js/leaflet.js')}}"></script>
-<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
-<script>
-    var user_location = [106.816666, -6.200000];
-    mapboxgl.accessToken = 'pk.eyJ1IjoicmV6YXJ1YmlrIiwiYSI6ImNrOHd2YWUxZDB1aGgzaW83aG5yODI3ejUifQ.-52Xu5WVXif31PzIBWBnQA';
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v9',
-        center: user_location,
-        zoom: 10
-    });
-    //  geocoder here
-    var geocoder = new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        // limit results to Australia
-        //country: 'IN',
-    });
-
-    var marker;
-    const geolocate = new mapboxgl.GeolocateControl({
-        positionOptions: {
-            enableHighAccuracy: true
-        },
-        trackUserLocation: true
-    });
-
-    // After the map style has loaded on the page, add a source layer and default
-    // styling for a single point.
-    map.on('load', function() {
-        geolocate.trigger();
-        // addMarker(user_location, 'load'); //for marker
-        // Listen for the `result` event from the MapboxGeocoder that is triggered when a user
-        // makes a selection and add a symbol that matches the result.
-        geocoder.on('result', function(ev) {
-            // alert("aaaaa");
-            console.log(ev.result.center);
-
-        });
-    });
-
-    // Add geolocate control to the map. Current Location
-    map.addControl(
-        geolocate
-        // new mapboxgl.GeolocateControl({
-        //     positionOptions: {
-        //         enableHighAccuracy: true
-        //     },
-        //     trackUserLocation: true
-        // })
-    );
-    geolocate.on('geolocate', function() {
-        //Get the updated user location, this returns a javascript object.
-        var loc = geolocate._lastKnownPosition;
-        //Your work here - Get coordinates like so
-        var lat = loc.coords.latitude;
-        var lng = loc.coords.longitude;
-        var latlng = [lng, lat];
-        addMarker(latlng, 'click');
-    });
-    map.on('click', function(e) {
-        addMarker(e.lngLat, 'click');
-        //console.log(e.lngLat.lat);
-    });
-
-    function addMarker(ltlng, event) {
-        if (marker != null) {
-            console.log('marker tidak sama dengan null cuy!');
-            marker.remove();
-        }
-        console.log('Mapnya udah ditekan coy!');
-        user_location = ltlng;
-        // if (event === 'click') {}
-        marker = new mapboxgl.Marker({
-                draggable: true,
-                color: "#d02922"
-            })
-            .setLngLat(user_location)
-            .addTo(map)
-            .on('dragend', onDragEnd);
-        document.getElementById("lat").value = marker.getLngLat().lat;
-        document.getElementById("lng").value = marker.getLngLat().lng;
-    }
-
-    function onDragEnd() {
-        var lngLat = marker.getLngLat();
-        document.getElementById("lat").value = lngLat.lat;
-        document.getElementById("lng").value = lngLat.lng;
-        console.log('lng: ' + lngLat.lng + '<br />lat: ' + lngLat.lat);
-    }
-    document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
-</script>
-<!-- end mapbox -->
 <script src="{{asset('vendor/maskedinput/jquery.maskedinput.min.js')}}"></script>
 <script src="{{asset('vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js')}}"></script>
 <script src="{{asset('vendor/autosize/autosize.min.js')}}"></script>
@@ -545,17 +442,6 @@
             }
         });
     });
-    // $('#jenjang_1').change(function() {
-    //     $('#mapel_1').selectedIndex = "0";
-    // });
-
-    // $('#jenjang_2').change(function() {
-    //     $('#mapel_2').val('');
-    // });
-
-    // $('#jenjang_3').change(function() {
-    //     $('#mapel_3').val('');
-    // });
 </script>
 
 @endsection

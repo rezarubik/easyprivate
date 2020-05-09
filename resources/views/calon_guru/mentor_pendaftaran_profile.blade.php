@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-12">
                 @if(isset($pendaftaranGuru))
                 <div class="alert alert-success">
@@ -41,7 +41,7 @@
                 </div>
                 @endif
             </div>
-        </div>
+        </div> -->
         <div class="row">
             <div class="col-md-12">
                 <div class="tabbable">

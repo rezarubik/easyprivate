@@ -109,24 +109,18 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // dd('hai');
-        // $pg = PendaftaranGuru::where('id_user', auth()->user->id)->first();
         $user = User::findOrFail(Auth()->user()->id);
-        // dd($user);
         $score = [];
         // todo Pengalaman Kerja
         $pk = $request->teach_experience;
-        // // todo Nilai IPK
         $ipk = $request->ipk_score;
-        // // todo Usia
         $currentYear = Carbon::now();
         $tanggal_lahir = $user->tanggal_lahir;
         $age = $currentYear->diffInYears($tanggal_lahir);
-        // // dd($age);
         // todo Ketersediaan Mata Pelajaran
         $jumlahMapel = 0;
 
 
-        // $user->tanggal_lahir = date_format(date_create($request->birthday), "Y/m/d");
         // todo 
         if ($age > 20 && $age <= 25) {
             $nilai['pm_usia'] = 5;
@@ -139,43 +133,6 @@ class UserController extends Controller
         } elseif ($age > 40) {
             $nilai['pm_usia'] = 1;
         }
-        // dd($nilai);
-
-        // todo insert into table user
-        // todo upload Foto Profile
-        // dir
-        // $dirAvatars = 'assets/avatars';
-        // // dd($dirAvatars);
-        // if($request->file('foto_profile') != null){
-        //     // file
-        //     $fileFotoProfile = $request->file('foto_profile');
-        //     //   dd($fileFotoProfile->getRealPath());
-        //     // file name
-        //     $fileNameFotoProfile = 'foto_profile_' . $user->id . '.' . $fileFotoProfile->getClientOriginalExtension();
-        //     // file move to directory
-        //     $fileFotoProfile->move($dirAvatars, $fileNameFotoProfile);
-        //     // dd($file);
-        //     User::where('id', $user->id)
-        //         ->update([
-        //             'avatar' => $fileNameFotoProfile
-        //         ]);
-        // }
-        // dd($pendaftaranGuru);
-
-        // $user->jenis_kelamin = $request->gender;
-        // $user->no_handphone = $request->handphone_number;
-        // $user->role = 0;
-        // $user->save();
-        // dd($user);
-
-        // todo insert into table alamat
-        // $alamat = new Alamat;
-        // $alamat->id_user = $user->id;
-        // $alamat->latitude = $request->lat;
-        // $alamat->longitude = $request->lng;
-        // $alamat->alamat_lengkap = $request->alamat_lengkap;
-        // $alamat->save();
-        // dd($alamat);
         GuruMapel::where('id_guru', auth()->user()->id)->delete();
         if (isset($request->mapel_1)) {
             $jumlahMapel += 1;
@@ -258,21 +215,35 @@ class UserController extends Controller
         $pendaftaranGuru->nilai_ipk = $request->ipk_score;
         $pendaftaranGuru->save();
 
+        // todo upload file cv
+        $dirCV = 'assets/cv_guru';
+        if($request->file('file_cv') != null){
+            $fileCV = $request->file('file_cv');
+            // file name
+            $fileNameCV = 'file_cv_' . $pendaftaranGuru->id_pendaftaran . '.' . $fileCV->getClientOriginalExtension();
+            // file move to directory
+            $fileCV->move($dirCV, $fileNameCV);
+            PendaftaranGuru::where('id_pendaftaran', $pendaftaranGuru->id_pendaftaran)
+            ->update([
+                'dir_cv' => $fileNameCV
+            ]);
+        }
+
         // todo upload video microteaching
         // dir
         $dir = 'assets/video_microteaching';
         // file
-        $file = $request->file('file_microteaching');
-        // dd($file);
-        // file name
-        $fileName = 'video_microteaching_' . $pendaftaranGuru->id_pendaftaran . '.' . $file->getClientOriginalExtension();
-        // file move to directory
-        $file->move($dir, $fileName);
-        // dd($file);
-        PendaftaranGuru::where('id_pendaftaran', $pendaftaranGuru->id_pendaftaran)
-            ->update([
-                'dir_video' => $fileName
-            ]);
+        if($request->file('file_microteaching') != null){
+            $file = $request->file('file_microteaching');
+            // file name
+            $fileName = 'video_microteaching_' . $pendaftaranGuru->id_pendaftaran . '.' . $file->getClientOriginalExtension();
+            // file move to directory
+            $file->move($dir, $fileName);
+            PendaftaranGuru::where('id_pendaftaran', $pendaftaranGuru->id_pendaftaran)
+                ->update([
+                    'dir_video' => $fileName
+                ]);
+        }
         // dd($pendaftaranGuru);
 
         // todo Profile Matching
@@ -300,20 +271,6 @@ class UserController extends Controller
         $age = $currentYear->diffInYears($tanggal_lahir);
         // dd($age);
         $user->tanggal_lahir = date_format(date_create($request->birthday), "y/m/d");
-        // todo 
-        // if ($age > 20 && $age <= 25) {
-        //     $nilai['pm_usia'] = 5;
-        // } elseif ($age > 25 && $age <= 30) {
-        //     $nilai['pm_usia'] = 4;
-        // } elseif ($age > 30 && $age <= 35) {
-        //     $nilai['pm_usia'] = 3;
-        // } elseif ($age > 35 && $age <= 40) {
-        //     $nilai['pm_usia'] = 2;
-        // } elseif ($age > 40) {
-        //     $nilai['pm_usia'] = 1;
-        // }
-        // dd($nilai);
-
         // todo insert into table user
         // todo upload Foto Profile
         // dir
@@ -333,13 +290,11 @@ class UserController extends Controller
                     'avatar' => $fileNameFotoProfile
                 ]);
         }
-        // dd($pendaftaranGuru);
 
         $user->jenis_kelamin = $request->gender;
         $user->no_handphone = $request->handphone_number;
         $user->role = 0;
         $user->save();
-        // dd($user);
 
         // todo insert into table alamat
         $alamat = Alamat::where('id_user', auth()->user()->id)->first();
@@ -356,36 +311,6 @@ class UserController extends Controller
             $alamat->alamat_lengkap = $request->alamat_lengkap;
             $alamat->save();
         }
-        // dd($alamat);
-        // todo rules pm pengalaman kerja
-        // if ($pk <= 6) {
-        //     $nilai['pm_pk'] = 1;
-        // } elseif ($pk > 6 && $pk <= 12) {
-        //     $nilai['pm_pk'] = 2;
-        // } elseif ($pk > 12 && $pk <= 18) {
-        //     $nilai['pm_pk'] = 3;
-        // } elseif ($pk > 18 && $pk <= 24) {
-        //     $nilai['pm_pk'] = 4;
-        // } elseif ($pk > 24) {
-        //     $nilai['pm_pk'] = 5;
-        // }
-        // $pendaftaranGuru = new PendaftaranGuru();
-        // $pendaftaranGuru->pengalaman_mengajar = $request->teach_experience;
-
-        //  todo nilai ipk
-        // if ($ipk <= 2) {
-        //     $nilai['pm_ipk'] = 1;
-        // } elseif ($ipk > 2 && $ipk <= 2.5) {
-        //     $nilai['pm_ipk'] = 2;
-        // } elseif ($ipk > 2.5 && $ipk <= 3.0) {
-        //     $nilai['pm_ipk'] = 3;
-        // } elseif ($ipk > 3.0 && $ipk <= 3.5) {
-        //     $nilai['pm_ipk'] = 4;
-        // } elseif ($ipk > 3.5 && $ipk <= 4.0) {
-        //     $nilai['pm_ipk'] = 5;
-        // }
-        // $pendaftaranGuru->nilai_ipk = $request->ipk_score;
-        // $pendaftaranGuru->save();
         return redirect('/user-profile/create')->with('status', 'Aplikasi Anda berhasil di simpan!');
     }
 
