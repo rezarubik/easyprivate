@@ -77,7 +77,7 @@
                             <a href="{{url('/user/create')}}">
                                 <div class="item-content">
                                     <div class="item-media">
-                                        <i class="ti-settings"></i>
+                                        <i class="ti-notepad"></i>
                                     </div>
                                     <div class="item-inner">
                                         <span class="title"> Form Pendaftaran Guru </span>
@@ -91,7 +91,7 @@
                             <a href="{{url('/user-profile/create')}}">
                                 <div class="item-content">
                                     <div class="item-media">
-                                        <i class="ti-settings"></i>
+                                        <i class="ti-user"></i>
                                     </div>
                                     <div class="item-inner">
                                         <span class="title"> Form Pendaftaran Profile Guru </span>

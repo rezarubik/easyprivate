@@ -78,10 +78,10 @@
                                                     <label class="control-label" for="birthday">Tanggal Lahir <span class="symbol required"></span></label>
                                                     <p class="input-group input-append datepicker date">
                                                         <input type="text" name="birthday" placeholder="Pilih Tanggal Lahir Anda" class="form-control @error('birthday') symbol required @enderror" readonly value="<?php
-                                                                                                                                                                                                            if (isset($pendaftaranGuru)) {
-                                                                                                                                                                                                                echo $pendaftaranGuru->user->tanggal_lahir;
-                                                                                                                                                                                                            }
-                                                                                                                                                                                                            ?>" />
+                                                                                                                                                                                                                    if (isset($pendaftaranGuru)) {
+                                                                                                                                                                                                                        echo $pendaftaranGuru->user->tanggal_lahir;
+                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                    ?>" />
                                                         <span class="input-group-btn">
                                                             <button type="button" class="btn btn-default">
                                                                 <i class="glyphicon glyphicon-calendar"></i>
@@ -127,27 +127,36 @@
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-6">
+                                                    <label class="control-label" for="universitas">Asal Universitas</label>
+                                                    <input type="text" name="universitas" class="form-control @error('universitas') symbol required @enderror " placeholder="Contoh: Universitas Indonesia" value="<?php
+                                                                                                                                                                                                                    if (isset($pendaftaranGuru)) {
+                                                                                                                                                                                                                        echo $pendaftaranGuru->universitas;
+                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                    ?>">
+                                                    @error('universitas')
+                                                    <div class="help-block"> {{$message}} </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group col-md-6">
                                                     <label for="avatar" class="control-label">Foto Profil</label>
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                                         <div class="fileinput-new thumbnail">
                                                             @if(auth()->user()->avatar)
-                                                            <img src="{{URL::asset('assets/avatars/')}}/{{ auth()->user()->avatar }}" alt="avatar">
+                                                            <img src="{{URL::asset('assets/avatars/')}}/{{ auth()->user()->avatar }}" alt="pilih avatar Anda">
                                                             @endif
                                                         </div>
                                                         <div class="fileinput-preview fileinput-exists thumbnail"></div>
                                                         <div class="user-edit-image-buttons">
                                                             <span class="btn btn-azure btn-file"><span class="fileinput-new"><i class="fa fa-picture"></i> Select image</span><span class="fileinput-exists"><i class="fa fa-picture"></i> Change</span>
-                                                                <input type="file" name="foto_profile" accept="image/*"
-                                                                value="<?php
-                                                                    if(isset($pendaftaranGuru)){
-                                                                        $pendaftaranGuru->user->avatar;
-                                                                    }
-                                                                ?>"
-                                                                >
+                                                                <input type="file" name="foto_profile" accept="image/*" value="<?php
+                                                                                                                                if (isset($pendaftaranGuru)) {
+                                                                                                                                    $pendaftaranGuru->user->avatar;
+                                                                                                                                }
+                                                                                                                                ?>">
                                                             </span>
                                                             <a href="#" class="btn fileinput-exists btn-red" data-dismiss="fileinput">
-															    <i class="fa fa-times"></i> Remove
-															</a>
+                                                                <i class="fa fa-times"></i> Remove
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>

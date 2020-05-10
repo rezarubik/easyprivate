@@ -217,7 +217,7 @@ class UserController extends Controller
 
         // todo upload file cv
         $dirCV = 'assets/cv_guru';
-        if($request->file('file_cv') != null){
+        if($request->hasFile('file_cv')){
             $fileCV = $request->file('file_cv');
             // file name
             $fileNameCV = 'file_cv_' . $pendaftaranGuru->id_pendaftaran . '.' . $fileCV->getClientOriginalExtension();
@@ -255,10 +255,16 @@ class UserController extends Controller
     /**
      * Store Profile Guru
      */
-    public function storeProfile(UserProfileRequest $request)
+    public function storeProfile(Request $request)
     {
         // $pg = PendaftaranGuru::where('id_user', auth()->user->id)->get();
         $user = User::findOrFail(Auth()->user()->id);
+        $pendaftaranGuru = PendaftaranGuru::where('id_user', auth()->user()->id)->first();
+        if($pendaftaranGuru == null){
+            $pendaftaranGuru = new PendaftaranGuru();
+        }
+        $pendaftaranGuru->universitas = $request->universitas;
+        $pendaftaranGuru->save();
         // dd($user);
         $score = [];
         // todo Pengalaman Kerja
