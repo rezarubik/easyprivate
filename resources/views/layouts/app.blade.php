@@ -72,7 +72,7 @@
                                 </div>
                             </a>
                         </li>
-                        <!-- ? Nilai Gap -->
+                        <!-- ? Pendaftaran Guru -->
                         <li class="{{(Request::is('/', 'user/create')) ? 'active open' : ''}}">
                             <a href="{{url('/user/create')}}">
                                 <div class="item-content">
@@ -85,7 +85,21 @@
                                 </div>
                             </a>
                         </li>
-                        <!-- ? End of Nilai Gap -->
+                        <!-- ? End of Pendaftaran Guru -->
+                        <!-- ? Pendaftaran Guru Profile -->
+                        <li class="{{(Request::is('/', 'user-profile/create')) ? 'active open' : ''}}">
+                            <a href="{{url('/user-profile/create')}}">
+                                <div class="item-content">
+                                    <div class="item-media">
+                                        <i class="ti-settings"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <span class="title"> Form Pendaftaran Profile Guru </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <!-- ? End of Pendaftaran Guru Profile -->
                     </ul>
                 </nav>
             </div>
@@ -131,7 +145,7 @@
                         <li class="dropdown current-user">
                             <a href class="dropdown-toggle" data-toggle="dropdown">
                                 @if(auth()->user()->avatar)
-                                <img src="{{ auth()->user()->avatar }}" alt="avatar">
+                                <img src="{{URL::asset('/assets/avatars/')}}/{{ auth()->user()->avatar }}" alt="avatar" style="height: 39px; object-fit:cover;">
                                 @endif
                                 <span class="username">{{ auth()->user()->name }}<i class="ti-angle-down"></i></i></span>
                             </a>
@@ -243,7 +257,7 @@
     <!-- <script src=" {{asset('vendor/select2/select2.min.js')}}"></script>
     <script src=" {{asset('vendor/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
     <script src=" {{asset('vendor/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script> -->
-    <!-- end: JAVASCRIPTS REQUIRED FOR DATEPICKER ONLY -->
+    <!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGES ONLY -->
     @yield('javascript')
     <!-- start: CLIP-TWO JAVASCRIPTS -->
     <script src="{{asset('assets/js/main.js')}}"></script>

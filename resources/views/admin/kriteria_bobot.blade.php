@@ -34,94 +34,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @foreach($kriteriaBobotTarget as $kbt)
                         <tr>
-                            <td>1</td>
-                            <td>Pengalaman Mengajar</td>
-                            <td>30%</td>
-                            <td><i>Core Factor</i></td>
-                            <td>4</td>
+                            <td>{{$kbt->id_kriteria_bobot_target}}</td>
+                            <td>{{$kbt->kriteria}}</td>
+                            <td>{{$kbt->bobot}}</td>
+                            <td>{{$kbt->faktor_kriteria}}<i></i></td>
+                            <td>{{$kbt->nilai_target}}</td>
                             <td class="text-center">
                                 <a href="http://" class="label label-success" title="Edit"><i class="ti-pencil"></i></a>
                                 <a href="http://" class="label label-danger" title="Hapus"><i class="ti-trash"></i></a>
                             </td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Volume dan Artikulasi Suara Video <i>Microteaching</i> </td>
-                            <td>10%</td>
-                            <td><i>Core Factor</i></td>
-                            <td>4</td>
-                            <td class="text-center">
-                                <a href="http://" class="label label-success" title="Edit"><i class="ti-pencil"></i></a>
-                                <a href="http://" class="label label-danger" title="Hapus"><i class="ti-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Keefektifan Kalimat Video <i>Microteaching</i> </td>
-                            <td>10%</td>
-                            <td><i>Core Factor</i></td>
-                            <td>3</td>
-                            <td class="text-center">
-                                <a href="http://" class="label label-success" title="Edit"><i class="ti-pencil"></i></a>
-                                <a href="http://" class="label label-danger" title="Hapus"><i class="ti-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Cara Mengajar Video <i>Microteaching</i> </td>
-                            <td>10%</td>
-                            <td><i>Core Factor</i></td>
-                            <td>4</td>
-                            <td class="text-center">
-                                <a href="http://" class="label label-success" title="Edit"><i class="ti-pencil"></i></a>
-                                <a href="http://" class="label label-danger" title="Hapus"><i class="ti-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Penguasaan Materi Video <i>Microteaching</i> </td>
-                            <td>10%</td>
-                            <td><i>Core Factor</i></td>
-                            <td>5</td>
-                            <td class="text-center">
-                                <a href="http://" class="label label-success" title="Edit"><i class="ti-pencil"></i></a>
-                                <a href="http://" class="label label-danger" title="Hapus"><i class="ti-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>Nilai Indeks Prestasi Terakhir (IPK) </td>
-                            <td>6%</td>
-                            <td><i>Secondary Factor</i></td>
-                            <td>4</td>
-                            <td class="text-center">
-                                <a href="http://" class="label label-success" title="Edit"><i class="ti-pencil"></i></a>
-                                <a href="http://" class="label label-danger" title="Hapus"><i class="ti-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>Usia Guru</td>
-                            <td>12%</td>
-                            <td><i>Secondary Factor</i></td>
-                            <td>4</td>
-                            <td class="text-center">
-                                <a href="http://" class="label label-success" title="Edit"><i class="ti-pencil"></i></a>
-                                <a href="http://" class="label label-danger" title="Hapus"><i class="ti-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>Ketersediaan Mata Pelajaran</td>
-                            <td>12%</td>
-                            <td><i>Secondary Factor</i></td>
-                            <td>4</td>
-                            <td class="text-center">
-                                <a href="http://" class="label label-success" title="Edit"><i class="ti-pencil"></i></a>
-                                <a href="http://" class="label label-danger" title="Hapus"><i class="ti-trash"></i></a>
-                            </td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

@@ -326,7 +326,7 @@
         <footer>
             <div class="footer-inner">
                 <div class="pull-left">
-                    &copy; <span class="current-year"></span><span class="text-bold text-uppercase"> ClipTheme</span>.
+                    &copy; <span class="current-year"></span><span class="text-bold text-uppercase"> Easy Private</span>.
                     <span>All rights reserved</span>
                 </div>
                 <div class="pull-right">

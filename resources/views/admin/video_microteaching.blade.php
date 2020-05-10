@@ -51,7 +51,7 @@
             </div>
         </div>
     </div>
-    <!-- Default Modal -->
+    <!-- Modal Menampilkan Video Microteaching -->
     <!-- Form -->
     @foreach($pendaftaranGuru as $pg)
     <form action="/score-video-microteaching" method="post">
@@ -111,6 +111,6 @@
     </form>
     @endforeach
     <!-- /Form -->
-    <!-- /Default Modal -->
+    <!-- /Modal Menampilkan Video Microteaching -->
 </div>
 @stop
