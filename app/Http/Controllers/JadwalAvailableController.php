@@ -92,12 +92,28 @@ class JadwalAvailableController extends Controller
         return JadwalAvailable::find($id);
     }
 
-    public function getJadwalAvailableByIdGuru(Request $r)
+    public function getJadwalAvailableFiltered(Request $r)
     {
         $where = [];
 
         if(isset($r->id_user)){
             $where['id_user'] = $r->id_user;
+        }
+
+        if(isset($r->available)){
+            $where['available'] = $r->available;
+        }
+
+        if(isset($r->hari)){
+            $where['hari'] = $r->hari;
+        }
+
+        if(isset($r->start)){
+            $where['start'] = $r->start;
+        }
+
+        if(isset($r->end)){
+            $where['end'] = $r->end;
         }
         
         return JadwalAvailable::where($where)->get();

@@ -89,7 +89,7 @@ class JadwalPemesananPermingguController extends Controller
 
     public function getJadwalPemesananPermingguById($id)
     {
-        return JadwalPemesananPerminggu::find($id);
+        return JadwalPemesananPerminggu::with($this->relationshipPemesananGuru)->where(['id_jadwal_pemesanan_perminggu'=>$id])->first();
     }
 
     public function getJadwalPemesananPermingguFiltered(Request $r)

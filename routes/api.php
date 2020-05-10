@@ -31,6 +31,9 @@ Route::post('absen/store', 'AbsenController@store'); //
 Route::get('jadwalAjar/{id}', 'JadwalAjarController@getJadwalAjarById');
 Route::get('jadwalAjar/guru/{id}', 'JadwalAjarController@getJadwalAjarByIdGuru');
 
+//Jadwal Available
+Route::post('jadwalAvailable/filter', 'JadwalAvailableController@getJadwalAvailableFiltered');
+
 //jenjang
 Route::get('jenjang', 'JenjangController@getJenjang'); //Udah bisa
 Route::get('jenjang/{id}', 'JenjangController@getJenjangById');
@@ -58,12 +61,15 @@ Route::get('pembayaran/murid/{id}', 'PembayaranController@getPembayaranByIdMurid
 Route::post('login/guru', 'UserController@loginGuru'); //Udah bisa
 Route::post('user/guru/valid', 'UserController@isGuruValid'); //Udah bisa
 
-//User
+//Guru
 Route::post('user/guru', 'UserController@getGuruByEmailPost'); //Udah bisa
 Route::post('user/guru/update', 'UserController@updateGuru');
 Route::get('user/guru/getImage', 'UserController@getImage');
+
+//Murid
 Route::post('user/murid', 'UserController@getMuridByEmailPost'); //done
 Route::post('user/cari_guru', 'UserController@cariGuru');
+
 //Daftar Murid
 Route::post('user/daftar', 'UserController@daftarMurid');
 
