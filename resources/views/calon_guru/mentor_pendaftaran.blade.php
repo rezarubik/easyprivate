@@ -3,8 +3,6 @@
 @section('title', 'Pendaftaran Calon Guru')
 @section('css')
 <link href="{{asset('vendor/bootstrap-fileinput/jasny-bootstrap.min.css')}}" rel="stylesheet" media="screen">
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
-<!-- <link rel="stylesheet" href="{{url('/assets/css/leaflet.css')}}" /> -->
 @stop
 @section('main-title', 'Pendaftaran Guru')
 @section('description', 'Form Pendaftaran Guru')

@@ -7,7 +7,6 @@ use App\User;
 use App\PendaftaranGuru;
 use App\GuruMapel;
 use App\Alamat;
-use App\Http\Requests\UserRequest;
 use App\Jenjang;
 use App\MataPelajaran;
 use App\ProfileMatching;
@@ -256,7 +255,7 @@ class UserController extends Controller
      */
     public function storeProfile(Request $request)
     {
-        // $pg = PendaftaranGuru::where('id_user', auth()->user->id)->get();
+        // dd($request);
         $user = User::findOrFail(Auth()->user()->id);
         $pendaftaranGuru = PendaftaranGuru::where('id_user', auth()->user()->id)->first();
         if ($pendaftaranGuru == null) {
