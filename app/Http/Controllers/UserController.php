@@ -11,6 +11,7 @@ use App\Http\Requests\UserRequest;
 use App\Jenjang;
 use App\MataPelajaran;
 use App\ProfileMatching;
+use App\KriteriaBobotTarget;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
@@ -23,7 +24,8 @@ class UserController extends Controller
         $this->relationshipGuru = ['alamat'];
         $this->relationshipMurid = ['alamat'];
         $this->relationshipCariGuru = ['alamat', 'guruMapel.mataPelajaran', 'guruMapel.mataPelajaran.jenjang', 'guruMapel'];
-        $this->relationshipPendaftaranGuru = ['user', 'profileMatching'];
+        $this->relationshipPendaftaranGuru = ['user', 'season', 'profileMatching'];
+        $this->realationshipGuruMapel = ['mataPelajaran', 'mataPelajaran.jenjang'];
     }
 
     /**
@@ -44,10 +46,57 @@ class UserController extends Controller
     public function create()
     {
         // dd('test')
+        $data = [];
         $jenjang = Jenjang::all();
-        $mapel = MataPelajaran::all();
-        $users = User::with($this->relationshipGuru)->find(Auth()->user()->id);
-        return view('calon_guru.mentor_pendaftaran', compact('jenjang', 'mapel', 'users'));
+        $data['jenjang'] = $jenjang;
+        // $mapel = MataPelajaran::all();
+        // $users = User::with($this->relationshipGuru)->find(Auth()->user()->id);
+        $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
+            ->join('users', 'users.id', 'pendaftaran_guru.id_user')
+            // ->join('users as al', 'al.id', 'alamat.id_user')
+            ->select('pendaftaran_guru.*')
+            ->where('users.id', Auth()->user()->id)->first();
+        // dd($pendaftaranGuru);
+        $data['pendaftaranGuru'] = $pendaftaranGuru;
+        $guruMapel = GuruMapel::with($this->realationshipGuruMapel)->where('id_guru', auth()->user()->id)->get();
+        $data['guruMapel'] = $guruMapel;
+        if(isset($guruMapel[0])){
+            $mapel1 = MataPelajaran::where('id_jenjang', $guruMapel[0]->mataPelajaran->id_jenjang)->get();
+            $data['mapel1'] = $mapel1;
+        }
+        if(isset($guruMapel[1])){
+            $mapel2 = MataPelajaran::where('id_jenjang', $guruMapel[1]->mataPelajaran->id_jenjang)->get();
+            $data['mapel2'] = $mapel2;
+        }
+        if(isset($guruMapel[2])){
+            $mapel3 = MataPelajaran::where('id_jenjang', $guruMapel[2]->mataPelajaran->id_jenjang)->get();
+            $data['mapel3'] = $mapel3;
+        }
+        if(isset($guruMapel[3])){
+            $mapel4 = MataPelajaran::where('id_jenjang', $guruMapel[3]->mataPelajaran->id_jenjang)->get();
+            $data['mapel4'] = $mapel4;
+        }
+        if(isset($guruMapel[4])){
+            $mapel5 = MataPelajaran::where('id_jenjang', $guruMapel[4]->mataPelajaran->id_jenjang)->get();
+            $data['mapel5'] = $mapel5;
+        }
+        return view('calon_guru.mentor_pendaftaran')->with($data);
+        // return view('calon_guru.mentor_pendaftaran', compact('jenjang', 'mapel', 'pendaftaranGuru', 'guruMapel'));
+    }
+    /**
+     * View Create Profile Guru
+     */
+    public function createProfile()
+    {
+        // dd('test')
+        // $users = User::with($this->relationshipGuru)->find(Auth()->user()->id);
+        $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
+            ->join('users', 'users.id', 'pendaftaran_guru.id_user')
+            // ->join('users as al', 'al.id', 'alamat.id_user')
+            ->select('pendaftaran_guru.*')
+            ->where('users.id', Auth()->user()->id)->first();
+        // dd($pendaftaranGuru);
+        return view('calon_guru.mentor_pendaftaran_profile', compact('pendaftaranGuru'));
     }
 
     /**
@@ -56,26 +105,21 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(Request $request)
     {
-        $pg = PendaftaranGuru::where('id_user', Auth()->user->id)->get();
+        // dd('hai');
         $user = User::findOrFail(Auth()->user()->id);
-        // dd($user);
         $score = [];
         // todo Pengalaman Kerja
         $pk = $request->teach_experience;
-        // todo Nilai IPK
         $ipk = $request->ipk_score;
-        // todo Usia
         $currentYear = Carbon::now();
-        $tanggal_lahir = new Carbon($request->birthday);
+        $tanggal_lahir = $user->tanggal_lahir;
         $age = $currentYear->diffInYears($tanggal_lahir);
-        // dd($age);
         // todo Ketersediaan Mata Pelajaran
         $jumlahMapel = 0;
 
 
-        $user->tanggal_lahir = date_format(date_create($request->birthday), "Y/m/d");
         // todo 
         if ($age > 20 && $age <= 25) {
             $nilai['pm_usia'] = 5;
@@ -88,22 +132,7 @@ class UserController extends Controller
         } elseif ($age > 40) {
             $nilai['pm_usia'] = 1;
         }
-        // dd($nilai);
-
-        $user->jenis_kelamin = $request->gender;
-        $user->no_handphone = $request->handphone_number;
-        $user->role = 0;
-        $user->save();
-        // dd($user);
-
-        $alamat = new Alamat;
-        $alamat->id_user = $user->id;
-        $alamat->latitude = $request->lat;
-        $alamat->longitude = $request->lng;
-        $alamat->alamat_lengkap = $request->alamat_lengkap;
-        $alamat->save();
-        // dd($alamat);
-
+        GuruMapel::where('id_guru', auth()->user()->id)->delete();
         if (isset($request->mapel_1)) {
             $jumlahMapel += 1;
             $guruMapel1 = new GuruMapel;
@@ -149,7 +178,10 @@ class UserController extends Controller
             $nilai['pm_km'] = 5;
         }
 
-        $pendaftaranGuru = new PendaftaranGuru();
+        $pendaftaranGuru = PendaftaranGuru::where('id_user', auth()->user()->id)->first();
+        if($pendaftaranGuru == null){
+            $pendaftaranGuru = new PendaftaranGuru();
+        }
         $pendaftaranGuru->id_user = $user->id;
         $pendaftaranGuru->dir_cv = $request->file_cv;
 
@@ -181,20 +213,36 @@ class UserController extends Controller
         }
         $pendaftaranGuru->nilai_ipk = $request->ipk_score;
         $pendaftaranGuru->save();
+
+        // todo upload file cv
+        $dirCV = 'assets/cv_guru';
+        if($request->hasFile('file_cv')){
+            $fileCV = $request->file('file_cv');
+            // file name
+            $fileNameCV = 'file_cv_' . $pendaftaranGuru->id_pendaftaran . '.' . $fileCV->getClientOriginalExtension();
+            // file move to directory
+            $fileCV->move($dirCV, $fileNameCV);
+            PendaftaranGuru::where('id_pendaftaran', $pendaftaranGuru->id_pendaftaran)
+            ->update([
+                'dir_cv' => $fileNameCV
+            ]);
+        }
+
+        // todo upload video microteaching
         // dir
         $dir = 'assets/video_microteaching';
         // file
-        $file = $request->file('file_microteaching');
-        // dd($file);
-        // file name
-        $fileName = 'video_microteaching_' . $pendaftaranGuru->id_pendaftaran . '.' . $file->getClientOriginalExtension();
-        // file move to directory
-        $file->move($dir, $fileName);
-        // dd($file);
-        PendaftaranGuru::where('id_pendaftaran', $pendaftaranGuru->id_pendaftaran)
-            ->update([
-                'dir_video' => $fileName
-            ]);
+        if($request->file('file_microteaching') != null){
+            $file = $request->file('file_microteaching');
+            // file name
+            $fileName = 'video_microteaching_' . $pendaftaranGuru->id_pendaftaran . '.' . $file->getClientOriginalExtension();
+            // file move to directory
+            $file->move($dir, $fileName);
+            PendaftaranGuru::where('id_pendaftaran', $pendaftaranGuru->id_pendaftaran)
+                ->update([
+                    'dir_video' => $fileName
+                ]);
+        }
         // dd($pendaftaranGuru);
 
         // todo Profile Matching
@@ -202,6 +250,73 @@ class UserController extends Controller
         $profileMatching = ProfileMatching::insert($nilai);
 
         return redirect('/user/create')->with('status', 'Aplikasi Anda berhasil di simpan!');
+    }
+    /**
+     * Store Profile Guru
+     */
+    public function storeProfile(Request $request)
+    {
+        // $pg = PendaftaranGuru::where('id_user', auth()->user->id)->get();
+        $user = User::findOrFail(Auth()->user()->id);
+        $pendaftaranGuru = PendaftaranGuru::where('id_user', auth()->user()->id)->first();
+        if($pendaftaranGuru == null){
+            $pendaftaranGuru = new PendaftaranGuru();
+        }
+        $pendaftaranGuru->universitas = $request->universitas;
+        $pendaftaranGuru->save();
+        // dd($user);
+        $score = [];
+        // todo Pengalaman Kerja
+        $pk = $request->teach_experience;
+        // todo Nilai IPK
+        $ipk = $request->ipk_score;
+        // todo Usia
+        $currentYear = Carbon::now();
+        $tanggal_lahir = new Carbon($request->birthday);
+        $age = $currentYear->diffInYears($tanggal_lahir);
+        // dd($age);
+        $user->tanggal_lahir = date_format(date_create($request->birthday), "y/m/d");
+        // todo insert into table user
+        // todo upload Foto Profile
+        // dir
+        $dirAvatars = 'assets/avatars';
+        // dd($dirAvatars);
+        if ($request->file('foto_profile') != null) {
+            // file
+            $fileFotoProfile = $request->file('foto_profile');
+            //   dd($fileFotoProfile->getRealPath());
+            // file name
+            $fileNameFotoProfile = 'foto_profile_' . $user->id . '.' . $fileFotoProfile->getClientOriginalExtension();
+            // file move to directory
+            $fileFotoProfile->move($dirAvatars, $fileNameFotoProfile);
+            // dd($file);
+            User::where('id', $user->id)
+                ->update([
+                    'avatar' => $fileNameFotoProfile
+                ]);
+        }
+
+        $user->jenis_kelamin = $request->gender;
+        $user->no_handphone = $request->handphone_number;
+        $user->role = 0;
+        $user->save();
+
+        // todo insert into table alamat
+        $alamat = Alamat::where('id_user', auth()->user()->id)->first();
+        if ($alamat != null) {
+            $alamat->latitude = $request->lat;
+            $alamat->longitude = $request->lng;
+            $alamat->alamat_lengkap = $request->alamat_lengkap;
+            $alamat->save();
+        } else {
+            $alamat = new Alamat;
+            $alamat->id_user = $user->id;
+            $alamat->latitude = $request->lat;
+            $alamat->longitude = $request->lng;
+            $alamat->alamat_lengkap = $request->alamat_lengkap;
+            $alamat->save();
+        }
+        return redirect('/user-profile/create')->with('status', 'Aplikasi Anda berhasil di simpan!');
     }
 
     /**
@@ -554,15 +669,16 @@ class UserController extends Controller
             ->get();
         $nt = []; //* nilai target
         // * Core Factor
-        $nt['pm_pk'] = 4;
-        $nt['pm_vas'] = 4;
-        $nt['pm_kk'] = 3;
-        $nt['pm_cm'] = 4;
-        $nt['pm_pemat'] = 5;
+        $nt['pm_pk'] = KriteriaBobotTarget::where('kriteria', 'Pengalaman Mengajar')->first()->nilai_target; // 4
+        $nt['pm_vas'] = KriteriaBobotTarget::where('kriteria', 'Volume dan Artikulasi Suara Video Microteaching')->first()->nilai_target; // 4
+        $nt['pm_kk'] = KriteriaBobotTarget::where('kriteria', 'Keefektifan Kalimat Video Microteaching')->first()->nilai_target; // 3
+        $nt['pm_cm'] = KriteriaBobotTarget::where('kriteria', 'Cara Mengajar Video Microteaching')->first()->nilai_target; //4
+        $nt['pm_pemat'] = KriteriaBobotTarget::where('kriteria', 'Penguasaan Materi Video Microteaching')->first()->nilai_target; // 5
         // * Secondary Factor
-        $nt['pm_ipk'] = 4;
-        $nt['pm_usia'] = 4;
-        $nt['pm_km'] = 3;
+        $nt['pm_ipk'] = KriteriaBobotTarget::where('kriteria', 'Nilai Indeks Prestasi Terakhir (IPK)')->first()->nilai_target; // 4
+        $nt['pm_usia'] = KriteriaBobotTarget::where('kriteria', 'Usia Guru')->first()->nilai_target; // 4
+        $nt['pm_km'] = KriteriaBobotTarget::where('kriteria', 'Ketersediaan Mata Pelajaran')->first()->nilai_target; // 3
+        // dd($nt);
         $pht = []; //* perhitungan
         foreach ($pendaftaranGuru as $pg) {
             $pht[$pg->profileMatching->id_profile_matching]['name'] = $pg->user->name;
@@ -607,8 +723,32 @@ class UserController extends Controller
             $pht[$pg->profileMatching->id_profile_matching]['nilai_akhir'] = $pht[$pg->profileMatching->id_profile_matching]['ncf'] * 0.7 + $pht[$pg->profileMatching->id_profile_matching]['scf'] * 0.3;
         }
         // dd($pht);
+
         foreach ($pht as $key => $value) {
             // var_dump($value);
+            // todo update nilai gap
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_pk' => $value['nilai_gap']['pm_pk']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_vas' => $value['nilai_gap']['pm_vas']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_kk' => $value['nilai_gap']['pm_kk']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_cm' => $value['nilai_gap']['pm_cm']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_pemat' => $value['nilai_gap']['pm_pemat']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_ipk' => $value['nilai_gap']['pm_ipk']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_usia' => $value['nilai_gap']['pm_usia']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_km' => $value['nilai_gap']['pm_km']]);
+            // todo update nilai bobot gap
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_pk' => $value['nilai_bobot']['pm_pk']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_vas' => $value['nilai_bobot']['pm_vas']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_kk' => $value['nilai_bobot']['pm_kk']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_cm' => $value['nilai_bobot']['pm_cm']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_pemat' => $value['nilai_bobot']['pm_pemat']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_ipk' => $value['nilai_bobot']['pm_ipk']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_usia' => $value['nilai_bobot']['pm_usia']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_km' => $value['nilai_bobot']['pm_km']]);
+            // todo update nilai ncf
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_ncf' => $value['ncf']]);
+            // todo update nilai scf
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_scf' => $value['scf']]);
+            // todo update nilai akhir
             ProfileMatching::where('id_profile_matching', $key)->update(['pm_result' => $value['nilai_akhir']]);
         }
         $this->getPesertaLulus();

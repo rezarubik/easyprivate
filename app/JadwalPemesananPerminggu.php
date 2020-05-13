@@ -14,4 +14,9 @@ class JadwalPemesananPerminggu extends Model
     {
         return $this->hasOne('App\JadwalAvailable','id_jadwal_available','id_jadwal_available');
     }
+
+    public function pemesanan()
+    {
+        return $this->hasOne('App\Pemesanan','id_pemesanan','id_pemesanan');
+    }
 }

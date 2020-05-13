@@ -13,7 +13,7 @@
                 <h1 class="display-4">Hello, {{auth()->user()->name}} !</h1>
                 <p>Email yang Anda daftarkan adalah {{auth()->user()->email}} </p>
                 <hr class="my-4">
-                <p class="lead">Silahkan mengisi form pendaftaran yang terdapat di menu form pendaftaran untuk proses seleksi.</p>
+                <p class="lead">Silahkan mengisi form pendaftaran yang terdapat di menu form pendaftaran untuk melengkapi data Anda.</p>
                 <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
             </div>
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\KriteriaBobotTarget;
 use Illuminate\Http\Request;
 
 class KriteriaBobotController extends Controller
@@ -13,7 +14,9 @@ class KriteriaBobotController extends Controller
      */
     public function index()
     {
-        return view('admin.kriteria_bobot');
+        $kriteriaBobotTarget = KriteriaBobotTarget::all();
+        // dd($kriteriaBobotTarget);
+        return view('admin.kriteria_bobot', compact('kriteriaBobotTarget'));
     }
 
     /**

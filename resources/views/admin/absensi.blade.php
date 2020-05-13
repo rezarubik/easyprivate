@@ -9,7 +9,6 @@
 @stop
 @section('main-title', 'Detail Data Absensi')
 @section('description', 'Data Absensi Les Private')
-@section('pages', 'Home')
 @section('active-pages', 'Data Absensi')
 @section('content')
 <div class="container-fluid container-fullw bg-white">

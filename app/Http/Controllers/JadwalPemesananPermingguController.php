@@ -9,7 +9,7 @@ class JadwalPemesananPermingguController extends Controller
 {
     public function __construct()
     {
-        
+        $this->relationshipPemesananGuru = ['pemesanan', 'pemesanan.murid', 'pemesanan.murid.alamat', 'pemesanan.mataPelajaran', 'pemesanan.mataPelajaran.jenjang', 'jadwalAvailable'];
     }
     /**
      * Display a listing of the resource.
@@ -89,7 +89,7 @@ class JadwalPemesananPermingguController extends Controller
 
     public function getJadwalPemesananPermingguById($id)
     {
-        return JadwalPemesananPerminggu::find($id);
+        return JadwalPemesananPerminggu::with($this->relationshipPemesananGuru)->where(['id_jadwal_pemesanan_perminggu'=>$id])->first();
     }
 
     public function getJadwalPemesananPermingguFiltered(Request $r)
@@ -97,9 +97,21 @@ class JadwalPemesananPermingguController extends Controller
         $where = [];
 
         if(isset($r->id_pemesanan)){
-            $where['id_pemesanan'] = $r->id_pemesanan;
+            $where['p.id_pemesanan'] = $r->id_pemesanan;
         }
 
-        return JadwalPemesananPerminggu::where($where)->get();
+        if(isset($r->id_guru)){
+            $where['p.id_guru'] = $r->id_guru;
+        }
+
+        if(isset($r->status_pemesanan)){
+            $where['p.status'] = $r->status_pemesanan;
+        }
+
+        return JadwalPemesananPerminggu::with($this->relationshipPemesananGuru)
+            ->join('pemesanan as p', 'p.id_pemesanan', 'jadwal_pemesanan_perminggu.id_pemesanan')
+            ->where($where)
+            ->select('jadwal_pemesanan_perminggu.*')
+            ->get();
     }   
 }

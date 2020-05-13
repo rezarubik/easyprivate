@@ -9,6 +9,7 @@
 
 <head>
     <title>@yield('title')</title>
+    <link rel="shortcut icon" href="{{asset('assets/images/easyprivat-icon.png')}}" type="image/x-icon">
     <!-- start: META -->
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
     <meta charset="utf-8" />
@@ -18,30 +19,29 @@
     <meta content="" name="description" />
     <meta content="" name="author" />
     <!-- end: META -->
-    <link rel="shortcut icon" href="{{asset('assets/images/easyprivat-icon.png')}}" type="image/x-icon">
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- <meta name="csrf-token" content="{{ csrf_token() }}"> -->
     <!-- end: META -->
     <!-- start: GOOGLE FONTS -->
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
     <!-- end: GOOGLE FONTS -->
     <!-- start: MAIN CSS -->
-    <link rel="stylesheet" href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('vendor/fontawesome/css/font-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{asset('vendor/themify-icons/themify-icons.min.css')}}">
-    <link href="{{asset('vendor/animate.css/animate.min.css')}}" rel="stylesheet" media="screen">
-    <link href="{{asset('vendor/perfect-scrollbar/perfect-scrollbar.min.css')}}" rel="stylesheet" media="screen">
-    <link href="{{asset('vendor/switchery/switchery.min.css')}}" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="{{url('/')}}/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{url('/')}}/vendor/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{url('/')}}/vendor/themify-icons/themify-icons.min.css">
+    <link href="{{url('/')}}/vendor/animate.css/animate.min.css" rel="stylesheet" media="screen">
+    <link href="{{url('/')}}/vendor/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet" media="screen">
+    <link href="{{url('/')}}/vendor/switchery/switchery.min.css" rel="stylesheet" media="screen">
+
     <!-- end: MAIN CSS -->
-    <!-- start: Css for another page -->
-    @yield('css')
-    <!-- end: Css for another page -->
     <!-- start: CLIP-TWO CSS -->
-    <link rel="stylesheet" href="{{asset('assets/css/styles.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/plugins.css')}}">
+    <link rel="stylesheet" href="{{url('/')}}/assets/css/styles.css">
+    <link rel="stylesheet" href="{{url('/')}}/assets/css/plugins.css">
+    <link rel="stylesheet" href="{{url('/')}}/assets/css/themes/theme-4.css" id="skin_color" />
     <link rel="stylesheet" href="{{asset('assets/css/themes/theme-4.css')}}" id="skin_color" />
     <!-- end: CLIP-TWO CSS -->
     <!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
+    @yield('css')
     <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
 </head>
 <!-- end: HEAD -->
@@ -75,7 +75,8 @@
                         <span>Main Navigation</span>
                     </div>
                     <ul class="main-navigation-menu">
-                        <li class="active open">
+                        <li class="{{(Request::is('/', 'dashboard')) ? 'active open' : ''}}">
+                            <!-- class="active open" -->
                             <a href="{{url('dashboard')}}">
                                 <div class="item-content">
                                     <div class="item-media">
@@ -88,7 +89,7 @@
                             </a>
                         </li>
                         <!-- ? Users -->
-                        <li>
+                        <li class="{{(Request::is('users/data-murid', 'users/data-guru')) ? 'active open' : ''}}">
                             <a href="javascript:void(0)">
                                 <div class="item-content">
                                     <div class="item-media">
@@ -100,12 +101,12 @@
                                 </div>
                             </a>
                             <ul class="sub-menu">
-                                <li>
+                                <li class="{{(Request::is('users/data-murid')) ? 'active open' : ''}}">
                                     <a href="{{url('users/data-murid')}}">
                                         <span class="title"> Murid </span>
                                     </a>
                                 </li>
-                                <li>
+                                <li class="{{(Request::is('users/data-guru')) ? 'active open' : ''}}">
                                     <a href="{{url('users/data-guru')}}">
                                         <span class="title"> Guru </span>
                                     </a>
@@ -114,7 +115,7 @@
                         </li>
                         <!-- ? End of Users -->
                         <!-- ? Kriteia dan Bobot -->
-                        <li>
+                        <li class="{{(Request::is('/', 'kriteria-bobot')) ? 'active open' : ''}}">
                             <a href="{{url('/kriteria-bobot')}}">
                                 <div class="item-content">
                                     <div class="item-media">
@@ -125,22 +126,10 @@
                                     </div>
                                 </div>
                             </a>
-                            <!-- <ul class="sub-menu">
-                                <li>
-                                    <a href="{{url('kriteria')}}">
-                                        <span class="title"> Kriteria </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{url('bobot')}}">
-                                        <span class="title"> Bobot </span>
-                                    </a>
-                                </li>
-                            </ul> -->
                         </li>
                         <!-- ? End of Kriteria dan Bobot -->
                         <!-- ? Nilai Gap -->
-                        <li>
+                        <li class="{{(Request::is('/', 'nilai-gap')) ? 'active open' : ''}}">
                             <a href="{{url('nilai-gap')}}">
                                 <div class="item-content">
                                     <div class="item-media">
@@ -154,7 +143,7 @@
                         </li>
                         <!-- ? End of Nilai Gap -->
                         <!-- ? Pembobotan Nilai Gap -->
-                        <li>
+                        <li class="{{(Request::is('/', 'pembobotan-nilai-gap')) ? 'active open' : ''}}">
                             <a href="{{url('pembobotan-nilai-gap')}}">
                                 <div class="item-content">
                                     <div class="item-media">
@@ -168,7 +157,7 @@
                         </li>
                         <!-- ? End of Pembobotan Nilai Gap -->
                         <!-- ? Hasil Seleksi -->
-                        <li>
+                        <li class="{{(Request::is('/', 'hasil-seleksi')) ? 'active open' : ''}}">
                             <a href="{{url('hasil-seleksi')}}">
                                 <div class="item-content">
                                     <div class="item-media">
@@ -182,7 +171,7 @@
                         </li>
                         <!-- ? End of Hasil Seleksi -->
                         <!-- ? Microteaching -->
-                        <li>
+                        <li class="{{(Request::is('/', 'video-microteaching')) ? 'active open' : ''}}">
                             <a href="{{url('video-microteaching')}}">
                                 <div class="item-content">
                                     <div class="item-media">
@@ -196,7 +185,7 @@
                         </li>
                         <!-- ? End of Microteaching -->
                         <!-- ? Pemesanan -->
-                        <li>
+                        <li class="{{(Request::is('/', 'pemesanan')) ? 'active open' : ''}}">
                             <a href="{{url('pemesanan')}}">
                                 <div class="item-content">
                                     <div class="item-media">
@@ -210,7 +199,7 @@
                         </li>
                         <!-- ? End of Pemesanan -->
                         <!-- ? Absensi -->
-                        <li>
+                        <li class="{{(Request::is('/', 'absensi')) ? 'active open' : ''}}">
                             <a href="{{url('absensi')}}">
                                 <div class="item-content">
                                     <div class="item-media">
@@ -318,7 +307,7 @@
                             </div>
                             <ol class="breadcrumb">
                                 <li>
-                                    <span>@yield('pages')</span>
+                                    <span data-hover="Home"><a href="{{url('dashboard')}}">Dashboard</a></span>
                                 </li>
                                 <li class="active">
                                     <span>@yield('active-pages')</span>
@@ -337,7 +326,7 @@
         <footer>
             <div class="footer-inner">
                 <div class="pull-left">
-                    &copy; <span class="current-year"></span><span class="text-bold text-uppercase"> ClipTheme</span>.
+                    &copy; <span class="current-year"></span><span class="text-bold text-uppercase"> Easy Private</span>.
                     <span>All rights reserved</span>
                 </div>
                 <div class="pull-right">
@@ -359,7 +348,6 @@
     <!-- start: JAVASCRIPTS REQUIRED FOR Graph ONLY -->
     <script src="{{asset('vendor/Chart.js/Chart.min.js')}}"></script>
     <script src="{{asset('vendor/jquery.sparkline/jquery.sparkline.min.js')}}"></script>
-    <!-- @yield('javascript') -->
     <!-- end: JAVASCRIPTS REQUIRED FOR Graph ONLY -->
     <!-- start: JS For Another Page -->
     <script src="{{asset('vendor/select2/select2.min.js')}}"></script>
@@ -368,19 +356,18 @@
     <!-- start: CLIP-TWO JAVASCRIPTS -->
     <script src="{{asset('assets/js/main.js')}}"></script>
     <!-- start: JavaScript Event Handlers for this page -->
-    <script src="{{asset('assets/js/index.js')}}"></script>
+    <!-- <script src="{{asset('assets/js/index.js')}}"></script> -->
     <!-- start: JavaScript Event Handlers for additional page -->
     <script src="{{asset('assets/js/table-data.js')}}"></script>
     <script>
         jQuery(document).ready(function() {
             Main.init();
-            Index.init();
+            // Index.init();
             TableData.init();
         });
     </script>
     <!-- end: JavaScript Event Handlers for this page -->
     <!-- end: CLIP-TWO JAVASCRIPTS -->
-    @yield('footer')
 </body>
 
 </html>
