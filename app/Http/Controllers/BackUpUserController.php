@@ -7,7 +7,7 @@ use App\User;
 use App\PendaftaranGuru;
 use App\GuruMapel;
 use App\Alamat;
-use App\Http\Requests\UserRequest;
+// use App\Http\Requests\UserRequest;
 use App\Jenjang;
 use App\MataPelajaran;
 use App\ProfileMatching;
@@ -15,7 +15,7 @@ use App\KriteriaBobotTarget;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
-class UserController extends Controller
+class BackupUserController extends Controller
 {
     public function __construct()
     {
@@ -286,7 +286,7 @@ class UserController extends Controller
     /**
      * Store Profile Guru
      */
-    public function storeProfile(UserProfileRequest $request)
+    public function storeProfile(Request $request)
     {
         // $pg = PendaftaranGuru::where('id_user', auth()->user->id)->get();
         $user = User::findOrFail(Auth()->user()->id);

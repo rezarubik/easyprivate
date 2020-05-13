@@ -7,7 +7,6 @@ use App\User;
 use App\PendaftaranGuru;
 use App\GuruMapel;
 use App\Alamat;
-use App\Http\Requests\UserRequest;
 use App\Jenjang;
 use App\MataPelajaran;
 use App\ProfileMatching;
@@ -60,23 +59,23 @@ class UserController extends Controller
         $data['pendaftaranGuru'] = $pendaftaranGuru;
         $guruMapel = GuruMapel::with($this->realationshipGuruMapel)->where('id_guru', auth()->user()->id)->get();
         $data['guruMapel'] = $guruMapel;
-        if(isset($guruMapel[0])){
+        if (isset($guruMapel[0])) {
             $mapel1 = MataPelajaran::where('id_jenjang', $guruMapel[0]->mataPelajaran->id_jenjang)->get();
             $data['mapel1'] = $mapel1;
         }
-        if(isset($guruMapel[1])){
+        if (isset($guruMapel[1])) {
             $mapel2 = MataPelajaran::where('id_jenjang', $guruMapel[1]->mataPelajaran->id_jenjang)->get();
             $data['mapel2'] = $mapel2;
         }
-        if(isset($guruMapel[2])){
+        if (isset($guruMapel[2])) {
             $mapel3 = MataPelajaran::where('id_jenjang', $guruMapel[2]->mataPelajaran->id_jenjang)->get();
             $data['mapel3'] = $mapel3;
         }
-        if(isset($guruMapel[3])){
+        if (isset($guruMapel[3])) {
             $mapel4 = MataPelajaran::where('id_jenjang', $guruMapel[3]->mataPelajaran->id_jenjang)->get();
             $data['mapel4'] = $mapel4;
         }
-        if(isset($guruMapel[4])){
+        if (isset($guruMapel[4])) {
             $mapel5 = MataPelajaran::where('id_jenjang', $guruMapel[4]->mataPelajaran->id_jenjang)->get();
             $data['mapel5'] = $mapel5;
         }
@@ -179,7 +178,7 @@ class UserController extends Controller
         }
 
         $pendaftaranGuru = PendaftaranGuru::where('id_user', auth()->user()->id)->first();
-        if($pendaftaranGuru == null){
+        if ($pendaftaranGuru == null) {
             $pendaftaranGuru = new PendaftaranGuru();
         }
         $pendaftaranGuru->id_user = $user->id;
@@ -216,23 +215,23 @@ class UserController extends Controller
 
         // todo upload file cv
         $dirCV = 'assets/cv_guru';
-        if($request->hasFile('file_cv')){
+        if ($request->hasFile('file_cv')) {
             $fileCV = $request->file('file_cv');
             // file name
             $fileNameCV = 'file_cv_' . $pendaftaranGuru->id_pendaftaran . '.' . $fileCV->getClientOriginalExtension();
             // file move to directory
             $fileCV->move($dirCV, $fileNameCV);
             PendaftaranGuru::where('id_pendaftaran', $pendaftaranGuru->id_pendaftaran)
-            ->update([
-                'dir_cv' => $fileNameCV
-            ]);
+                ->update([
+                    'dir_cv' => $fileNameCV
+                ]);
         }
 
         // todo upload video microteaching
         // dir
         $dir = 'assets/video_microteaching';
         // file
-        if($request->file('file_microteaching') != null){
+        if ($request->file('file_microteaching') != null) {
             $file = $request->file('file_microteaching');
             // file name
             $fileName = 'video_microteaching_' . $pendaftaranGuru->id_pendaftaran . '.' . $file->getClientOriginalExtension();
@@ -256,10 +255,10 @@ class UserController extends Controller
      */
     public function storeProfile(Request $request)
     {
-        // $pg = PendaftaranGuru::where('id_user', auth()->user->id)->get();
+        // dd($request);
         $user = User::findOrFail(Auth()->user()->id);
         $pendaftaranGuru = PendaftaranGuru::where('id_user', auth()->user()->id)->first();
-        if($pendaftaranGuru == null){
+        if ($pendaftaranGuru == null) {
             $pendaftaranGuru = new PendaftaranGuru();
         }
         $pendaftaranGuru->universitas = $request->universitas;

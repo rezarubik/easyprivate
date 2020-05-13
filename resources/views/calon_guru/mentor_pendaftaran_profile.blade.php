@@ -4,7 +4,6 @@
 @section('css')
 <link href="{{asset('vendor/bootstrap-fileinput/jasny-bootstrap.min.css')}}" rel="stylesheet" media="screen">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<!-- <link rel="stylesheet" href="{{url('/assets/css/leaflet.css')}}" /> -->
 @stop
 @section('main-title', 'Pendaftaran Profil Guru')
 @section('description', 'Form Pendaftaran Profil Guru')
@@ -33,15 +32,6 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="row">
-            <div class="col-md-12">
-                @if(isset($pendaftaranGuru))
-                <div class="alert alert-success">
-                    <p class="text-center text-primary text-large">Data Anda Telah Terisi</p>
-                </div>
-                @endif
-            </div>
-        </div> -->
         <div class="row">
             <div class="col-md-12">
                 <div class="tabbable">
