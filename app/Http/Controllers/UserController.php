@@ -99,7 +99,7 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in storage. -> Pendaftaran Guru
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -182,7 +182,7 @@ class UserController extends Controller
             $pendaftaranGuru = new PendaftaranGuru();
         }
         $pendaftaranGuru->id_user = $user->id;
-        $pendaftaranGuru->dir_cv = $request->file_cv;
+        // $pendaftaranGuru->dir_cv = $request->file_cv;
 
         // todo rules pm pengalaman kerja
         if ($pk <= 6) {
@@ -255,7 +255,6 @@ class UserController extends Controller
      */
     public function storeProfile(Request $request)
     {
-        // dd($request);
         $user = User::findOrFail(Auth()->user()->id);
         $pendaftaranGuru = PendaftaranGuru::where('id_user', auth()->user()->id)->first();
         if ($pendaftaranGuru == null) {
