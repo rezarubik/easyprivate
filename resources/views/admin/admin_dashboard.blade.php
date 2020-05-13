@@ -91,41 +91,91 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<!-- start grafik pemesanan -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
+    var url = "{{url('pemesananPerJenjang')}}";
+    var years = new Array();
+    var month = new Array();
+    var nama_jenjang = new Array();
+    var data_pemesanan_per_bulan_jenjang = new Array();
     var ctx = document.getElementById('pemesanan').getContext('2d');
-    var chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'bar',
-
-        // The data for our dataset
-        data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [{
-                label: 'Data Pemasukan dan Pengeluaran',
-                backgroundColor: 'green', //rgb(255, 99, 132)
-                borderWidth: 4,
-                borderColor: '#777', //rgb(255, 99, 132)
-                data: [10, 10, 5, 2, 20, 30, 45]
-            }]
-        },
-
-        // Configuration options go here
-        options: {
-            title: {
-                display: true,
-                text: 'Data Pemasukan dan Pengeluaran',
-                fontSize: 25
-            },
-            legend: {
-                display: true,
-                position: 'bottom',
-                labels: {
-                    fontColor: 'blue',
+    $(document).ready(function() {
+        $.get(url, function(response) {
+            response.forEach(function(data) {
+                years.push(data.year);
+                month.push(data.month);
+                nama_jenjang.push(data.nama_jenjang);
+                data_pemesanan_per_bulan_jenjang.push(data.data_pemesanan);
+            });
+            console.log(data_pemesanan_per_bulan_jenjang);
+            var ctx = document.getElementById('pemesanan').getContext('2d');
+            // var ctx
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'bar',
+                // The data for our dataset
+                data: {
+                    labels: month,
+                    datasets: [{
+                        label: 'Data Pemesanan per Bulan dan per Jenjang',
+                        backgroundColor: 'green', //rgb(255, 99, 132)
+                        borderWidth: 4,
+                        borderColor: '#777', //rgb(255, 99, 132)
+                        data: data_pemesanan_per_bulan_jenjang
+                    }]
+                },
+                // Configuration options go here
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Data Pemesanan per Bulan dan per Jenjang',
+                        fontSize: 25
+                    },
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            fontColor: 'blue',
+                        }
+                    }
                 }
-            }
-        }
+            });
+        });
     });
+    // todo Grafik keluar disini
+    // var chart = new Chart(ctx, {
+    //     // The type of chart we want to create
+    //     type: 'bar',
+    //     // The data for our dataset
+    //     data: {
+    //         // labels: month,
+    //         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    //         datasets: [{
+    //             label: 'Data Pemesanan per Bulan dan per Jenjang',
+    //             backgroundColor: 'green', //rgb(255, 99, 132)
+    //             borderWidth: 4,
+    //             borderColor: '#777', //rgb(255, 99, 132)
+    //             // data: data_pemesanan_per_bulan_jenjang
+    //             data: [10, 10, 5, 2, 20, 30, 45]
+    //         }]
+    //     },
+
+    //     // Configuration options go here
+    //     options: {
+    //         title: {
+    //             display: true,
+    //             text: 'Data Pemesanan per Bulan dan per Jenjang',
+    //             fontSize: 25
+    //         },
+    //         legend: {
+    //             display: true,
+    //             position: 'bottom',
+    //             labels: {
+    //                 fontColor: 'blue',
+    //             }
+    //         }
+    //     }
+    // });
 </script>
 <!-- end grafik pemesanan -->
 <!-- start grafik pendapatan dan pengeluaran -->

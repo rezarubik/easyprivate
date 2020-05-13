@@ -59,3 +59,6 @@ Route::post('/score-video-microteaching', 'UserController@scoreVideoMicroteachin
 Route::get('/pemesanan', 'PemesananController@index');
 Route::get('/absensi', 'AbsenController@index');
 Route::get('test-pm', 'UserController@hitungProfileMatching');
+
+// ? Pemesanan Per Bulan dan Per Jenjang
+Route::get('pemesananPerJenjang', 'AdminController@pemesananPerJenjang');

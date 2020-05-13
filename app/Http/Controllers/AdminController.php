@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Pemesanan;
+use DB;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -13,7 +15,21 @@ class AdminController extends Controller
      */
     public function index()
     {
+        $pemesanan = $this->pemesananPerJenjang();
         return view('admin.admin_dashboard');
+    }
+
+    /**
+     * Function untuk ngeget pemesanan per jenjang
+     */
+    public function pemesananPerJenjang(){
+        $pemesanan = Pemesanan::select(DB::raw('count(*) as `data_pemesanan`'), 'jenjang.nama_jenjang',
+        DB::raw('YEAR(waktu_pemesanan) year, MONTH(waktu_pemesanan) month'))
+        ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'pemesanan.id_mapel')
+        ->join('jenjang', 'mata_pelajaran.id_jenjang', 'jenjang.id_jenjang')
+        ->groupby('year','month', 'jenjang.nama_jenjang')
+        ->get();
+        return response()->json($pemesanan);
     }
 
     /**

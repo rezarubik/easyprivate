@@ -336,15 +336,18 @@
         </footer>
         <!-- end: FOOTER -->
     </div>
+    <!-- Awalnya disini -->
     @yield('javascript')
+
     <!-- start: MAIN JAVASCRIPTS -->
-    <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
+    <!-- <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script> -->
     <script src="{{asset('vendor/bootstrap/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('vendor/modernizr/modernizr.js')}}"></script>
     <script src="{{asset('vendor/jquery-cookie/jquery.cookie.js')}}"></script>
     <script src="{{asset('vendor/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
     <script src="{{asset('vendor/switchery/switchery.min.js')}}"></script>
     <!-- end: MAIN JAVASCRIPTS -->
+
     <!-- start: JAVASCRIPTS REQUIRED FOR Graph ONLY -->
     <script src="{{asset('vendor/Chart.js/Chart.min.js')}}"></script>
     <script src="{{asset('vendor/jquery.sparkline/jquery.sparkline.min.js')}}"></script>

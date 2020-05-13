@@ -182,7 +182,7 @@ class UserController extends Controller
             $pendaftaranGuru = new PendaftaranGuru();
         }
         $pendaftaranGuru->id_user = $user->id;
-        // $pendaftaranGuru->dir_cv = $request->file_cv;
+        //! $pendaftaranGuru->dir_cv = $request->file_cv;
 
         // todo rules pm pengalaman kerja
         if ($pk <= 6) {
