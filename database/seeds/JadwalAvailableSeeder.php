@@ -81,6 +81,27 @@ class JadwalAvailableSeeder extends Seeder
             ],
             [
                 'id_user' => 3,
+                'hari' => 'Selasa',
+                'start' => '15:00',
+                'end' => '16:30',
+                'available' => 1
+            ],
+            [
+                'id_user' => 3,
+                'hari' => 'Selasa',
+                'start' => '17:00',
+                'end' => '18:30',
+                'available' => 1
+            ],
+            [
+                'id_user' => 3,
+                'hari' => 'Selasa',
+                'start' => '19:00',
+                'end' => '20:30',
+                'available' => 1
+            ],
+            [
+                'id_user' => 3,
                 'hari' => 'Rabu',
                 'start' => '09:00',
                 'end' => '10:30',
@@ -354,6 +375,27 @@ class JadwalAvailableSeeder extends Seeder
             ],
             [
                 'id_user' => 5,
+                'hari' => 'Selasa',
+                'start' => '15:00',
+                'end' => '16:30',
+                'available' => 1
+            ],
+            [
+                'id_user' => 5,
+                'hari' => 'Selasa',
+                'start' => '17:00',
+                'end' => '18:30',
+                'available' => 1
+            ],
+            [
+                'id_user' => 5,
+                'hari' => 'Selasa',
+                'start' => '19:00',
+                'end' => '20:30',
+                'available' => 1
+            ],
+            [
+                'id_user' => 5,
                 'hari' => 'Rabu',
                 'start' => '09:00',
                 'end' => '10:30',
@@ -623,6 +665,27 @@ class JadwalAvailableSeeder extends Seeder
                 'hari' => 'Selasa',
                 'start' => '13:00',
                 'end' => '14:30',
+                'available' => 1
+            ],
+            [
+                'id_user' => 6,
+                'hari' => 'Selasa',
+                'start' => '15:00',
+                'end' => '16:30',
+                'available' => 1
+            ],
+            [
+                'id_user' => 6,
+                'hari' => 'Selasa',
+                'start' => '17:00',
+                'end' => '18:30',
+                'available' => 1
+            ],
+            [
+                'id_user' => 6,
+                'hari' => 'Selasa',
+                'start' => '19:00',
+                'end' => '20:30',
                 'available' => 1
             ],
             [

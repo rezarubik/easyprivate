@@ -72,8 +72,10 @@ Route::post('user/cari_guru', 'UserController@cariGuru');
 
 //Daftar Murid
 Route::post('user/daftar', 'UserController@daftarMurid');
+//DetailGuru
+Route::get('user/detail/{id}', 'UserController@detailGuru');
 
-//Lpgin Murid
+//Login Murid
 Route::post('user/murid/valid', 'UserController@validMurid');
 
 //Jadwal Pemesanan Perminggu

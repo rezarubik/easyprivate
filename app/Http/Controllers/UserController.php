@@ -23,9 +23,8 @@ class UserController extends Controller
         // $this->middleware('auth');
         $this->relationshipGuru = ['alamat'];
         $this->relationshipMurid = ['alamat'];
-        $this->relationshipCariGuru = ['alamat', 'guruMapel.mataPelajaran', 'guruMapel.mataPelajaran.jenjang', 'guruMapel', 'jadwalAvailable'];
+        $this->relationshipCariGuru = ['alamat', 'guruMapel.mataPelajaran', 'guruMapel.mataPelajaran.jenjang', 'guruMapel'];
         $this->relationshipPendaftaranGuru = ['user', 'season', 'profileMatching'];
-        $this->relationshipPendaftaranGuru = ['user', 'profileMatching'];
         $this->realationshipGuruMapel = ['mataPelajaran', 'mataPelajaran.jenjang'];
     }
 
@@ -390,12 +389,17 @@ class UserController extends Controller
             $alamat->longitude = $r->longitude;
             $alamat->alamat_lengkap = $r->alamat_lengkap;
             $alamat->save();
-            return $murid;
+            return User::with($this->relationshipMurid)->find($u->id);
         } else {
             return null;
         }
     }
-
+    
+    public function detailGuru($id)
+    {
+        return User::with($this->relationshipCariGuru)
+        ->find($id);
+    }
     public function getMuridByEmail($email)
     {
         $murid = User::where([
@@ -421,7 +425,7 @@ class UserController extends Controller
             return 0;
         }
     }
-
+    
     public function getMuridByEmailPost(Request $r)
     {
         return $this->getMuridByEmail($r->email);
@@ -454,7 +458,7 @@ class UserController extends Controller
             return $emptyGuru;
         }
     }
-
+    
     //Get guru berdasarkan email
     public function getGuruByEmail($email)
     {
@@ -562,7 +566,7 @@ class UserController extends Controller
             $where['mata_pelajaran.id_mapel'] = $r->id_mapel;
         }
 
-        if (isset($r->jenis_kelamin)) {
+        if (isset($r->jenis_kelamin) && $r->jenis_kelamin != "") {
             $where['jenis_kelamin'] = $r->jenis_kelamin;
         }
 
@@ -602,6 +606,7 @@ class UserController extends Controller
             ->where($where)
             ->whereIn('jadwal_available.hari', $jadwalAvailable)
             ->select('users.*')
+            ->distinct()
             // ->orderBy('status')
             // ->orderBy('waktu_pemesanan', 'desc')
             ->get();
