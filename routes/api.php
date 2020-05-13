@@ -33,6 +33,7 @@ Route::get('jadwalAjar/guru/{id}', 'JadwalAjarController@getJadwalAjarByIdGuru')
 
 //Jadwal Available
 Route::post('jadwalAvailable/filter', 'JadwalAvailableController@getJadwalAvailableFiltered');
+Route::post('jadwalAvailable/update', 'JadwalAvailableController@updateJadwalAvailable');
 
 //jenjang
 Route::get('jenjang', 'JenjangController@getJenjang'); //Udah bisa

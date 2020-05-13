@@ -118,4 +118,25 @@ class JadwalAvailableController extends Controller
         
         return JadwalAvailable::where($where)->get();
     }
+
+    public function updateJadwalAvailable(Request $r)
+    {
+        if(isset($r->id_available)){
+            $idAvailable = $r->id_available;
+            $jadwalAvailable = JadwalAvailable::whereIn('id_jadwal_available', $idAvailable)
+                ->update([
+                    'available' => 1
+                ]);
+                // ->get();
+        }
+
+        if(isset($r->id_non_available)){
+            $idNonAvailable = $r->id_non_available;
+            $jadwalNonAvailable = JadwalAvailable::whereIn('id_jadwal_available', $idNonAvailable)
+                ->update([
+                    'available' => 0
+                ]);
+                // ->get();
+        }
+    }
 }
