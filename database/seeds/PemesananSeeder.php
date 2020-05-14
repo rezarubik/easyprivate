@@ -51,7 +51,45 @@ class PemesananSeeder extends Seeder
                 'kelas' => 1,
                 'status' => 2,
                 'jumlah_pertemuan' => 0
-            ]
+            ],
+            // new SMP
+            [
+                'id_guru' => 3,
+                'id_murid' => 4,
+                'id_mapel' => 14,
+                'waktu_pemesanan' => '2020-04-01 13:42:14',
+                'kelas' => 8,
+                'status' => 2,
+                'jumlah_pertemuan' => 1
+            ],
+            [
+                'id_guru' => 5,
+                'id_murid' => 4,
+                'id_mapel' => 17,
+                'waktu_pemesanan' => '2020-04-01 13:42:14',
+                'kelas' => 7,
+                'status' => 2,
+                'jumlah_pertemuan' => 2
+            ],
+            // new SMA
+            [
+                'id_guru' => 5,
+                'id_murid' => 4,
+                'id_mapel' => 22,
+                'waktu_pemesanan' => '2020-04-01 13:42:14',
+                'kelas' => 10,
+                'status' => 2,
+                'jumlah_pertemuan' => 3
+            ],
+            [
+                'id_guru' => 3,
+                'id_murid' => 4,
+                'id_mapel' => 24,
+                'waktu_pemesanan' => '2020-04-01 13:42:14',
+                'kelas' => 11,
+                'status' => 2,
+                'jumlah_pertemuan' => 4
+            ],
         ];
 
         Pemesanan::insert($data);

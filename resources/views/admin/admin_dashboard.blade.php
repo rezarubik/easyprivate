@@ -91,91 +91,76 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
 <script>
-    var url = "{{url('pemesananPerJenjang')}}";
-    var years = new Array();
-    var month = new Array();
-    var nama_jenjang = new Array();
+    var url = "{{url('/pemesananPerJenjang')}}";
+    var Years = new Array();
+    var Month = new Array();
+    var MonthName = new Array();
+    var Nama_jenjang = new Array();
     var data_pemesanan_per_bulan_jenjang = new Array();
     var ctx = document.getElementById('pemesanan').getContext('2d');
-    $(document).ready(function() {
-        $.get(url, function(response) {
-            response.forEach(function(data) {
-                years.push(data.year);
-                month.push(data.month);
-                nama_jenjang.push(data.nama_jenjang);
-                data_pemesanan_per_bulan_jenjang.push(data.data_pemesanan);
-            });
-            console.log(data_pemesanan_per_bulan_jenjang);
-            var ctx = document.getElementById('pemesanan').getContext('2d');
-            // var ctx
-            var chart = new Chart(ctx, {
-                // The type of chart we want to create
-                type: 'bar',
-                // The data for our dataset
-                data: {
-                    labels: month,
-                    datasets: [{
-                        label: 'Data Pemesanan per Bulan dan per Jenjang',
-                        backgroundColor: 'green', //rgb(255, 99, 132)
+    $.get(url, function(response) {
+        response.forEach(function(data) {
+            Years.push(data.year);
+            Month.push(data.month);
+            MonthName.push(data.month_name);
+            Nama_jenjang.push(data.nama_jenjang);
+            data_pemesanan_per_bulan_jenjang.push(data.data_pemesanan);
+        });
+        console.log(data_pemesanan_per_bulan_jenjang);
+        // console.log(ctx);
+        var ctx = document.getElementById('pemesanan').getContext('2d');
+        // var ctx
+        var chart = new Chart(ctx, {
+            // The type of chartPemesanan we want to create
+            type: 'bar',
+            // The data for our dataset
+            data: {
+                // labels: Month,
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                        label: 'SD',
+                        // data: data_pemesanan_per_bulan_jenjang,
+                        data: [10, 10, 5, 2, 20, 30, 45],
+                        backgroundColor: 'red', //rgb(255, 99, 132)
                         borderWidth: 4,
-                        borderColor: '#777', //rgb(255, 99, 132)
-                        data: data_pemesanan_per_bulan_jenjang
-                    }]
-                },
-                // Configuration options go here
-                options: {
-                    title: {
-                        display: true,
-                        text: 'Data Pemesanan per Bulan dan per Jenjang',
-                        fontSize: 25
+                        borderColor: '#777' //rgb(255, 99, 132)
                     },
-                    legend: {
-                        display: true,
-                        position: 'bottom',
-                        labels: {
-                            fontColor: 'blue',
-                        }
+                    {
+                        label: "SMP",
+                        backgroundColor: "blue",
+                        borderColor: "red",
+                        borderWidth: 1,
+                        data: [3, 5, 6, 7, 3, 5, 6]
+                    },
+                    {
+                        label: "SMA",
+                        backgroundColor: "gray",
+                        borderColor: "blue",
+                        borderWidth: 1,
+                        data: [2, 3, 4, 5, 6, 7, 8]
+                    }
+                ]
+            },
+            // Configuration options go here
+            options: {
+                title: {
+                    display: true,
+                    text: 'Data Pemesanan',
+                    fontSize: 25
+                },
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        fontColor: 'blue',
                     }
                 }
-            });
+            }
         });
+        // console.log(chartPemesanan);
     });
-    // todo Grafik keluar disini
-    // var chart = new Chart(ctx, {
-    //     // The type of chart we want to create
-    //     type: 'bar',
-    //     // The data for our dataset
-    //     data: {
-    //         // labels: month,
-    //         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    //         datasets: [{
-    //             label: 'Data Pemesanan per Bulan dan per Jenjang',
-    //             backgroundColor: 'green', //rgb(255, 99, 132)
-    //             borderWidth: 4,
-    //             borderColor: '#777', //rgb(255, 99, 132)
-    //             // data: data_pemesanan_per_bulan_jenjang
-    //             data: [10, 10, 5, 2, 20, 30, 45]
-    //         }]
-    //     },
-
-    //     // Configuration options go here
-    //     options: {
-    //         title: {
-    //             display: true,
-    //             text: 'Data Pemesanan per Bulan dan per Jenjang',
-    //             fontSize: 25
-    //         },
-    //         legend: {
-    //             display: true,
-    //             position: 'bottom',
-    //             labels: {
-    //                 fontColor: 'blue',
-    //             }
-    //         }
-    //     }
-    // });
 </script>
 <!-- end grafik pemesanan -->
 <!-- start grafik pendapatan dan pengeluaran -->
@@ -189,12 +174,20 @@
         data: {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [{
-                label: 'Data Pemasukan dan Pengeluaran',
-                backgroundColor: 'green', //rgb(255, 99, 132)
-                borderWidth: 4,
-                borderColor: '#777', //rgb(255, 99, 132)
-                data: [10, 10, 5, 2, 20, 30, 45]
-            }]
+                    label: 'Data Pemasukan',
+                    backgroundColor: 'lightblue', //rgb(255, 99, 132)
+                    borderWidth: 4,
+                    borderColor: '#777', //rgb(255, 99, 132)
+                    data: [10, 10, 5, 2, 20, 30, 45]
+                },
+                {
+                    label: 'Data Pengeluaran',
+                    backgroundColor: 'yellow', //rgb(255, 99, 132)
+                    borderWidth: 4,
+                    borderColor: '#777', //rgb(255, 99, 132)
+                    data: [20, 30, 40, 50, 60, 70, 80]
+                },
+            ]
         },
 
         // Configuration options go here
@@ -227,12 +220,20 @@
         data: {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [{
-                label: 'Data Guru',
-                backgroundColor: 'green', //rgb(255, 99, 132)
-                borderWidth: 4,
-                borderColor: '#777', //rgb(255, 99, 132)
-                data: [10, 10, 5, 2, 20, 30, 45]
-            }]
+                    label: 'Data Guru Sudah Dapat Pemesanan',
+                    backgroundColor: 'blue', //rgb(255, 99, 132)
+                    borderWidth: 4,
+                    borderColor: '#777', //rgb(255, 99, 132)
+                    data: [10, 10, 5, 2, 20, 30, 45]
+                },
+                {
+                    label: 'Data Guru Belum Dapat Pemesanan',
+                    backgroundColor: 'red', //rgb(255, 99, 132)
+                    borderWidth: 4,
+                    borderColor: '#777', //rgb(255, 99, 132)
+                    data: [10, 10, 5, 2, 20, 30, 45]
+                }
+            ]
         },
 
         // Configuration options go here

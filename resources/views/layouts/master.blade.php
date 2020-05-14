@@ -337,21 +337,22 @@
         <!-- end: FOOTER -->
     </div>
     <!-- Awalnya disini -->
-    @yield('javascript')
 
     <!-- start: MAIN JAVASCRIPTS -->
-    <!-- <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script> -->
+    <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
     <script src="{{asset('vendor/bootstrap/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('vendor/modernizr/modernizr.js')}}"></script>
     <script src="{{asset('vendor/jquery-cookie/jquery.cookie.js')}}"></script>
     <script src="{{asset('vendor/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
     <script src="{{asset('vendor/switchery/switchery.min.js')}}"></script>
     <!-- end: MAIN JAVASCRIPTS -->
-
     <!-- start: JAVASCRIPTS REQUIRED FOR Graph ONLY -->
     <script src="{{asset('vendor/Chart.js/Chart.min.js')}}"></script>
     <script src="{{asset('vendor/jquery.sparkline/jquery.sparkline.min.js')}}"></script>
     <!-- end: JAVASCRIPTS REQUIRED FOR Graph ONLY -->
+    @yield('javascript')
+
     <!-- start: JS For Another Page -->
     <script src="{{asset('vendor/select2/select2.min.js')}}"></script>
     <script src="{{asset('vendor/DataTables/jquery.dataTables.min.js')}}"></script>
