@@ -115,12 +115,17 @@ class JadwalAvailableController extends Controller
 
         if(isset($r->hari)){
             $hari = $r->hari;
+
+            return JadwalAvailable::where($where)
+                ->whereIn('hari', $hari)
+                ->orderBy('id_jadwal_available')
+                ->get();
+        }else{
+            return JadwalAvailable::where($where)
+                ->orderBy('id_jadwal_available')
+                ->get();
         }
         
-        return JadwalAvailable::where($where)
-            ->whereIn('hari', $hari)
-            ->orderBy('id_jadwal_available')
-            ->get();
     }
 
     public function updateJadwalAvailable(Request $r)
