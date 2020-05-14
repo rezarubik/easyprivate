@@ -110,7 +110,9 @@ class JadwalPemesananPermingguController extends Controller
 
         return JadwalPemesananPerminggu::with($this->relationshipPemesananGuru)
             ->join('pemesanan as p', 'p.id_pemesanan', 'jadwal_pemesanan_perminggu.id_pemesanan')
+            ->join('jadwal_available as ja', 'ja.id_jadwal_available', 'jadwal_pemesanan_perminggu.id_jadwal_available')
             ->where($where)
+            ->orderBy('ja.id_jadwal_available')
             ->select('jadwal_pemesanan_perminggu.*')
             ->get();
     }   
