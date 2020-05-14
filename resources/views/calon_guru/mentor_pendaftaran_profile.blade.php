@@ -46,6 +46,11 @@
                                 Alamat
                             </a>
                         </li>
+                        <li>
+                            <a data-toggle="tab" href="#jadwal-available">
+                                Jadwal Available
+                            </a>
+                        </li>
                     </ul>
                     <div class="tab-content">
                         <div id="data_diri" class="tab-pane fade in active">
@@ -186,6 +191,119 @@
                                                                                                                             echo $pendaftaranGuru->user->alamat->longitude;
                                                                                                                         }
                                                                                                                         ?>">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="jadwal-available" class="tab-pane fade in">
+                            <div class="row padding-20">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <h5 class="over-title margin-bottom-15">
+                                                        <span>Pilihan Ketersediaan Jadwal Mengajar</span>
+                                                    </h5>
+                                                    <p>
+                                                        Pilih ketersediaan jadwal Anda pada hari dan jam yang tersedia.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <!-- Senin dan Selasa -->
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <div class="panel-heading">
+                                                        <h5 class="panel-title">Senin</h5>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="checkbox clip-check check-primary checkbox-inline">
+                                                            <input type="checkbox" id="senin-1" value="1" checked="">
+                                                            <label for="senin-1">
+                                                                09.00-10.30
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox clip-check check-primary checkbox-inline">
+                                                            <input type="checkbox" id="senin-2" value="1" checked="">
+                                                            <label for="senin-2">
+                                                                09.00-10.30
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox clip-check check-primary checkbox-inline">
+                                                            <input type="checkbox" id="senin-3" value="1" checked="">
+                                                            <label for="senin-3">
+                                                                09.00-10.30
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="checkbox clip-check check-primary checkbox-inline">
+                                                            <input type="checkbox" id="senin-4" value="1" checked="">
+                                                            <label for="senin-4">
+                                                                09.00-10.30
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox clip-check check-primary checkbox-inline">
+                                                            <input type="checkbox" id="senin-5" value="1" checked="">
+                                                            <label for="senin-5">
+                                                                09.00-10.30
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox clip-check check-primary checkbox-inline">
+                                                            <input type="checkbox" id="senin-6" value="1" checked="">
+                                                            <label for="senin-6">
+                                                                09.00-10.30
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <div class="panel-heading">
+                                                        <h5 class="panel-title">Selasa</h5>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="checkbox clip-check check-primary checkbox-inline">
+                                                            <input type="checkbox" id="selasa-1" value="1" checked="">
+                                                            <label for="selasa-1">
+                                                                09.00-10.30
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox clip-check check-primary checkbox-inline">
+                                                            <input type="checkbox" id="selasa-2" value="1" checked="">
+                                                            <label for="selasa-2">
+                                                                09.00-10.30
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox clip-check check-primary checkbox-inline">
+                                                            <input type="checkbox" id="selasa=3" value="1" checked="">
+                                                            <label for="selasa=3">
+                                                                09.00-10.30
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="checkbox clip-check check-primary checkbox-inline">
+                                                            <input type="checkbox" id="selasa-" value="1" checked="">
+                                                            <label for="selasa-">
+                                                                09.00-10.30
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox clip-check check-primary checkbox-inline">
+                                                            <input type="checkbox" id="selasa-5" value="1" checked="">
+                                                            <label for="selasa-5">
+                                                                09.00-10.30
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox clip-check check-primary checkbox-inline">
+                                                            <input type="checkbox" id="selasa-6" value="1" checked="">
+                                                            <label for="selasa-6">
+                                                                09.00-10.30
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
