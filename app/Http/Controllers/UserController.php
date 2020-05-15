@@ -118,7 +118,6 @@ class UserController extends Controller
         // todo Ketersediaan Mata Pelajaran
         $jumlahMapel = 0;
 
-
         // todo 
         if ($age > 20 && $age <= 25) {
             $nilai['pm_usia'] = 5;
@@ -255,6 +254,7 @@ class UserController extends Controller
      */
     public function storeProfile(Request $request)
     {
+        // dd($request);
         $user = User::findOrFail(Auth()->user()->id);
         $pendaftaranGuru = PendaftaranGuru::where('id_user', auth()->user()->id)->first();
         if ($pendaftaranGuru == null) {
