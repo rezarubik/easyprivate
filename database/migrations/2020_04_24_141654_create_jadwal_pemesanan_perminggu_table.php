@@ -17,6 +17,7 @@ class CreateJadwalPemesananPermingguTable extends Migration
             $table->bigIncrements('id_jadwal_pemesanan_perminggu');
             $table->integer('id_pemesanan')->nullable();
             $table->integer('id_jadwal_available')->nullable();
+            $table->integer('id_event')->nullable();
         });
     }
 
