@@ -133,7 +133,7 @@
                             <a href="{{url('nilai-gap')}}">
                                 <div class="item-content">
                                     <div class="item-media">
-                                        <i class="ti-settings"></i>
+                                        <i class="ti-target"></i>
                                     </div>
                                     <div class="item-inner">
                                         <span class="title"> Nilai GAP </span>
@@ -147,7 +147,7 @@
                             <a href="{{url('pembobotan-nilai-gap')}}">
                                 <div class="item-content">
                                     <div class="item-media">
-                                        <i class="ti-settings"></i>
+                                        <i class="ti-lock"></i>
                                     </div>
                                     <div class="item-inner">
                                         <span class="title"> Pembobotan Nilai GAP </span>
@@ -161,7 +161,7 @@
                             <a href="{{url('hasil-seleksi')}}">
                                 <div class="item-content">
                                     <div class="item-media">
-                                        <i class="ti-settings"></i>
+                                        <i class="ti-bookmark"></i>
                                     </div>
                                     <div class="item-inner">
                                         <span class="title"> Hasil Seleksi </span>
@@ -189,7 +189,7 @@
                             <a href="{{url('pemesanan')}}">
                                 <div class="item-content">
                                     <div class="item-media">
-                                        <i class="ti-settings"></i>
+                                        <i class="ti-shopping-cart"></i>
                                     </div>
                                     <div class="item-inner">
                                         <span class="title"> Pemesanan </span>
@@ -203,7 +203,7 @@
                             <a href="{{url('absensi')}}">
                                 <div class="item-content">
                                     <div class="item-media">
-                                        <i class="ti-settings"></i>
+                                        <i class="ti-face-smile"></i>
                                     </div>
                                     <div class="item-inner">
                                         <span class="title"> Absensi </span>

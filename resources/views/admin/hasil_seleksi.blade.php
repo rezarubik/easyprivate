@@ -13,6 +13,23 @@
 @section('active-pages', 'Hasil Seleksi')
 @section('content')
 <div class="container-fluid container-fullw bg-white">
+    @if(session('status'))
+    <div class="alert alert-success">
+        {{session('status')}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
+    <div class="row">
+        <div class="form-group col-md-12">
+            <div class="text-right">
+                <p>
+                    <a class="btn btn-wide btn-primary" href="{{url('profile-matching')}}"><i class="fa fa-floppy-o"></i> Lakukan Seleksi</a>
+                </p>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <h5 class="over-title margin-bottom-15">
@@ -30,7 +47,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($pendaftaranGuru as $pg)
+                        @foreach($pendaftaranGuru as $pg)
                         <tr>
                             <td>{{$pg->user->id}}</td>
                             <td>{{$pg->user->name}}</td>
@@ -54,7 +71,7 @@
                                 <a href="http://" class="label label-success" title="Kirim Email"><i class="ti-email"></i></a>
                             </td>
                         </tr>
-                    @endforeach
+                        @endforeach
                     </tbody>
                 </table>
             </div>

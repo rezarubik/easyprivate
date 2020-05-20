@@ -60,6 +60,8 @@ class LoginController extends Controller
         // dd($driver); // driver = google
         try {
             $user = Socialite::driver($driver)->user();
+            // dd($user->email);
+            $emailAdmin = 'cs.easyprivate@gmail.com';
             $create = User::firstOrCreate([
                 'email' => $user->getEmail()
             ], [
@@ -71,7 +73,13 @@ class LoginController extends Controller
             ]);
             // dd($create);
             auth()->login($create, true);
-            return redirect($this->redirectPath());
+            // if ($user->email = $emailAdmin) {
+            //     // dd($user->email);
+            //     return redirect('/dashboard');
+            // } else {
+            //     return redirect($this->redirectPath()); // todo /home
+            // }
+            return redirect($this->redirectPath()); // todo /home
         } catch (\Exception $e) {
             dd('gagal sign in');
             return redirect()->route('login');

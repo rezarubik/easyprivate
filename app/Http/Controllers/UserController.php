@@ -10,6 +10,7 @@ use App\Alamat;
 use App\Jenjang;
 use App\MataPelajaran;
 use App\ProfileMatching;
+use App\JadwalAvailable;
 use App\KriteriaBobotTarget;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
@@ -87,15 +88,48 @@ class UserController extends Controller
      */
     public function createProfile()
     {
-        // dd('test')
+        // dd('test');
         // $users = User::with($this->relationshipGuru)->find(Auth()->user()->id);
         $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
             ->join('users', 'users.id', 'pendaftaran_guru.id_user')
             // ->join('users as al', 'al.id', 'alamat.id_user')
             ->select('pendaftaran_guru.*')
             ->where('users.id', Auth()->user()->id)->first();
-        // dd($pendaftaranGuru);
-        return view('calon_guru.mentor_pendaftaran_profile', compact('pendaftaranGuru'));
+
+        // todo Jadwal Available
+        $jadwalAvailable = [];
+        $senin = JadwalAvailable::where('hari', 'Senin')->where('id_user', auth()->user()->id)->get();
+        // dd(count($senin));
+        if(count($senin) > 0){
+            // dd($senin);
+            $jadwalAvailable['Senin'] = $senin;
+        }
+        $selasa = JadwalAvailable::where('hari', 'Selasa')->where('id_user', auth()->user()->id)->get();
+            if(count($selasa) > 0){
+                $jadwalAvailable['Selasa'] = $selasa;
+            }
+            $rabu = JadwalAvailable::where('hari', 'Rabu')->where('id_user', auth()->user()->id)->get();
+                if(count($rabu) > 0){
+                    $jadwalAvailable['Rabu'] = $rabu;
+                }
+                $kamis = JadwalAvailable::where('hari', 'Kamis')->where('id_user', auth()->user()->id)->get();
+                    if(count($kamis) > 0){
+                        $jadwalAvailable['Kamis'] = $kamis;
+                    }
+                    $jumat = JadwalAvailable::where('hari', 'Jumat')->where('id_user', auth()->user()->id)->get();
+                        if(count($jumat) > 0){
+                            $jadwalAvailable['Jumat'] = $jumat;
+                        }
+                        $sabtu = JadwalAvailable::where('hari', 'Sabtu')->where('id_user', auth()->user()->id)->get();
+                            if(count($sabtu) > 0){
+                                $jadwalAvailable['Sabtu'] = $sabtu;
+                            }
+                            $minggu = JadwalAvailable::where('hari', 'Minggu')->where('id_user', auth()->user()->id)->get();
+                                if(count($minggu) > 0){
+                                    $jadwalAvailable['Minggu'] = $minggu;
+                                }
+        // dd($jadwalAvailable);
+        return view('calon_guru.mentor_pendaftaran_profile', compact('pendaftaranGuru', 'jadwalAvailable'));
     }
 
     /**
@@ -117,7 +151,6 @@ class UserController extends Controller
         $age = $currentYear->diffInYears($tanggal_lahir);
         // todo Ketersediaan Mata Pelajaran
         $jumlahMapel = 0;
-
         // todo 
         if ($age > 20 && $age <= 25) {
             $nilai['pm_usia'] = 5;
@@ -254,14 +287,12 @@ class UserController extends Controller
      */
     public function storeProfile(Request $request)
     {
-        // dd($request);
+        // dd($request->get('hari'));
         $user = User::findOrFail(Auth()->user()->id);
         $pendaftaranGuru = PendaftaranGuru::where('id_user', auth()->user()->id)->first();
         if ($pendaftaranGuru == null) {
             $pendaftaranGuru = new PendaftaranGuru();
         }
-        $pendaftaranGuru->universitas = $request->universitas;
-        $pendaftaranGuru->save();
         // dd($user);
         $score = [];
         // todo Pengalaman Kerja
@@ -296,7 +327,8 @@ class UserController extends Controller
 
         $user->jenis_kelamin = $request->gender;
         $user->no_handphone = $request->handphone_number;
-        $user->role = 0;
+        $user->universitas = $request->universitas;
+        $user->role = 0; // sebelum diterima jadi guru
         $user->save();
 
         // todo insert into table alamat
@@ -313,6 +345,321 @@ class UserController extends Controller
             $alamat->longitude = $request->lng;
             $alamat->alamat_lengkap = $request->alamat_lengkap;
             $alamat->save();
+        }
+
+        // todo Jadwal Available
+        $jadwalAvailable = JadwalAvailable::where('id_user', auth()->user()->id)->get();
+        if(count($jadwalAvailable) == 0){
+            $data = [
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Senin',
+                    'start' => '09:00',
+                    'end' => '10:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Senin',
+                    'start' => '11:00',
+                    'end' => '12:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Senin',
+                    'start' => '13:00',
+                    'end' => '14:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Senin',
+                    'start' => '15:00',
+                    'end' => '16:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Senin',
+                    'start' => '17:00',
+                    'end' => '18:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Senin',
+                    'start' => '19:00',
+                    'end' => '20:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Selasa',
+                    'start' => '09:00',
+                    'end' => '10:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Selasa',
+                    'start' => '11:00',
+                    'end' => '12:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Selasa',
+                    'start' => '13:00',
+                    'end' => '14:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Selasa',
+                    'start' => '15:00',
+                    'end' => '16:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Selasa',
+                    'start' => '17:00',
+                    'end' => '18:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Selasa',
+                    'start' => '19:00',
+                    'end' => '20:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Rabu',
+                    'start' => '09:00',
+                    'end' => '10:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Rabu',
+                    'start' => '11:00',
+                    'end' => '12:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Rabu',
+                    'start' => '13:00',
+                    'end' => '14:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Rabu',
+                    'start' => '15:00',
+                    'end' => '16:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Rabu',
+                    'start' => '17:00',
+                    'end' => '18:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Rabu',
+                    'start' => '19:00',
+                    'end' => '20:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Kamis',
+                    'start' => '09:00',
+                    'end' => '10:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Kamis',
+                    'start' => '11:00',
+                    'end' => '12:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Kamis',
+                    'start' => '13:00',
+                    'end' => '14:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Kamis',
+                    'start' => '15:00',
+                    'end' => '16:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Kamis',
+                    'start' => '17:00',
+                    'end' => '18:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Kamis',
+                    'start' => '19:00',
+                    'end' => '20:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Jumat',
+                    'start' => '09:00',
+                    'end' => '10:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Jumat',
+                    'start' => '11:00',
+                    'end' => '12:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Jumat',
+                    'start' => '13:00',
+                    'end' => '14:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Jumat',
+                    'start' => '15:00',
+                    'end' => '16:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Jumat',
+                    'start' => '17:00',
+                    'end' => '18:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Jumat',
+                    'start' => '19:00',
+                    'end' => '20:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Sabtu',
+                    'start' => '09:00',
+                    'end' => '10:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Sabtu',
+                    'start' => '11:00',
+                    'end' => '12:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Sabtu',
+                    'start' => '13:00',
+                    'end' => '14:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Sabtu',
+                    'start' => '15:00',
+                    'end' => '16:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Sabtu',
+                    'start' => '17:00',
+                    'end' => '18:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Sabtu',
+                    'start' => '19:00',
+                    'end' => '20:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Minggu',
+                    'start' => '09:00',
+                    'end' => '10:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Minggu',
+                    'start' => '11:00',
+                    'end' => '12:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Minggu',
+                    'start' => '13:00',
+                    'end' => '14:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Minggu',
+                    'start' => '15:00',
+                    'end' => '16:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Minggu',
+                    'start' => '17:00',
+                    'end' => '18:30',
+                    'available' => 0
+                ],
+                [
+                    'id_user' => auth()->user()->id,
+                    'hari' => 'Minggu',
+                    'start' => '19:00',
+                    'end' => '20:30',
+                    'available' => 0
+                ],
+            ];
+            // dd($data);
+            JadwalAvailable::insert($data);
+        }else{
+            JadwalAvailable::whereIn('id_jadwal_available', $request->get('hari'))
+            ->where('id_user', auth()->user()->id)
+            ->update([
+                'available' => 1
+            ]);
+            // ! ketika uncheck
+            JadwalAvailable::whereNotIn('id_jadwal_available', $request->get('hari'))
+            ->where('id_user', auth()->user()->id)
+            ->update([
+                'available' => 0
+            ]);
         }
         return redirect('/user-profile/create')->with('status', 'Aplikasi Anda berhasil di simpan!');
     }
@@ -392,11 +739,11 @@ class UserController extends Controller
             return null;
         }
     }
-    
+
     public function detailGuru($id)
     {
         return User::with($this->relationshipCariGuru)
-        ->find($id);
+            ->find($id);
     }
     public function getMuridByEmail($email)
     {
@@ -423,7 +770,7 @@ class UserController extends Controller
             return 0;
         }
     }
-    
+
     public function getMuridByEmailPost(Request $r)
     {
         return $this->getMuridByEmail($r->email);
@@ -456,7 +803,7 @@ class UserController extends Controller
             return $emptyGuru;
         }
     }
-    
+
     //Get guru berdasarkan email
     public function getGuruByEmail($email)
     {
@@ -601,33 +948,31 @@ class UserController extends Controller
 
         //     array_push($jadwalAvailable, 'Minggu');
         // }
-        if(isset($r->hari) && sizeOf($r->hari) > 0 ){
+        if (isset($r->hari) && sizeOf($r->hari) > 0) {
 
-        return User::with($this->relationshipCariGuru)
-            ->join('guru_mapel', 'guru_mapel.id_guru', 'users.id')
-            ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'guru_mapel.id_mapel')
-            ->join('jadwal_available', 'jadwal_available.id_user', 'users.id')
-            ->where($where)
-            ->whereIn('jadwal_available.hari', $jadwalAvailable)
-            ->select('users.*')
-            ->distinct()
-            // ->orderBy('status')
-            // ->orderBy('waktu_pemesanan', 'desc')
-            ->get();
-        }
-
-        else{
             return User::with($this->relationshipCariGuru)
-            ->join('guru_mapel', 'guru_mapel.id_guru', 'users.id')
-            ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'guru_mapel.id_mapel')
-            ->join('jadwal_available', 'jadwal_available.id_user', 'users.id')
-            ->where($where)
-            // ->whereIn('jadwal_available.hari', $jadwalAvailable)
-            ->select('users.*')
-            ->distinct()
-            // ->orderBy('status')
-            // ->orderBy('waktu_pemesanan', 'desc')
-            ->get();
+                ->join('guru_mapel', 'guru_mapel.id_guru', 'users.id')
+                ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'guru_mapel.id_mapel')
+                ->join('jadwal_available', 'jadwal_available.id_user', 'users.id')
+                ->where($where)
+                ->whereIn('jadwal_available.hari', $jadwalAvailable)
+                ->select('users.*')
+                ->distinct()
+                // ->orderBy('status')
+                // ->orderBy('waktu_pemesanan', 'desc')
+                ->get();
+        } else {
+            return User::with($this->relationshipCariGuru)
+                ->join('guru_mapel', 'guru_mapel.id_guru', 'users.id')
+                ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'guru_mapel.id_mapel')
+                ->join('jadwal_available', 'jadwal_available.id_user', 'users.id')
+                ->where($where)
+                // ->whereIn('jadwal_available.hari', $jadwalAvailable)
+                ->select('users.*')
+                ->distinct()
+                // ->orderBy('status')
+                // ->orderBy('waktu_pemesanan', 'desc')
+                ->get();
         }
     }
     /**
@@ -771,6 +1116,7 @@ class UserController extends Controller
             ProfileMatching::where('id_profile_matching', $key)->update(['pm_result' => $value['nilai_akhir']]);
         }
         $this->getPesertaLulus();
+        return redirect('/hasil-seleksi')->with('status', 'Proses Seleksi Telah Selesai');
     }
     public function hitungBobot($bobot)
     {

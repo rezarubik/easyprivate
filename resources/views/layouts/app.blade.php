@@ -151,29 +151,6 @@
                             </a>
                             <ul class="dropdown-menu dropdown-dark">
                                 <li>
-                                    <a href="pages_user_profile.html">
-                                        My Profile
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="pages_calendar.html">
-                                        My Calendar
-                                    </a>
-                                </li>
-                                <li>
-                                    <a hef="pages_messages.html">
-                                        My Messages (3)
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="login_lockscreen.html">
-                                        Lock Screen
-                                    </a>
-                                </li>
-                                <li>
-                                    <!-- <a href="login_signin.html">
-                                        Log Out
-                                    </a> -->
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}

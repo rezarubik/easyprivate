@@ -39,6 +39,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 // ? User Calon Guru
 // Route::get('user/mentor-dashboard', 'GuruController@index');
 // todo form pendaftaran guru
+// todo Guru
 Route::get('/user/create', 'UserController@create');
 Route::post('/user', 'UserController@store');
 Route::get('/user-profile/create', 'UserController@createProfile');
@@ -46,7 +47,6 @@ Route::post('/user-profile', 'UserController@storeProfile');
 Route::post('/getMapelperJenjang', 'MataPelajaranController@getMapelperJenjang')->name('getMapelperJenjang');
 
 // ? Admin
-// todo Guru
 Route::get('/dashboard', 'AdminController@index');
 Route::get('/users/data-guru', 'UserController@dataGuru');
 Route::get('/users/data-murid', 'UserController@dataMurid');
@@ -58,7 +58,7 @@ Route::get('/video-microteaching', 'UserController@videoMicroteaching');
 Route::post('/score-video-microteaching', 'UserController@scoreVideoMicroteaching');
 Route::get('/pemesanan', 'PemesananController@index');
 Route::get('/absensi', 'AbsenController@index');
-Route::get('test-pm', 'UserController@hitungProfileMatching');
+Route::get('/profile-matching', 'UserController@hitungProfileMatching');
 
 // ? Pemesanan Per Bulan dan Per Jenjang
 Route::get('pemesananPerJenjang', 'AdminController@pemesananPerJenjang');
