@@ -234,7 +234,7 @@
                                                             ?>
                                                             >
                                                             <label for="hari_{{$perDay->id_jadwal_available}}">
-                                                                {{$perDay->start}} {{$perDay->end}}
+                                                                {{$perDay->start}} - {{$perDay->end}}
                                                             </label>
                                                         </div>
                                                         @endforeach
