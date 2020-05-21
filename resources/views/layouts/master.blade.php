@@ -274,18 +274,19 @@
                         <!-- start: USER OPTIONS DROPDOWN -->
                         <li class="dropdown current-user">
                             <a href class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="{{asset('assets/images/avatar-1.jpg')}}" alt="Admin"> <span class="username">Admin <i class="ti-angle-down"></i></i></span>
+                                <img src="{{asset('assets/images/avatar-1.jpg')}}" alt="Admin">
+                                <span class="username">{{ auth()->user()->name }}<i class="ti-angle-down"></i></i></span>
                             </a>
                             <ul class="dropdown-menu dropdown-dark">
                                 <li>
-                                    <a href="pages_user_profile.html">
-                                        My Profile
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
                                     </a>
-                                </li>
-                                <li>
-                                    <a href="login_signin.html">
-                                        Log Out
-                                    </a>
+
+                                    <form id="logout-form" action="{{ route('admin.logout') }}" method="GET" style="display: none;">
+                                        @csrf
+                                    </form>
                                 </li>
                             </ul>
                         </li>

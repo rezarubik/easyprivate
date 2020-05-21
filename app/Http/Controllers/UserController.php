@@ -21,6 +21,7 @@ class UserController extends Controller
     {
         // ! Untuk calon guru
         // $this->middleware('auth');
+        $this->middleware('auth:admin');
         $this->relationshipGuru = ['alamat'];
         $this->relationshipMurid = ['alamat'];
         $this->relationshipCariGuru = ['alamat', 'guruMapel.mataPelajaran', 'guruMapel.mataPelajaran.jenjang', 'guruMapel'];

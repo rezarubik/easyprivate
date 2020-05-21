@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\GrafikPemesanan;
 use App\Pemesanan;
 use DB;
 use Illuminate\Http\Request;
@@ -10,7 +11,7 @@ class AdminController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
     }
     /**
      * Display a listing of the resource.
@@ -19,21 +20,29 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $pemesanan = $this->pemesananPerJenjang();
+        // dd('hai');
+        // $pemesanan = $this->pemesananPerJenjang();
+        // $grafikPemesanan = GrafikPemesanan::all();
+        // $grafikPemesanan = DB::table('grafikpemesanan')->get();
+        // dd($grafikPemesanan);
         return view('admin.admin_dashboard');
     }
 
     /**
      * Function untuk ngeget pemesanan per jenjang
      */
-    public function pemesananPerJenjang(){
-        $pemesanan = Pemesanan::select(DB::raw('count(*) as `data_pemesanan`'), 'jenjang.nama_jenjang',
-        DB::raw('YEAR(waktu_pemesanan) year, MONTHNAME(waktu_pemesanan) month'))
-        ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'pemesanan.id_mapel')
-        ->join('jenjang', 'mata_pelajaran.id_jenjang', 'jenjang.id_jenjang')
-        ->groupby('year','month', 'jenjang.nama_jenjang')
-        ->orderByRaw('month DESC')
-        ->get();
+    public function pemesananPerJenjang()
+    {
+        $pemesanan = Pemesanan::select(
+            DB::raw('count(*) as `data_pemesanan`'),
+            'jenjang.nama_jenjang',
+            DB::raw('YEAR(waktu_pemesanan) year, MONTHNAME(waktu_pemesanan) month')
+        )
+            ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'pemesanan.id_mapel')
+            ->join('jenjang', 'mata_pelajaran.id_jenjang', 'jenjang.id_jenjang')
+            ->groupby('year', 'month', 'jenjang.nama_jenjang')
+            ->orderByRaw('month DESC')
+            ->get();
         return response()->json($pemesanan);
     }
 

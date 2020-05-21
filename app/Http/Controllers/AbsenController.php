@@ -9,6 +9,7 @@ class AbsenController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth:admin');
         $this->relationship = ['jadwalAjar', 'pemesanan', 'pemesanan.murid', 'pemesanan.guru', 'pemesanan.mataPelajaran', 'pemesanan.mataPelajaran.jenjang'];
         $this->datetimeFormat = "Y-M-d H:i:s";
         date_default_timezone_set('Asia/Jakarta');
