@@ -68,7 +68,7 @@ class LoginController extends Controller
     public function logoutAdmin()
     {
         Auth::guard('admin')->logout();
-        return redirect()->intended(route('admin.home'));
+        return redirect()->intended(route('admin.login'));
         // return redirect('/');
     }
 }
