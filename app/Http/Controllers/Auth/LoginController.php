@@ -84,12 +84,6 @@ class LoginController extends Controller
             ]);
             // dd($create);
             auth()->login($create, true);
-            // if ($user->email = $emailAdmin) {
-            //     // dd($user->email);
-            //     return redirect('/dashboard');
-            // } else {
-            //     return redirect($this->redirectPath()); // todo /home
-            // }
             return redirect($this->redirectPath()); // todo /home
         } catch (\Exception $e) {
             dd('gagal sign in');
