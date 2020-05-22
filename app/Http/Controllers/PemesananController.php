@@ -115,6 +115,10 @@ class PemesananController extends Controller
         $pemesanan->status = $r->status;
         $pemesanan->save();
 
+        if($pemesanan->status == 1){
+            $this->solveConflictedPemesanan($r->id_pemesanan);
+        }
+
         return $pemesanan;
     }
     
@@ -122,5 +126,55 @@ class PemesananController extends Controller
     {
         
         
+    }
+
+    public function getConflictedPemesanan($id){
+        $pemesanan = $this->getPemesananById($id);
+
+        //memasukkan masing masing id_jadwal_available ke dalam array
+        $idja = [];
+        foreach($pemesanan->jadwalPemesananPerminggu as $jpp){
+            array_push($idja, $jpp->jadwalAvailable->id_jadwal_available);
+        }
+
+        //id_pemesanan
+        $idguru = $pemesanan->id_guru;
+        $idpem = $pemesanan->id_pemesanan;
+
+        $conflictedPemesanan = Pemesanan::with($this->relationship)
+            ->join('jadwal_pemesanan_perminggu as jpp', 'jpp.id_pemesanan', 'pemesanan.id_pemesanan')
+            ->join('jadwal_available as ja', 'ja.id_jadwal_available', 'jpp.id_jadwal_available')
+            ->whereIn('ja.id_jadwal_available', $idja)
+            ->whereIn('pemesanan.status', [0, 1])
+            ->where('pemesanan.id_guru', $idguru)
+            ->where('pemesanan.id_pemesanan', '<>', $idpem)
+            ->select('pemesanan.*')
+            ->get();
+
+        return $conflictedPemesanan;
+    }
+
+    public function getCountOfConflictedPemesanan($id)
+    {
+        $conflictedPemesanan = $this->getConflictedPemesanan($id);
+        $count = count($conflictedPemesanan);
+
+        return $count;
+    }
+
+    public function solveConflictedPemesanan($id)
+    {
+        $conflictedPemesanan = $this->getConflictedPemesanan($id);
+
+        $idConflictedPemesanan = [];
+        foreach($conflictedPemesanan as $cp){
+            array_push($idConflictedPemesanan, $cp->id_pemesanan);
+        }
+
+        Pemesanan::whereIn('id_pemesanan', $idConflictedPemesanan)
+            ->where('status', 0)
+            ->update([
+                'status' => 2
+            ]);
     }
 }

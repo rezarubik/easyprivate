@@ -147,5 +147,14 @@ class JadwalAvailableController extends Controller
                 ]);
                 // ->get();
         }
+
+        if(isset($r->id_terisi)){
+            $idTerisi = $r->id_terisi;
+            $jadwalTerisi = JadwalAvailable::whereIn('id_jadwal_available', $idTerisi)
+                ->update([
+                    'available' => 2
+                ]);
+                // ->get();
+        }
     }
 }
