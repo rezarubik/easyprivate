@@ -53,6 +53,7 @@ class AbsenController extends Controller
                 'pemesanan.id_guru' => $id
             ])
             ->select('absen.*')
+            ->orderBy('waktu_absen', 'desc')
             ->get();
     }
 
@@ -64,6 +65,7 @@ class AbsenController extends Controller
                 'pemesanan.id_murid' => $id
             ])
             ->select('absen.*')
+            ->orderBy('waktu_absen', 'desc')
             ->get();
     }
 
