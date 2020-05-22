@@ -56,7 +56,7 @@ class LoginController extends Controller
             return redirect()->intended(route('admin.home'));
         }
         // If unsuccesful, then redirect back to the login with the form data
-        dd('Gagal Login');
+        dd('Email atau password salah');
         return redirect()->back()->withInput($request->only('email', 'remember'));
     }
     /**

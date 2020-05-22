@@ -73,8 +73,6 @@ class LoginController extends Controller
         // dd($driver); // driver = google
         try {
             $user = Socialite::driver($driver)->user();
-            // dd($user->email);
-            $emailAdmin = 'cs.easyprivate@gmail.com';
             $create = User::firstOrCreate([
                 'email' => $user->getEmail()
             ], [

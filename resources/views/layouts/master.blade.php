@@ -75,9 +75,9 @@
                         <span>Main Navigation</span>
                     </div>
                     <ul class="main-navigation-menu">
-                        <li class="{{(Request::is('/', 'dashboard')) ? 'active open' : ''}}">
+                        <li class="{{(Request::is('/', 'admin/dashboard')) ? 'active open' : ''}}">
                             <!-- class="active open" -->
-                            <a href="{{url('dashboard')}}">
+                            <a href="{{route('admin.home')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-home"></i>
@@ -89,7 +89,7 @@
                             </a>
                         </li>
                         <!-- ? Users -->
-                        <li class="{{(Request::is('users/data-murid', 'users/data-guru')) ? 'active open' : ''}}">
+                        <li class="{{(Request::is('admin/users/data-murid', 'admin/users/data-guru')) ? 'active open' : ''}}">
                             <a href="javascript:void(0)">
                                 <div class="item-content">
                                     <div class="item-media">
@@ -101,13 +101,13 @@
                                 </div>
                             </a>
                             <ul class="sub-menu">
-                                <li class="{{(Request::is('users/data-murid')) ? 'active open' : ''}}">
-                                    <a href="{{url('users/data-murid')}}">
+                                <li class="{{(Request::is('admin/users/data-murid')) ? 'active open' : ''}}">
+                                    <a href="{{route('admin.users.murid')}}">
                                         <span class="title"> Murid </span>
                                     </a>
                                 </li>
-                                <li class="{{(Request::is('users/data-guru')) ? 'active open' : ''}}">
-                                    <a href="{{url('users/data-guru')}}">
+                                <li class="{{(Request::is('admin/users/data-guru')) ? 'active open' : ''}}">
+                                    <a href="{{route('admin.users.guru')}}">
                                         <span class="title"> Guru </span>
                                     </a>
                                 </li>
@@ -115,8 +115,8 @@
                         </li>
                         <!-- ? End of Users -->
                         <!-- ? Kriteia dan Bobot -->
-                        <li class="{{(Request::is('/', 'kriteria-bobot')) ? 'active open' : ''}}">
-                            <a href="{{url('/kriteria-bobot')}}">
+                        <li class="{{(Request::is('/', 'admin/kriteria-bobot')) ? 'active open' : ''}}">
+                            <a href="{{route('kriteria.bobot')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-star"></i>
@@ -129,8 +129,8 @@
                         </li>
                         <!-- ? End of Kriteria dan Bobot -->
                         <!-- ? Nilai Gap -->
-                        <li class="{{(Request::is('/', 'nilai-gap')) ? 'active open' : ''}}">
-                            <a href="{{url('nilai-gap')}}">
+                        <li class="{{(Request::is('/', 'admin/nilai-gap')) ? 'active open' : ''}}">
+                            <a href="{{route('nilai.gap')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-target"></i>
@@ -143,8 +143,8 @@
                         </li>
                         <!-- ? End of Nilai Gap -->
                         <!-- ? Pembobotan Nilai Gap -->
-                        <li class="{{(Request::is('/', 'pembobotan-nilai-gap')) ? 'active open' : ''}}">
-                            <a href="{{url('pembobotan-nilai-gap')}}">
+                        <li class="{{(Request::is('/', 'admin/pembobotan-nilai-gap')) ? 'active open' : ''}}">
+                            <a href="{{route('pembobotan.nilai.gap')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-lock"></i>
@@ -157,8 +157,8 @@
                         </li>
                         <!-- ? End of Pembobotan Nilai Gap -->
                         <!-- ? Hasil Seleksi -->
-                        <li class="{{(Request::is('/', 'hasil-seleksi')) ? 'active open' : ''}}">
-                            <a href="{{url('hasil-seleksi')}}">
+                        <li class="{{(Request::is('/', 'admin/hasil-seleksi')) ? 'active open' : ''}}">
+                            <a href="{{route('hasil.seleksi')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-bookmark"></i>
@@ -171,8 +171,8 @@
                         </li>
                         <!-- ? End of Hasil Seleksi -->
                         <!-- ? Microteaching -->
-                        <li class="{{(Request::is('/', 'video-microteaching')) ? 'active open' : ''}}">
-                            <a href="{{url('video-microteaching')}}">
+                        <li class="{{(Request::is('/', 'admin/video-microteaching')) ? 'active open' : ''}}">
+                            <a href="{{route('video.microteaching')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-video-camera"></i>
@@ -185,8 +185,8 @@
                         </li>
                         <!-- ? End of Microteaching -->
                         <!-- ? Pemesanan -->
-                        <li class="{{(Request::is('/', 'pemesanan')) ? 'active open' : ''}}">
-                            <a href="{{url('pemesanan')}}">
+                        <li class="{{(Request::is('/', 'admin/pemesanan')) ? 'active open' : ''}}">
+                            <a href="{{route('pemesanan')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-shopping-cart"></i>
@@ -199,8 +199,8 @@
                         </li>
                         <!-- ? End of Pemesanan -->
                         <!-- ? Absensi -->
-                        <li class="{{(Request::is('/', 'absensi')) ? 'active open' : ''}}">
-                            <a href="{{url('absensi')}}">
+                        <li class="{{(Request::is('/', 'admin/absensi')) ? 'active open' : ''}}">
+                            <a href="{{route('absensi')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-face-smile"></i>

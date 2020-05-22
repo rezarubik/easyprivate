@@ -53,17 +53,17 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/login', 'AuthAdmin\LoginController@login')->name('admin.login.submit');
     Route::get('/dashboard', 'AdminController@index')->name('admin.home'); // todo dashboard admin
     Route::get('/logout', 'AuthAdmin\LoginController@logoutAdmin')->name('admin.logout');
-    Route::get('/users/data-guru', 'UserController@dataGuru');
-    Route::get('/users/data-murid', 'UserController@dataMurid');
-    Route::get('/kriteria-bobot', 'KriteriaBobotController@index');
-    Route::get('/nilai-gap', 'UserController@nilaiGAP');
-    Route::get('/pembobotan-nilai-gap', 'UserController@pembobotanNilaiGAP');
-    Route::get('/hasil-seleksi', 'UserController@hasilSeleksi');
-    Route::get('/video-microteaching', 'UserController@videoMicroteaching');
-    Route::post('/score-video-microteaching', 'UserController@scoreVideoMicroteaching');
-    Route::get('/pemesanan', 'PemesananController@index');
-    Route::get('/absensi', 'AbsenController@index');
-    Route::get('/profile-matching', 'UserController@hitungProfileMatching');
+    Route::get('/users/data-guru', 'AdminController@dataGuru')->name('admin.users.guru');
+    Route::get('/users/data-murid', 'AdminController@dataMurid')->name('admin.users.murid');
+    Route::get('/kriteria-bobot', 'KriteriaBobotController@index')->name('kriteria.bobot');
+    Route::get('/nilai-gap', 'AdminController@nilaiGAP')->name('nilai.gap');
+    Route::get('/pembobotan-nilai-gap', 'AdminController@pembobotanNilaiGAP')->name('pembobotan.nilai.gap');
+    Route::get('/hasil-seleksi', 'AdminController@hasilSeleksi')->name('hasil.seleksi');
+    Route::get('/video-microteaching', 'AdminController@videoMicroteaching')->name('video.microteaching');
+    Route::post('/score-video-microteaching', 'AdminController@scoreVideoMicroteaching')->name('pemesanan');
+    Route::get('/pemesanan', 'PemesananController@index')->name('pemesanan');
+    Route::get('/absensi', 'AbsenController@index')->name('absensi');
+    Route::get('/profile-matching', 'AdminController@hitungProfileMatching')->name('profile.matching');
 });
 
 // ? Pemesanan Per Bulan dan Per Jenjang

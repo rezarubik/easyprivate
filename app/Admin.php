@@ -10,7 +10,11 @@ class Admin extends Authenticatable
 {
     use Notifiable;
 
+    // protected $table = 'admin';
+    // protected $primaryKey = 'id';
     protected $guard = 'admin'; // todo mengarahkan ke guard di auth.php
+
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.

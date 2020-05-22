@@ -25,7 +25,7 @@
         <div class="form-group col-md-12">
             <div class="text-right">
                 <p>
-                    <a class="btn btn-wide btn-primary" href="{{url('profile-matching')}}"><i class="fa fa-floppy-o"></i> Lakukan Seleksi</a>
+                    <a class="btn btn-wide btn-primary" href="{{route('profile.matching')}}"><i class="fa fa-floppy-o"></i> Lakukan Seleksi</a>
                 </p>
             </div>
         </div>

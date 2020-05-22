@@ -105,7 +105,7 @@
         </form>
         <!-- start: COPYRIGHT -->
         <div class="copyright">
-          &copy; <span class="current-year"></span><span class="text-bold text-uppercase"> ClipTheme</span>. <span>All rights reserved</span>
+          &copy; <span class="current-year"></span><span class="text-bold text-uppercase"> Easy Private</span>. <span>All rights reserved</span>
         </div>
         <!-- end: COPYRIGHT -->
       </div>
