@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 use Socialite;
 use App\User;
 
@@ -37,7 +38,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except(['logout', 'logoutUser']);
     }
 
     /**
@@ -48,6 +49,18 @@ class LoginController extends Controller
     public function redirectToProvider($driver)
     {
         return Socialite::driver($driver)->redirect();
+    }
+
+    /**
+     * Log the user out of the application.
+     * From vendor/laravel/ui/auth-backend/AuthenticatesUsers.php
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logoutUser()
+    {
+        Auth::guard('web')->logout();
+        return redirect('/');
     }
 
     /**
@@ -71,7 +84,7 @@ class LoginController extends Controller
             ]);
             // dd($create);
             auth()->login($create, true);
-            return redirect($this->redirectPath());
+            return redirect($this->redirectPath()); // todo /home
         } catch (\Exception $e) {
             dd('gagal sign in');
             return redirect()->route('login');

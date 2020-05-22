@@ -16,6 +16,7 @@ class PemesananController extends Controller
 
     public function __construct()
     {
+        $this->middleware('auth:admin');
         $this->relationship = ['murid', 'guru', 'murid.alamat', 'mataPelajaran', 'mataPelajaran.jenjang', 'jadwalPemesananPerminggu', 'jadwalPemesananPerminggu.jadwalAvailable'];
         $this->datetimeFormat = "Y-M-d H:i:s";
         date_default_timezone_set('Asia/Jakarta');
@@ -73,19 +74,19 @@ class PemesananController extends Controller
         // if($r->id_pemesanan != null && $r->id_pemesanan != ''){
 
         // }
-        if(isset($r->id_pemesanan)){
+        if (isset($r->id_pemesanan)) {
             $where['id_pemesanan'] = $r->id_pemesanan;
         }
 
-        if(isset($r->id_guru)){
+        if (isset($r->id_guru)) {
             $where['id_guru'] = $r->id_guru;
         }
 
-        if(isset($r->id_murid)){
+        if (isset($r->id_murid)) {
             $where['id_murid'] = $r->id_murid;
         }
 
-        if(isset($r->status)){
+        if (isset($r->status)) {
             $where['status'] = $r->status;
         }
 
@@ -121,11 +122,9 @@ class PemesananController extends Controller
 
         return $pemesanan;
     }
-    
+
     public function cariGuru(Request $r)
     {
-        
-        
     }
 
     public function getConflictedPemesanan($id){
