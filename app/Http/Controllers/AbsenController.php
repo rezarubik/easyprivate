@@ -9,7 +9,6 @@ class AbsenController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:admin');
         $this->relationship = [
             'jadwalPemesananPerminggu',
             'jadwalPemesananPerminggu.pemesanan',

@@ -7,6 +7,7 @@ use App\User;
 use App\Pemesanan;
 use App\PendaftaranGuru;
 use App\GuruMapel;
+use App\Absen;
 use App\Alamat;
 use App\Jenjang;
 use App\MataPelajaran;
@@ -28,6 +29,17 @@ class AdminController extends Controller
         $this->relationshipCariGuru = ['alamat', 'guruMapel.mataPelajaran', 'guruMapel.mataPelajaran.jenjang', 'guruMapel'];
         $this->relationshipPendaftaranGuru = ['user', 'season', 'profileMatching'];
         $this->realationshipGuruMapel = ['mataPelajaran', 'mataPelajaran.jenjang'];
+        // todo pemesanan
+        $this->relationship = ['murid', 'guru', 'murid.alamat', 'mataPelajaran', 'mataPelajaran.jenjang', 'jadwalPemesananPerminggu', 'jadwalPemesananPerminggu.jadwalAvailable'];
+        // todo absensi
+        $this->relationship = [
+            'jadwalPemesananPerminggu',
+            'jadwalPemesananPerminggu.pemesanan',
+            'jadwalPemesananPerminggu.pemesanan.murid',
+            'jadwalPemesananPerminggu.pemesanan.guru',
+            'jadwalPemesananPerminggu.pemesanan.mataPelajaran',
+            'jadwalPemesananPerminggu.pemesanan.mataPelajaran.jenjang'
+        ];
     }
     /**
      * Display a listing of the resource.
@@ -42,6 +54,34 @@ class AdminController extends Controller
         // $grafikPemesanan = DB::table('grafikpemesanan')->get();
         // dd($grafikPemesanan);
         return view('admin.admin_dashboard');
+    }
+
+       /**
+     * Menampilkan data pemesanan pada aplikasi admin
+     */
+    public function indexPemesanan()
+    {
+        $pemesanan = Pemesanan::with($this->relationship)
+            ->join('users as m', 'm.id', 'pemesanan.id_murid')
+            ->join('users as g', 'g.id', 'pemesanan.id_guru')
+            ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'pemesanan.id_mapel')
+            ->where('pemesanan.id_murid', '!=', '')
+            ->where('pemesanan.id_guru', '!=', '')
+            ->where('pemesanan.id_mapel', '!=', '')
+            ->select('pemesanan.*')
+            ->get();
+        // dd($pemesanan);
+        return view('admin.pemesanan', compact('pemesanan'));
+    }
+
+    /**
+     * Menampilkan Data Absensi
+     */
+    public function indexAbsensi()
+    {
+        $absen = Absen::with($this->relationship)->get();
+        // dd($absen);
+        return view('admin.absensi', compact('absen'));
     }
 
     /**

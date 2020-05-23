@@ -61,8 +61,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/hasil-seleksi', 'AdminController@hasilSeleksi')->name('hasil.seleksi');
     Route::get('/video-microteaching', 'AdminController@videoMicroteaching')->name('video.microteaching');
     Route::post('/score-video-microteaching', 'AdminController@scoreVideoMicroteaching')->name('pemesanan');
-    Route::get('/pemesanan', 'PemesananController@index')->name('pemesanan');
-    Route::get('/absensi', 'AbsenController@index')->name('absensi');
+    Route::get('/pemesanan', 'AdminController@indexPemesanan')->name('pemesanan');
+    Route::get('/absensi', 'AdminController@indexAbsensi')->name('absensi');
     Route::get('/profile-matching', 'AdminController@hitungProfileMatching')->name('profile.matching');
 });
 
