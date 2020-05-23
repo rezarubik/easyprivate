@@ -20,7 +20,7 @@ class UserController extends Controller
     public function __construct()
     {
         // ! Untuk calon guru
-        $this->middleware('auth');
+        // $this->middleware('auth');
         // $this->middleware('auth:admin');
         $this->relationshipGuru = ['alamat'];
         $this->relationshipMurid = ['alamat'];
