@@ -16,20 +16,15 @@ use App\Pemesanan;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 //Absen
 Route::get('absen', 'AbsenController@getAbsen'); //Udah bisa
+Route::post('absen/filter', 'AbsenController@getAbsenFiltered');
 Route::get('absen/{id}', 'AbsenController@getAbsenById'); //Udah bisa
-Route::get('absen/guru/{id}', 'AbsenController@getAbsenByIdGuru'); //Udah bisa
-Route::get('absen/murid/{id}', 'AbsenController@getAbsenByIdMurid'); //Udah bisa
-Route::post('absen/store', 'AbsenController@store'); //
-
-//Jadwal ajar
-Route::get('jadwalAjar/{id}', 'JadwalAjarController@getJadwalAjarById');
-Route::get('jadwalAjar/guru/{id}', 'JadwalAjarController@getJadwalAjarByIdGuru');
+Route::post('absen/store', 'AbsenController@store');
 
 //Jadwal Available
 Route::post('jadwalAvailable/filter', 'JadwalAvailableController@getJadwalAvailableFiltered'); //Udah bisa
