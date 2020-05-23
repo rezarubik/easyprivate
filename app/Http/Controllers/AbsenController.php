@@ -9,8 +9,15 @@ class AbsenController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:admin');
-        $this->relationship = ['jadwalAjar', 'pemesanan', 'pemesanan.murid', 'pemesanan.guru', 'pemesanan.mataPelajaran', 'pemesanan.mataPelajaran.jenjang'];
+        // $this->middleware('auth:admin');
+        $this->relationship = [
+            'jadwalPemesananPerminggu',
+            'jadwalPemesananPerminggu.pemesanan',
+            'jadwalPemesananPerminggu.pemesanan.murid',
+            'jadwalPemesananPerminggu.pemesanan.guru',
+            'jadwalPemesananPerminggu.pemesanan.mataPelajaran',
+            'jadwalPemesananPerminggu.pemesanan.mataPelajaran.jenjang'
+        ];
         $this->datetimeFormat = "Y-M-d H:i:s";
         date_default_timezone_set('Asia/Jakarta');
     }
@@ -36,6 +43,12 @@ class AbsenController extends Controller
     public function getAbsen()
     {
         return Absen::with($this->relationship)
+            // ->join('jadwal_pemesanan_perminggu as jpp', 'jpp.id_jadwal_pemesanan_perminggu', 'absen.id_jadwal_pemesanan_perminggu')
+            // ->join('pemesanan as p', 'p.id_pemesanan', 'jpp.id_pemesanan')
+            // ->join('users as guru', 'p.id_guru', 'guru.id')
+            // ->join('users as murid', 'p.id_murid', 'murid.id')
+            // ->where($where)
+            // ->select('absen.*')
             ->get();
     }
 
