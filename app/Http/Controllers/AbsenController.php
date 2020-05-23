@@ -9,7 +9,7 @@ class AbsenController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('auth:admin');
+        $this->middleware('auth:admin');
         $this->relationship = [
             'jadwalPemesananPerminggu',
             'jadwalPemesananPerminggu.pemesanan',
@@ -27,16 +27,8 @@ class AbsenController extends Controller
      */
     public function index()
     {
-        $absen = Absen::with($this->relationship)
-            // ->join('pemesanan', 'pemesanan.id_pemesanan', 'absen.id_pemesanan')
-            ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'pemesanan.id_pemesanan')
-            ->join('users as m', 'm.id', 'pemesanan.id_murid')
-            ->join('users as g', 'g.id', 'pemesanan.id_murid')
-            ->join('jenjang', 'jenjang.id_jenjang', 'mata_pelajaran.id_jenjang')
-            ->select('absen.*')
-            ->get();
+        $absen = Absen::with($this->relationship)->get();
         // dd($absen);
-
         return view('admin.absensi', compact('absen'));
     }
 
