@@ -17,72 +17,72 @@ class AbsenSeeder extends Seeder
     {
         $data = [
             [
-                'id_jadwal_ajar' => 1,
+                'id_jadwal_pemesanan_perminggu' => 108,
                 'id_pemesanan' => 1,
                 'waktu_absen' => '2020-03-19 15:24:00'
             ],
             [
-                'id_jadwal_ajar' => 2,
+                'id_jadwal_pemesanan_perminggu' => 96,
                 'id_pemesanan' => 1,
                 'waktu_absen' => '2020-03-22 15:24:00'
             ],
             [
-                'id_jadwal_ajar' => 3,
+                'id_jadwal_pemesanan_perminggu' => 108,
                 'id_pemesanan' => 1,
                 'waktu_absen' => '2020-03-26 15:24:00'
             ],
             [
-                'id_jadwal_ajar' => 4,
+                'id_jadwal_pemesanan_perminggu' => 96,
                 'id_pemesanan' => 1,
                 'waktu_absen' => '2020-03-29 15:24:00'
             ],
             [
-                'id_jadwal_ajar' => 5,
+                'id_jadwal_pemesanan_perminggu' => 108,
                 'id_pemesanan' => 1,
                 'waktu_absen' => '2020-04-02 15:24:00'
             ],
             [
-                'id_jadwal_ajar' => 6,
+                'id_jadwal_pemesanan_perminggu' => 96,
                 'id_pemesanan' => 1,
                 'waktu_absen' => '2020-04-05 15:24:00'
             ],
             [
-                'id_jadwal_ajar' => 7,
+                'id_jadwal_pemesanan_perminggu' => 108,
                 'id_pemesanan' => 1,
                 'waktu_absen' => '2020-04-09 15:24:00'
             ],
             [
-                'id_jadwal_ajar' => 8,
+                'id_jadwal_pemesanan_perminggu' => 96,
                 'id_pemesanan' => 1,
                 'waktu_absen' => '2020-04-12 15:24:00'
             ],
             [
-                'id_jadwal_ajar' => 9,
+                'id_jadwal_pemesanan_perminggu' => 108,
                 'id_pemesanan' => 1,
                 'waktu_absen' => '2020-04-16 15:24:00'
             ],
             [
-                'id_jadwal_ajar' => 10,
+                'id_jadwal_pemesanan_perminggu' => 96,
                 'id_pemesanan' => 1,
                 'waktu_absen' => '2020-04-19 15:24:00'
             ],
             [
-                'id_jadwal_ajar' => 11,
+                'id_jadwal_pemesanan_perminggu' => 100,
                 'id_pemesanan' => 3,
                 'waktu_absen' => '2020-04-21 14:55:00'
             ],
             [
-                'id_jadwal_ajar' => 12,
+                'id_jadwal_pemesanan_perminggu' => 108,
                 'id_pemesanan' => 1,
                 'waktu_absen' => '2020-04-23 15:24:00'
             ],
             [
-                'id_jadwal_ajar' => 13,
+                'id_jadwal_pemesanan_perminggu' => 100,
                 'id_pemesanan' => 3,
                 'waktu_absen' => '2020-04-24 14:59:00'
             ],
             [
-                'id_jadwal_ajar' => 14,
+                'id_jadwal_pemesanan_perminggu' => 96,
                 'id_pemesanan' => 1,
                 'waktu_absen' => '2020-04-26 15:24:00'
             ]
