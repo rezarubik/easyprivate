@@ -15,8 +15,7 @@ class CreateAbsenTable extends Migration
     {
         Schema::create('absen', function (Blueprint $table) {
             $table->bigIncrements('id_absen');
-            $table->integer('id_jadwal_ajar')->nullable();
-            $table->integer('id_pemesanan')->nullable();
+            $table->integer('id_pemesanan_perminggu')->nullable();
             $table->dateTime('waktu_absen')->nullable();
         });
     }

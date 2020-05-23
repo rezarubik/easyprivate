@@ -101,34 +101,34 @@ class UserController extends Controller
         $jadwalAvailable = [];
         $senin = JadwalAvailable::where('hari', 'Senin')->where('id_user', auth()->user()->id)->get();
         // dd(count($senin));
-        if(count($senin) > 0){
+        if (count($senin) > 0) {
             // dd($senin);
             $jadwalAvailable['Senin'] = $senin;
         }
         $selasa = JadwalAvailable::where('hari', 'Selasa')->where('id_user', auth()->user()->id)->get();
-            if(count($selasa) > 0){
-                $jadwalAvailable['Selasa'] = $selasa;
-            }
-            $rabu = JadwalAvailable::where('hari', 'Rabu')->where('id_user', auth()->user()->id)->get();
-                if(count($rabu) > 0){
-                    $jadwalAvailable['Rabu'] = $rabu;
-                }
-                $kamis = JadwalAvailable::where('hari', 'Kamis')->where('id_user', auth()->user()->id)->get();
-                    if(count($kamis) > 0){
-                        $jadwalAvailable['Kamis'] = $kamis;
-                    }
-                    $jumat = JadwalAvailable::where('hari', 'Jumat')->where('id_user', auth()->user()->id)->get();
-                        if(count($jumat) > 0){
-                            $jadwalAvailable['Jumat'] = $jumat;
-                        }
-                        $sabtu = JadwalAvailable::where('hari', 'Sabtu')->where('id_user', auth()->user()->id)->get();
-                            if(count($sabtu) > 0){
-                                $jadwalAvailable['Sabtu'] = $sabtu;
-                            }
-                            $minggu = JadwalAvailable::where('hari', 'Minggu')->where('id_user', auth()->user()->id)->get();
-                                if(count($minggu) > 0){
-                                    $jadwalAvailable['Minggu'] = $minggu;
-                                }
+        if (count($selasa) > 0) {
+            $jadwalAvailable['Selasa'] = $selasa;
+        }
+        $rabu = JadwalAvailable::where('hari', 'Rabu')->where('id_user', auth()->user()->id)->get();
+        if (count($rabu) > 0) {
+            $jadwalAvailable['Rabu'] = $rabu;
+        }
+        $kamis = JadwalAvailable::where('hari', 'Kamis')->where('id_user', auth()->user()->id)->get();
+        if (count($kamis) > 0) {
+            $jadwalAvailable['Kamis'] = $kamis;
+        }
+        $jumat = JadwalAvailable::where('hari', 'Jumat')->where('id_user', auth()->user()->id)->get();
+        if (count($jumat) > 0) {
+            $jadwalAvailable['Jumat'] = $jumat;
+        }
+        $sabtu = JadwalAvailable::where('hari', 'Sabtu')->where('id_user', auth()->user()->id)->get();
+        if (count($sabtu) > 0) {
+            $jadwalAvailable['Sabtu'] = $sabtu;
+        }
+        $minggu = JadwalAvailable::where('hari', 'Minggu')->where('id_user', auth()->user()->id)->get();
+        if (count($minggu) > 0) {
+            $jadwalAvailable['Minggu'] = $minggu;
+        }
         // dd($jadwalAvailable);
         return view('calon_guru.mentor_pendaftaran_profile', compact('pendaftaranGuru', 'jadwalAvailable'));
     }
@@ -350,7 +350,7 @@ class UserController extends Controller
 
         // todo Jadwal Available
         $jadwalAvailable = JadwalAvailable::where('id_user', auth()->user()->id)->get();
-        if(count($jadwalAvailable) == 0){
+        if (count($jadwalAvailable) == 0) {
             $data = [
                 [
                     'id_user' => auth()->user()->id,
@@ -649,18 +649,18 @@ class UserController extends Controller
             ];
             // dd($data);
             JadwalAvailable::insert($data);
-        }else{
+        } else {
             JadwalAvailable::whereIn('id_jadwal_available', $request->get('hari'))
-            ->where('id_user', auth()->user()->id)
-            ->update([
-                'available' => 1
-            ]);
+                ->where('id_user', auth()->user()->id)
+                ->update([
+                    'available' => 1
+                ]);
             // ! ketika uncheck
             JadwalAvailable::whereNotIn('id_jadwal_available', $request->get('hari'))
-            ->where('id_user', auth()->user()->id)
-            ->update([
-                'available' => 0
-            ]);
+                ->where('id_user', auth()->user()->id)
+                ->update([
+                    'available' => 0
+                ]);
         }
         return redirect('/user-profile/create')->with('status', 'Aplikasi Anda berhasil di simpan!');
     }
