@@ -81,4 +81,36 @@ class AbsenController extends Controller
         $absen->waktu_absen = date($this->datetimeFormat);
         $absen->save();
     }
+
+    public function getAbsenFiltered(Request $r)
+    {
+        $where = [];
+        if(isset($r->id_absen)){
+            $where['id_absen'] = $r->id_absen;
+        }
+        if(isset($r->id_pemesanan)){
+            $where['p.id_pemesanan'] = $r->id_pemesanan;
+        }
+        if(isset($r->status)){
+            $where['p.status'] = $r->status;
+        }
+        if(isset($r->id_jadwal_pemesanan_perminggu)){
+            $where['jpp.id_jadwal_pemesanan_perminggu'] = $r->id_jadwal_pemesanan_perminggu;
+        }
+        if(isset($r->id_guru)){
+            $where['guru.id'] = $r->id_guru;
+        }
+        if(isset($r->id_murid)){
+            $where['murid.id'] = $r->id_murid;
+        }
+
+        return Absen::with($this->relationship)
+            ->join('jadwal_pemesanan_perminggu as jpp', 'jpp.id_jadwal_pemesanan_perminggu', 'absen.id_jadwal_pemesanan_perminggu')
+            ->join('pemesanan as p', 'p.id_pemesanan', 'jpp.id_pemesanan')
+            ->join('users as guru', 'p.id_guru', 'guru.id')
+            ->join('users as murid', 'p.id_murid', 'murid.id')
+            ->where($where)
+            ->select('absen.*')
+            ->get();
+    }
 }
