@@ -48,15 +48,17 @@ class AdminController extends Controller
      */
     public function index()
     {
-        // dd('hai');
-        // $pemesanan = $this->pemesananPerJenjang();
         // $grafikPemesanan = GrafikPemesanan::all();
-        // $grafikPemesanan = DB::table('grafikpemesanan')->get();
         // dd($grafikPemesanan);
         return view('admin.admin_dashboard');
     }
+    
+    public function getGrafikPemesanan(){
+        $grafikPemesanan = GrafikPemesanan::all();
+        return $grafikPemesanan;
+    }
 
-       /**
+    /**
      * Menampilkan data pemesanan pada aplikasi admin
      */
     public function indexPemesanan()
@@ -211,7 +213,7 @@ class AdminController extends Controller
         $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)->get();
         return view('admin.nilai_gap', compact('pendaftaranGuru'));
     }
-     /**
+    /**
      * Data Pembobotan Nilai GAP
      */
     public function pembobotanNilaiGAP()
@@ -219,7 +221,7 @@ class AdminController extends Controller
         $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)->get();
         return view('admin.pembobotan_nilai_gap', compact('pendaftaranGuru'));
     }
-      /**
+    /**
      * Data Hasil Seleksi
      */
     public function hasilSeleksi()
@@ -248,133 +250,133 @@ class AdminController extends Controller
             ->update($data);
         return redirect('video-microteaching');
     }
-     // todo perhitungan profile matching
-     public function hitungProfileMatching()
-     {
-         $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
-             ->join('profile_matching', 'pendaftaran_guru.id_pendaftaran', 'profile_matching.id_pendaftaran_guru')
-             ->where(['profile_matching.pm_result' => null])
-             ->select('pendaftaran_guru.*')
-             ->get();
-         $nt = []; //* nilai target
-         // * Core Factor
-         $nt['pm_pk'] = KriteriaBobotTarget::where('kriteria', 'Pengalaman Mengajar')->first()->nilai_target; // 4
-         $nt['pm_vas'] = KriteriaBobotTarget::where('kriteria', 'Volume dan Artikulasi Suara Video Microteaching')->first()->nilai_target; // 4
-         $nt['pm_kk'] = KriteriaBobotTarget::where('kriteria', 'Keefektifan Kalimat Video Microteaching')->first()->nilai_target; // 3
-         $nt['pm_cm'] = KriteriaBobotTarget::where('kriteria', 'Cara Mengajar Video Microteaching')->first()->nilai_target; //4
-         $nt['pm_pemat'] = KriteriaBobotTarget::where('kriteria', 'Penguasaan Materi Video Microteaching')->first()->nilai_target; // 5
-         // * Secondary Factor
-         $nt['pm_ipk'] = KriteriaBobotTarget::where('kriteria', 'Nilai Indeks Prestasi Terakhir (IPK)')->first()->nilai_target; // 4
-         $nt['pm_usia'] = KriteriaBobotTarget::where('kriteria', 'Usia Guru')->first()->nilai_target; // 4
-         $nt['pm_km'] = KriteriaBobotTarget::where('kriteria', 'Ketersediaan Mata Pelajaran')->first()->nilai_target; // 3
-         // dd($nt);
-         $pht = []; //* perhitungan
-         foreach ($pendaftaranGuru as $pg) {
-             $pht[$pg->profileMatching->id_profile_matching]['name'] = $pg->user->name;
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_pk'] = $pg->profileMatching->pm_pk;
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_vas'] = $pg->profileMatching->pm_vas;
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_kk'] = $pg->profileMatching->pm_kk;
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_cm'] = $pg->profileMatching->pm_cm;
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_pemat'] = $pg->profileMatching->pm_pemat;
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_ipk'] = $pg->profileMatching->pm_ipk;
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_usia'] = $pg->profileMatching->pm_usia;
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_km'] = $pg->profileMatching->pm_km;
-             // todo mendapatkan nilai gap = user - target
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_pk'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_pk'] - $nt['pm_pk'];
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_vas'] =  $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_vas'] - $nt['pm_vas'];
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_kk'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_kk'] - $nt['pm_kk'];
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_cm'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_cm'] - $nt['pm_cm'];
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_pemat'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_pemat'] - $nt['pm_pemat'];
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_ipk'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_ipk'] - $nt['pm_ipk'];
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_usia'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_usia'] - $nt['pm_usia'];
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_km'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_km'] - $nt['pm_km'];
-             // todo mendapatkan nilai pembobotan
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_pk'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_pk']);
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_vas'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_vas']);
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_kk'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_kk']);
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_cm'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_cm']);
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_pemat'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_pemat']);
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_ipk'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_ipk']);
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_usia'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_usia']);
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_km'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_km']);
-             // todo average NCF
-             $pht[$pg->profileMatching->id_profile_matching]['ncf'] =
-                 ($pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_pk'] +
-                     $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_vas'] +
-                     $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_kk'] +
-                     $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_cm'] +
-                     $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_pemat']) / 5;
-             $pht[$pg->profileMatching->id_profile_matching]['scf'] =
-                 ($pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_ipk'] +
-                     $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_usia'] +
-                     $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_km']) / 3;
-             // todo nilai akhir
-             $pht[$pg->profileMatching->id_profile_matching]['nilai_akhir'] = $pht[$pg->profileMatching->id_profile_matching]['ncf'] * 0.7 + $pht[$pg->profileMatching->id_profile_matching]['scf'] * 0.3;
-         }
-         // dd($pht);
- 
-         foreach ($pht as $key => $value) {
-             // var_dump($value);
-             // todo update nilai gap
-             ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_pk' => $value['nilai_gap']['pm_pk']]);
-             ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_vas' => $value['nilai_gap']['pm_vas']]);
-             ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_kk' => $value['nilai_gap']['pm_kk']]);
-             ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_cm' => $value['nilai_gap']['pm_cm']]);
-             ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_pemat' => $value['nilai_gap']['pm_pemat']]);
-             ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_ipk' => $value['nilai_gap']['pm_ipk']]);
-             ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_usia' => $value['nilai_gap']['pm_usia']]);
-             ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_km' => $value['nilai_gap']['pm_km']]);
-             // todo update nilai bobot gap
-             ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_pk' => $value['nilai_bobot']['pm_pk']]);
-             ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_vas' => $value['nilai_bobot']['pm_vas']]);
-             ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_kk' => $value['nilai_bobot']['pm_kk']]);
-             ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_cm' => $value['nilai_bobot']['pm_cm']]);
-             ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_pemat' => $value['nilai_bobot']['pm_pemat']]);
-             ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_ipk' => $value['nilai_bobot']['pm_ipk']]);
-             ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_usia' => $value['nilai_bobot']['pm_usia']]);
-             ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_km' => $value['nilai_bobot']['pm_km']]);
-             // todo update nilai ncf
-             ProfileMatching::where('id_profile_matching', $key)->update(['pm_ncf' => $value['ncf']]);
-             // todo update nilai scf
-             ProfileMatching::where('id_profile_matching', $key)->update(['pm_scf' => $value['scf']]);
-             // todo update nilai akhir
-             ProfileMatching::where('id_profile_matching', $key)->update(['pm_result' => $value['nilai_akhir']]);
-         }
-         $this->getPesertaLulus();
-         return redirect()->route('hasil.seleksi')->with('status', 'Proses Seleksi Telah Selesai');
-     }
-     public function hitungBobot($bobot)
-     {
-         switch ($bobot) {
-             case 0:
-                 return 5;
-                 break;
-             case 1:
-                 return 4.5;
-                 break;
-             case -1:
-                 return 4;
-                 break;
-             case 2:
-                 return 3.5;
-                 break;
-             case -2:
-                 return 3;
-                 break;
-             case 3:
-                 return 2.5;
-                 break;
-             case -3:
-                 return 2;
-                 break;
-             case 4:
-                 return 1.5;
-                 break;
-             case -4:
-                 return 1;
-                 break;
-         }
-     }
+    // todo perhitungan profile matching
+    public function hitungProfileMatching()
+    {
+        $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
+            ->join('profile_matching', 'pendaftaran_guru.id_pendaftaran', 'profile_matching.id_pendaftaran_guru')
+            ->where(['profile_matching.pm_result' => null])
+            ->select('pendaftaran_guru.*')
+            ->get();
+        $nt = []; //* nilai target
+        // * Core Factor
+        $nt['pm_pk'] = KriteriaBobotTarget::where('kriteria', 'Pengalaman Mengajar')->first()->nilai_target; // 4
+        $nt['pm_vas'] = KriteriaBobotTarget::where('kriteria', 'Volume dan Artikulasi Suara Video Microteaching')->first()->nilai_target; // 4
+        $nt['pm_kk'] = KriteriaBobotTarget::where('kriteria', 'Keefektifan Kalimat Video Microteaching')->first()->nilai_target; // 3
+        $nt['pm_cm'] = KriteriaBobotTarget::where('kriteria', 'Cara Mengajar Video Microteaching')->first()->nilai_target; //4
+        $nt['pm_pemat'] = KriteriaBobotTarget::where('kriteria', 'Penguasaan Materi Video Microteaching')->first()->nilai_target; // 5
+        // * Secondary Factor
+        $nt['pm_ipk'] = KriteriaBobotTarget::where('kriteria', 'Nilai Indeks Prestasi Terakhir (IPK)')->first()->nilai_target; // 4
+        $nt['pm_usia'] = KriteriaBobotTarget::where('kriteria', 'Usia Guru')->first()->nilai_target; // 4
+        $nt['pm_km'] = KriteriaBobotTarget::where('kriteria', 'Ketersediaan Mata Pelajaran')->first()->nilai_target; // 3
+        // dd($nt);
+        $pht = []; //* perhitungan
+        foreach ($pendaftaranGuru as $pg) {
+            $pht[$pg->profileMatching->id_profile_matching]['name'] = $pg->user->name;
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_pk'] = $pg->profileMatching->pm_pk;
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_vas'] = $pg->profileMatching->pm_vas;
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_kk'] = $pg->profileMatching->pm_kk;
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_cm'] = $pg->profileMatching->pm_cm;
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_pemat'] = $pg->profileMatching->pm_pemat;
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_ipk'] = $pg->profileMatching->pm_ipk;
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_usia'] = $pg->profileMatching->pm_usia;
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_km'] = $pg->profileMatching->pm_km;
+            // todo mendapatkan nilai gap = user - target
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_pk'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_pk'] - $nt['pm_pk'];
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_vas'] =  $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_vas'] - $nt['pm_vas'];
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_kk'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_kk'] - $nt['pm_kk'];
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_cm'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_cm'] - $nt['pm_cm'];
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_pemat'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_pemat'] - $nt['pm_pemat'];
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_ipk'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_ipk'] - $nt['pm_ipk'];
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_usia'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_usia'] - $nt['pm_usia'];
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_km'] = $pht[$pg->profileMatching->id_profile_matching]['nilai_awal']['pm_km'] - $nt['pm_km'];
+            // todo mendapatkan nilai pembobotan
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_pk'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_pk']);
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_vas'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_vas']);
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_kk'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_kk']);
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_cm'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_cm']);
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_pemat'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_pemat']);
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_ipk'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_ipk']);
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_usia'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_usia']);
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_km'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_km']);
+            // todo average NCF
+            $pht[$pg->profileMatching->id_profile_matching]['ncf'] =
+                ($pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_pk'] +
+                    $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_vas'] +
+                    $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_kk'] +
+                    $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_cm'] +
+                    $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_pemat']) / 5;
+            $pht[$pg->profileMatching->id_profile_matching]['scf'] =
+                ($pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_ipk'] +
+                    $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_usia'] +
+                    $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_km']) / 3;
+            // todo nilai akhir
+            $pht[$pg->profileMatching->id_profile_matching]['nilai_akhir'] = $pht[$pg->profileMatching->id_profile_matching]['ncf'] * 0.7 + $pht[$pg->profileMatching->id_profile_matching]['scf'] * 0.3;
+        }
+        // dd($pht);
+
+        foreach ($pht as $key => $value) {
+            // var_dump($value);
+            // todo update nilai gap
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_pk' => $value['nilai_gap']['pm_pk']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_vas' => $value['nilai_gap']['pm_vas']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_kk' => $value['nilai_gap']['pm_kk']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_cm' => $value['nilai_gap']['pm_cm']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_pemat' => $value['nilai_gap']['pm_pemat']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_ipk' => $value['nilai_gap']['pm_ipk']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_usia' => $value['nilai_gap']['pm_usia']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_gap_km' => $value['nilai_gap']['pm_km']]);
+            // todo update nilai bobot gap
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_pk' => $value['nilai_bobot']['pm_pk']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_vas' => $value['nilai_bobot']['pm_vas']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_kk' => $value['nilai_bobot']['pm_kk']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_cm' => $value['nilai_bobot']['pm_cm']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_pemat' => $value['nilai_bobot']['pm_pemat']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_ipk' => $value['nilai_bobot']['pm_ipk']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_usia' => $value['nilai_bobot']['pm_usia']]);
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_bobot_km' => $value['nilai_bobot']['pm_km']]);
+            // todo update nilai ncf
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_ncf' => $value['ncf']]);
+            // todo update nilai scf
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_scf' => $value['scf']]);
+            // todo update nilai akhir
+            ProfileMatching::where('id_profile_matching', $key)->update(['pm_result' => $value['nilai_akhir']]);
+        }
+        $this->getPesertaLulus();
+        return redirect()->route('hasil.seleksi')->with('status', 'Proses Seleksi Telah Selesai');
+    }
+    public function hitungBobot($bobot)
+    {
+        switch ($bobot) {
+            case 0:
+                return 5;
+                break;
+            case 1:
+                return 4.5;
+                break;
+            case -1:
+                return 4;
+                break;
+            case 2:
+                return 3.5;
+                break;
+            case -2:
+                return 3;
+                break;
+            case 3:
+                return 2.5;
+                break;
+            case -3:
+                return 2;
+                break;
+            case 4:
+                return 1.5;
+                break;
+            case -4:
+                return 1;
+                break;
+        }
+    }
     public function getPesertaLulus()
     {
         $id_peserta_lulus = array();
