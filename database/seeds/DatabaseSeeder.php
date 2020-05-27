@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call('AdminSeeder');
         $this->call('UserSeeder');
         $this->call('AlamatSeeder');
         $this->call('SeasonSeeder');
@@ -20,7 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call('MataPelajaranSeeder');
         $this->call('GuruMapelSeeder');
         $this->call('PemesananSeeder');
-        $this->call('JadwalAjarSeeder');
         $this->call('JadwalAvailableSeeder');
         $this->call('JadwalPemesananPermingguSeeder');
         $this->call('AbsenSeeder');

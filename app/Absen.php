@@ -10,11 +10,7 @@ class Absen extends Model
     protected $primaryKey = 'id_absen';
     public $timestamps = false;
 
-    public function pemesanan(){
-        return $this->belongsTo('App\Pemesanan', 'id_pemesanan', 'id_pemesanan');
-    }
-
-    public function jadwalAjar(){
-        return $this->hasOne('App\JadwalAjar', 'id_jadwal_ajar', 'id_jadwal_ajar');
+    public function jadwalPemesananPerminggu(){
+        return $this->hasOne('App\JadwalPemesananPerminggu', 'id_jadwal_pemesanan_perminggu', 'id_jadwal_pemesanan_perminggu');
     }
 }

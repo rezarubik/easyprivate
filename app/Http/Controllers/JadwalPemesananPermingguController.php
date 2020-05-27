@@ -115,5 +115,16 @@ class JadwalPemesananPermingguController extends Controller
             ->orderBy('ja.id_jadwal_available')
             ->select('jadwal_pemesanan_perminggu.*')
             ->get();
+    }
+
+    public function updateIdEvent(Request $r)
+    {
+        $idJpp = $r->id_jadwal_pemesanan_perminggu;
+        $idEv = $r->id_event;
+
+        JadwalPemesananPerminggu::where('id_jadwal_pemesanan_perminggu', $idJpp)
+            ->update([
+                'id_event' => $idEv
+            ]);
     }   
 }

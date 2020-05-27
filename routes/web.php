@@ -34,11 +34,13 @@ Route::get('test', function () {
 
 // Dashboard Calon Guru
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/user/logout', 'Auth\LoginController@logoutUser')->name('user.logout');
 // Route::get('/home', 'HomeController@index')->name('home');
 
 // ? User Calon Guru
 // Route::get('user/mentor-dashboard', 'GuruController@index');
 // todo form pendaftaran guru
+// todo Guru
 Route::get('/user/create', 'UserController@create');
 Route::post('/user', 'UserController@store');
 Route::get('/user-profile/create', 'UserController@createProfile');
@@ -46,19 +48,23 @@ Route::post('/user-profile', 'UserController@storeProfile');
 Route::post('/getMapelperJenjang', 'MataPelajaranController@getMapelperJenjang')->name('getMapelperJenjang');
 
 // ? Admin
-// todo Guru
-Route::get('/dashboard', 'AdminController@index');
-Route::get('/users/data-guru', 'UserController@dataGuru');
-Route::get('/users/data-murid', 'UserController@dataMurid');
-Route::get('/kriteria-bobot', 'KriteriaBobotController@index');
-Route::get('/nilai-gap', 'UserController@nilaiGAP');
-Route::get('/pembobotan-nilai-gap', 'UserController@pembobotanNilaiGAP');
-Route::get('/hasil-seleksi', 'UserController@hasilSeleksi');
-Route::get('/video-microteaching', 'UserController@videoMicroteaching');
-Route::post('/score-video-microteaching', 'UserController@scoreVideoMicroteaching');
-Route::get('/pemesanan', 'PemesananController@index');
-Route::get('/absensi', 'AbsenController@index');
-Route::get('test-pm', 'UserController@hitungProfileMatching');
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/login', 'AuthAdmin\LoginController@showLoginForm')->name('admin.login');
+    Route::post('/login', 'AuthAdmin\LoginController@login')->name('admin.login.submit');
+    Route::get('/dashboard', 'AdminController@index')->name('admin.home'); // todo dashboard admin
+    Route::get('/logout', 'AuthAdmin\LoginController@logoutAdmin')->name('admin.logout');
+    Route::get('/users/data-guru', 'AdminController@dataGuru')->name('admin.users.guru');
+    Route::get('/users/data-murid', 'AdminController@dataMurid')->name('admin.users.murid');
+    Route::get('/kriteria-bobot', 'KriteriaBobotController@index')->name('kriteria.bobot');
+    Route::get('/nilai-gap', 'AdminController@nilaiGAP')->name('nilai.gap');
+    Route::get('/pembobotan-nilai-gap', 'AdminController@pembobotanNilaiGAP')->name('pembobotan.nilai.gap');
+    Route::get('/hasil-seleksi', 'AdminController@hasilSeleksi')->name('hasil.seleksi');
+    Route::get('/video-microteaching', 'AdminController@videoMicroteaching')->name('video.microteaching');
+    Route::post('/score-video-microteaching', 'AdminController@scoreVideoMicroteaching')->name('pemesanan');
+    Route::get('/pemesanan', 'AdminController@indexPemesanan')->name('pemesanan');
+    Route::get('/absensi', 'AdminController@indexAbsensi')->name('absensi');
+    Route::get('/profile-matching', 'AdminController@hitungProfileMatching')->name('profile.matching');
+});
 
 // ? Pemesanan Per Bulan dan Per Jenjang
 Route::get('pemesananPerJenjang', 'AdminController@pemesananPerJenjang');
