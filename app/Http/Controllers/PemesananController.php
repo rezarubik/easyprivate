@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\JadwalPemesananPerminggu;
 use Illuminate\Http\Request;
 use App\Pemesanan;
+use Carbon\Carbon;
 
 class PemesananController extends Controller
 {
@@ -16,8 +18,8 @@ class PemesananController extends Controller
 
     public function __construct()
     {
-        $this->relationship = ['murid', 'guru', 'murid.alamat', 'mataPelajaran', 'mataPelajaran.jenjang', 'jadwalPemesananPerminggu', 'jadwalPemesananPerminggu.jadwalAvailable'];
-        $this->datetimeFormat = "Y-M-d H:i:s";
+        $this->relationship = ['murid', 'guru', 'murid.alamat','guru.alamat', 'mataPelajaran', 'mataPelajaran.jenjang', 'jadwalPemesananPerminggu', 'jadwalPemesananPerminggu.jadwalAvailable'];
+        $this->datetimeFormat = "Y-m-d H:i:s";
         date_default_timezone_set('Asia/Jakarta');
     }
 
@@ -104,9 +106,32 @@ class PemesananController extends Controller
             ])->get();
     }
 
-    public function store(Request $r)
+    public function createPemesanan(Request $r)
     {
-        //Bagian ipeh
+        $pemesanan = new Pemesanan();
+        $pemesanan->id_guru = $r->id_guru;
+        $pemesanan->id_murid = $r->id_murid;
+        $pemesanan->id_mapel = $r->id_mapel;
+        $pemesanan->kelas = $r->kelas;
+        $pemesanan->waktu_pemesanan = date_format(Carbon::now(), $this->datetimeFormat);
+        $pemesanan->first_meet = $r->first_meet;
+        $pemesanan->jumlah_pertemuan = 0;   
+        $pemesanan->status = 0;
+        $pemesanan->save();
+        $id_pemesanan = $pemesanan->id_pemesanan;
+
+
+        $idAvailable = [];
+        $idAvailable = $r->id_jadwal_available;
+
+        foreach($idAvailable as $idSatuan){
+            $jpp = new JadwalPemesananPerminggu();
+            $jpp->id_pemesanan = $id_pemesanan;
+            $jpp->id_jadwal_available = $idSatuan;
+
+            $jpp->save();
+        }
+        return Pemesanan::with($this->relationship)->find($pemesanan->id_pemesanan); 
     }
 
     public function update(Request $r)

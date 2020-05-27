@@ -52,6 +52,7 @@ Route::get('pemesanan/{id}', 'PemesananController@getPemesananById'); //Udah bis
 Route::get('pemesanan/guru/{id}', 'PemesananController@getPemesananByIdGuru'); //Udah bisa
 Route::get('pemesanan/murid/{id}', 'PemesananController@getPemesananByIdMurid'); //Udah bisa
 Route::post('pemesanan/update', 'PemesananController@update'); //Udah bisa
+Route::post('pemesanan/tambah_pesanan', 'PemesananController@createPemesanan');
 
 //Pembayaran
 Route::get('pembayaran', 'PembayaranController@getPembayaran'); //Udah bisa
