@@ -77,9 +77,11 @@ class AbsenController extends Controller
     {
         $absen = new Absen;
         $absen->id_pemesanan = $r->id_pemesanan;
-        $absen->id_jadwal_ajar = $r->id_jadwal_ajar;
+        $absen->id_jadwal_pemesanan_perminggu = $r->id_jadwal_pemesanan_perminggu;
         $absen->waktu_absen = date($this->datetimeFormat);
         $absen->save();
+
+        return Absen::with($this->relationship)->where('id_absen', $absen->id_absen)->first();
     }
 
     public function getAbsenFiltered(Request $r)
