@@ -39,6 +39,7 @@
                                         <div class="inline pull-left">
                                             <!-- <div id="chart1Legend" class="chart-legend"></div> -->
                                         </div>
+                                        <span class="symbol required text-large">Banyak pemesanan per bulan untuk jenjang <b>SD</b>, <b>SMP</b>, <b>SMA</b> </span>
                                     </div>
                                 </div>
                             </div>
@@ -54,10 +55,14 @@
                                 <h4 class="panel-title">Pendapatan dan Pemasukan</h4>
                             </div>
                             <div class="panel-body">
-                                <div class="height-180">
+                                <div class="height-350">
+                                    <!-- 180 -->
                                     <canvas id="pendapatan-pemasukan" class="full-width"></canvas>
-                                    <div class="inline pull-left legend-xs">
-                                        <!-- <div id="chart2Legend" class="chart-legend"></div> -->
+                                    <div class="margin-top-20">
+                                        <div class="inline pull-left legend-xs">
+                                            <!-- <div id="chart2Legend" class="chart-legend"></div> -->
+                                        </div>
+                                        <span class="symbol required text-large"> Pemasukan dan Pengeluaran per bulan </span>
                                     </div>
                                 </div>
                             </div>
@@ -75,10 +80,14 @@
                                 <h4 class="panel-title">Data Guru</h4>
                             </div>
                             <div class="panel-body">
-                                <div class="height-180">
+                                <div class="height-350">
+                                    <!-- 180 -->
                                     <canvas id="data-guru" class="full-width"></canvas>
-                                    <div class="inline pull-left legend-xs">
-                                        <!-- <div id="chart2Legend" class="chart-legend"></div> -->
+                                    <div class="margin-top-20">
+                                        <div class="inline pull-left legend-xs">
+                                            <!-- <div id="chart2Legend" class="chart-legend"></div> -->
+                                        </div>
+                                        <span class="symbol required text-large"> Jumlah guru yg sudah dapat pesanan dan belum dapat pesanan </span>
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +102,8 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
 <script>
-    var url = "{{url('/pemesananPerJenjang')}}";
+    var url = "{{url('/getGrafikPemesanan')}}";
+    // console.log(url);
     var Years = new Array();
     var Month = new Array();
     var MonthName = new Array();
@@ -129,17 +139,19 @@
                     },
                     {
                         label: "SMP",
+                        // data: data_pemesanan_per_bulan_jenjang,
+                        data: [3, 5, 6, 7, 3, 5, 6],
                         backgroundColor: "blue",
                         borderColor: "red",
                         borderWidth: 1,
-                        data: [3, 5, 6, 7, 3, 5, 6]
                     },
                     {
                         label: "SMA",
+                        // data: data_pemesanan_per_bulan_jenjang,
+                        data: [2, 3, 4, 5, 6, 7, 8],
                         backgroundColor: "gray",
                         borderColor: "blue",
                         borderWidth: 1,
-                        data: [2, 3, 4, 5, 6, 7, 8]
                     }
                 ]
             },
