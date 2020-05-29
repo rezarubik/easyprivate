@@ -57,7 +57,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/users/data-murid', 'AdminController@dataMurid')->name('admin.users.murid');
     Route::get('/kriteria-bobot', 'KriteriaBobotController@index')->name('kriteria.bobot');
     Route::get('/nilai-gap', 'AdminController@nilaiGAP')->name('nilai.gap');
-    Route::get('/pembobotan-nilai-gap', 'AdminController@pembobotanNilaiGAP')->name('pembobotan.nilai.gap');
+    Route::get('/pembobotan-nilai-gap', 'AdminCosntroller@pembobotanNilaiGAP')->name('pembobotan.nilai.gap');
     Route::get('/hasil-seleksi', 'AdminController@hasilSeleksi')->name('hasil.seleksi');
     Route::get('/video-microteaching', 'AdminController@videoMicroteaching')->name('video.microteaching');
     Route::post('/score-video-microteaching', 'AdminController@scoreVideoMicroteaching')->name('pemesanan');

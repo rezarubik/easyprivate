@@ -52,8 +52,9 @@ class AdminController extends Controller
         // dd($grafikPemesanan);
         return view('admin.admin_dashboard');
     }
-    
-    public function getGrafikPemesanan(){
+
+    public function getGrafikPemesanan()
+    {
         $grafikPemesanan = GrafikPemesanan::all();
         return $grafikPemesanan;
     }

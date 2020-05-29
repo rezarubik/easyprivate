@@ -1,0 +1,26 @@
+Role user
+0 belum diterima jadi guru
+1 murid
+2 guru
+3 admin
+
+Status pemesanan
+0 Idle
+1 Diterima
+2 Ditolak
+3 Selesai
+
+Status pendaftaran
+0 Belum diterima
+1 Sudah diterima
+
+
+Status pembayaran
+0 Belum dibayar
+1 Lunas
+2 Bermasalah
+
+Jadwal Available
+0 Tidak Available
+1 Available
+2 Sudah terisi
