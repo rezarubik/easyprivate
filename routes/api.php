@@ -47,6 +47,7 @@ Route::get('pemesanan/{id}', 'PemesananController@getPemesananById'); //Udah bis
 Route::get('pemesanan/guru/{id}', 'PemesananController@getPemesananByIdGuru'); //Udah bisa
 Route::get('pemesanan/murid/{id}', 'PemesananController@getPemesananByIdMurid'); //Udah bisa
 Route::post('pemesanan/update', 'PemesananController@update'); //Udah bisa
+Route::post('pemesanan/tambah_pesanan', 'PemesananController@createPemesanan');
 Route::get('pemesanan/conflict/count/{id}', 'PemesananController@getCountOfConflictedPemesanan');
 Route::get('pemesanan/conflict/{id}', 'PemesananController@getConflictedPemesanan');
 

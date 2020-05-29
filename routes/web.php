@@ -67,4 +67,5 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 // ? Pemesanan Per Bulan dan Per Jenjang
-Route::get('pemesananPerJenjang', 'AdminController@pemesananPerJenjang');
+Route::get('/getGrafikPemesanan', 'AdminController@getGrafikPemesanan')->name('grafik.pemesanan');
+// Route::get('pemesananPerJenjang', 'AdminController@pemesananPerJenjang');
