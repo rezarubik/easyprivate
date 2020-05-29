@@ -103,6 +103,9 @@ class JadwalPemesananPermingguController extends Controller
         if(isset($r->id_guru)){
             $where['p.id_guru'] = $r->id_guru;
         }
+        if(isset($r->id_murid)){
+            $where['p.id_murid'] = $r->id_murid;
+        }
 
         if(isset($r->status_pemesanan)){
             $where['p.status'] = $r->status_pemesanan;
