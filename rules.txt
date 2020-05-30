@@ -5,14 +5,15 @@ Role user
 3 admin
 
 Status pemesanan
-0 Idle
+0 Idle -> Menunggu konfirmasi guru
 1 Diterima
 2 Ditolak
 3 Selesai
 
 Status pendaftaran
-0 Belum diterima
-1 Sudah diterima
+0 Belum diterima = menunggu seleksi
+1 Sudah diterima = aktif / diterima
+2 Tidak diterima = tidak aktif / tidak diterima
 
 
 Status pembayaran
@@ -24,3 +25,7 @@ Jadwal Available
 0 Tidak Available
 1 Available
 2 Sudah terisi
+
+Select count(*) as "Jumlah Guru",
+concat(monthname(waktu_pemesanan), ' ',extract(year from waktu_pemesanan)) as "Waktu Pemesanan" from pemesanan
+group by concat(monthname(waktu_pemesanan), ' ',extract(year from waktu_pemesanan))

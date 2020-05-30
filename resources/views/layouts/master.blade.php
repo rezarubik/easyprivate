@@ -212,34 +212,32 @@
                             </a>
                         </li>
                         <!-- ? End of Absensi -->
-                        <!-- ? Pemasukan -->
-                        <li>
-                            <a href="{{url('pemasukan')}}">
+                        <!-- ? Pemasukan dan Pengeluaran (Cashflow) -->
+                        <li class="{{(Request::is('admin/pemasukan', 'admin/pengeluaran')) ? 'active open' : ''}}">
+                            <a href="javascript:void(0)">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-money"></i>
                                     </div>
                                     <div class="item-inner">
+                                        <span class="title"> Cashflow </span><i class="icon-arrow"></i>
+                                    </div>
+                                </div>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="{{(Request::is('admin/pemasukan')) ? 'active open' : ''}}">
+                                    <a href="{{route('admin.pemasukan')}}">
                                         <span class="title"> Pemasukan </span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <!-- ? End of Pemasukan -->
-                        <!-- ? Pengeluaran -->
-                        <li>
-                            <a href="{{url('pengeluaran')}}">
-                                <div class="item-content">
-                                    <div class="item-media">
-                                        <i class="ti-wallet"></i>
-                                    </div>
-                                    <div class="item-inner">
+                                    </a>
+                                </li>
+                                <li class="{{(Request::is('admin/pengeluaran')) ? 'active open' : ''}}">
+                                    <a href="{{route('admin.pengeluaran')}}">
                                         <span class="title"> Pengeluaran </span>
-                                    </div>
-                                </div>
-                            </a>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                        <!-- ? End of Pengeluaran -->
+                        <!-- ? End of Pemasukan dan Pengeluaran (Cashflow) -->
                     </ul>
                     <!-- end: MAIN NAVIGATION MENU -->
                 </nav>
@@ -308,7 +306,7 @@
                             </div>
                             <ol class="breadcrumb">
                                 <li>
-                                    <span data-hover="Home"><a href="{{url('dashboard')}}">Dashboard</a></span>
+                                    <span data-hover="Home"><a href="{{route('admin.home')}}">Dashboard</a></span>
                                 </li>
                                 <li class="active">
                                     <span>@yield('active-pages')</span>

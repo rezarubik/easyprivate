@@ -8,7 +8,7 @@
 <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
 @stop
 @section('main-title', 'Kriteria dan Bobot')
-@section('description', 'Admin dapat melakukan CRUD pada data kriteria dan bobot seleksi penerimaan')
+@section('description', 'Admin dapat mengedit data kriteria dan bobot seleksi penerimaan')
 @section('pages', 'Home')
 @section('active-pages', 'Kriteria dan Bobot Seleksi')
 @section('content')
@@ -16,11 +16,9 @@
     <div class="row">
         <div class="col-md-12">
             <h5 class="over-title margin-bottom-15">
-                Basic <span class="text-bold">Data Table</span>
+                Data <span class="text-bold">Kriteia dan Bobot</span>
             </h5>
-            <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde sint alias tenetur eveniet, sit, eaque molestias inventore eos ea cupiditate temporibus consequuntur dicta nulla, ex ducimus sed nisi! Aliquam, commodi.
-            </p>
+            
             <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
                     <thead>
@@ -34,7 +32,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($kriteriaBobotTarget as $kbt)
+                        @foreach($kriteriaBobotTarget as $kbt)
                         <tr>
                             <td>{{$kbt->id_kriteria_bobot_target}}</td>
                             <td>{{$kbt->kriteria}}</td>
@@ -43,7 +41,7 @@
                             <td>{{$kbt->nilai_target}}</td>
                             <td class="text-center">
                                 <a href="http://" class="label label-success" title="Edit"><i class="ti-pencil"></i></a>
-                                <a href="http://" class="label label-danger" title="Hapus"><i class="ti-trash"></i></a>
+                                <!-- <a href="http://" class="label label-danger" title="Hapus"><i class="ti-trash"></i></a> -->
                             </td>
                         </tr>
                         @endforeach

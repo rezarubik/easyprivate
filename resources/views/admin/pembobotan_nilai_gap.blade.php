@@ -103,14 +103,62 @@
                         <tr>
                             <td>{{$pg->id_pendaftaran}}</td>
                             <td>{{$pg->user->name}}</td>
-                            <td>{{$pg->profileMatching->pm_bobot_pk}}</td>
-                            <td>{{$pg->profileMatching->pm_bobot_vas}}</td>
-                            <td>{{$pg->profileMatching->pm_bobot_kk}}</td>
-                            <td>{{$pg->profileMatching->pm_bobot_cm}}</td>
-                            <td>{{$pg->profileMatching->pm_bobot_pemat}}</td>
-                            <td>{{$pg->profileMatching->pm_bobot_ipk}}</td>
-                            <td>{{$pg->profileMatching->pm_bobot_usia}}</td>
-                            <td>{{$pg->profileMatching->pm_bobot_km}}</td>
+                            <td>
+                                @if(isset($pg->profileMatching->pm_bobot_pk))
+                                {{$pg->profileMatching->pm_bobot_pk}}
+                                @else
+                                data belum diseleksi
+                                @endif
+                            </td>
+                            <td>
+                                @if(isset($pg->profileMatching->pm_bobot_vas))
+                                {{$pg->profileMatching->pm_bobot_vas}}
+                                @else
+                                data belum diseleksi
+                                @endif
+                            </td>
+                            <td>
+                                @if(isset($pg->profileMatching->pm_bobot_kk))
+                                {{$pg->profileMatching->pm_bobot_kk}}
+                                @else
+                                data belum diseleksi
+                                @endif
+                            </td>
+                            <td>
+                                @if(isset($pg->profileMatching->pm_bobot_cm))
+                                {{$pg->profileMatching->pm_bobot_cm}}
+                                @else
+                                data belum diseleksi
+                                @endif
+                            </td>
+                            <td>
+                                @if(isset($pg->profileMatching->pm_bobot_pemat))
+                                {{$pg->profileMatching->pm_bobot_pemat}}
+                                @else
+                                data belum diseleksi
+                                @endif
+                            </td>
+                            <td>
+                                @if(isset($pg->profileMatching->pm_bobot_ipk))
+                                {{$pg->profileMatching->pm_bobot_ipk}}
+                                @else
+                                data belum diseleksi
+                                @endif
+                            </td>
+                            <td>
+                                @if(isset($pg->profileMatching->pm_bobot_usia))
+                                {{$pg->profileMatching->pm_bobot_usia}}
+                                @else
+                                data belum diseleksi
+                                @endif
+                            </td>
+                            <td>
+                                @if(isset($pg->profileMatching->pm_bobot_km))
+                                {{$pg->profileMatching->pm_bobot_km}}
+                                @else
+                                data belum diseleksi
+                                @endif
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

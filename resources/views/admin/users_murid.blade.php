@@ -8,7 +8,7 @@
 <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
 @stop
 @section('main-title', 'Detail Data Murid')
-@section('description', 'Terdapat data calon guru dan data guru yang sudah diterima')
+@section('description', 'Daftar Data Murid')
 @section('pages', 'Home')
 @section('active-pages', 'Data Murid')
 @section('content')
@@ -19,11 +19,8 @@
 <div class="container-fluid container-fullw bg-white">
     <div class="row">
         <div class="col-md-12">
-            <h5 class="over-title margin-bottom-15">Basic <span class="text-bold">Data Table</span>
+            <h5 class="over-title margin-bottom-15">Data <span class="text-bold">Murid</span>
             </h5>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis aliquid nobis aspernatur nulla porro, officiis asperiores assumenda sapiente, minus expedita perferendis molestiae magnam? Obcaecati magnam, atque optio ullam reprehenderit eius?
-            </p>
             <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
                     <thead>

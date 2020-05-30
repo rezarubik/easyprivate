@@ -8,11 +8,12 @@
 <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
 @stop
 @section('main-title', 'Detail Data Guru')
-@section('description', 'Terdapat data calon guru dan data guru yang sudah diterima')
+@section('description', 'Data Guru yang diterima, tidak diterima, dan belum diseleksi')
 @section('pages', 'Home')
 @section('active-pages', 'Data Guru')
 @section('content')
 <div class="container-fluid container-fullw bg-white">
+
     <div class="row">
         <div class="col-md-12">
             <h5 class="over-title margin-bottom-15">Basic <span class="text-bold">Data Table</span>
@@ -39,8 +40,8 @@
                     <tbody>
                         @foreach($pendaftaranGuru as $p)
                         <?php
-                        // var_dump($p);
-                        // die
+                        // var_dump($p->status);
+                        // die;
                         ?>
                         <tr>
                             <td>{{$p->user->id}}</td>
@@ -59,10 +60,12 @@
                             </td>
                             <td><a href="" class="btn btn-wide btn-o btn-info">{{$p->dir_cv}}</a></td>
                             <td>
-                                @if($p->status == 1)
-                                <label for="" class="label label-success">Aktif</label>
-                                @elseif($p->status == 0)
-                                <label for="" class="label label-danger">Tidak Aktif</label>
+                                @if($p->status == 0)
+                                <label for="" class="label label-warning">Belum Diseleksi</label>
+                                @elseif($p->status == 1)
+                                <label for="" class="label label-success">Aktif (diterima)</label>
+                                @elseif($p->status == 2)
+                                <label for="" class="label label-danger">Tidak Aktif (tidak diterima)</label>
                                 @endif
                             </td>
                             <td class="text-center">
