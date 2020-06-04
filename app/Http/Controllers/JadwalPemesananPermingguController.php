@@ -9,7 +9,7 @@ class JadwalPemesananPermingguController extends Controller
 {
     public function __construct()
     {
-        $this->relationshipPemesananGuru = ['pemesanan', 'pemesanan.murid', 'pemesanan.murid.alamat', 'pemesanan.mataPelajaran', 'pemesanan.mataPelajaran.jenjang', 'jadwalAvailable'];
+        $this->relationshipPemesananGuru = ['pemesanan', 'pemesanan.murid', 'pemesanan.murid.alamat','pemesanan.guru','pemesanan.guru.alamat', 'pemesanan.mataPelajaran', 'pemesanan.mataPelajaran.jenjang', 'jadwalAvailable'];
     }
     /**
      * Display a listing of the resource.
