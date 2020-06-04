@@ -101,25 +101,24 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
+<!-- start grafik pemesanan -->
 <script>
     var url = "{{url('/getGrafikPemesanan')}}";
     // console.log(url);
-    var Years = new Array();
-    var Month = new Array();
-    var MonthName = new Array();
-    var Nama_jenjang = new Array();
-    var data_pemesanan_per_bulan_jenjang = new Array();
+    var Bulan_tahun = new Array();
+    var Pemesanan_SD = new Array();
+    var Pemesanan_SMP = new Array();
+    var Pemesanan_SMA = new Array();
     var ctx = document.getElementById('pemesanan').getContext('2d');
     $.get(url, function(response) {
         response.forEach(function(data) {
-            Years.push(data.year);
-            Month.push(data.month);
-            MonthName.push(data.month_name);
-            Nama_jenjang.push(data.nama_jenjang);
-            data_pemesanan_per_bulan_jenjang.push(data.data_pemesanan);
+            Bulan_tahun.push(data.BULAN_TAHUN);
+            Pemesanan_SD.push(data.Pemesanan_SD);
+            Pemesanan_SMP.push(data.Pemesanan_SMP);
+            Pemesanan_SMA.push(data.Pemesanan_SMA);
         });
-        console.log(data_pemesanan_per_bulan_jenjang);
-        // console.log(ctx);
+        console.log(url);
+        console.log(Pemesanan_SMA);
         var ctx = document.getElementById('pemesanan').getContext('2d');
         // var ctx
         var chart = new Chart(ctx, {
@@ -127,31 +126,31 @@
             type: 'bar',
             // The data for our dataset
             data: {
-                // labels: Month,
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                labels: Bulan_tahun,
+                // labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [{
                         label: 'SD',
-                        // data: data_pemesanan_per_bulan_jenjang,
-                        data: [10, 10, 5, 2, 20, 30, 45],
+                        // data: [10, 10, 5, 2, 20, 30, 45],
                         backgroundColor: 'red', //rgb(255, 99, 132)
                         borderWidth: 4,
-                        borderColor: '#777' //rgb(255, 99, 132)
+                        borderColor: '#777', //rgb(255, 99, 132)
+                        data: Pemesanan_SD
                     },
                     {
                         label: "SMP",
-                        // data: data_pemesanan_per_bulan_jenjang,
-                        data: [3, 5, 6, 7, 3, 5, 6],
+                        // data: [3, 5, 6, 7, 3, 5, 6],
                         backgroundColor: "blue",
                         borderColor: "red",
                         borderWidth: 1,
+                        data: Pemesanan_SMP
                     },
                     {
                         label: "SMA",
-                        // data: data_pemesanan_per_bulan_jenjang,
-                        data: [2, 3, 4, 5, 6, 7, 8],
+                        // data: [2, 3, 4, 5, 6, 7, 8],
                         backgroundColor: "gray",
                         borderColor: "blue",
                         borderWidth: 1,
+                        data: Pemesanan_SMA
                     }
                 ]
             },
@@ -219,10 +218,69 @@
         }
     });
 </script>
-<!-- end grafik pendapatan dan pengeluarna -->
+<!-- end grafik pendapatan dan pengeluaran -->
 
 <!-- start grafik data guru -->
 <script>
+    var url = "{{url('/getGrafikGuru')}}";
+    console.log(url);
+    var jumlah_guru_belum_dapat = new Array();
+    var jumlah_guru_sudah_dapat = new Array();
+    var bulan_tahun = new Array();
+    var ctx = document.getElementById('data-guru').getContext('2d');
+    $.get(url, function(response) {
+        response.forEach(function(data) {
+            jumlah_guru_belum_dapat.push(data.jumlah_guru_belum_dapat);
+            jumlah_guru_sudah_dapat.push(data.jumlah_guru_sudah_dapat);
+            bulan_tahun.push(data.bulan_tahun);
+        });
+        console.log(url);
+        console.log(Pemesanan_SMA);
+        var ctx = document.getElementById('data-guru').getContext('2d');
+        // var ctx
+        var chart = new Chart(ctx, {
+            // The type of chartPemesanan we want to create
+            type: 'bar',
+            // The data for our dataset
+            data: {
+                labels: bulan_tahun,
+                // labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                        label: 'Data Guru Sudah Dapat Pemesanan',
+                        backgroundColor: 'blue', //rgb(255, 99, 132)
+                        borderWidth: 4,
+                        borderColor: '#777', //rgb(255, 99, 132)
+                        data: jumlah_guru_sudah_dapat
+                    },
+                    {
+                        label: 'Data Guru Belum Dapat Pemesanan',
+                        backgroundColor: 'red', //rgb(255, 99, 132)
+                        borderWidth: 4,
+                        borderColor: '#777', //rgb(255, 99, 132)
+                        data: jumlah_guru_belum_dapat
+                    }
+                ]
+            },
+            // Configuration options go here
+            options: {
+                title: {
+                    display: true,
+                    text: 'Data Guru',
+                    fontSize: 25
+                },
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        fontColor: 'blue',
+                    }
+                }
+            }
+        });
+        // console.log(chartPemesanan);
+    });
+</script>
+<!-- <script>
     var ctx = document.getElementById('data-guru').getContext('2d');
     var chart = new Chart(ctx, {
         // The type of chart we want to create
@@ -264,6 +322,6 @@
             }
         }
     });
-</script>
+</script> -->
 <!-- end grafik data guru -->
 @stop

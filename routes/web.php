@@ -13,8 +13,11 @@
 
 use App\Http\Requests\Request;
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::get('/', function () {
-    return view('welcome');
+    return view('company_profile.index');
 });
 
 Auth::routes();
@@ -57,15 +60,18 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/users/data-murid', 'AdminController@dataMurid')->name('admin.users.murid');
     Route::get('/kriteria-bobot', 'KriteriaBobotController@index')->name('kriteria.bobot');
     Route::get('/nilai-gap', 'AdminController@nilaiGAP')->name('nilai.gap');
-    Route::get('/pembobotan-nilai-gap', 'AdminCosntroller@pembobotanNilaiGAP')->name('pembobotan.nilai.gap');
+    Route::get('/pembobotan-nilai-gap', 'AdminController@pembobotanNilaiGAP')->name('pembobotan.nilai.gap');
     Route::get('/hasil-seleksi', 'AdminController@hasilSeleksi')->name('hasil.seleksi');
     Route::get('/video-microteaching', 'AdminController@videoMicroteaching')->name('video.microteaching');
     Route::post('/score-video-microteaching', 'AdminController@scoreVideoMicroteaching')->name('pemesanan');
     Route::get('/pemesanan', 'AdminController@indexPemesanan')->name('pemesanan');
     Route::get('/absensi', 'AdminController@indexAbsensi')->name('absensi');
     Route::get('/profile-matching', 'AdminController@hitungProfileMatching')->name('profile.matching');
+    Route::get('/pemasukan', 'AdminController@pemasukan')->name('admin.pemasukan');
+    Route::get('/pengeluaran', 'AdminController@pengeluaran')->name('admin.pengeluaran');
 });
 
 // ? Pemesanan Per Bulan dan Per Jenjang
 Route::get('/getGrafikPemesanan', 'AdminController@getGrafikPemesanan')->name('grafik.pemesanan');
+Route::get('/getGrafikGuru', 'AdminController@getGrafikGuru')->name('grafik.guru');
 // Route::get('pemesananPerJenjang', 'AdminController@pemesananPerJenjang');

@@ -9,6 +9,7 @@ use App\PendaftaranGuru;
 use App\GuruMapel;
 use App\Absen;
 use App\Alamat;
+use App\GrafikGuru;
 use App\Jenjang;
 use App\MataPelajaran;
 use App\ProfileMatching;
@@ -56,7 +57,15 @@ class AdminController extends Controller
     public function getGrafikPemesanan()
     {
         $grafikPemesanan = GrafikPemesanan::all();
+        // dd($grafikPemesanan);
         return $grafikPemesanan;
+    }
+
+    public function getGrafikGuru()
+    {
+        $grafikGuru = GrafikGuru::all();
+        // dd($grafikGuru);
+        return $grafikGuru;
     }
 
     /**
@@ -396,5 +405,21 @@ class AdminController extends Controller
         $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
             ->where('pendaftaran_guru.status', 0)
             ->update(['pendaftaran_guru.status' => 2]);
+    }
+
+    /**
+     * Pemasukan
+     */
+    public function pemasukan()
+    {
+        return view('admin.pemasukan');
+    }
+
+    /**
+     * Pengeluaran
+     */
+    public function pengeluaran()
+    {
+        return view('admin.pengeluaran');
     }
 }

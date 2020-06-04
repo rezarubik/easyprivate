@@ -45,14 +45,62 @@
                         <tr>
                             <td>{{$pg->id_pendaftaran}}</td>
                             <td>{{$pg->user->name}}</td>
-                            <td>{{$pg->profileMatching->pm_gap_pk}}</td>
-                            <td>{{$pg->profileMatching->pm_gap_vas}}</td>
-                            <td>{{$pg->profileMatching->pm_gap_kk}}</td>
-                            <td>{{$pg->profileMatching->pm_gap_cm}}</td>
-                            <td>{{$pg->profileMatching->pm_gap_pemat}}</td>
-                            <td>{{$pg->profileMatching->pm_gap_ipk}}</td>
-                            <td>{{$pg->profileMatching->pm_gap_usia}}</td>
-                            <td>{{$pg->profileMatching->pm_gap_km}}</td>
+                            <td>
+                                @if(isset($pg->profileMatching->pm_gap_pk))
+                                {{$pg->profileMatching->pm_gap_pk}}
+                                @else
+                                data belum diseleksi
+                                @endif
+                            </td>
+                            <td>
+                                @if(isset($pg->profileMatching->pm_gap_vas))
+                                {{$pg->profileMatching->pm_gap_vas}}
+                                @else
+                                data belum diseleksi
+                                @endif
+                            </td>
+                            <td>
+                                @if(isset($pg->profileMatching->pm_gap_kk))
+                                {{$pg->profileMatching->pm_gap_kk}}
+                                @else
+                                data belum diseleksi
+                                @endif
+                            </td>
+                            <td>
+                                @if(isset($pg->profileMatching->pm_gap_cm))
+                                {{$pg->profileMatching->pm_gap_cm}}
+                                @else
+                                data belum diseleksi
+                                @endif
+                            </td>
+                            <td>
+                                @if(isset($pg->profileMatching->pm_gap_pemat))
+                                {{$pg->profileMatching->pm_gap_pemat}}
+                                @else
+                                data belum diseleksi
+                                @endif
+                            </td>
+                            <td>
+                                @if(isset($pg->profileMatching->pm_gap_ipk))
+                                {{$pg->profileMatching->pm_gap_ipk}}
+                                @else
+                                data belum diseleksi
+                                @endif
+                            </td>
+                            <td>
+                                @if(isset($pg->profileMatching->pm_gap_usia))
+                                {{$pg->profileMatching->pm_gap_usia}}
+                                @else
+                                data belum diseleksi
+                                @endif
+                            </td>
+                            <td>
+                                @if(isset($pg->profileMatching->pm_gap_km))
+                                {{$pg->profileMatching->pm_gap_km}}
+                                @else
+                                data belum diseleksi
+                                @endif
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
