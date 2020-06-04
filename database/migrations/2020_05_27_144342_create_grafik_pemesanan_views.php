@@ -16,10 +16,11 @@ class CreateGrafikPemesananViews extends Migration
     {
         DB::statement("
         create or replace view grafikpemesanan AS
-        SELECT tableSD.PemesananPerBulan as Pemesanan_SD, tableSMP.PemesananPerBulan as Pemesanan_SMP, tableSMA.PemesananPerBulan as Pemesanan_SMA, tableSD.BULAN_TAHUN
+        SELECT tableSD.PemesananPerBulan as Pemesanan_SD, tableSMP.PemesananPerBulan as Pemesanan_SMP, tableSMA.PemesananPerBulan as Pemesanan_SMA, concat(tableSD.NAMA_BULAN, ' ', tableSD.tahun) as BULAN_TAHUN
         FROM
         
         (SELECT COUNT(*) as PemesananPerBulan,
+        monthname(waktu_pemesanan) as NAMA_BULAN,
         EXTRACT(YEAR FROM waktu_pemesanan) as TAHUN,
         EXTRACT(MONTH FROM waktu_pemesanan) as BULAN,
         EXTRACT(YEAR_MONTH FROM waktu_pemesanan) as BULAN_TAHUN
@@ -32,6 +33,7 @@ class CreateGrafikPemesananViews extends Migration
         LEFT JOIN
         
         (SELECT COUNT(*) as PemesananPerBulan,
+        monthname(waktu_pemesanan) as NAMA_BULAN,
         EXTRACT(YEAR FROM waktu_pemesanan) as TAHUN,
         EXTRACT(MONTH FROM waktu_pemesanan) as BULAN,
         EXTRACT(YEAR_MONTH FROM waktu_pemesanan) as BULAN_TAHUN
@@ -46,6 +48,7 @@ class CreateGrafikPemesananViews extends Migration
         LEFT JOIN
         
         (SELECT COUNT(*) as PemesananPerBulan,
+        monthname(waktu_pemesanan) as NAMA_BULAN,
         EXTRACT(YEAR FROM waktu_pemesanan) as TAHUN,
         EXTRACT(MONTH FROM waktu_pemesanan) as BULAN,
         EXTRACT(YEAR_MONTH FROM waktu_pemesanan) as BULAN_TAHUN
@@ -59,10 +62,11 @@ class CreateGrafikPemesananViews extends Migration
         
         UNION
         
-        SELECT tableSD.PemesananPerBulan, tableSMP.PemesananPerBulan, tableSMA.PemesananPerBulan, tableSD.BULAN_TAHUN
+        SELECT tableSD.PemesananPerBulan as Pemesanan_SD, tableSMP.PemesananPerBulan as Pemesanan_SMP, tableSMA.PemesananPerBulan as Pemesanan_SMA, concat(tableSD.NAMA_BULAN, ' ', tableSD.tahun) as BULAN_TAHUN
         FROM
         
         (SELECT COUNT(*) as PemesananPerBulan,
+        monthname(waktu_pemesanan) as NAMA_BULAN,
         EXTRACT(YEAR FROM waktu_pemesanan) as TAHUN,
         EXTRACT(MONTH FROM waktu_pemesanan) as BULAN,
         EXTRACT(YEAR_MONTH FROM waktu_pemesanan) as BULAN_TAHUN
@@ -75,6 +79,7 @@ class CreateGrafikPemesananViews extends Migration
         RIGHT JOIN
         
         (SELECT COUNT(*) as PemesananPerBulan,
+        monthname(waktu_pemesanan) as NAMA_BULAN,
         EXTRACT(YEAR FROM waktu_pemesanan) as TAHUN,
         EXTRACT(MONTH FROM waktu_pemesanan) as BULAN,
         EXTRACT(YEAR_MONTH FROM waktu_pemesanan) as BULAN_TAHUN
@@ -89,6 +94,7 @@ class CreateGrafikPemesananViews extends Migration
         RIGHT JOIN
         
         (SELECT COUNT(*) as PemesananPerBulan,
+        monthname(waktu_pemesanan) as NAMA_BULAN,
         EXTRACT(YEAR FROM waktu_pemesanan) as TAHUN,
         EXTRACT(MONTH FROM waktu_pemesanan) as BULAN,
         EXTRACT(YEAR_MONTH FROM waktu_pemesanan) as BULAN_TAHUN

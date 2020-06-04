@@ -18,58 +18,72 @@ class AbsenSeeder extends Seeder
         $data = [
             [
                 'id_jadwal_pemesanan_perminggu' => 2,
+                'id_pemesanan' => 1,
                 'waktu_absen' => '2020-03-19 15:24:00'
             ],
             [
                 'id_jadwal_pemesanan_perminggu' => 1,
+                'id_pemesanan' => 1,
                 'waktu_absen' => '2020-03-22 15:24:00'
             ],
             [
                 'id_jadwal_pemesanan_perminggu' => 2,
+                'id_pemesanan' => 1,
                 'waktu_absen' => '2020-03-26 15:24:00'
             ],
             [
                 'id_jadwal_pemesanan_perminggu' => 1,
+                'id_pemesanan' => 1,
                 'waktu_absen' => '2020-03-29 15:24:00'
             ],
             [
                 'id_jadwal_pemesanan_perminggu' => 2,
+                'id_pemesanan' => 1,
                 'waktu_absen' => '2020-04-02 15:24:00'
             ],
             [
                 'id_jadwal_pemesanan_perminggu' => 1,
+                'id_pemesanan' => 1,
                 'waktu_absen' => '2020-04-05 15:24:00'
             ],
             [
                 'id_jadwal_pemesanan_perminggu' => 2,
+                'id_pemesanan' => 1,
                 'waktu_absen' => '2020-04-09 15:24:00'
             ],
             [
                 'id_jadwal_pemesanan_perminggu' => 1,
+                'id_pemesanan' => 1,
                 'waktu_absen' => '2020-04-12 15:24:00'
             ],
             [
                 'id_jadwal_pemesanan_perminggu' => 2,
+                'id_pemesanan' => 1,
                 'waktu_absen' => '2020-04-16 15:24:00'
             ],
             [
                 'id_jadwal_pemesanan_perminggu' => 1,
+                'id_pemesanan' => 1,
                 'waktu_absen' => '2020-04-19 15:24:00'
             ],
             [
                 'id_jadwal_pemesanan_perminggu' => 4,
+                'id_pemesanan' => 3,
                 'waktu_absen' => '2020-04-21 14:55:00'
             ],
             [
                 'id_jadwal_pemesanan_perminggu' => 2,
+                'id_pemesanan' => 1,
                 'waktu_absen' => '2020-04-23 15:24:00'
             ],
             [
                 'id_jadwal_pemesanan_perminggu' => 4,
+                'id_pemesanan' => 3,
                 'waktu_absen' => '2020-04-24 14:59:00'
             ],
             [
                 'id_jadwal_pemesanan_perminggu' => 1,
+                'id_pemesanan' => 1,
                 'waktu_absen' => '2020-04-26 15:24:00'
             ]
         ];

@@ -13,8 +13,11 @@
 
 use App\Http\Requests\Request;
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::get('/', function () {
-    return view('welcome');
+    return view('company_profile.index');
 });
 
 Auth::routes();
@@ -64,8 +67,11 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/pemesanan', 'AdminController@indexPemesanan')->name('pemesanan');
     Route::get('/absensi', 'AdminController@indexAbsensi')->name('absensi');
     Route::get('/profile-matching', 'AdminController@hitungProfileMatching')->name('profile.matching');
+    Route::get('/pemasukan', 'AdminController@pemasukan')->name('admin.pemasukan');
+    Route::get('/pengeluaran', 'AdminController@pengeluaran')->name('admin.pengeluaran');
 });
 
 // ? Pemesanan Per Bulan dan Per Jenjang
 Route::get('/getGrafikPemesanan', 'AdminController@getGrafikPemesanan')->name('grafik.pemesanan');
+Route::get('/getGrafikGuru', 'AdminController@getGrafikGuru')->name('grafik.guru');
 // Route::get('pemesananPerJenjang', 'AdminController@pemesananPerJenjang');
