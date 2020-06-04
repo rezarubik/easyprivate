@@ -23,8 +23,9 @@ use App\Pemesanan;
 //Absen
 Route::get('absen', 'AbsenController@getAbsen'); //Udah bisa
 Route::post('absen/filter', 'AbsenController@getAbsenFiltered');
-Route::get('absen/{id}', 'AbsenController@getAbsenById'); //Udah bisa
 Route::post('absen/store', 'AbsenController@store');
+Route::get('absen/test/{id_pemesanan}', 'AbsenController@verifyAbsen'); //Udah bisa
+Route::get('absen/{id}', 'AbsenController@getAbsenById'); //Udah bisa
 
 //Jadwal Available
 Route::post('jadwalAvailable/filter', 'JadwalAvailableController@getJadwalAvailableFiltered'); //Udah bisa
@@ -76,8 +77,12 @@ Route::post('user/cari_guru', 'UserController@cariGuru');
 
 //Daftar Murid
 Route::post('user/daftar', 'UserController@daftarMurid');
+
 //DetailGuru
 Route::get('user/detail/{id}', 'UserController@detailGuru');
 
 //Login Murid
 Route::post('user/murid/valid', 'UserController@validMurid');
+
+//Midtrans
+Route::post('midtrans/charge','MidtransController@getSnapToken');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Absen;
+use Carbon\Carbon;
 
 class AbsenController extends Controller
 {
@@ -75,13 +76,58 @@ class AbsenController extends Controller
 
     public function store(Request $r)
     {
-        $absen = new Absen;
-        $absen->id_pemesanan = $r->id_pemesanan;
-        $absen->id_jadwal_pemesanan_perminggu = $r->id_jadwal_pemesanan_perminggu;
-        $absen->waktu_absen = date($this->datetimeFormat);
-        $absen->save();
+        $absenValidity = $this->verifyAbsen($r->id_pemesanan);
 
-        return Absen::with($this->relationship)->where('id_absen', $absen->id_absen)->first();
+        if($absenValidity==1){
+            $absen = new Absen;
+            $absen->id_pemesanan = $r->id_pemesanan;
+    
+            if(isset($r->id_jadwal_pemesanan_perminggu)){
+                $absen->id_jadwal_pemesanan_perminggu = $r->id_jadwal_pemesanan_perminggu;
+            }
+    
+            $absen->waktu_absen = date($this->datetimeFormat);
+            $absen->save();
+    
+            // return Absen::with($this->relationship)->where('id_absen', $absen->id_absen)->first();
+        }
+        return $absenValidity;
+    }
+
+    public function verifyAbsen($id_pemesanan)
+    {
+        $absen = Absen::where('id_pemesanan', $id_pemesanan)->orderBy('waktu_absen', 'desc')->first();
+        if(!isset($absen)){
+            return 0;
+        }
+        $currDateTime = Carbon::now();
+
+        $currYear = $currDateTime->year;
+        $currMonth = $currDateTime->month;
+        $currDay = $currDateTime->day;
+
+        $now = [];
+        array_push($now, $currYear);
+        array_push($now, $currMonth);
+        array_push($now, $currDay);
+
+        $absenDateTime = Carbon::parse($absen->waktu_absen);
+        $absenYear = $absenDateTime->year;
+        $absenMonth = $absenDateTime->month;
+        $absenDay = $absenDateTime->day;
+
+        $waktuAbsen = [];
+        array_push($waktuAbsen, $absenYear);
+        array_push($waktuAbsen, $absenMonth);
+        array_push($waktuAbsen, $absenDay);
+
+        // dd([$now, $waktuAbsen]);
+
+        for($i = 0; $i < count($waktuAbsen); $i++){
+            if($now[$i] != $waktuAbsen[$i]){
+                return 1;
+            }
+        }
     }
 
     public function getAbsenFiltered(Request $r)
