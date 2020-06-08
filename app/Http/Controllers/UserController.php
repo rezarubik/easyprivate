@@ -11,6 +11,7 @@ use App\Jenjang;
 use App\MataPelajaran;
 use App\ProfileMatching;
 use App\JadwalAvailable;
+use Illuminate\Support\Facades\DB;
 use App\KriteriaBobotTarget;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
@@ -876,7 +877,7 @@ class UserController extends Controller
         $where = [];
 
         $where['role'] = 2;
-        $where['available'] = 1;
+        $where['jadwal_available.available'] = 1;
 
         $jadwalAvailable = array();
 
@@ -891,38 +892,10 @@ class UserController extends Controller
         if (isset($r->hari)) {
             $jadwalAvailable = $r->hari;
         }
-
-        // if (isset($r->senin)) {
-
-        //     array_push($jadwalAvailable, 'Senin');
-        // }
-        // if (isset($r->selasa)) {
-
-        //     array_push($jadwalAvailable, 'Selasa');
-        // }
-        // if (isset($r->rabu)) {
-
-        //     array_push($jadwalAvailable, 'Rabu');
-        // }
-        // if (isset($r->kamis)) {
-
-        //     array_push($jadwalAvailable, 'Kamis');
-        // }
-        // if (isset($r->jumat)) {
-
-        //     array_push($jadwalAvailable, 'Jumat');
-        // }
-        // if (isset($r->sabtu)) {
-
-        //     array_push($jadwalAvailable, 'Sabtu');
-        // }
-        // if (isset($r->minggu)) {
-
-        //     array_push($jadwalAvailable, 'Minggu');
-        // }
+        //dd($jadwalAvailable);
         if (isset($r->hari) && sizeOf($r->hari) > 0) {
-
-            return User::with($this->relationshipCariGuru)
+            
+            $cariGuru = User::with($this->relationshipCariGuru)
                 ->join('guru_mapel', 'guru_mapel.id_guru', 'users.id')
                 ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'guru_mapel.id_mapel')
                 ->join('jadwal_available', 'jadwal_available.id_user', 'users.id')
@@ -933,18 +906,113 @@ class UserController extends Controller
                 // ->orderBy('status')
                 // ->orderBy('waktu_pemesanan', 'desc')
                 ->get();
-        } else {
-            return User::with($this->relationshipCariGuru)
+                //dd($cariGuru);
+                $id_guru = [];
+                foreach($cariGuru as $idG){
+                    array_push($id_guru, $idG->id );
+                }
+                $jarak = $this->jarakFilter($r->latitude_murid,$r->longitude_murid,$id_guru);
+                $jarakStr = "FIELD(id,";
+               // dd($jarak);
+                foreach($jarak as $i=>$j){
+                    $jarakStr = $jarakStr.$j->id;
+                    if($i < sizeof($jarak)-1){
+                        $jarakStr= $jarakStr.",";
+
+                    }
+                    else{
+                        $jarakStr= $jarakStr.")";
+                    }
+                }
+                $cariGuru = User::with($this->relationshipCariGuru)
                 ->join('guru_mapel', 'guru_mapel.id_guru', 'users.id')
                 ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'guru_mapel.id_mapel')
                 ->join('jadwal_available', 'jadwal_available.id_user', 'users.id')
                 ->where($where)
-                // ->whereIn('jadwal_available.hari', $jadwalAvailable)
+                ->whereIn('jadwal_available.hari', $jadwalAvailable)
                 ->select('users.*')
                 ->distinct()
+                ->orderByRaw($jarakStr)
                 // ->orderBy('status')
                 // ->orderBy('waktu_pemesanan', 'desc')
                 ->get();
+                return response()->json([
+                    'user'=>$cariGuru,
+                    'jarak'=>$jarak
+                ]);
+
+        } else {
+            $cariGuru = User::with($this->relationshipCariGuru)
+            ->join('guru_mapel', 'guru_mapel.id_guru', 'users.id')
+            ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'guru_mapel.id_mapel')
+            ->join('jadwal_available', 'jadwal_available.id_user', 'users.id')
+            ->where($where)
+            //->whereIn('jadwal_available.hari', $jadwalAvailable)
+            ->select('users.*')
+            ->distinct()
+            // ->orderBy('status')
+            // ->orderBy('waktu_pemesanan', 'desc')
+            ->get();
+           // dd($cariGuru);
+            $id_guru = [];
+            foreach($cariGuru as $idG){
+                array_push($id_guru, $idG->id );
+            }
+            $jarak = $this->jarakFilter($r->latitude_murid,$r->longitude_murid,$id_guru);
+            $jarakStr = "FIELD(id,";
+           //dd($jarak);
+            foreach($jarak as $i=>$j){
+                $jarakStr = $jarakStr.$j->id;
+                if($i < sizeof($jarak)-1){
+                    $jarakStr= $jarakStr.",";
+
+                }
+                else{
+                    $jarakStr= $jarakStr.")";
+                }
+            }
+            $cariGuru = User::with($this->relationshipCariGuru)
+            ->join('guru_mapel', 'guru_mapel.id_guru', 'users.id')
+            ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'guru_mapel.id_mapel')
+            ->join('jadwal_available', 'jadwal_available.id_user', 'users.id')
+            ->where($where)
+            // ->whereIn('jadwal_available.hari', $jadwalAvailable)
+            ->select('users.*')
+            ->distinct()
+            ->orderByRaw($jarakStr)
+            // ->orderBy('status')
+            // ->orderBy('waktu_pemesanan', 'desc')
+            ->get();
+            return response()->json([
+                'user'=>$cariGuru,
+                'jarak'=>$jarak
+            ]);
         }
+    }
+
+    public function jarakFilter($latitude_murid,$longitude_murid,$id_guru){
+        $radius_bumi=6371;
+    
+        // dd([
+        //     $rad_lat_guru,$rad_lat_murid,$rad_sel_long
+        // ]);
+          $jarak = User::select(DB::raw('users.id, ('.$radius_bumi.' * ACOS(SIN(RADIANS(alamat.latitude)) * SIN(RADIANS('.$latitude_murid.')) + COS(RADIANS(alamat.longitude - '.$longitude_murid.')) * COS(RADIANS(alamat.latitude)) * COS(RADIANS('.$latitude_murid.')))) AS jarak_haversine'))->join('alamat','users.id','alamat.id_user')->orderBy('jarak_haversine','asc')->whereIn('id',$id_guru)->get();
+       // $jarak = $radius_bumi*(acos(sin($rad_lat_guru) * sin($rad_lat_murid) + cos($rad_sel_long) * cos($rad_lat_guru) * cos($rad_lat_murid)));
+        // var_dump($jarak);
+        return $jarak;
+
+    }
+
+    public function testAlgoJarak(){
+    
+      $user_guru = User::where('role',2)->with(['alamat'])->get();
+      $user_murid = User::where('id',23)->with(['alamat'])->first();
+        // dd($user_murid);
+     foreach($user_guru as $guru){
+       $hasil =  $this->jarakFilter($user_murid->alamat->latitude,$user_murid->alamat->longitude,$guru->alamat->latitude,$guru->alamat->longitude);
+       $guru->jarak = $hasil;
+        var_dump($guru->jarak);
+        
+      }
     }
 }

@@ -147,6 +147,12 @@ class AlamatSeeder extends Seeder
                 'latitude' => -6.500221,
                 'longitude' => 106.807824,
                 'alamat_lengkap' => 'Jl. Beo Raya, Sukahati'
+            ],
+            [
+                'id_user' => 23,
+                'latitude' => -6.26,
+                'longitude' => 106.83,
+                'alamat_lengkap' => 'jalan kalibata tengah no 29'
             ]
         ];
         
