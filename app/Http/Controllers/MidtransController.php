@@ -60,6 +60,7 @@ class MidtransController extends Controller
         );
 
         // Optional
+        // Gak usah
         $shipping_address = array(
             'first_name'    => "Obet",
             'last_name'     => "Supriadi",
