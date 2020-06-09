@@ -98,6 +98,16 @@ class PemesananSeeder extends Seeder
                 'status' => 2,
                 'jumlah_pertemuan' => 4
             ],
+            [
+                'id_guru' => 6,
+                'id_murid' => 23,
+                'id_mapel' => 1,
+                'waktu_pemesanan' => '2020-06-08 14:12:30',
+                'first_meet' => '2020-06-15 00:00:00',
+                'kelas' => 1,
+                'status' => 1,
+                'jumlah_pertemuan' => 0
+            ],
         ];
 
         Pemesanan::insert($data);
