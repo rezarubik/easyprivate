@@ -61,9 +61,9 @@ class KriteriaBobotController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(KriteriaBobotTarget $kbt)
     {
-        //
+        return view('admin.kriteria_bobot_edit', compact('kbt'));
     }
 
     /**
@@ -73,9 +73,16 @@ class KriteriaBobotController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, KriteriaBobotTarget $kbt)
     {
-        //
+        $data = [
+            'kriteria' => $request->kriteria,
+            'bobot' => $request->bobot,
+            'faktor_kriteria' => $request->faktor_kriteria,
+            ''
+        ];
+        $kbt->update($data);
+        return view('admin.kriteria_bobot')->with('status', 'Data Kriteria dan Bobot berhasil diedit');
     }
 
     /**

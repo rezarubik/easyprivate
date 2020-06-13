@@ -18,6 +18,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta content="" name="description" />
     <meta content="" name="author" />
+    <link rel="shortcut icon" href="{{asset('assets/images/easyprivat-icon.png')}}" type="image/x-icon">
     <!-- end: META -->
     <!-- CSRF Token -->
     <!-- <meta name="csrf-token" content="{{ csrf_token() }}"> -->
@@ -114,7 +115,7 @@
                             </ul>
                         </li>
                         <!-- ? End of Users -->
-                        <!-- ? Kriteia dan Bobot -->
+                        <!-- ? Kriteria dan Bobot -->
                         <li class="{{(Request::is('/', 'admin/kriteria-bobot')) ? 'active open' : ''}}">
                             <a href="{{route('kriteria.bobot')}}">
                                 <div class="item-content">
@@ -122,7 +123,7 @@
                                         <i class="ti-star"></i>
                                     </div>
                                     <div class="item-inner">
-                                        <span class="title"> Kriteia dan Bobot </span>
+                                        <span class="title"> Kriteria dan Bobot </span>
                                     </div>
                                 </div>
                             </a>
@@ -350,7 +351,9 @@
     <script src="{{asset('vendor/Chart.js/Chart.min.js')}}"></script>
     <script src="{{asset('vendor/jquery.sparkline/jquery.sparkline.min.js')}}"></script>
     <!-- end: JAVASCRIPTS REQUIRED FOR Graph ONLY -->
+    <!-- start: Only for another pages -->
     @yield('javascript')
+    <!-- end: Only for another pages -->
 
     <!-- start: JS For Another Page -->
     <script src="{{asset('vendor/select2/select2.min.js')}}"></script>
@@ -367,6 +370,7 @@
             Main.init();
             // Index.init();
             TableData.init();
+            FormValidator.init();
         });
     </script>
     <!-- end: JavaScript Event Handlers for this page -->
