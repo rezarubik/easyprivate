@@ -13,4 +13,9 @@ class Absen extends Model
     public function jadwalPemesananPerminggu(){
         return $this->hasOne('App\JadwalPemesananPerminggu', 'id_jadwal_pemesanan_perminggu', 'id_jadwal_pemesanan_perminggu');
     }
+
+    public function pemesanan()
+    {
+        return $this->hasOne('App\Pemesanan', 'id_pemesanan', 'id_pemesanan');
+    }
 }
