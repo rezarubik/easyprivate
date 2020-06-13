@@ -12,11 +12,11 @@ class AbsenController extends Controller
     {
         $this->relationship = [
             'jadwalPemesananPerminggu',
-            'jadwalPemesananPerminggu.pemesanan',
-            'jadwalPemesananPerminggu.pemesanan.murid',
-            'jadwalPemesananPerminggu.pemesanan.guru',
-            'jadwalPemesananPerminggu.pemesanan.mataPelajaran',
-            'jadwalPemesananPerminggu.pemesanan.mataPelajaran.jenjang'
+            'pemesanan',
+            'pemesanan.murid',
+            'pemesanan.guru',
+            'pemesanan.mataPelajaran',
+            'pemesanan.mataPelajaran.jenjang'
         ];
         $this->datetimeFormat = "Y-M-d H:i:s";
         date_default_timezone_set('Asia/Jakarta');
@@ -86,7 +86,7 @@ class AbsenController extends Controller
                 $absen->id_jadwal_pemesanan_perminggu = $r->id_jadwal_pemesanan_perminggu;
             }
     
-            $absen->waktu_absen = date($this->datetimeFormat);
+            $absen->waktu_absen = date("Y-m-d H:i:s");
             $absen->save();
     
             // return Absen::with($this->relationship)->where('id_absen', $absen->id_absen)->first();
@@ -98,7 +98,7 @@ class AbsenController extends Controller
     {
         $absen = Absen::where('id_pemesanan', $id_pemesanan)->orderBy('waktu_absen', 'desc')->first();
         if(!isset($absen)){
-            return 0;
+            return 1;
         }
         $currDateTime = Carbon::now();
 
@@ -128,6 +128,8 @@ class AbsenController extends Controller
                 return 1;
             }
         }
+
+        return 0;
     }
 
     public function getAbsenFiltered(Request $r)
@@ -153,12 +155,13 @@ class AbsenController extends Controller
         }
 
         return Absen::with($this->relationship)
-            ->join('jadwal_pemesanan_perminggu as jpp', 'jpp.id_jadwal_pemesanan_perminggu', 'absen.id_jadwal_pemesanan_perminggu')
-            ->join('pemesanan as p', 'p.id_pemesanan', 'jpp.id_pemesanan')
+            // ->join('jadwal_pemesanan_perminggu as jpp', 'jpp.id_jadwal_pemesanan_perminggu', 'absen.id_jadwal_pemesanan_perminggu')
+            ->join('pemesanan as p', 'absen.id_pemesanan', 'p.id_pemesanan')
             ->join('users as guru', 'p.id_guru', 'guru.id')
             ->join('users as murid', 'p.id_murid', 'murid.id')
             ->where($where)
             ->select('absen.*')
+            ->orderBy('waktu_absen', 'desc')
             ->get();
     }
 }
