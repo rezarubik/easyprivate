@@ -50,13 +50,13 @@ class MidtransController extends Controller
 
         // Optional
         $billing_address = array(
-            'first_name'    => "Andri",
-            'last_name'     => "Litani",
-            'address'       => "Mangga 20",
-            'city'          => "Jakarta",
-            'postal_code'   => "16602",
-            'phone'         => "081122334455",
-            'country_code'  => 'IDN'
+            'first_name'    => $r->billing_first_name,
+            'last_name'     => $r->billing_last_name,
+            'address'       => $r->billing_address,
+            'city'          => $r->billing_city,
+            'postal_code'   => $r->billing_postal_code,
+            'phone'         => $r->billing_phone,
+            'country_code'  => $r->billing_country_code
         );
 
         // Optional
@@ -97,7 +97,7 @@ class MidtransController extends Controller
             return response()->json($snapToken);
             // return ['code' => 1 , 'message' => 'success' , 'result' => $snapToken];
         } catch (\Exception $e) {
-            dd($e);
+            // dd($e);
             return ['code' => 0 , 'message' => 'failed'];
         }
 
