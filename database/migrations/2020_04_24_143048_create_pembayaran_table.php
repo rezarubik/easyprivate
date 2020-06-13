@@ -19,7 +19,9 @@ class CreatePembayaranTable extends Migration
             $table->integer('status')->nullable();
             $table->integer('jumlah_bayar')->nullable();
             $table->date('tanggal_bayar')->nullable();
-            $table->date('tanggal_tagihan')->nullable();
+            $table->date('jatuh_tempo')->nullable();
+            $table->string('periode_bulan')->nullable();
+            $table->string('periode_tahun')->nullable();
         });
     }
 
