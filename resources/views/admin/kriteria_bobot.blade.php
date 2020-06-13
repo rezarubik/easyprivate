@@ -13,12 +13,20 @@
 @section('active-pages', 'Kriteria dan Bobot Seleksi')
 @section('content')
 <div class="container-fluid container-fullw bg-white">
+    @if(session('status'))
+    <div class="alert alert-success">
+        {{session('status')}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
     <div class="row">
         <div class="col-md-12">
             <h5 class="over-title margin-bottom-15">
                 Data <span class="text-bold">Kriteia dan Bobot</span>
             </h5>
-            
+
             <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
                     <thead>
@@ -40,7 +48,7 @@
                             <td>{{$kbt->faktor_kriteria}}<i></i></td>
                             <td>{{$kbt->nilai_target}}</td>
                             <td class="text-center">
-                                <a href="http://" class="label label-success" title="Edit"><i class="ti-pencil"></i></a>
+                                <a href="{{route('kriteria.bobot.edit', $kbt)}}" class="label label-success" title="Edit"><i class="ti-pencil"></i></a>
                                 <!-- <a href="http://" class="label label-danger" title="Hapus"><i class="ti-trash"></i></a> -->
                             </td>
                         </tr>

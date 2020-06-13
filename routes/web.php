@@ -16,6 +16,7 @@ use App\Http\Requests\Request;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+// todo Company Profile
 Route::get('/', function () {
     return view('company_profile.index');
 });
@@ -59,6 +60,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/users/data-guru', 'AdminController@dataGuru')->name('admin.users.guru');
     Route::get('/users/data-murid', 'AdminController@dataMurid')->name('admin.users.murid');
     Route::get('/kriteria-bobot', 'KriteriaBobotController@index')->name('kriteria.bobot');
+    Route::get('/kriteria-bobot/{kbt}/edit', 'KriteriaBobotController@edit')->name('kriteria.bobot.edit');
+    Route::patch('/kriteria-bobot/{kbt}/edit', 'KriteriaBobotController@update')->name('kriteria.bobot.update');
     Route::get('/nilai-gap', 'AdminController@nilaiGAP')->name('nilai.gap');
     Route::get('/pembobotan-nilai-gap', 'AdminController@pembobotanNilaiGAP')->name('pembobotan.nilai.gap');
     Route::get('/hasil-seleksi', 'AdminController@hasilSeleksi')->name('hasil.seleksi');

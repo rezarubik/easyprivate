@@ -5,7 +5,7 @@
 @section('description', 'Menjelaskan beberapa grafik data perusahaan Easy Private')
 @section('active-pages', 'Dashboard')
 @section('content')
-<div class="container-fluid container-fullw bg-white">
+<!-- <div class="container-fluid container-fullw bg-white">
     <div class="row">
         <div class="col-sm-12">
             <p>
@@ -13,15 +13,15 @@
             </p>
         </div>
     </div>
-</div>
-<div class="container-fluid container-fullw">
-    <div class="row">
+</div> -->
+<div class="container-fluid container-fullw bg-white">
+    <!-- <div class="row">
         <div class="col-sm-12">
             <p>
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. At nulla laborum sapiente dolores architecto iste quos similique impedit delectus? Consectetur natus sit eum asperiores, architecto nesciunt provident tenetur quidem. Iste!
             </p>
         </div>
-    </div>
+    </div> -->
     <div class="row">
         <div class="col-sm-12">
             <div class="row">
