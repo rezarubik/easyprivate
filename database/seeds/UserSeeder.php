@@ -303,6 +303,19 @@ class UserSeeder extends Seeder
                 'updated_at' => '2020-04-17 02:40:16',
                 'universitas' => 'Politeknik Negeri Jakarta'
             ],
+            [
+                'avatar' => '',
+                'name' => 'Nadiah Tsamara',
+                'email' => 'nadiahtsamara4@gmail.com', 
+                'jenis_kelamin' => 'perempuan', 
+                'tanggal_lahir' => '1998-09-14', 
+                'no_handphone' => '087874576875', 
+                'role' => 1,
+                'remember_token' => '',
+                'created_at' => '2020-06-07 12:44:32',
+                'updated_at' => '2020-06-07 12:44:32',
+                'universitas' => ''
+            ],
             // end new
         ];
         User::insert($data);

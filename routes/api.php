@@ -86,3 +86,6 @@ Route::post('user/murid/valid', 'UserController@validMurid');
 
 //Midtrans
 Route::post('midtrans/charge','MidtransController@getSnapToken');
+
+//test haversine
+Route::post('jarak', 'UserController@jarakFilter');
