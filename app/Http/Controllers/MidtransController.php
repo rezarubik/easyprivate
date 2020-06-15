@@ -31,17 +31,19 @@ class MidtransController extends Controller
         
         // Required
         // Kayaknya itemnya harus bisa lebih dari satu
-         $item_list[] = [
-                'id' => $r->item_id,
-                'price' => $r->item_price,
-                'quantity' => $r->item_quantity,
-                'name' => $r->item_name
-        ];
+        foreach($r->item_id as $key=>$it){
+            $item_list[] = [
+                    'id' => $r->item_id[$key], //id_pemesanan
+                    'price' => $r->item_price[$key], //harga per pertemuan
+                    'quantity' => $r->item_quantity[$key], //berapa kali pertemuan
+                    'name' => $r->item_name[$key] //nama item, misal pembelajaran dengan guru [nama gurunya]
+            ];
+        }
 
         $transaction_details = array(
-            // 'order_id' => $this->getOrderId(),
+            // 'order_id' => $this->getOrderId(), //id_pembayaran
             'order_id' => rand(),
-            'gross_amount' => 20000, // no decimal allowed for creditcard
+            'gross_amount' => 0 // no decimal allowed for creditcard
         );
 
 
@@ -78,7 +80,7 @@ class MidtransController extends Controller
             'email'         => $r->cust_email,
             'phone'         => $r->cust_phone,
             'billing_address'  => $billing_address,
-            'shipping_address' => $shipping_address
+            // 'shipping_address' => $shipping_address
         );
 
         // Optional, remove this to display all available payment methods
@@ -103,7 +105,7 @@ class MidtransController extends Controller
 
     }
 
-    public function storeDetailPembayaran()
+    public function storeDetailPembayaran(Request $r)
     {
         //Untuk memasukkan data ke dalam database easy private
     }

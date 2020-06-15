@@ -140,9 +140,54 @@ class PemesananController extends Controller
         $pemesanan->status = $r->status;
         $pemesanan->save();
 
+        //Jika pemesanan diterima
         if($pemesanan->status == 1){
+            //Menyelesaikan konflik pemesanan yang ada
             $this->solveConflictedPemesanan($r->id_pemesanan);
+
+            //Mengambil jadwalpemesananperminggu
+            $jpp = JadwalPemesananPerminggu::where([
+                'id_pemesanan' => $pemesanan->id_pemesanan
+            ])->get();
+
+            $idJa = [];
+            foreach($jpp as $j){
+                array_push($idJa, $j->id_jadwal_available);
+            }
+
+            //Input yang diperlukan pada API jadwalAvailable/update
+            $data = [
+                'id_available[]' => null,
+                'id_non_available[]' => null,
+                'id_terisi[]' => $idJa
+            ];
+
+            //Membuat request kepada API sendiri
+            $jadwalAvailableRequest = Request::create('/api/jadwalAvailable/update', 'POST', $data);
+            $jadwalAvailableResponse = Route::dispatch($jadwalAvailableRequest);
+
+        }else if($pemesanan->status == 3){
+            //Mengambil jadwalpemesananperminggu
+            $jpp = JadwalPemesananPerminggu::where([
+                'id_pemesanan' => $pemesanan->id_pemesanan
+            ])->get();
+
+            $idJa = [];
+            foreach($jpp as $j){
+                array_push($idJa, $j->id_jadwal_available);
+            }
+
+            //Input yang diperlukan pada API jadwalAvailable/update
+            $data = [
+                'id_available[]' => $idJa,
+                'id_non_available[]' => null,
+                'id_terisi[]' => null
+            ];
+
+            $jadwalAvailableRequest = Request::create('/api/jadwalAvailable/update', 'POST', $data);
+            $jadwalAvailableResponse = Route::dispatch($jadwalAvailableRequest);
         }
+
 
         return $pemesanan;
     }
