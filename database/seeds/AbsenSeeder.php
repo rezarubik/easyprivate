@@ -99,6 +99,12 @@ class AbsenSeeder extends Seeder
                 'id_jadwal_pengganti' => null,
                 'id_pemesanan' => 1,
                 'waktu_absen' => '2020-04-26 15:24:00'
+            ],
+            [
+                'id_jadwal_pemesanan_perminggu' => null,
+                'id_jadwal_pengganti' => 1,
+                'id_pemesanan' => 1,
+                'waktu_absen' => '2020-05-01 15:24:00'
             ]
         ];
 

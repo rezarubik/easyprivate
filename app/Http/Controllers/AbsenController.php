@@ -12,6 +12,7 @@ class AbsenController extends Controller
     {
         $this->relationship = [
             'jadwalPemesananPerminggu',
+            'jadwalPengganti',
             'pemesanan',
             'pemesanan.murid',
             'pemesanan.guru',
