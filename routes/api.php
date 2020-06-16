@@ -24,6 +24,7 @@ use App\Pemesanan;
 Route::get('absen', 'AbsenController@getAbsen'); //Udah bisa
 Route::post('absen/filter', 'AbsenController@getAbsenFiltered');
 Route::post('absen/store', 'AbsenController@store');
+Route::post('absen/tanggalPengganti', 'AbsenController@getTanggalPengganti');
 Route::get('absen/test/{id_pemesanan}', 'AbsenController@verifyAbsen'); //Udah bisa
 Route::get('absen/{id}', 'AbsenController@getAbsenById'); //Udah bisa
 
