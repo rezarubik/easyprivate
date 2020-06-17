@@ -15,10 +15,7 @@ class CreateAbsenPembayaranViews extends Migration
     public function up()
     {
         DB::statement("
-             create or REPLACE VIEW absen_pembayaran as SELECT p.id_murid, count(*) as jumlah_absen, extract(YEAR FROM absen.waktu_absen) as tahun, extract(MONTH from absen.waktu_absen) as bulan 
-             FROM absen 
-             join pemesanan as p on p.id_pemesanan = absen.id_pemesanan 
-             group by tahun,bulan,p.id_murid
+            create or REPLACE VIEW absen_pembayaran as SELECT p.id_murid,p.id_pemesanan,p.id_guru, count(*) as jumlah_absen, extract(YEAR FROM absen.waktu_absen) as tahun, extract(MONTH from absen.waktu_absen) as bulan FROM absen join pemesanan as p on p.id_pemesanan = absen.id_pemesanan group by tahun,bulan,p.id_pemesanan
         ");
 
         // Schema::create('absen_pembayaran_views', function (Blueprint $table) {
