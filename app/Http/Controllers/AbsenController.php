@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Absen;
+use App\JadwalPengganti;
+use App\JadwalPemesananPerminggu;
 use Carbon\Carbon;
+use DB;
 
 class AbsenController extends Controller
 {
@@ -12,6 +15,7 @@ class AbsenController extends Controller
     {
         $this->relationship = [
             'jadwalPemesananPerminggu',
+            'jadwalPengganti',
             'pemesanan',
             'pemesanan.murid',
             'pemesanan.guru',
@@ -81,12 +85,22 @@ class AbsenController extends Controller
         if($absenValidity==1){
             $absen = new Absen;
             $absen->id_pemesanan = $r->id_pemesanan;
-    
-            if(isset($r->id_jadwal_pemesanan_perminggu)){
+
+            if(isset($r->waktu_pengganti)){
+                $absen->waktu_absen = $r->waktu_pengganti;
+
+                $jadwalPengganti = new JadwalPengganti;
+                $jadwalPengganti->id_pemesanan = $r->id_pemesanan;
+                $jadwalPengganti->id_jadwal_pemesanan_perminggu = $r->id_jadwal_pemesanan_perminggu;
+                $jadwalPengganti->waktu_pengganti = date("Y-m-d H:i:s");
+                $jadwalPengganti->save();
+
+                $absen->id_jadwal_pengganti = $jadwalPengganti->id;
+            }else if(!isset($r->waktu_pengganti)){
                 $absen->id_jadwal_pemesanan_perminggu = $r->id_jadwal_pemesanan_perminggu;
+                $absen->waktu_absen = date("Y-m-d H:i:s");
             }
     
-            $absen->waktu_absen = date("Y-m-d H:i:s");
             $absen->save();
     
             // return Absen::with($this->relationship)->where('id_absen', $absen->id_absen)->first();
@@ -164,4 +178,98 @@ class AbsenController extends Controller
             ->orderBy('waktu_absen', 'desc')
             ->get();
     }
+
+    public function getTanggalPengganti(Request $r)
+    {
+        $currFormat = 'Y-MM-DD HH:mm:ss';
+
+        //Memasukkan variable where
+        $where = [];
+        $where['id_pemesanan'] = $r->id_pemesanan;
+
+        //Get current date
+        $currDateTime = Carbon::now();
+        $formattedCurrDateTime = $currDateTime->toDateTimeString();
+        
+        //Mendapatkan jadwal pemesanan perminggu
+        $jpp = JadwalPemesananPerminggu::with(['jadwalAvailable'])->where($where)->get();
+
+        //Mendapatkan tanggal pertemuan seharusnya
+        $tanggalPertemuanSeharusnya = [];
+        $nextDate = Carbon::now()->addWeeks(1);
+        $prevDate = Carbon::now()->subWeeks(1);
+
+        //Mendapatkan absen
+        $absen = Absen::where($where)
+            ->orderBy('waktu_absen', 'desc')
+            ->get();
+
+        while($prevDate->lessThan($nextDate)){
+            $currDay = $this->dayOfWeekEngToInd($prevDate->englishDayOfWeek);
+
+            foreach($jpp as $j){
+                $comparedDay = $j->jadwalAvailable->hari;
+                
+                if($comparedDay == $currDay){
+                    //Mendapatkan absen
+                    $dateString = $prevDate->toDateString();
+
+                    $currAbsen = Absen::selectRaw('id_absen, id_pemesanan, DATE(waktu_absen) AS tanggal_absen')
+                        ->whereRaw('id_pemesanan = '.$r->id_pemesanan.' AND DATE(waktu_absen) = \''.$dateString.'\'')
+                        ->orderBy('waktu_absen', 'desc')
+                        ->get();
+
+                    if(count($currAbsen) == 0){
+                        array_push($tanggalPertemuanSeharusnya, [
+                            'id_jadwal_perminggu'=>$j->id_jadwal_pemesanan_perminggu,
+                            'tanggal_pengganti'=>$dateString
+                            ]);
+                    }
+                }
+            }
+
+            $prevDate->addDay();
+        }
+
+
+        // var_dump($nextDate->greaterThan($prevDate));
+        return $tanggalPertemuanSeharusnya;
+    }
+
+    public function dayOfWeekEngToInd($day)
+    {
+        $hari = '';
+        switch($day){
+            case 'Monday':
+                $hari = 'Senin';
+                break;
+
+            case 'Tuesday':
+                $hari = 'Selasa';
+                break;
+            
+            case 'Wednesday':
+                $hari = 'Rabu';
+                break;
+
+            case 'Thursday':
+                $hari = 'Kamis';
+                break;
+
+            case 'Friday':
+                $hari = 'Jumat';
+                break;
+
+            case 'Saturday':
+                $hari = 'Sabtu';
+                break;
+
+            case 'Sunday':
+                $hari = 'Minggu';
+                break;
+            
+                
+            }
+            return $hari;
+        }
 }
