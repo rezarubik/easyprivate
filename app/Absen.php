@@ -18,4 +18,9 @@ class Absen extends Model
     {
         return $this->hasOne('App\Pemesanan', 'id_pemesanan', 'id_pemesanan');
     }
+
+    public function jadwalPengganti()
+    {
+        return $this->hasOne('App\JadwalPengganti', 'id', 'id_jadwal_pengganti');
+    }
 }

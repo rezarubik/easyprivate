@@ -23,8 +23,7 @@ class PemesananSeeder extends Seeder
                 'waktu_pemesanan' => '2020-03-16 12:04:21',
                 'first_meet' => '2020-03-19 00:00:00',
                 'kelas' => 5,
-                'status' => 1,
-                'jumlah_pertemuan' => 12
+                'status' => 1
             ],
             [
                 'id_guru' => 6,
@@ -33,8 +32,7 @@ class PemesananSeeder extends Seeder
                 'waktu_pemesanan' => '2020-04-20 10:19:10',
                 'first_meet' => '2020-04-21 00:00:00',
                 'kelas' => 5,
-                'status' => 0,
-                'jumlah_pertemuan' => 0
+                'status' => 0
             ],
             [
                 'id_guru' => 6,
@@ -43,8 +41,7 @@ class PemesananSeeder extends Seeder
                 'waktu_pemesanan' => '2020-04-04 19:45:24',
                 'first_meet' => '2020-04-08 00:00:00',
                 'kelas' => 5,
-                'status' => 3,
-                'jumlah_pertemuan' => 2
+                'status' => 3
             ],
             [
                 'id_guru' => 6,
@@ -53,8 +50,7 @@ class PemesananSeeder extends Seeder
                 'waktu_pemesanan' => '2020-04-01 13:42:14',
                 'first_meet' => '2020-04-02 00:00:00',
                 'kelas' => 1,
-                'status' => 2,
-                'jumlah_pertemuan' => 0
+                'status' => 2
             ],
             // new SMP
             [
@@ -64,8 +60,7 @@ class PemesananSeeder extends Seeder
                 'waktu_pemesanan' => '2020-04-01 13:42:14',
                 'first_meet' => '2020-04-02 00:00:00',
                 'kelas' => 8,
-                'status' => 2,
-                'jumlah_pertemuan' => 1
+                'status' => 2
             ],
             [
                 'id_guru' => 5,
@@ -74,8 +69,7 @@ class PemesananSeeder extends Seeder
                 'waktu_pemesanan' => '2020-04-01 13:42:14',
                 'first_meet' => '2020-04-02 00:00:00',
                 'kelas' => 7,
-                'status' => 2,
-                'jumlah_pertemuan' => 2
+                'status' => 2
             ],
             // new SMA
             [
@@ -85,8 +79,7 @@ class PemesananSeeder extends Seeder
                 'waktu_pemesanan' => '2020-04-01 13:42:14',
                 'first_meet' => '2020-04-02 00:00:00',
                 'kelas' => 10,
-                'status' => 2,
-                'jumlah_pertemuan' => 3
+                'status' => 2
             ],
             [
                 'id_guru' => 3,
@@ -95,8 +88,7 @@ class PemesananSeeder extends Seeder
                 'waktu_pemesanan' => '2020-04-01 13:42:14',
                 'first_meet' => '2020-04-02 00:00:00',
                 'kelas' => 11,
-                'status' => 2,
-                'jumlah_pertemuan' => 4
+                'status' => 2
             ],
             [
                 'id_guru' => 6,
@@ -105,8 +97,7 @@ class PemesananSeeder extends Seeder
                 'waktu_pemesanan' => '2020-06-08 14:12:30',
                 'first_meet' => '2020-06-15 00:00:00',
                 'kelas' => 1,
-                'status' => 1,
-                'jumlah_pertemuan' => 0
+                'status' => 0
             ],
         ];
 

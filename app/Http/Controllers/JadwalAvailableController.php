@@ -153,6 +153,7 @@ class JadwalAvailableController extends Controller
 
     public function updateJadwalAvailable(Request $r)
     {
+        // dd($r);
         
         if(isset($r->id_available)){
             $idAvailable = $r->id_available;
