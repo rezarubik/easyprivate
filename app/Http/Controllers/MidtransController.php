@@ -9,7 +9,7 @@ use App\Http\Controllers\Midtrans\Sanitizer;
 use App\Http\Controllers\Midtrans\Snap;
 use App\Http\Controllers\Midtrans\SnapApiRequestor;
 use App\Http\Controllers\Midtrans\Transaction;
-
+use App\Pembayaran;
 use Illuminate\Http\Request;
 
 class MidtransController extends Controller
@@ -31,17 +31,21 @@ class MidtransController extends Controller
         
         // Required
         // Kayaknya itemnya harus bisa lebih dari satu
-         $item_list[] = [
-                'id' => $r->item_id,
-                'price' => $r->item_price,
-                'quantity' => $r->item_quantity,
-                'name' => $r->item_name
-        ];
+
+    foreach($r->item_id as $key=>$item){
+        array_push($item_list, [
+                'id' => $r->item_id[$key],
+                'price' => $r->item_price[$key],
+                'quantity' => $r->item_quantity[$key],
+                'name' => $r->item_name[$key]
+         
+        ]);
+    }
 
         $transaction_details = array(
-            // 'order_id' => $this->getOrderId(),
-            'order_id' => rand(),
-            'gross_amount' => 20000, // no decimal allowed for creditcard
+            'order_id' => $this->getOrderId(),
+            // 'order_id' => rand(),
+            'gross_amount' => 0, // no decimal allowed for creditcard
         );
 
 
@@ -77,8 +81,8 @@ class MidtransController extends Controller
             // 'last_name'     => $r->customer_last_name,
             'email'         => $r->cust_email,
             'phone'         => $r->cust_phone,
-            'billing_address'  => $billing_address,
-            'shipping_address' => $shipping_address
+            // 'billing_address'  => $billing_address,
+            // 'shipping_address' => $shipping_address
         );
 
         // Optional, remove this to display all available payment methods
@@ -110,6 +114,12 @@ class MidtransController extends Controller
 
     public function getOrderId()
     {
-        //Untuk mendapatkan id pembayaran dari database easyprivate
+        $pembayaran = Pembayaran::orderBy('id_pembayaran','desc')->first();
+        if($pembayaran!=null){
+            return $pembayaran->id_pembayaran+1;
+        }
+        else{
+            return 1;
+        }
     }
 }
