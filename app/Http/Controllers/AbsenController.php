@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Absen;
+use App\AbsenPembayaran;
 use Carbon\Carbon;
 
 class AbsenController extends Controller
@@ -163,5 +164,32 @@ class AbsenController extends Controller
             ->select('absen.*')
             ->orderBy('waktu_absen', 'desc')
             ->get();
+    }
+    public function pembayaranAbsen(Request $r)
+    {
+        $where =[];
+        $relationshipPembayaranAbsen = ['murid','guru','pemesanan','pemesanan.mataPelajaran','pemesanan.mataPelajaran.jenjang'];
+        if(isset($r->id_pemesanan)){
+            $where['id_pemesanan'] = $r->id_pemesanan;
+        }
+        if(isset($r->id_guru)){
+            $where['id_guru'] = $r->id_guru;
+        }
+        if(isset($r->id_murid)){
+            $where['id_murid'] = $r->id_murid;
+        }
+        if(isset($r->bulan)){
+            $where['bulan'] = $r->bulan;
+        }
+        if(isset($r->tahun)){
+            $where['tahun'] = $r->tahun;
+        }
+        $absenQuery = AbsenPembayaran::with($relationshipPembayaranAbsen)->where($where);
+        if(isset($r->distinct)){
+            $absenQuery = $absenQuery->groupBy('bulan','tahun',$r->distinct);
+            $absenQuery = $absenQuery->select('bulan','tahun',$r->distinct);
+        }
+
+        return $absenQuery->get();
     }
 }
