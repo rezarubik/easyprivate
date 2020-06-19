@@ -408,6 +408,14 @@ class AdminController extends Controller
     }
 
     /**
+     * todo Cashflow
+     */
+    public function cashflow()
+    {
+        return view('admin.cashflow');
+    }
+
+    /**
      * Pemasukan
      */
     public function pemasukan()

@@ -17,6 +17,7 @@ class CreateAbsenTable extends Migration
             $table->bigIncrements('id_absen');
             $table->integer('id_pemesanan')->nullable();
             $table->integer('id_pembayaran')->nullable();
+            $table->integer('id_upah_guru')->nullable();
             $table->integer('id_jadwal_pemesanan_perminggu')->nullable();
             $table->integer('id_jadwal_pengganti')->nullable();
             $table->dateTime('waktu_absen')->nullable();

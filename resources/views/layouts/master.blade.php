@@ -214,8 +214,9 @@
                         </li>
                         <!-- ? End of Absensi -->
                         <!-- ? Pemasukan dan Pengeluaran (Cashflow) -->
-                        <li class="{{(Request::is('admin/pemasukan', 'admin/pengeluaran')) ? 'active open' : ''}}">
-                            <a href="javascript:void(0)">
+                        <li class="{{(Request::is('admin/cashflow')) ? 'active open' : ''}}">
+                            <!-- 'admin/pemasukan', 'admin/pengeluaran' -->
+                            <a href="{{route('cashflow')}}">
                                 <div class="item-content">
                                     <div class="item-media">
                                         <i class="ti-money"></i>
@@ -225,7 +226,7 @@
                                     </div>
                                 </div>
                             </a>
-                            <ul class="sub-menu">
+                            <!-- <ul class="sub-menu">
                                 <li class="{{(Request::is('admin/pemasukan')) ? 'active open' : ''}}">
                                     <a href="{{route('admin.pemasukan')}}">
                                         <span class="title"> Pemasukan </span>
@@ -236,7 +237,7 @@
                                         <span class="title"> Pengeluaran </span>
                                     </a>
                                 </li>
-                            </ul>
+                            </ul> -->
                         </li>
                         <!-- ? End of Pemasukan dan Pengeluaran (Cashflow) -->
                     </ul>
