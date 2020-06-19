@@ -31,15 +31,15 @@ class AdminController extends Controller
         $this->relationshipPendaftaranGuru = ['user', 'season', 'profileMatching'];
         $this->realationshipGuruMapel = ['mataPelajaran', 'mataPelajaran.jenjang'];
         // todo pemesanan
-        $this->relationship = ['murid', 'guru', 'murid.alamat', 'mataPelajaran', 'mataPelajaran.jenjang', 'jadwalPemesananPerminggu', 'jadwalPemesananPerminggu.jadwalAvailable'];
+        $this->relationshipPemesanan = ['murid', 'guru', 'murid.alamat', 'mataPelajaran', 'mataPelajaran.jenjang', 'jadwalPemesananPerminggu', 'jadwalPemesananPerminggu.jadwalAvailable'];
         // todo absensi
-        $this->relationship = [
+        $this->relationshipAbsensi = [
             'jadwalPemesananPerminggu',
-            'jadwalPemesananPerminggu.pemesanan',
-            'jadwalPemesananPerminggu.pemesanan.murid',
-            'jadwalPemesananPerminggu.pemesanan.guru',
-            'jadwalPemesananPerminggu.pemesanan.mataPelajaran',
-            'jadwalPemesananPerminggu.pemesanan.mataPelajaran.jenjang'
+            'pemesanan',
+            'pemesanan.murid',
+            'pemesanan.guru',
+            'pemesanan.mataPelajaran',
+            'pemesanan.mataPelajaran.jenjang'
         ];
     }
     /**
@@ -73,7 +73,7 @@ class AdminController extends Controller
      */
     public function indexPemesanan()
     {
-        $pemesanan = Pemesanan::with($this->relationship)
+        $pemesanan = Pemesanan::with($this->relationshipPemesanan)
             ->join('users as m', 'm.id', 'pemesanan.id_murid')
             ->join('users as g', 'g.id', 'pemesanan.id_guru')
             ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'pemesanan.id_mapel')
@@ -91,7 +91,7 @@ class AdminController extends Controller
      */
     public function indexAbsensi()
     {
-        $absen = Absen::with($this->relationship)->get();
+        $absen = Absen::with($this->relationshipAbsensi)->get();
         // dd($absen);
         return view('admin.absensi', compact('absen'));
     }

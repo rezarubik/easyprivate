@@ -222,7 +222,7 @@
                                         <i class="ti-money"></i>
                                     </div>
                                     <div class="item-inner">
-                                        <span class="title"> Cashflow </span><i class="icon-arrow"></i>
+                                        <span class="title"> Cashflow </span>
                                     </div>
                                 </div>
                             </a>

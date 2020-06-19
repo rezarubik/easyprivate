@@ -2,70 +2,113 @@
 @section('title', 'Cashflow')
 @section('css')
 <link href="{{asset('vendor/bootstrap-fileinput/jasny-bootstrap.min.css')}}" rel="stylesheet" media="screen">
+<!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
+<link href="{{asset('vendor/select2/select2.min.css')}}" rel="stylesheet" media="screen">
+<link href="{{asset('vendor/DataTables/css/DT_bootstrap.css')}}" rel="stylesheet" media="screen">
+<!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
 @stop
 @section('main-title', 'Cashflow Easy Private')
 @section('description', 'Inflow, Outflow, dan Saldo Akhir')
 @section('blank-page', 'Cashflow')
 @section('content')
-<div class="row">
-  <div class="col-md-12">
-    <h5 class="over-title margin-bottom-15">Togglable <span class="text-bold">Tabs</span></h5>
-    <p>
-      Add quick, dynamic tab functionality to transition through panes of content, even via dropdown menus.
-    </p>
-    <div class="tabbable">
-      <ul id="myTab1" class="nav nav-tabs">
-        <li class="active">
-          <a href="#myTab1_example1" data-toggle="tab">
-            Tab 1
-          </a>
-        </li>
-        <li>
-          <a href="#myTab1_example2" data-toggle="tab">
-            Tab 2
-          </a>
-        </li>
-        <li>
-          <a href="#myTab1_example3" data-toggle="tab">
-            Tab 3
-          </a>
-        </li>
-      </ul>
-      <div class="tab-content">
-        <div class="tab-pane fade in active" id="myTab1_example1">
-          <p>
-            Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.
-          </p>
-          <p>
-            Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
-          </p>
-        </div>
-        <div class="tab-pane fade" id="myTab1_example2">
-          <p>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo.
-          </p>
-          <p>
-            Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.
-          </p>
-        </div>
-        <div class="tab-pane fade" id="myTab1_example3">
-          <p>
-            Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin.
-          </p>
-          <p>
-            Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
-          </p>
+<div class="container-fluid container-fullw bg-white">
+  <div class="row">
+    <div class="col-md-12">
+      <h5 class="over-title margin-bottom-15">Togglable <span class="text-bold">Tabs</span></h5>
+      <p>
+        Add quick, dynamic tab functionality to transition through panes of content, even via dropdown menus.
+      </p>
+      <div class="tabbable">
+        <ul id="myTab1" class="nav nav-tabs">
+          <li class="active">
+            <a href="#inflow" data-toggle="tab">
+              Inflow
+            </a>
+          </li>
+          <li>
+            <a href="#outflow" data-toggle="tab">
+              Outflow
+            </a>
+          </li>
+          <li>
+            <a href="#profit" data-toggle="tab">
+              Profit
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <!-- todo Inflow -->
+          <div class="tab-pane fade in active" id="inflow">
+            <div class="row">
+              <div class="col-md-12">
+                <h5 class="over-title margin-bottom-15">
+                  Data <span class="text-bold">Pemasukan</span>
+                </h5>
+                <div class="table-responsive">
+                  <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+                    <thead>
+                      <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">Keterangan</th>
+                        <th class="text-center">Periode</th>
+                        <th class="text-center">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>Pembayaran Murid A</td>
+                        <td>April 2020</td>
+                        <td>Rp600.000,00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- todo Outflow -->
+          <div class="tab-pane fade" id="outflow">
+            <div class="row">
+              <div class="col-md-12">
+                <h5 class="over-title margin-bottom-15">
+                  Data <span class="text-bold">Pengeluaran</span>
+                </h5>
+                <div class="table-responsive">
+                  <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+                    <thead>
+                      <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">Keterangan</th>
+                        <th class="text-center">Periode</th>
+                        <th class="text-center">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>Fee Guru A</td>
+                        <td>April 2020</td>
+                        <td>Rp400.000,00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- todo Profit -->
+          <div class="tab-pane fade" id="profit">
+            <p>
+              Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin.
+            </p>
+            <p>
+              Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
+            </p>
+          </div>
         </div>
       </div>
     </div>
-    <p>
-      <a href="#myTab1_example2" class="btn btn-primary btn-o show-tab">
-        Go to tab 2
-      </a>
-      <a href="#myTab1_example3" class="btn btn-primary btn-o show-tab">
-        Go to tab 3
-      </a>
-    </p>
   </div>
 </div>
 

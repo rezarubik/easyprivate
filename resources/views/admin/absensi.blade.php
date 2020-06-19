@@ -31,10 +31,10 @@
                 @foreach($absen as $ab)
                 <tr>
                     <td>{{$ab->id_absen}}</td>
-                    <td>{{$ab->jadwalPemesananPerminggu->pemesanan->murid->name}}</td>
-                    <td>{{$ab->jadwalPemesananPerminggu->pemesanan->guru->name}}</td>
-                    <td>{{$ab->jadwalPemesananPerminggu->pemesanan->mataPelajaran->nama_mapel}}</td>
-                    <td>{{$ab->jadwalPemesananPerminggu->pemesanan->mataPelajaran->jenjang->nama_jenjang}}</td>
+                    <td>{{$ab->pemesanan->murid->name}}</td>
+                    <td>{{$ab->pemesanan->guru->name}}</td>
+                    <td>{{$ab->pemesanan->mataPelajaran->nama_mapel}}</td>
+                    <td>{{$ab->pemesanan->mataPelajaran->jenjang->nama_jenjang}}</td>
                     <td>{{$ab->waktu_absen}}</td>
                 </tr>
                 @endforeach
