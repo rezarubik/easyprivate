@@ -59,24 +59,24 @@
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="form-group col-md-6">
-                                                    <label class="control-label" for="nilai_ipk">Nilai IPK</label>
-                                                    <input type="number" name="ipk_score" class="form-control  @error('ipk_score') symbol required @enderror" placeholder="Contoh: 4.0" step="0.01" min="0" max="4" placeholder="Pilih Tanggal Lahir Anda" class="form-control @error('birthday') symbol required @enderror" value="<?php
-                                                                                                                                                                                                                                                                                                                                    if (isset($pendaftaranGuru)) {
-                                                                                                                                                                                                                                                                                                                                        echo $pendaftaranGuru->nilai_ipk;
-                                                                                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                                                                                    ?>" />
+                                                    <label class="control-label" for="nilai_ipk">Nilai IPK <span class="@error('ipk_score') symbol required @enderror"></span></label>
+                                                    <input type="text" name="ipk_score" class="form-control " placeholder="Contoh: 4.0" step="0.01" placeholder="Pilih Tanggal Lahir Anda" class="form-control @error('ipk_score') symbol required @enderror" value="<?php
+                                                                                                                                                                                                                                                                        if (isset($pendaftaranGuru)) {
+                                                                                                                                                                                                                                                                            echo $pendaftaranGuru->nilai_ipk;
+                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                        ?>" />
                                                     @error('ipk_score')
                                                     <div class="help-block"> {{$message}} </div>
                                                     @enderror
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label class="control-label" for="pengalaman_mengajar">Pengalaman Mengajar <b>(bulan)</b>
+                                                    <label class="control-label" for="pengalaman_mengajar">Pengalaman Mengajar <b>(bulan)</b> <span class="@error('teach_experience') symbol required @enderror"></span>
                                                     </label>
-                                                    <input type="number" name="teach_experience" class="form-control  @error('teach_experience') symbol required @enderror" placeholder="Contoh: 12" min="0" value="<?php
-                                                                                                                                                                                                                    if (isset($pendaftaranGuru)) {
-                                                                                                                                                                                                                        echo $pendaftaranGuru->pengalaman_mengajar;
-                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                    ?>" />
+                                                    <input type="text" name="teach_experience" class="form-control placeholder=" Contoh: 12" value="<?php
+                                                                                                                                                    if (isset($pendaftaranGuru)) {
+                                                                                                                                                        echo $pendaftaranGuru->pengalaman_mengajar;
+                                                                                                                                                    }
+                                                                                                                                                    ?>" />
                                                     @error('teach_experience')
                                                     <div class="help-block"> {{$message}} </div>
                                                     @enderror
@@ -101,7 +101,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-6">
-                                                    <label class="control-label" for="jenjang_1">Jenjang 1</label>
+                                                    <label class="control-label" for="jenjang_1">Jenjang 1 <span class="@error('jenjang_1') symbol required  @enderror"></span> </label>
                                                     <select name="jenjang_1" id="jenjang_1" class="form-control dynamic" style="width:100%;" data-dependent="mapel_1">
                                                         <option value="" selected>Pilih Jenjang</option>
                                                         @foreach($jenjang as $j)
@@ -114,10 +114,13 @@
                                                                                             ?>>{{$j->nama_jenjang}}</option>
                                                         @endforeach
                                                     </select>
+                                                    @error('jenjang_1')
+                                                    <div class="help-block"> {{$message}} </div>
+                                                    @enderror
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="mapel_1">Mata Pelajaran 1</label>
-                                                    <select name="mapel_1" id="mapel_1" class="form-control" style="width:100%;">
+                                                    <select name="mapel_1" id="mapel_1" class="form-control @error('mapel_1') symbol required  @enderror" style="width:100%;">
                                                         <option value="" selected>Pilih Mata Pelajaran</option>
                                                         @if(isset($mapel1))
                                                         @foreach($mapel1 as $mp1)
@@ -130,6 +133,9 @@
                                                                                             ?>> {{$mp1->nama_mapel}} </option>
                                                         @endforeach
                                                         @endif
+                                                        @error('mapel_1')
+                                                        <div class="help-block"> {{$message}} </div>
+                                                        @enderror
                                                     </select>
                                                 </div>
                                             </div>
@@ -327,26 +333,25 @@
     <!-- //todo end: form -->
     <!-- Modal Menampilkan Video Microteaching -->
     @if(isset($pendaftaranGuru->dir_video))
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="modal fade" id="videoMicroteaching{{$pendaftaranGuru->id_pendaftaran}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <input type="hidden" name="id_pendaftaran" value='{{$pendaftaranGuru->id_pendaftaran}}'>
-                                    <h4 class="modal-title" id="myModalLabel">Video yang telah Anda upload</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="text-center form-group col-md-12">
-                                            <video width="320" height="240" controls>
-                                                <source src="{{URL::asset('/assets/video_microteaching/')}}/{{$pendaftaranGuru->dir_video}}" type="video/mp4">
-                                            </video>
-                                        </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="modal fade" id="videoMicroteaching{{$pendaftaranGuru->id_pendaftaran}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <input type="hidden" name="id_pendaftaran" value='{{$pendaftaranGuru->id_pendaftaran}}'>
+                                <h4 class="modal-title" id="myModalLabel">Video yang telah Anda upload</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="text-center form-group col-md-12">
+                                        <video width="320" height="240" controls>
+                                            <source src="{{URL::asset('/assets/video_microteaching/')}}/{{$pendaftaranGuru->dir_video}}" type="video/mp4">
+                                        </video>
                                     </div>
                                 </div>
                             </div>
@@ -355,6 +360,7 @@
                 </div>
             </div>
         </div>
+    </div>
     @endif
     <!-- /Modal Menampilkan Video Microteaching -->
 </div>
@@ -379,7 +385,7 @@
 <script src="{{asset('vendor/ckeditor/adapters/jquery.js')}}"></script>
 <script src="{{asset('vendor/jquery-validation/jquery.validate.min.js')}}"></script>
 <!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
-<script src="{{asset('assets/js/form-validation.js')}}"></script>
+<!-- <script src="{{asset('assets/js/form-validation.js')}}"></script> -->
 <script>
     jQuery(document).ready(function() {
         // Main.init();

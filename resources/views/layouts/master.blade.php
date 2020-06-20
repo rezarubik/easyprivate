@@ -366,6 +366,7 @@
     <!-- <script src="{{asset('assets/js/index.js')}}"></script> -->
     <!-- start: JavaScript Event Handlers for additional page -->
     <script src="{{asset('assets/js/table-data.js')}}"></script>
+    <script src="{{asset('assets/js/form-validation.js')}}"></script>
     <script>
         jQuery(document).ready(function() {
             Main.init();
