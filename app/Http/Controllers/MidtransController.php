@@ -55,7 +55,7 @@ class MidtransController extends Controller
         // Optional
         $billing_address = array(
             'first_name'    => $r->billing_first_name,
-            'last_name'     => $r->billing_last_name,
+            // 'last_name'     => $r->billing_last_name,
             'address'       => $r->billing_address,
             'city'          => $r->billing_city,
             'postal_code'   => $r->billing_postal_code,
