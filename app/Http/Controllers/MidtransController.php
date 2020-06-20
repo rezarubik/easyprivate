@@ -81,7 +81,7 @@ class MidtransController extends Controller
             // 'last_name'     => $r->customer_last_name,
             'email'         => $r->cust_email,
             'phone'         => $r->cust_phone,
-            // 'billing_address'  => $billing_address,
+            'billing_address'  => $billing_address,
             // 'shipping_address' => $shipping_address
         );
 
@@ -98,6 +98,7 @@ class MidtransController extends Controller
         // return $transaction;
         try {
             $snapToken = Snap::getSnapToken($transaction);
+            // $this->storeDetailPembayaran
             return response()->json($snapToken);
             // return ['code' => 1 , 'message' => 'success' , 'result' => $snapToken];
         } catch (\Exception $e) {
