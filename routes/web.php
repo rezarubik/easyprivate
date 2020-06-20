@@ -70,6 +70,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/pemesanan', 'AdminController@indexPemesanan')->name('pemesanan');
     Route::get('/absensi', 'AdminController@indexAbsensi')->name('absensi');
     Route::get('/profile-matching', 'AdminController@hitungProfileMatching')->name('profile.matching');
+    Route::get('/cashflow', 'AdminController@cashflow')->name('cashflow');
     Route::get('/pemasukan', 'AdminController@pemasukan')->name('admin.pemasukan');
     Route::get('/pengeluaran', 'AdminController@pengeluaran')->name('admin.pengeluaran');
 });

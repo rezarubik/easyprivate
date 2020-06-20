@@ -18,10 +18,12 @@ class CreatePembayaranTable extends Migration
             $table->integer('id_pemesanan')->nullable();
             $table->integer('status')->nullable();
             $table->integer('jumlah_bayar')->nullable();
-            $table->date('tanggal_bayar')->nullable();
-            $table->date('jatuh_tempo')->nullable();
+            $table->dateTime('tanggal_bayar')->nullable(); // ? Tanggal murid bayar ke kita
+            $table->date('jatuh_tempo')->nullable(); // ? Batas akhir pembayaran murid ke kita
             $table->string('periode_bulan')->nullable();
             $table->string('periode_tahun')->nullable();
+            $table->string('token')->nullable();
+            $table->string('redirect_url')->nullable();
         });
     }
 

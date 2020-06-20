@@ -24,7 +24,7 @@
     <div class="row">
         <div class="col-md-12">
             <h5 class="over-title margin-bottom-15">
-                Data <span class="text-bold">Kriteia dan Bobot</span>
+                Data <span class="text-bold">Kriteria dan Bobot</span>
             </h5>
 
             <div class="table-responsive">
@@ -36,7 +36,7 @@
                             <th class="text-center">Bobot (dalam %)</th>
                             <th class="text-center">Faktor Kriteria</th>
                             <th class="text-center">Nilai Target</th>
-                            <th class="text-center">Action</th>
+                            <!-- <th class="text-center">Action</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -45,12 +45,12 @@
                             <td>{{$kbt->id_kriteria_bobot_target}}</td>
                             <td>{{$kbt->kriteria}}</td>
                             <td>{{$kbt->bobot}}</td>
-                            <td>{{$kbt->faktor_kriteria}}<i></i></td>
+                            <td><i>{{$kbt->faktor_kriteria}}</i></td>
                             <td>{{$kbt->nilai_target}}</td>
-                            <td class="text-center">
-                                <a href="{{route('kriteria.bobot.edit', $kbt)}}" class="label label-success" title="Edit"><i class="ti-pencil"></i></a>
-                                <!-- <a href="http://" class="label label-danger" title="Hapus"><i class="ti-trash"></i></a> -->
-                            </td>
+                            <!-- <td class="text-center"> -->
+                            <!-- <a href="{{route('kriteria.bobot.edit', $kbt)}}" class="label label-success" title="Edit"><i class="ti-pencil"></i></a> -->
+                            <!-- <a href="http://" class="label label-danger" title="Hapus"><i class="ti-trash"></i></a> -->
+                            <!-- </td> -->
                         </tr>
                         @endforeach
                     </tbody>

@@ -16,9 +16,11 @@ class CreateUpahGuruTable extends Migration
         Schema::create('upah_guru', function (Blueprint $table) {
             $table->bigIncrements('id_upah_guru');
             $table->integer('id_guru')->nullable();
-            $table->integer('id_jenjang')->nullable();
             $table->integer('jumlah_upah')->nullable();
+            $table->integer('status')->nullable();
             $table->integer('tanggal_upah')->nullable();
+            $table->string('periode_bulan')->nullable();
+            $table->string('periode_tahun')->nullable();
         });
     }
 
