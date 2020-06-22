@@ -911,6 +911,7 @@ class UserController extends Controller
         foreach ($cariGuru as $idG) {
             array_push($id_guru, $idG->id);
         }
+        // dd([$r->latitude_murid,$r->longitude_murid,$id_guru]);
         $jarak = $this->jarakFilter($r->latitude_murid, $r->longitude_murid, $id_guru);
         $jarakStr = "FIELD(id,";
         // dd($jarak);
@@ -932,7 +933,7 @@ class UserController extends Controller
     public function jarakFilter($latitude_murid, $longitude_murid, $id_guru)
     {
         $radius_bumi = 6371;
-
+        
         // dd([
         //     $rad_lat_guru,$rad_lat_murid,$rad_sel_long
         // ]);

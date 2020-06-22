@@ -749,7 +749,7 @@ class JadwalAvailableSeeder extends Seeder
                 'hari' => 'Kamis',
                 'start' => '13:00',
                 'end' => '14:30',
-                'available' => 2
+                'available' => 1
             ],
             [
                 'id_user' => 6,
@@ -833,7 +833,7 @@ class JadwalAvailableSeeder extends Seeder
                 'hari' => 'Sabtu',
                 'start' => '13:00',
                 'end' => '14:30',
-                'available' => 2
+                'available' => 1
             ],
             [
                 'id_user' => 6,

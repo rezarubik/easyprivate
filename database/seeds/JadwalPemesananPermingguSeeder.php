@@ -26,7 +26,7 @@ class JadwalPemesananPermingguSeeder extends Seeder
             ],
             [
                 'id_pemesanan' => 2,
-                'id_jadwal_available' => 91
+                'id_jadwal_available' => 96
             ],
             [
                 'id_pemesanan' => 3,

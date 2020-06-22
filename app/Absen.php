@@ -21,6 +21,6 @@ class Absen extends Model
 
     public function jadwalPengganti()
     {
-        return $this->hasOne('App\JadwalPengganti', 'id', 'id_jadwal_pengganti');
+        return $this->hasOne('App\JadwalPengganti', 'id_jadwal_pengganti', 'id_jadwal_pengganti');
     }
 }
