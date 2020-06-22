@@ -142,7 +142,7 @@ class UserController extends Controller
      */
     public function store(PendaftaranGuruRequest $request)
     {
-        // dd('hai');
+        dd($request);
         $user = User::findOrFail(Auth()->user()->id);
         $score = [];
         // todo Pengalaman Kerja
@@ -281,7 +281,7 @@ class UserController extends Controller
         // todo Profile Matching
         $nilai['id_pendaftaran_guru'] = $pendaftaranGuru->id_pendaftaran;
         $profileMatching = ProfileMatching::insert($nilai);
-
+        dd($request);
         return redirect('/user/create')->with('status', 'Aplikasi Anda berhasil di simpan!');
     }
     /**
@@ -894,18 +894,18 @@ class UserController extends Controller
             $jadwalAvailable = $r->hari;
         }
         $cariGuruQuery = User::with($this->relationshipCariGuru)
-        ->join('guru_mapel', 'guru_mapel.id_guru', 'users.id')
-        ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'guru_mapel.id_mapel')
-        ->join('jadwal_available', 'jadwal_available.id_user', 'users.id')
-        ->where($where)
-        ->select('users.*')
-        ->distinct();
-        
+            ->join('guru_mapel', 'guru_mapel.id_guru', 'users.id')
+            ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'guru_mapel.id_mapel')
+            ->join('jadwal_available', 'jadwal_available.id_user', 'users.id')
+            ->where($where)
+            ->select('users.*')
+            ->distinct();
+
         //dd($jadwalAvailable);
         if (isset($r->hari) && sizeOf($r->hari) > 0) {
             $cariGuruQuery = $cariGuruQuery->whereIn('jadwal_available.hari', $jadwalAvailable);
             //dd($cariGuru);    
-        } 
+        }
         $id_guru = [];
         $cariGuru = $cariGuruQuery->get();
         foreach ($cariGuru as $idG) {
@@ -965,15 +965,14 @@ class UserController extends Controller
         //         'jarak_haversine'=>$i->jarak_haversine,
         //         'pm_result'=>$i->pm_result,
         //         'saw_result'=>$i->saw_result]);
-            
+
         // }
         // $collection = collect($collect);
         $sorted = $jarak->sortByDesc('saw_result');
-    
+
 
         //   dd($collection->values()->all());
-       return $sorted->values()->all();
-
+        return $sorted->values()->all();
     }
 
     public function testAlgoJarak()
