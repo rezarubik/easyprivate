@@ -125,28 +125,19 @@ class JadwalAvailableController extends Controller
             $where['jadwal_available.end'] = $r->end;
         }
 
+        $query = JadwalAvailable::with($this->relationship)
+            ->where($where)
+            ->select('jadwal_available.*')
+            ->orderBy('jadwal_available.id_jadwal_available')
+            ->whereIn('hari', $hari);
+
         if(isset($r->hari)){
             $hari = $r->hari;
 
-            return JadwalAvailable::with($this->relationship)
-                ->leftJoin('jadwal_pemesanan_perminggu AS jpp', 'jpp.id_jadwal_available', 'jadwal_available.id_jadwal_available')
-                ->leftJoin('pemesanan AS p', 'p.id_pemesanan', 'jpp.id_pemesanan')
-                ->where($where)
-                ->whereIn('hari', $hari)
-                ->whereNotIn('status', ['0','2','3', ''])
-                ->select('jadwal_available.*')
-                ->orderBy('jadwal_available.id_jadwal_available')
-                ->get();
+            return $query->whereIn('jadwal_available.hari', $hari)->get();
 
         }else{
-            return JadwalAvailable::with($this->relationship)
-                ->leftJoin('jadwal_pemesanan_perminggu AS jpp', 'jpp.id_jadwal_available', 'jadwal_available.id_jadwal_available')
-                ->leftJoin('pemesanan AS p', 'p.id_pemesanan', 'jpp.id_pemesanan')
-                ->where($where)
-                ->whereNotIn('status', ['0','2','3', ''])
-                ->select('jadwal_available.*')
-                ->orderBy('jadwal_available.id_jadwal_available')
-                ->get();
+            return $query->get();
         }
         
     }
