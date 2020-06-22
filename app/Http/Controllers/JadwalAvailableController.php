@@ -136,7 +136,7 @@ class JadwalAvailableController extends Controller
             $query = $query->whereIn('jadwal_available.hari', $hari);
         }
 
-        $jadwalAvailable = $jadwalAvailable->get();
+        $jadwalAvailable = $query->get();
         return $jadwalAvailable;
     }
 
