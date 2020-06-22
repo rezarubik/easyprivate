@@ -128,18 +128,16 @@ class JadwalAvailableController extends Controller
         $query = JadwalAvailable::with($this->relationship)
             ->where($where)
             ->select('jadwal_available.*')
-            ->orderBy('jadwal_available.id_jadwal_available')
-            ->whereIn('hari', $hari);
+            ->orderBy('jadwal_available.id_jadwal_available');
 
+            
         if(isset($r->hari)){
             $hari = $r->hari;
-
-            return $query->whereIn('jadwal_available.hari', $hari)->get();
-
-        }else{
-            return $query->get();
+            $query = $query->whereIn('jadwal_available.hari', $hari);
         }
-        
+
+        $jadwalAvailable = $jadwalAvailable->get();
+        return $jadwalAvailable;
     }
 
     public function updateJadwalAvailable(Request $r)
