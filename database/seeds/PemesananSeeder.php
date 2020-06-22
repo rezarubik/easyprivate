@@ -23,7 +23,7 @@ class PemesananSeeder extends Seeder
                 'waktu_pemesanan' => '2020-03-16 12:04:21',
                 'first_meet' => '2020-03-19 00:00:00',
                 'kelas' => 5,
-                'status' => 1
+                'status' => 0
             ],
             [
                 'id_guru' => 6,
@@ -41,7 +41,7 @@ class PemesananSeeder extends Seeder
                 'waktu_pemesanan' => '2020-04-04 19:45:24',
                 'first_meet' => '2020-04-08 00:00:00',
                 'kelas' => 5,
-                'status' => 3
+                'status' => 0
             ],
             [
                 'id_guru' => 6,
@@ -50,7 +50,7 @@ class PemesananSeeder extends Seeder
                 'waktu_pemesanan' => '2020-04-01 13:42:14',
                 'first_meet' => '2020-04-02 00:00:00',
                 'kelas' => 1,
-                'status' => 2
+                'status' => 0
             ],
             // new SMP
             [
