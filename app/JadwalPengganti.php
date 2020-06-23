@@ -8,7 +8,7 @@ class JadwalPengganti extends Model
 {
     protected $table = 'jadwal_penggantis';
     protected $primaryKey = 'id_jadwal_pengganti';
-    protected $fillable = ['id_pemesanan', 'id_jadwal_pemesanan', 'waktu_pengganti'];
+    public $timestamps = false;
 
     public function absen()
     {
