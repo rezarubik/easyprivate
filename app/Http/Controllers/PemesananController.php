@@ -116,8 +116,7 @@ class PemesananController extends Controller
         $pemesanan->id_mapel = $r->id_mapel;
         $pemesanan->kelas = $r->kelas;
         $pemesanan->waktu_pemesanan = date_format(Carbon::now(), $this->datetimeFormat);
-        $pemesanan->first_meet = $r->first_meet;
-        $pemesanan->jumlah_pertemuan = 0;   
+        $pemesanan->first_meet = $r->first_meet;   
         $pemesanan->status = 0;
         $pemesanan->save();
         $id_pemesanan = $pemesanan->id_pemesanan;
