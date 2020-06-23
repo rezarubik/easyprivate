@@ -32,12 +32,12 @@ class MidtransController extends Controller
         // Required
         // Kayaknya itemnya harus bisa lebih dari satu
 
-    foreach($r->item_id as $key=>$item){
+    foreach($r->item_details as $key=>$item){
         array_push($item_list, [
-                'id' => $r->item_id[$key],
-                'price' => $r->item_price[$key],
-                'quantity' => $r->item_quantity[$key],
-                'name' => $r->item_name[$key]
+                'id' => $item->id,
+                'price' => $item->price,
+                'quantity' => $item->quantity,
+                'name' => $item->name
          
         ]);
     }
@@ -54,13 +54,13 @@ class MidtransController extends Controller
 
         // Optional
         $billing_address = array(
-            'first_name'    => $r->billing_first_name,
+            'first_name'    => $r->customer_details->billing_address->first_name,
             // 'last_name'     => $r->billing_last_name,
-            'address'       => $r->billing_address,
-            'city'          => $r->billing_city,
-            'postal_code'   => $r->billing_postal_code,
-            'phone'         => $r->billing_phone,
-            'country_code'  => $r->billing_country_code
+            'address'       => $r->customer_details->billing_address->address,
+            'city'          => $r->customer_details->billing_address->city,
+            'postal_code'   => $r->customer_details->billing_address->postal_code,
+            'phone'         => $r->customer_details->billing_address->phone,
+            'country_code'  => $r->customer_details->billing_address->country_code
         );
 
         // Optional
@@ -77,10 +77,10 @@ class MidtransController extends Controller
 
         // Optional
         $customer_details = array(
-            'first_name'    => $r->cust_name,
+            'first_name'    => $r->customer_details->billing_address->first_name,
             // 'last_name'     => $r->customer_last_name,
-            'email'         => $r->cust_email,
-            'phone'         => $r->cust_phone,
+            'email'         => $r->customer_details->billing_address->email,
+            'phone'         => $r->customer_details->billing_address->phone,
             'billing_address'  => $billing_address,
             // 'shipping_address' => $shipping_address
         );
@@ -90,7 +90,7 @@ class MidtransController extends Controller
 
         // Fill transaction details
         $transaction = array(
-            'enabled_payments' => $enable_payments,
+            //'enabled_payments' => $enable_payments,
             'transaction_details' => $transaction_details,
             'customer_details' => $customer_details,
             'item_details' => $item_details,
@@ -138,7 +138,7 @@ class MidtransController extends Controller
         Config::$is3ds = true;
         
         // Required
-
+        
          $item_list[] = [
                 'id' => "111",
                 'price' => 20000,
