@@ -64,7 +64,7 @@ class AdminController extends Controller
     public function getGrafikGuru()
     {
         $grafikGuru = GrafikGuru::all();
-        // dd($grafikGuru);
+        dd($grafikGuru);
         return $grafikGuru;
     }
 
