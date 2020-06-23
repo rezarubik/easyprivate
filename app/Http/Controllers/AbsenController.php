@@ -96,7 +96,7 @@ class AbsenController extends Controller
                 $jadwalPengganti->waktu_pengganti = date("Y-m-d H:i:s");
                 $jadwalPengganti->save();
 
-                $absen->id_jadwal_pengganti = $jadwalPengganti->id;
+                $absen->id_jadwal_pengganti = $jadwalPengganti->id_jadwal_pengganti;
             }else if(!isset($r->waktu_pengganti)){
                 $absen->id_jadwal_pemesanan_perminggu = $r->id_jadwal_pemesanan_perminggu;
                 $absen->waktu_absen = date("Y-m-d H:i:s");
