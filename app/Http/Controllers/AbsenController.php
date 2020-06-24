@@ -112,10 +112,20 @@ class AbsenController extends Controller
     public function verifyAbsen($id_pemesanan)
     {
         $absen = Absen::where('id_pemesanan', $id_pemesanan)->orderBy('waktu_absen', 'desc')->first();
+    
+        $pemesanan = Pemesanan::where('id_pemesanan', $id_pemesanan)->first();
+
+        $tanggalPertemuanPertama = Carbon::parse($pemesanan->first_meet);
+        $currDateTime = Carbon::now();
+
+        // if($currDateTime->lessThan($tanggalPertemuanPertama)){
+        //     return 2;
+        // }
+
         if(!isset($absen)){
             return 1;
         }
-        $currDateTime = Carbon::now();
+
 
         $currYear = $currDateTime->year;
         $currMonth = $currDateTime->month;
@@ -145,6 +155,19 @@ class AbsenController extends Controller
         }
 
         return 0;
+    }
+
+    public function testCarbon()
+    {
+        $now = Carbon::now();
+        $later = Carbon::now()->addDay();
+        //$now < $later
+
+        if($now->greaterThanOrEqualTo($later)){
+            return "now: ". $now ." is greater than later: ". $later;
+        }else if ($now->lessThan($later)){
+            return "now ". $now ." is less than later: ". $later;
+        }
     }
 
     public function getAbsenFiltered(Request $r)
@@ -232,26 +255,31 @@ class AbsenController extends Controller
             ->orderBy('waktu_absen', 'desc')
             ->get();
 
+        $pemesanan = Pemesanan::where($where)->first();
+        $first_meet = Carbon::parse($pemesanan->first_meet);
+
         while($prevDate->lessThan($nextDate)){
-            $currDay = $this->dayOfWeekEngToInd($prevDate->englishDayOfWeek);
-
-            foreach($jpp as $j){
-                $comparedDay = $j->jadwalAvailable->hari;
-                
-                if($comparedDay == $currDay){
-                    //Mendapatkan absen
-                    $dateString = $prevDate->toDateString();
-
-                    $currAbsen = Absen::selectRaw('id_absen, id_pemesanan, DATE(waktu_absen) AS tanggal_absen')
-                        ->whereRaw('id_pemesanan = '.$r->id_pemesanan.' AND DATE(waktu_absen) = \''.$dateString.'\'')
-                        ->orderBy('waktu_absen', 'desc')
-                        ->get();
-
-                    if(count($currAbsen) == 0){
-                        array_push($tanggalPertemuanSeharusnya, [
-                            'id_jadwal_perminggu'=>$j->id_jadwal_pemesanan_perminggu,
-                            'tanggal_pengganti'=>$dateString
-                            ]);
+            if($prevDate->greaterThanOrEqualTo($first_meet)){
+                $currDay = $this->dayOfWeekEngToInd($prevDate->englishDayOfWeek);
+    
+                foreach($jpp as $j){
+                    $comparedDay = $j->jadwalAvailable->hari;
+                    
+                    if($comparedDay == $currDay){
+                        //Mendapatkan absen
+                        $dateString = $prevDate->toDateString();
+    
+                        $currAbsen = Absen::selectRaw('id_absen, id_pemesanan, DATE(waktu_absen) AS tanggal_absen')
+                            ->whereRaw('id_pemesanan = '.$r->id_pemesanan.' AND DATE(waktu_absen) = \''.$dateString.'\'')
+                            ->orderBy('waktu_absen', 'desc')
+                            ->get();
+    
+                        if(count($currAbsen) == 0){
+                            array_push($tanggalPertemuanSeharusnya, [
+                                'id_jadwal_perminggu'=>$j->id_jadwal_pemesanan_perminggu,
+                                'tanggal_pengganti'=>$dateString
+                                ]);
+                        }
                     }
                 }
             }

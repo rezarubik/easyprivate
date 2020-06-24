@@ -22,6 +22,7 @@ use App\Pemesanan;
 
 //Absen
 Route::get('absen', 'AbsenController@getAbsen'); //Udah bisa
+// Route::get('absen/test', 'AbsenController@testCarbon'); //Udah bisa
 Route::post('absen_pembayaran', 'AbsenController@pembayaranAbsen'); //Udah bisa
 Route::post('absen/filter', 'AbsenController@getAbsenFiltered');
 Route::post('absen/store', 'AbsenController@store');
