@@ -46,8 +46,8 @@
                             <td>{{$pg->id_pendaftaran}}</td>
                             <td>{{$pg->user->name}}</td>
                             <td>
-                                @if(isset($pg->profileMatching->pm_gap_pk))
                                 {{$pg->profileMatching->pm_gap_pk}}
+                                @if(isset($pg->profileMatching->pm_gap_pk))
                                 @else
                                 data belum diseleksi
                                 @endif

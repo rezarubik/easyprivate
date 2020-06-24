@@ -29,7 +29,8 @@ class AdminController extends Controller
         $this->relationshipMurid = ['alamat'];
         $this->relationshipCariGuru = ['alamat', 'guruMapel.mataPelajaran', 'guruMapel.mataPelajaran.jenjang', 'guruMapel'];
         $this->relationshipPendaftaranGuru = ['user', 'season', 'profileMatching'];
-        $this->realationshipGuruMapel = ['mataPelajaran', 'mataPelajaran.jenjang'];
+        $this->relationshipPendaftaranGuru = ['user', 'profileMatching'];
+        $this->relationshipGuruMapel = ['mataPelajaran', 'mataPelajaran.jenjang'];
         // todo pemesanan
         $this->relationshipPemesanan = ['murid', 'guru', 'murid.alamat', 'mataPelajaran', 'mataPelajaran.jenjang', 'jadwalPemesananPerminggu', 'jadwalPemesananPerminggu.jadwalAvailable'];
         // todo absensi
@@ -265,9 +266,10 @@ class AdminController extends Controller
     {
         $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
             ->join('profile_matching', 'pendaftaran_guru.id_pendaftaran', 'profile_matching.id_pendaftaran_guru')
-            ->where(['profile_matching.pm_result' => null])
+            // ->where(['profile_matching.pm_result' => null])
             ->select('pendaftaran_guru.*')
             ->get();
+        // dd($pendaftaranGuru);
         $nt = []; //* nilai target
         // * Core Factor
         $nt['pm_pk'] = KriteriaBobotTarget::where('kriteria', 'Pengalaman Mengajar')->first()->nilai_target; // 4
@@ -310,16 +312,14 @@ class AdminController extends Controller
             $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_usia'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_usia']);
             $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_km'] = $this->hitungBobot($pht[$pg->profileMatching->id_profile_matching]['nilai_gap']['pm_km']);
             // todo average NCF
-            $pht[$pg->profileMatching->id_profile_matching]['ncf'] =
-                ($pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_pk'] +
-                    $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_vas'] +
-                    $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_kk'] +
-                    $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_cm'] +
-                    $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_pemat']) / 5;
-            $pht[$pg->profileMatching->id_profile_matching]['scf'] =
-                ($pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_ipk'] +
-                    $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_usia'] +
-                    $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_km']) / 3;
+            $pht[$pg->profileMatching->id_profile_matching]['ncf'] = ($pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_pk'] +
+                $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_vas'] +
+                $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_kk'] +
+                $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_cm'] +
+                $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_pemat']) / 5;
+            $pht[$pg->profileMatching->id_profile_matching]['scf'] = ($pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_ipk'] +
+                $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_usia'] +
+                $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_km']) / 3;
             // todo nilai akhir
             $pht[$pg->profileMatching->id_profile_matching]['nilai_akhir'] = $pht[$pg->profileMatching->id_profile_matching]['ncf'] * 0.7 + $pht[$pg->profileMatching->id_profile_matching]['scf'] * 0.3;
         }
@@ -399,12 +399,14 @@ class AdminController extends Controller
         foreach ($pesertaLulus as $pl) {
             array_push($id_peserta_lulus, $pl->id_pendaftaran);
         }
+
         $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
             ->whereIn('pendaftaran_guru.id_pendaftaran', $id_peserta_lulus)
             ->update(['pendaftaran_guru.status' => 1]);
         $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
             ->where('pendaftaran_guru.status', 0)
             ->update(['pendaftaran_guru.status' => 2]);
+        // dd($pendaftaranGuru);
     }
 
     /**
