@@ -15,14 +15,12 @@ class CreatePembayaranTable extends Migration
     {
         Schema::create('pembayaran', function (Blueprint $table) {
             $table->bigIncrements('id_pembayaran');
-            $table->integer('id_pemesanan')->nullable();
-            $table->integer('status')->nullable();
+            $table->string('id_string')->nullable();
+            $table->string('status')->nullable();
             $table->integer('jumlah_bayar')->nullable();
             $table->dateTime('tanggal_bayar')->nullable(); // ? Tanggal murid bayar ke kita
-            $table->date('jatuh_tempo')->nullable(); // ? Batas akhir pembayaran murid ke kita
             $table->string('periode_bulan')->nullable();
             $table->string('periode_tahun')->nullable();
-            $table->string('token')->nullable();
             $table->string('redirect_url')->nullable();
         });
     }
