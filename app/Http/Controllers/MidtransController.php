@@ -109,9 +109,10 @@ class MidtransController extends Controller
         }
     }
 
-    public function storeDetailPembayaran(Request $r)
+    public function storeDetailPembayaran($snapToken,$transaction)
     {
         //Untuk memasukkan data ke dalam database easy private
+        Pembayaran::
     }
 
     public function getOrderId()
