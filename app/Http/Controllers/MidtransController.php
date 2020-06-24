@@ -11,6 +11,7 @@ use App\Http\Controllers\Midtrans\Snap;
 use App\Http\Controllers\Midtrans\SnapApiRequestor;
 use App\Http\Controllers\Midtrans\Transaction;
 use App\Pembayaran;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class MidtransController extends Controller
@@ -109,10 +110,18 @@ class MidtransController extends Controller
         }
     }
 
-    public function storeDetailPembayaran($snapToken,$transaction)
+    public function storeDetailPembayaran(Request $r)
     {
         //Untuk memasukkan data ke dalam database easy private
-        Pembayaran::
+        Pembayaran::insert([
+            'status'=>1,
+            'jumlah_bayar'=>$transaction->transaction_details->gross_amount,
+            'tanggal_bayar'=>Carbon::now(),
+            'periode_bulan'=>'',
+            'periode_tahun'=>'',
+            'token'=>$snapToken->token,
+            'redirect_url'=>$snapToken->redirect_url
+        ])
     }
 
     public function getOrderId()
