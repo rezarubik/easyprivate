@@ -46,7 +46,7 @@ Route::get('/user/logout', 'Auth\LoginController@logoutUser')->name('user.logout
 // todo form pendaftaran guru
 // todo Guru
 Route::get('/user/create', 'UserController@create');
-Route::post('/user', 'UserController@store');
+Route::post('/user', 'UserController@store')->name('user.store');
 Route::get('/user-profile/create', 'UserController@createProfile');
 Route::post('/user-profile', 'UserController@storeProfile');
 Route::post('/getMapelperJenjang', 'MataPelajaranController@getMapelperJenjang')->name('getMapelperJenjang');

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PendaftaranGuruRequest extends FormRequest
+class PendaftaranRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class PendaftaranGuruRequest extends FormRequest
      */
     public function authorize()
     {
-        return false; // false
+        return true; // default false
     }
 
     /**
@@ -37,8 +37,7 @@ class PendaftaranGuruRequest extends FormRequest
             'jenjang_5' => 'required',
             'mapel_5' => 'required',
             'file_cv' => 'required|mimetypes:pdf|size:5000',
-            'file_microteaching' => 'required|mimetypes:video/mp4|max:20000'
-
+            'file_microteaching' => 'required|mimetypes:video/mp4|max:20000',
         ];
     }
 
