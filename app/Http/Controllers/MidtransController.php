@@ -115,13 +115,12 @@ class MidtransController extends Controller
         //Untuk memasukkan data ke dalam database easy private
         Pembayaran::insert([
             'status'=>1,
-            'jumlah_bayar'=>$transaction->transaction_details->gross_amount,
+            'jumlah_bayar'=>$r->total_bayar,
             'tanggal_bayar'=>Carbon::now(),
-            'periode_bulan'=>'',
-            'periode_tahun'=>'',
-            'token'=>$snapToken->token,
-            'redirect_url'=>$snapToken->redirect_url
-        ])
+            'periode_bulan'=>$r->bulan,
+            'periode_tahun'=>$r->tahun,
+            'redirect_url'=>$r->redirect_url
+        ]);
     }
 
     public function getOrderId()
