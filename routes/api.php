@@ -64,6 +64,7 @@ Route::get('pemesanan/jadwal/{id}', 'JadwalPemesananPermingguController@getJadwa
 Route::get('pembayaran', 'PembayaranController@getPembayaran'); //Udah bisa
 Route::get('pembayaran/guru/{id}', 'PembayaranController@getPembayaranByIdGuru'); //Udah bisa
 Route::get('pembayaran/murid/{id}', 'PembayaranController@getPembayaranByIdMurid'); //Udah bisa
+Route::post('pembayaran/store','PembayaranController@storeDetailPembayaran');
 
 //Login guru
 Route::post('login/guru', 'UserController@loginGuru'); //Udah bisa

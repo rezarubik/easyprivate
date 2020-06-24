@@ -110,18 +110,7 @@ class MidtransController extends Controller
         }
     }
 
-    public function storeDetailPembayaran(Request $r)
-    {
-        //Untuk memasukkan data ke dalam database easy private
-        Pembayaran::insert([
-            'status'=>1,
-            'jumlah_bayar'=>$r->total_bayar,
-            'tanggal_bayar'=>Carbon::now(),
-            'periode_bulan'=>$r->bulan,
-            'periode_tahun'=>$r->tahun,
-            'redirect_url'=>$r->redirect_url
-        ]);
-    }
+   
 
     public function getOrderId()
     {
