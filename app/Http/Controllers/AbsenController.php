@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Absen;
 use App\AbsenPembayaran;
+use App\Pembayaran;
 use App\JadwalPengganti;
 use App\JadwalPemesananPerminggu;
 use Carbon\Carbon;
@@ -204,6 +205,7 @@ class AbsenController extends Controller
     }
     public function pembayaranAbsen(Request $r)
     {
+        // DB::enableQueryLog(); // Enable query log
         $where =[];
         $relationshipPembayaranAbsen = ['murid','guru','pemesanan','pemesanan.mataPelajaran','pemesanan.mataPelajaran.jenjang'];
         if(isset($r->id_pemesanan)){
@@ -222,11 +224,33 @@ class AbsenController extends Controller
             $where['tahun'] = $r->tahun;
         }
         $absenQuery = AbsenPembayaran::with($relationshipPembayaranAbsen)->where($where);
+        if(isset($r->unpaid)){
+            $pembayaran = Pembayaran::select('*');
+           
+            if(isset($r->id_murid)){ 
+                $pembayaran = $pembayaran->where('id_user',$r->id_murid);
+            }
+            $pembayaran = $pembayaran->where('status','200')->get();
+           // dd($pembayaran);
+            $bulanTahun="(";
+            foreach($pembayaran as $key=>$value){
+                $bulanTahun = $bulanTahun." '".$value->periode_bulan.$value->periode_tahun."'" ;
+                if ($key < sizeof($pembayaran) - 1) {
+                    $bulanTahun = $bulanTahun . ",";
+                } else {
+                    $bulanTahun = $bulanTahun . ")";
+                }
+            }
+            if(sizeof($pembayaran)>0){
+                $absenQuery = $absenQuery->whereRaw('concat(bulan,tahun) not in '.$bulanTahun);
+            }
+        }
         if(isset($r->distinct)){
             $absenQuery = $absenQuery->groupBy('bulan','tahun',$r->distinct);
             $absenQuery = $absenQuery->select('bulan','tahun',$r->distinct);
         }
-
+        // $absenQuery= $absenQuery->get();
+        //dd(DB::getQueryLog());
         return $absenQuery->get();
     }
 
