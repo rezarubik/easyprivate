@@ -14,7 +14,9 @@ class PembayaranSeeder extends Seeder
     {
         $data = [
             [
-                'id_tansaksi'=>'5517fc64-1bdb-4614-8500-e7fa768f4d41',
+                'id_user'=>23,
+                'id_order'=>'',
+                'id_transaksi'=>'5517fc64-1bdb-4614-8500-e7fa768f4d41',
                 'status'=>200,
                 'jumlah_bayar'=>120000,
                 'tanggal_bayar'=>'2020-06-24 23:30:06',

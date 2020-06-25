@@ -41,6 +41,8 @@ class PembayaranController extends Controller
         //Untuk memasukkan data ke dalam database easy private
         $pembayaran = new Pembayaran();
         $pembayaran->id_transaksi = $r->id_transaksi;
+        $pembayaran->id_user = $r->id_user;
+        $pembayaran->id_order = $r->id_order;
         $pembayaran->status = $r->status;
         $pembayaran->jumlah_bayar = $r->jumlah_bayar;
         $pembayaran->tanggal_bayar = $r->tanggal_bayar;
