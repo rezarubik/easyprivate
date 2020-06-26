@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Absen;
+use App\Pemesanan;
 use App\AbsenPembayaran;
 use App\JadwalPengganti;
 use App\JadwalPemesananPerminggu;
