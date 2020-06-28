@@ -58,7 +58,14 @@
                                     @endforeach
                                 </ol>
                             </td>
-                            <td><a href="" class="btn btn-wide btn-o btn-info">{{$p->dir_cv}}</a></td>
+                            <td>
+                                @if(isset($p->dir_cv))
+                                <a href="{{asset('assets/cv_guru/' . $p->dir_cv)}}" class="btn btn-sm btn-primary btn-o">
+                                    Lihat CV {{$p->dir_cv}}
+                                </a>
+                                @endif
+                            </td>
+                            <!-- <td><a href="" class="btn btn-wide btn-o btn-info">{{$p->dir_cv}}</a></td> -->
                             <td>
                                 @if($p->status == 0)
                                 <label for="" class="label label-warning">Belum Diseleksi</label>
