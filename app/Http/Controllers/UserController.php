@@ -26,7 +26,7 @@ class UserController extends Controller
         // $this->middleware('auth');
         $this->relationshipGuru = ['alamat'];
         $this->relationshipMurid = ['alamat'];
-        $this->relationshipCariGuru = ['alamat', 'guruMapel.mataPelajaran', 'guruMapel.mataPelajaran.jenjang', 'guruMapel'];
+        $this->relationshipCariGuru = ['alamat', 'guruMapel.mataPelajaran', 'guruMapel.mataPelajaran.jenjang', 'guruMapel','pendaftaranGuru'];
         $this->relationshipPendaftaranGuru = ['user', 'season', 'profileMatching'];
         $this->realationshipGuruMapel = ['mataPelajaran', 'mataPelajaran.jenjang'];
     }
@@ -747,8 +747,15 @@ class UserController extends Controller
 
     public function detailGuru($id)
     {
-        return User::with($this->relationshipCariGuru)
-            ->find($id);
+        $guru = User::with($this->relationshipCariGuru)
+            ->join('pendaftaran_guru','pendaftaran_guru.id_user','users.id')
+            ->where([
+                'pendaftaran_guru.status'=>1,
+                'users.id'=>$id,
+            ])
+            ->select('users.*')
+            ->first();
+        return $guru;
     }
     public function getMuridByEmail($email)
     {

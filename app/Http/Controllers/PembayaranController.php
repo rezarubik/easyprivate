@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Pembayaran;
+use App\Absen;
 
 class PembayaranController extends Controller
 {
@@ -50,5 +51,9 @@ class PembayaranController extends Controller
         $pembayaran->periode_tahun = $r->periode_tahun;
         $pembayaran->redirect_url = $r->redirect_url;
         $pembayaran->save();
+        $absen = Absen::join('pemesanan','pemesanan.id_pemesanan','absen.id_pemesanan')->whereRaw('pemesanan.id_murid ='.$r->id_user.'AND extract(MONTH from absen.waktu_absen) ='.$r->periode_bulan.'AND extract(Year from absen.waktu_absen)='.$r->periode_tahun)
+        ->update([
+            'absen.id_pembayaran'=>$pembayaran->id_pembayaran
+        ]);
     }
 }
