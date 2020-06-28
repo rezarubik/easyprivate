@@ -139,7 +139,7 @@ class AbsenSeeder extends Seeder
             [
                 'id_jadwal_pemesanan_perminggu' => 6,
                 'id_jadwal_pengganti' => null,
-                'id_pembayaran' => null,
+                'id_pembayaran' => 1,
                 'id_upah_guru' => null,
                 'id_pemesanan' => 9,
                 'waktu_absen' => '2020-05-15 10:00:00'

@@ -246,6 +246,27 @@ class AbsenController extends Controller
                 $absenQuery = $absenQuery->whereRaw('concat(bulan,tahun) not in '.$bulanTahun);
             }
         }
+        if(isset($r->paid)){
+            $pembayaran = Pembayaran::select('*');
+            $pembayaran = $pembayaran->where('status','200')->get();
+           // dd($pembayaran);
+            $bulanTahun="(";
+            $idMurid="(";
+            foreach($pembayaran as $key=>$value){
+                $idMurid = $bulanTahun." '".$value->id_user."'";
+                $bulanTahun = $bulanTahun." '".$value->periode_bulan.$value->periode_tahun."'" ;
+                if ($key < sizeof($pembayaran) - 1) {
+                    $bulanTahun = $bulanTahun . ",";
+                    $idMurid = $idMurid . ",";
+                } else {
+                    $bulanTahun = $bulanTahun . ")";
+                    $idMurid = $idMurid . ")";
+                }
+            }
+            if(sizeof($pembayaran)>0){
+                $absenQuery = $absenQuery->whereRaw('concat(bulan,tahun) in '.$bulanTahun. ' AND id_murid in '.$idMurid);
+            }
+        }
         if(isset($r->distinct)){
             $absenQuery = $absenQuery->groupBy('bulan','tahun',$r->distinct);
             $absenQuery = $absenQuery->select('bulan','tahun',$r->distinct);
