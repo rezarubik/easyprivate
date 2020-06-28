@@ -20,7 +20,7 @@ class CreatePembayaranTable extends Migration
             $table->string('id_order')->nullable();
             $table->string('status')->nullable();
             $table->integer('jumlah_bayar')->nullable();
-            $table->dateTime('tanggal_bayar')->nullable(); // ? Tanggal murid bayar ke kita
+            $table->dateTime('tanggal_bayar')->nullable(); // ? Tanggal murid bayar ke kita // Iya ja
             $table->string('periode_bulan')->nullable();
             $table->string('periode_tahun')->nullable();
             $table->string('redirect_url')->nullable();

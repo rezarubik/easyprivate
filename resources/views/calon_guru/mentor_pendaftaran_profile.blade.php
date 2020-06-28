@@ -75,11 +75,7 @@
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="birthday">Tanggal Lahir <span class="symbol required"></span></label>
                                                     <p class="input-group input-append datepicker date">
-                                                        <input type="text" name="birthday" placeholder="Pilih Tanggal Lahir Anda" class="form-control @error('birthday') symbol required @enderror" readonly value="<?php
-                                                                                                                                                                                                                    if (isset($pendaftaranGuru)) {
-                                                                                                                                                                                                                        echo $pendaftaranGuru->user->tanggal_lahir;
-                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                    ?>" />
+                                                        <input type="text" name="birthday" placeholder="Pilih Tanggal Lahir Anda" class="form-control @error('birthday') symbol required @enderror" readonly @if(isset($pendaftaranGuru)) value=" {{$pendaftaranGuru->user->tanggal_lahir}} " @else value="" @endif />
                                                         <span class="input-group-btn">
                                                             <button type="button" class="btn btn-default">
                                                                 <i class="glyphicon glyphicon-calendar"></i>
@@ -93,8 +89,8 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="jenis_kelamin">Jenis Kelamin</label>
-                                                    <select id="jenis_kelamin" name="gender" class=" form-control">
-                                                        <option selected>Piilih Jenis Kelamin</option>
+                                                    <select id="jenis_kelamin" name="gender" class=" form-control" required>
+                                                        <option selected>Pilih Jenis Kelamin</option>
                                                         <option value="laki-laki" <?php
                                                                                     if (isset($pendaftaranGuru)) {
                                                                                         if ($pendaftaranGuru->user->jenis_kelamin == 'laki-laki') {
@@ -113,11 +109,7 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="no_hp">Nomor <i>Handphone</i> yang dapat dihubungi </label>
-                                                    <input type="text" name="handphone_number" class="form-control @error('handphone_number') symbol required @enderror " placeholder="Contoh: 089501011011" value="<?php
-                                                                                                                                                                                                                    if (isset($pendaftaranGuru)) {
-                                                                                                                                                                                                                        echo $pendaftaranGuru->user->no_handphone;
-                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                    ?>">
+                                                    <input type="text" name="handphone_number" class="form-control @error('handphone_number') symbol required @enderror " placeholder="Contoh: 089501011011" @if(isset($pendaftaranGuru)) value="{{$pendaftaranGuru->user->no_handphone}}" @else value="" @endif />
                                                     @error('handphone_number')
                                                     <div class="help-block"> {{$message}} </div>
                                                     @enderror
@@ -171,11 +163,7 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <h5 class="over-title margin-bottom-15">Alamat Lengkap</h5>
-                                            <input style="width: 100%;" type="text" class="form-control" placeholder="Masukkan alamat lengkap rumah Anda disini" id="address" name="alamat_lengkap" value="<?php
-                                                                                                                                                                                                            if (isset($pendaftaranGuru)) {
-                                                                                                                                                                                                                echo $pendaftaranGuru->user->alamat->alamat_lengkap;
-                                                                                                                                                                                                            }
-                                                                                                                                                                                                            ?>">
+                                            <input style="width: 100%;" type="text" class="form-control" placeholder="Masukkan alamat lengkap rumah Anda disini" id="address" name="alamat_lengkap" @if(!isset($pendaftaranGuru)) value=" {{$pendaftaranGuru->user->alamat->alamat_lengkap}} " @else value="{{$pendaftaranGuru->user->alamat->alamat_lengkap}}" @endif />
                                         </div>
                                     </div>
                                     <div class="row margin-top-30">
@@ -185,13 +173,9 @@
                                                 <div id="geocoder"></div>
                                             </div>
                                             <div id="map" style="height:250px; position:relative; top:0px; left:0px; right:0px; bottom:0px; "></div>
-                                            <input type="hidden" id="lat" name="lat" placeholder="Your lat.." value="<?php
-                                                                                                                        if (isset($pendaftaranGuru)) {
-                                                                                                                            echo $pendaftaranGuru->user->alamat->latitude;
-                                                                                                                        }
-                                                                                                                        ?>">
+                                            <input type="hidden" id="lat" name="lat" placeholder="Your lat.." @if(!isset($pendaftaranGuru)) value=" {{$pendaftaranGuru->user->alamat->latitude}} " @else value="" @endif>
                                             <input type="hidden" id="lng" name="lng" placeholder="Your lng.." value="<?php
-                                                                                                                        if (isset($pendaftaranGuru)) {
+                                                                                                                        if (!isset($pendaftaranGuru)) {
                                                                                                                             echo $pendaftaranGuru->user->alamat->longitude;
                                                                                                                         }
                                                                                                                         ?>">
@@ -226,13 +210,11 @@
                                                     <div class="panel-body">
                                                         @foreach($ja as $perDay)
                                                         <div class="checkbox clip-check check-primary checkbox-inline">
-                                                            <input type="checkbox" id="hari_{{$perDay->id_jadwal_available}}" name="hari[]" value="{{$perDay->id_jadwal_available}}"
-                                                            <?php
-                                                            if($perDay->available != 0){
-                                                                echo 'checked';
-                                                            }
-                                                            ?>
-                                                            >
+                                                            <input type="checkbox" id="hari_{{$perDay->id_jadwal_available}}" name="hari[]" value="{{$perDay->id_jadwal_available}}" <?php
+                                                                                                                                                                                        if ($perDay->available != 0) {
+                                                                                                                                                                                            echo 'checked';
+                                                                                                                                                                                        }
+                                                                                                                                                                                        ?>>
                                                             <label for="hari_{{$perDay->id_jadwal_available}}">
                                                                 {{$perDay->start}} - {{$perDay->end}}
                                                             </label>

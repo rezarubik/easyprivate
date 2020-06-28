@@ -72,20 +72,6 @@
                                 </div>
                             </a>
                         </li>
-                        <!-- ? Pendaftaran Guru -->
-                        <li class="{{(Request::is('/', 'user/create')) ? 'active open' : ''}}">
-                            <a href="{{url('/user/create')}}">
-                                <div class="item-content">
-                                    <div class="item-media">
-                                        <i class="ti-notepad"></i>
-                                    </div>
-                                    <div class="item-inner">
-                                        <span class="title"> Form Pendaftaran Guru </span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <!-- ? End of Pendaftaran Guru -->
                         <!-- ? Pendaftaran Guru Profile -->
                         <li class="{{(Request::is('/', 'user-profile/create')) ? 'active open' : ''}}">
                             <a href="{{url('/user-profile/create')}}">
@@ -100,6 +86,20 @@
                             </a>
                         </li>
                         <!-- ? End of Pendaftaran Guru Profile -->
+                        <!-- ? Pendaftaran Guru -->
+                        <li class="{{(Request::is('/', 'user/create')) ? 'active open' : ''}}">
+                            <a href="{{url('/user/create')}}">
+                                <div class="item-content">
+                                    <div class="item-media">
+                                        <i class="ti-notepad"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <span class="title"> Form Pendaftaran Guru </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <!-- ? End of Pendaftaran Guru -->
                     </ul>
                 </nav>
             </div>
@@ -144,8 +144,10 @@
                         @else
                         <li class="dropdown current-user">
                             <a href class="dropdown-toggle" data-toggle="dropdown">
-                                @if(auth()->user()->avatar)
+                                @if(isset(auth()->user()->avatar))
                                 <img src="{{URL::asset('/assets/avatars/')}}/{{ auth()->user()->avatar }}" alt="avatar" style="height: 39px; object-fit:cover;">
+                                @else
+                                <img src="{{URL::asset('/assets/avatars/default.jpg')}}" alt="avatar" style="height: 39px; object-fit:cover;">
                                 @endif
                                 <span class="username">{{ auth()->user()->name }}<i class="ti-angle-down"></i></i></span>
                             </a>

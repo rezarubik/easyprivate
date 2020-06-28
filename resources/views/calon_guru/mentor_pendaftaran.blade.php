@@ -53,6 +53,7 @@
                         </li>
                     </ul>
                     <div class="tab-content">
+                        <!-- Data Akademik -->
                         <div id="data_diri" class="tab-pane fade in active">
                             <div class="row padding-20">
                                 <div class="col-md-12">
@@ -88,6 +89,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Mata Pelajaran -->
                         <div id="mata_pelajaran" class="tab-pane fade in">
                             <div class="row padding-20">
                                 <div class="col-md-12">
@@ -103,7 +105,7 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="jenjang_1">Jenjang 1 <span class="@error('jenjang_1') symbol required  @enderror"></span> </label>
-                                                    <select name="jenjang_1" id="jenjang_1" class="form-control dynamic" style="width:100%;" data-dependent="mapel_1">
+                                                    <select name="jenjang_1" id="jenjang_1" class="form-control dynamic" style="width:100%;" data-dependent="mapel_1" required>
                                                         <option value="" selected>Pilih Jenjang</option>
                                                         @foreach($jenjang as $j)
                                                         <option value="{{$j->id_jenjang}}" <?php
@@ -281,6 +283,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Curriculum Vitae (CV) and Video Microteaching -->
                         <div id="cv_video" class="tab-pane fade in">
                             <div class="row padding-20">
                                 <div class="col-md-12">
