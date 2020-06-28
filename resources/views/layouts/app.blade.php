@@ -145,9 +145,14 @@
                         <li class="dropdown current-user">
                             <a href class="dropdown-toggle" data-toggle="dropdown">
                                 @if(isset(auth()->user()->avatar))
-                                <img src="{{URL::asset('/assets/avatars/')}}/{{ auth()->user()->avatar }}" alt="avatar" style="height: 39px; object-fit:cover;">
-                                @else
-                                <img src="{{URL::asset('/assets/avatars/default.jpg')}}" alt="avatar" style="height: 39px; object-fit:cover;">
+                                <?php
+                                $avatar = substr(auth()->user()->avatar, 0, 4);
+                                if ($avatar == "http") {
+                                    ?>
+                                    <img src="{{ auth()->user()->avatar }}" alt="avatar" style="height: 39px; object-fit:cover;">
+                                <?php } else { ?>
+                                    <img src="{{URL::asset('/assets/avatars/default.jpg')}}" alt="avatar" style="height: 39px; object-fit:cover;">
+                                <?php } ?>
                                 @endif
                                 <span class="username">{{ auth()->user()->name }}<i class="ti-angle-down"></i></i></span>
                             </a>
