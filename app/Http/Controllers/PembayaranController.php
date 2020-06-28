@@ -51,9 +51,18 @@ class PembayaranController extends Controller
         $pembayaran->periode_tahun = $r->periode_tahun;
         $pembayaran->redirect_url = $r->redirect_url;
         $pembayaran->save();
-        $absen = Absen::join('pemesanan','pemesanan.id_pemesanan','absen.id_pemesanan')->whereRaw('pemesanan.id_murid ='.$r->id_user.'AND extract(MONTH from absen.waktu_absen) ='.$r->periode_bulan.'AND extract(Year from absen.waktu_absen)='.$r->periode_tahun)
-        ->update([
-            'absen.id_pembayaran'=>$pembayaran->id_pembayaran
-        ]);
+        $absen = Absen::join('pemesanan', 'pemesanan.id_pemesanan', 'absen.id_pemesanan')->whereRaw('pemesanan.id_murid =' . $r->id_user . ' AND extract(MONTH from absen.waktu_absen) =' . $r->periode_bulan . ' AND extract(Year from absen.waktu_absen)=' . $r->periode_tahun)->get();
+        $absenUser = [];
+        foreach ($absen as $key => $value) {
+            array_push(
+                $absenUser,
+                $value->id_absen
+            );
+        }
+        if (sizeof($absenUser) > 0) {
+            Absen::whereIn('id_absen', $absenUser)->update([
+                'absen.id_pembayaran' => $pembayaran->id_pembayaran
+            ]);
+        }
     }
 }
