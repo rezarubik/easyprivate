@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call('JadwalPemesananPermingguSeeder');
         $this->call('JadwalPenggantiSeeder');
         $this->call('AbsenSeeder');
+        $this->call('PembayaranSeeder');
         $this->call('KriteriaBobotTargetSeeder');
     }
 }
