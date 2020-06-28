@@ -62,11 +62,7 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="nilai_ipk">Nilai IPK <span class="@error('ipk_score') symbol required @enderror"></span></label>
-                                                    <input type="text" name="ipk_score" class="form-control " placeholder="Contoh: 4.0" step="0.01" placeholder="Pilih Tanggal Lahir Anda" class="form-control @error('ipk_score') symbol required @enderror" value="<?php
-                                                                                                                                                                                                                                                                        if (isset($pendaftaranGuru)) {
-                                                                                                                                                                                                                                                                            echo $pendaftaranGuru->nilai_ipk;
-                                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                                        ?>" />
+                                                    <input type="text" name="ipk_score" class="form-control " placeholder="Contoh: 4.0" step="0.01" placeholder="Pilih Tanggal Lahir Anda" class="form-control @error('ipk_score') symbol required @enderror" @if(isset($pendaftaranGuru)) value="{{$pendaftaranGuru->nilai_ipk}}" @else value="" @endif />
                                                     @error('ipk_score')
                                                     <div class="help-block"> {{$message}} </div>
                                                     @enderror
@@ -74,11 +70,7 @@
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="pengalaman_mengajar">Pengalaman Mengajar <b>(bulan)</b> <span class="@error('teach_experience') symbol required @enderror"></span>
                                                     </label>
-                                                    <input type="text" name="teach_experience" class="form-control placeholder=" Contoh: 12" value="<?php
-                                                                                                                                                    if (isset($pendaftaranGuru)) {
-                                                                                                                                                        echo $pendaftaranGuru->pengalaman_mengajar;
-                                                                                                                                                    }
-                                                                                                                                                    ?>" />
+                                                    <input type="text" name="teach_experience" class="form-control placeholder=" Contoh: 12" @if(isset($pendaftaranGuru)) value="{{$pendaftaranGuru->pengalaman_mengajar}}" @else value="" @endif />
                                                     @error('teach_experience')
                                                     <div class="help-block"> {{$message}} </div>
                                                     @enderror

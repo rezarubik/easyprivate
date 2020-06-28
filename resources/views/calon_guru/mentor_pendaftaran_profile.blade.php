@@ -118,11 +118,7 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="universitas">Asal Universitas</label>
-                                                    <input type="text" name="universitas" class="form-control @error('universitas') symbol required @enderror " placeholder="Contoh: Universitas Indonesia" value="<?php
-                                                                                                                                                                                                                    if (isset($pendaftaranGuru)) {
-                                                                                                                                                                                                                        echo $pendaftaranGuru->user->universitas;
-                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                    ?>">
+                                                    <input type="text" name="universitas" class="form-control @error('universitas') symbol required @enderror " placeholder="Contoh: Universitas Indonesia" @if(isset($pendaftaranGuru)) value=" {{$pendaftaranGuru->user->universitas}} " @else value="" @endif />
                                                     @error('universitas')
                                                     <div class="help-block"> {{$message}} </div>
                                                     @enderror
@@ -138,11 +134,7 @@
                                                         <div class="fileinput-preview fileinput-exists thumbnail"></div>
                                                         <div class="user-edit-image-buttons">
                                                             <span class="btn btn-azure btn-file"><span class="fileinput-new"><i class="fa fa-picture"></i> Select image</span><span class="fileinput-exists"><i class="fa fa-picture"></i> Change</span>
-                                                                <input type="file" name="foto_profile" accept="image/*" value="<?php
-                                                                                                                                if (isset($pendaftaranGuru)) {
-                                                                                                                                    $pendaftaranGuru->user->avatar;
-                                                                                                                                }
-                                                                                                                                ?>">
+                                                                <input type="file" name="foto_profile" accept="image/*" @if(isset($pendaftaranGuru)) value="{{$pendaftaranGuru->user->avatar}}" @else value="" @endif />
                                                             </span>
                                                             <a href="#" class="btn fileinput-exists btn-red" data-dismiss="fileinput">
                                                                 <i class="fa fa-times"></i> Remove
@@ -163,7 +155,7 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <h5 class="over-title margin-bottom-15">Alamat Lengkap</h5>
-                                            <input style="width: 100%;" type="text" class="form-control" placeholder="Masukkan alamat lengkap rumah Anda disini" id="address" name="alamat_lengkap" @if(!isset($pendaftaranGuru)) value=" {{$pendaftaranGuru->user->alamat->alamat_lengkap}} " @else value="{{$pendaftaranGuru->user->alamat->alamat_lengkap}}" @endif />
+                                            <input style="width: 100%;" type="text" class="form-control" placeholder="Masukkan alamat lengkap rumah Anda disini" id="address" name="alamat_lengkap" @if(isset($pendaftaranGuru->user->alamat->alamat_lengkap)) value=" {{$pendaftaranGuru->user->alamat->alamat_lengkap}} " @endif />
                                         </div>
                                     </div>
                                     <div class="row margin-top-30">
@@ -173,12 +165,8 @@
                                                 <div id="geocoder"></div>
                                             </div>
                                             <div id="map" style="height:250px; position:relative; top:0px; left:0px; right:0px; bottom:0px; "></div>
-                                            <input type="hidden" id="lat" name="lat" placeholder="Your lat.." @if(!isset($pendaftaranGuru)) value=" {{$pendaftaranGuru->user->alamat->latitude}} " @else value="" @endif>
-                                            <input type="hidden" id="lng" name="lng" placeholder="Your lng.." value="<?php
-                                                                                                                        if (!isset($pendaftaranGuru)) {
-                                                                                                                            echo $pendaftaranGuru->user->alamat->longitude;
-                                                                                                                        }
-                                                                                                                        ?>">
+                                            <input type="hidden" id="lat" name="lat" placeholder="Your lat.." @if(isset($pendaftaranGuru->user->alamat->latitude)) value=" {{$pendaftaranGuru->user->alamat->latitude}} " @else value="" @endif>
+                                            <input type="hidden" id="lng" name="lng" placeholder="Your lng.." @if(isset($pendaftaranGuru->user->alamat->longitude)) value="{{$pendaftaranGuru->user->alamat->longitude}}" @else value="" @endif />
                                         </div>
                                     </div>
                                 </div>
