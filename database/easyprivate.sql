@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2020 at 04:41 PM
+-- Generation Time: Jun 27, 2020 at 02:27 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -29,18 +29,52 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `absen` (
-  `id_absen` int(11) NOT NULL,
-  `id_jadwal_ajar` int(11) NOT NULL,
-  `id_pemesanan` int(11) NOT NULL,
-  `waktu_absen` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_absen` bigint(20) UNSIGNED NOT NULL,
+  `id_pemesanan` int(11) DEFAULT NULL,
+  `id_pembayaran` int(11) DEFAULT NULL,
+  `id_upah_guru` int(11) DEFAULT NULL,
+  `id_jadwal_pemesanan_perminggu` int(11) DEFAULT NULL,
+  `id_jadwal_pengganti` int(11) DEFAULT NULL,
+  `waktu_absen` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `absen`
+-- Stand-in structure for view `absen_pembayaran`
+-- (See below for the actual view)
+--
+CREATE TABLE `absen_pembayaran` (
+`id_murid` int(11)
+,`id_pemesanan` bigint(20) unsigned
+,`id_guru` int(11)
+,`jumlah_absen` bigint(21)
+,`tahun` int(4)
+,`bulan` int(2)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admins`
 --
 
-INSERT INTO `absen` (`id_absen`, `id_jadwal_ajar`, `id_pemesanan`, `waktu_absen`) VALUES
-(1, 1, 1, '2020-03-15 00:00:00');
+CREATE TABLE `admins` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `admins`
+--
+
+INSERT INTO `admins` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Admin Easy Private', 'cs.easyprivate@gmail.com', '$2y$10$aCjrjlMBXTkLd8dDKbSTgeucNdVQw37sn/R5hUTmVKSpEYhx8cS.W', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -49,25 +83,12 @@ INSERT INTO `absen` (`id_absen`, `id_jadwal_ajar`, `id_pemesanan`, `waktu_absen`
 --
 
 CREATE TABLE `alamat` (
-  `id_alamat` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `latitude` float NOT NULL,
-  `longitude` float NOT NULL,
-  `alamat_lengkap` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `alamat`
---
-
-INSERT INTO `alamat` (`id_alamat`, `id_user`, `latitude`, `longitude`, `alamat_lengkap`) VALUES
-(1, 2, -6.23884, 106.912, 'Jl. Teluk Langsa 4 Blok C.8 No.4'),
-(8, 1, 0, 0, 'Jl. Teluk Langsa 4 Blok C.8 No.4'),
-(9, 11, -6.23884, 106.912, 'Jl. Teluk Langsa 4 Blok C.8 No.4'),
-(10, 9, -6.23884, 106.912, 'Jl. Teluk Langsa 4 Blok C.8 No.4'),
-(11, 9, -6.23884, 106.912, 'Jl. Teluk Langsa 4 Blok C.8 No.4'),
-(12, 13, -6.17284, 106.871, 'Jl. Teluk Langsa 4'),
-(13, 13, -6.2391, 106.912, 'Jl. Teluk Langsa 4 C.8 / 4');
+  `id_alamat` bigint(20) UNSIGNED NOT NULL,
+  `id_user` int(11) DEFAULT NULL,
+  `latitude` double(8,2) DEFAULT NULL,
+  `longitude` double(8,2) DEFAULT NULL,
+  `alamat_lengkap` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -87,58 +108,39 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `guru_mapel`
+-- Stand-in structure for view `grafikguru`
+-- (See below for the actual view)
 --
-
-CREATE TABLE `guru_mapel` (
-  `id_guru_mapel` int(11) NOT NULL,
-  `id_guru` int(11) NOT NULL,
-  `id_mapel` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `guru_mapel`
---
-
-INSERT INTO `guru_mapel` (`id_guru_mapel`, `id_guru`, `id_mapel`) VALUES
-(1, 3, 1),
-(17, 1, 1),
-(18, 1, 1),
-(19, 1, 2),
-(20, 11, 1),
-(21, 11, 1),
-(22, 11, 2),
-(23, 9, 1),
-(24, 9, 1),
-(25, 9, 2),
-(26, 9, 1),
-(27, 9, 1),
-(28, 9, 2),
-(29, 13, 1),
-(30, 13, 2),
-(31, 13, 3),
-(32, 13, 1),
-(33, 13, 2),
-(34, 13, 3);
+CREATE TABLE `grafikguru` (
+`jumlah_guru_belum_dapat` bigint(22)
+,`jumlah_guru_sudah_dapat` bigint(21)
+,`bulan_tahun` varchar(14)
+);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jadwal_ajar`
+-- Stand-in structure for view `grafikpemesanan`
+-- (See below for the actual view)
+--
+CREATE TABLE `grafikpemesanan` (
+`Pemesanan_SD` bigint(21)
+,`Pemesanan_SMP` bigint(21)
+,`Pemesanan_SMA` bigint(21)
+,`BULAN_TAHUN` varchar(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `guru_mapel`
 --
 
-CREATE TABLE `jadwal_ajar` (
-  `id_jadwal_ajar` int(11) NOT NULL,
-  `id_pemesanan` int(11) NOT NULL,
-  `waktu_ajar` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `jadwal_ajar`
---
-
-INSERT INTO `jadwal_ajar` (`id_jadwal_ajar`, `id_pemesanan`, `waktu_ajar`) VALUES
-(1, 1, '2020-03-10 00:00:00');
+CREATE TABLE `guru_mapel` (
+  `id_guru_mapel` bigint(20) UNSIGNED NOT NULL,
+  `id_guru` int(11) DEFAULT NULL,
+  `id_mapel` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -147,13 +149,13 @@ INSERT INTO `jadwal_ajar` (`id_jadwal_ajar`, `id_pemesanan`, `waktu_ajar`) VALUE
 --
 
 CREATE TABLE `jadwal_available` (
-  `id_jadwal_available` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `hari` varchar(9) NOT NULL,
-  `start` time NOT NULL,
-  `end` time NOT NULL,
-  `available` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_jadwal_available` bigint(20) UNSIGNED NOT NULL,
+  `id_user` int(11) DEFAULT NULL,
+  `hari` varchar(9) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `start` time DEFAULT NULL,
+  `end` time DEFAULT NULL,
+  `available` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -162,11 +164,24 @@ CREATE TABLE `jadwal_available` (
 --
 
 CREATE TABLE `jadwal_pemesanan_perminggu` (
-  `id_jadwal_pemesanan_perminggu` int(11) NOT NULL,
-  `id_pemesanan` int(11) NOT NULL,
-  `hari` varchar(9) NOT NULL,
-  `jam` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_jadwal_pemesanan_perminggu` bigint(20) UNSIGNED NOT NULL,
+  `id_pemesanan` int(11) DEFAULT NULL,
+  `id_jadwal_available` int(11) DEFAULT NULL,
+  `id_event` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jadwal_penggantis`
+--
+
+CREATE TABLE `jadwal_penggantis` (
+  `id_jadwal_pengganti` bigint(20) UNSIGNED NOT NULL,
+  `id_pemesanan` int(11) DEFAULT NULL,
+  `id_jadwal_pemesanan_perminggu` int(11) DEFAULT NULL,
+  `waktu_pengganti` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -175,11 +190,11 @@ CREATE TABLE `jadwal_pemesanan_perminggu` (
 --
 
 CREATE TABLE `jenjang` (
-  `id_jenjang` int(11) NOT NULL,
-  `nama_jenjang` varchar(50) NOT NULL,
-  `harga_per_pertemuan` int(11) NOT NULL,
-  `upah_guru_per_pertemuan` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_jenjang` bigint(20) UNSIGNED NOT NULL,
+  `nama_jenjang` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `harga_per_pertemuan` int(11) DEFAULT NULL,
+  `upah_guru_per_pertemuan` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `jenjang`
@@ -193,94 +208,92 @@ INSERT INTO `jenjang` (`id_jenjang`, `nama_jenjang`, `harga_per_pertemuan`, `upa
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `kriteria_bobot_targets`
+--
+
+CREATE TABLE `kriteria_bobot_targets` (
+  `id_kriteria_bobot_target` bigint(20) UNSIGNED NOT NULL,
+  `kriteria` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bobot` double(8,2) DEFAULT NULL,
+  `faktor_kriteria` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nilai_target` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `kriteria_bobot_targets`
+--
+
+INSERT INTO `kriteria_bobot_targets` (`id_kriteria_bobot_target`, `kriteria`, `bobot`, `faktor_kriteria`, `nilai_target`) VALUES
+(1, 'Pengalaman Mengajar', 0.30, 'Core Factor', 4),
+(2, 'Volume dan Artikulasi Suara Video Microteaching', 0.10, 'Core Factor', 4),
+(3, 'Keefektifan Kalimat Video Microteaching', 0.10, 'Core Factor', 3),
+(4, 'Cara Mengajar Video Microteaching', 0.10, 'Core Factor', 4),
+(5, 'Penguasaan Materi Video Microteaching', 0.10, 'Core Factor', 5),
+(6, 'Nilai Indeks Prestasi Terakhir (IPK)', 0.06, 'Secondary Factor', 4),
+(7, 'Usia Guru', 0.12, 'Secondary Factor', 4),
+(8, 'Ketersediaan Mata Pelajaran', 0.12, 'Secondary Factor', 4);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `mata_pelajaran`
 --
 
 CREATE TABLE `mata_pelajaran` (
-  `id_mapel` int(11) NOT NULL,
-  `nama_mapel` varchar(100) NOT NULL,
-  `id_jenjang` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_mapel` bigint(20) UNSIGNED NOT NULL,
+  `id_jenjang` int(11) DEFAULT NULL,
+  `nama_mapel` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mata_pelajaran`
 --
 
-INSERT INTO `mata_pelajaran` (`id_mapel`, `nama_mapel`, `id_jenjang`) VALUES
-(1, 'IPA SD', 1),
-(2, 'IPS SD', 1),
-(3, 'BAHASA INGGRIS SD', 1),
-(4, 'BAHASA INDONESIA SD', 1),
-(5, 'MATEMATIKA SD', 1),
-(6, 'BAHASA ARAB SD', 1),
-(7, 'KOMPUTER SD', 1),
-(8, 'KEWARGANEGARAAN SD', 1),
-(9, 'PENGETAHUAN UMUM SD', 1),
-(10, 'IPA SMP', 2),
-(11, 'IPS SMP', 2),
-(12, 'BAHASA INGGRIS SMP', 2),
-(13, 'BAHASA INDONESIA SMP', 2),
-(14, 'BAHASA ARAB SMP', 2),
-(15, 'MATEMATIKA SMP', 2),
-(16, 'FISIKA SMP', 2),
-(17, 'BIOLOGI SMP', 2),
-(18, 'KIMIA SMP', 2),
-(19, 'KOMPUTER SMP', 2),
-(20, 'KEWARGANEGARAAN SMP', 2),
-(21, 'MATEMATIKA IPA SMA', 3),
-(22, 'MATEMATIKA IPS SMA', 3),
-(23, 'MATEMATIKA SMA', 3),
-(24, 'MATEMATIKA FISIKA KIMIA SMA', 3),
-(25, 'STATISTIKA SMA', 3),
-(26, 'GEOGRAFI SMA', 3),
-(27, 'EKONOMI SMA', 3),
-(28, 'SOSIOLOGI SMA', 3),
-(29, 'AKUNTANSI SMA', 3),
-(30, 'ADMINISTRASI PERKANTORAN SMA', 3),
-(31, 'FISIKA SMA', 3),
-(32, 'BIOLOGI SMA', 3),
-(33, 'KIMIA SMA', 3),
-(34, 'BAHASA INGGRIS SMA', 3),
-(35, 'BAHASA INDONESIA SMA', 3),
-(36, 'BAHASA ARAB SMA', 3),
-(37, 'BAHASA SPANYOL SMA', 3),
-(38, 'BAHASA JEPANG SMA', 3),
-(39, 'BAHASA JERMAN SMA', 3),
-(40, 'BAHASA PERANCIS SMA', 3),
-(41, 'BAHASA MANDARIN SMA', 3),
-(42, 'KOMPUTER SMA', 3),
-(43, 'KEWARGANEGARAAN SMA', 3),
-(44, 'SEJARAH SMA', 3);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `microteaching`
---
-
-CREATE TABLE `microteaching` (
-  `id_microteaching` int(11) NOT NULL,
-  `id_pendaftaran` int(11) DEFAULT NULL,
-  `dir_video` varchar(255) DEFAULT NULL,
-  `volume_artikulasi_suara` int(11) DEFAULT NULL,
-  `keefektifan_kalimat` int(11) DEFAULT NULL,
-  `cara_mengajar` int(11) DEFAULT NULL,
-  `penguasaan_materi` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `microteaching`
---
-
-INSERT INTO `microteaching` (`id_microteaching`, `id_pendaftaran`, `dir_video`, `volume_artikulasi_suara`, `keefektifan_kalimat`, `cara_mengajar`, `penguasaan_materi`) VALUES
-(1, 1, '', 2, 3, 4, 5),
-(3, NULL, 'KTP.pdf', NULL, NULL, NULL, NULL),
-(4, 5, 'KTP.pdf', NULL, NULL, NULL, NULL),
-(5, 6, 'KTP.pdf', NULL, NULL, NULL, NULL),
-(6, 7, 'KTP.pdf', NULL, NULL, NULL, NULL),
-(7, 8, 'KTP.pdf', NULL, NULL, NULL, NULL),
-(8, 9, 'CV Muhammad Reza Pahlevi Y Web Developer - New.pdf', NULL, NULL, NULL, NULL),
-(9, 10, 'CV Muhammad Reza Pahlevi Y Web Developer - New.pdf', NULL, NULL, NULL, NULL);
+INSERT INTO `mata_pelajaran` (`id_mapel`, `id_jenjang`, `nama_mapel`) VALUES
+(1, 1, 'IPA SD'),
+(2, 1, 'IPS SD'),
+(3, 1, 'BAHASA INGGRIS SD'),
+(4, 1, 'BAHASA INDONESIA SD'),
+(5, 1, 'MATEMATIKA SD'),
+(6, 1, 'BAHASA ARAB SD'),
+(7, 1, 'KOMPUTER SD'),
+(8, 1, 'KEWARGANEGARAAN SD'),
+(9, 1, 'PENGETAHUAN UMUM SD'),
+(10, 2, 'IPA SMP'),
+(11, 2, 'IPS SMP'),
+(12, 2, 'BAHASA INGGRIS SMP'),
+(13, 2, 'BAHASA INDONESIA SMP'),
+(14, 2, 'BAHASA ARAB SMP'),
+(15, 2, 'MATEMATIKA SMP'),
+(16, 2, 'FISIKA SMP'),
+(17, 2, 'BIOLOGI SMP'),
+(18, 2, 'KIMIA SMP'),
+(19, 2, 'KOMPUTER SMP'),
+(20, 2, 'KEWARGANEGARAAN SMP'),
+(21, 3, 'MATEMATIKA IPA SMA'),
+(22, 3, 'MATEMATIKA IPS SMA'),
+(23, 3, 'MATEMATIKA SMA'),
+(24, 3, 'MATEMATIKA FISIKA KIMIA SMA'),
+(25, 3, 'STATISTIKA SMA'),
+(26, 3, 'GEOGRAFI SMA'),
+(27, 3, 'EKONOMI SMA'),
+(28, 3, 'SOSIOLOGI SMA'),
+(29, 3, 'AKUNTANSI SMA'),
+(30, 3, 'ADMINISTRASI PERKANTORAN SMA'),
+(31, 3, 'FISIKA SMA'),
+(32, 3, 'BIOLOGI SMA'),
+(33, 3, 'KIMIA SMA'),
+(34, 3, 'BAHASA INGGRIS SMA'),
+(35, 3, 'BAHASA INDONESIA SMA'),
+(36, 3, 'BAHASA ARAB SMA'),
+(37, 3, 'BAHASA SPANYOL SMA'),
+(38, 3, 'BAHASA JEPANG SMA'),
+(39, 3, 'BAHASA JERMAN SMA'),
+(40, 3, 'BAHASA PERANCIS SMA'),
+(41, 3, 'BAHASA MANDARIN SMA'),
+(42, 3, 'KOMPUTER SMA'),
+(43, 3, 'KEWARGANEGARAAN SMA'),
+(44, 3, 'SEJARAH SMA');
 
 -- --------------------------------------------------------
 
@@ -302,7 +315,27 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2020_03_01_155211_add_field_socialite_to_users_table', 1);
+(4, '2020_03_01_155211_add_field_socialite_to_users_table', 1),
+(5, '2020_04_24_132803_create_absen_table', 1),
+(6, '2020_04_24_133330_create_alamat_table', 1),
+(7, '2020_04_24_133627_create_guru_mapel_table', 1),
+(8, '2020_04_24_134440_create_jadwal_available_table', 1),
+(9, '2020_04_24_141654_create_jadwal_pemesanan_perminggu_table', 1),
+(10, '2020_04_24_142023_create_jenjang_table', 1),
+(11, '2020_04_24_142319_create_mata_pelajaran_table', 1),
+(12, '2020_04_24_143048_create_pembayaran_table', 1),
+(13, '2020_04_24_143235_create_pemesanan_table', 1),
+(14, '2020_04_24_144553_create_pendaftaran_guru_table', 1),
+(15, '2020_04_24_144851_create_profile_matching_table', 1),
+(16, '2020_04_24_145027_create_rating_table', 1),
+(17, '2020_04_24_145220_create_upah_guru_table', 1),
+(18, '2020_05_02_134300_create_season_table', 1),
+(19, '2020_05_06_150258_create_kriteria_bobot_targets_table', 1),
+(20, '2020_05_21_085803_create_admins_table', 1),
+(21, '2020_05_27_144342_create_grafik_pemesanan_views', 1),
+(22, '2020_05_30_150427_create_grafik_guru_views', 1),
+(23, '2020_06_13_063757_create_jadwal_penggantis_table', 1),
+(24, '2020_06_14_054043_create_absen_pembayaran_views', 1);
 
 -- --------------------------------------------------------
 
@@ -323,20 +356,15 @@ CREATE TABLE `password_resets` (
 --
 
 CREATE TABLE `pembayaran` (
-  `id_pembayaran` int(11) NOT NULL,
-  `id_pemesanan` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
-  `jumlah_bayar` int(11) NOT NULL,
-  `tanggal_bayar` date NOT NULL,
-  `tanggal_tagihan` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `pembayaran`
---
-
-INSERT INTO `pembayaran` (`id_pembayaran`, `id_pemesanan`, `status`, `jumlah_bayar`, `tanggal_bayar`, `tanggal_tagihan`) VALUES
-(1, 1, 0, 0, '2020-03-15', '2020-03-08');
+  `id_pembayaran` bigint(20) UNSIGNED NOT NULL,
+  `id_transaksi` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `jumlah_bayar` int(11) DEFAULT NULL,
+  `tanggal_bayar` datetime DEFAULT NULL,
+  `periode_bulan` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `periode_tahun` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `redirect_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -345,22 +373,15 @@ INSERT INTO `pembayaran` (`id_pembayaran`, `id_pemesanan`, `status`, `jumlah_bay
 --
 
 CREATE TABLE `pemesanan` (
-  `id_pemesanan` int(11) NOT NULL,
-  `id_guru` int(11) NOT NULL,
-  `id_murid` int(11) NOT NULL,
-  `id_mapel` int(11) NOT NULL,
-  `kelas` int(11) NOT NULL,
-  `waktu_pemesanan` datetime NOT NULL,
-  `status` int(11) NOT NULL,
-  `jumlah_pertemuan` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `pemesanan`
---
-
-INSERT INTO `pemesanan` (`id_pemesanan`, `id_guru`, `id_murid`, `id_mapel`, `kelas`, `waktu_pemesanan`, `status`, `jumlah_pertemuan`) VALUES
-(1, 11, 2, 1, 0, '2020-03-16 00:00:00', 3, 2);
+  `id_pemesanan` bigint(20) UNSIGNED NOT NULL,
+  `id_guru` int(11) DEFAULT NULL,
+  `id_murid` int(11) DEFAULT NULL,
+  `id_mapel` int(11) DEFAULT NULL,
+  `kelas` int(11) DEFAULT NULL,
+  `waktu_pemesanan` datetime DEFAULT NULL,
+  `first_meet` datetime DEFAULT NULL,
+  `status` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -369,26 +390,53 @@ INSERT INTO `pemesanan` (`id_pemesanan`, `id_guru`, `id_murid`, `id_mapel`, `kel
 --
 
 CREATE TABLE `pendaftaran_guru` (
-  `id_pendaftaran` int(11) NOT NULL,
+  `id_pendaftaran` bigint(20) UNSIGNED NOT NULL,
+  `id_season` int(11) DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL,
-  `dir_cv` varchar(255) DEFAULT NULL,
-  `pm_gap_score` int(11) DEFAULT NULL,
-  `pm_result` int(11) DEFAULT NULL,
+  `dir_cv` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dir_video` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   `pengalaman_mengajar` int(11) DEFAULT NULL,
-  `nilai_ipk` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `nilai_ipk` double(8,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `pendaftaran_guru`
+-- Table structure for table `profile_matching`
 --
 
-INSERT INTO `pendaftaran_guru` (`id_pendaftaran`, `id_user`, `dir_cv`, `pm_gap_score`, `pm_result`, `status`, `pengalaman_mengajar`, `nilai_ipk`) VALUES
-(5, 1, 'KTP.pdf', NULL, NULL, 0, 5, NULL),
-(6, 11, 'KTP.pdf', NULL, NULL, 1, 3, NULL),
-(7, 9, 'KTP.pdf', NULL, NULL, 1, 2, NULL),
-(9, 13, 'CV Muhammad Reza Pahlevi Y - New.pdf', NULL, NULL, NULL, 4, 4),
-(10, 13, 'CV Muhammad Reza Pahlevi Y - New.pdf', NULL, NULL, NULL, 4, 4);
+CREATE TABLE `profile_matching` (
+  `id_profile_matching` bigint(20) UNSIGNED NOT NULL,
+  `id_pendaftaran_guru` int(11) DEFAULT NULL,
+  `pm_pk` double(8,2) DEFAULT NULL,
+  `pm_vas` double(8,2) DEFAULT NULL,
+  `pm_kk` double(8,2) DEFAULT NULL,
+  `pm_cm` double(8,2) DEFAULT NULL,
+  `pm_pemat` double(8,2) DEFAULT NULL,
+  `pm_ipk` double(8,2) DEFAULT NULL,
+  `pm_usia` double(8,2) DEFAULT NULL,
+  `pm_km` double(8,2) DEFAULT NULL,
+  `pm_gap_pk` double(8,2) DEFAULT NULL,
+  `pm_gap_vas` double(8,2) DEFAULT NULL,
+  `pm_gap_kk` double(8,2) DEFAULT NULL,
+  `pm_gap_cm` double(8,2) DEFAULT NULL,
+  `pm_gap_pemat` double(8,2) DEFAULT NULL,
+  `pm_gap_ipk` double(8,2) DEFAULT NULL,
+  `pm_gap_usia` double(8,2) DEFAULT NULL,
+  `pm_gap_km` double(8,2) DEFAULT NULL,
+  `pm_bobot_pk` double(8,2) DEFAULT NULL,
+  `pm_bobot_vas` double(8,2) DEFAULT NULL,
+  `pm_bobot_kk` double(8,2) DEFAULT NULL,
+  `pm_bobot_cm` double(8,2) DEFAULT NULL,
+  `pm_bobot_pemat` double(8,2) DEFAULT NULL,
+  `pm_bobot_ipk` double(8,2) DEFAULT NULL,
+  `pm_bobot_usia` double(8,2) DEFAULT NULL,
+  `pm_bobot_km` double(8,2) DEFAULT NULL,
+  `pm_ncf` double(8,2) DEFAULT NULL,
+  `pm_scf` double(8,2) DEFAULT NULL,
+  `pm_result` double(8,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -397,17 +445,22 @@ INSERT INTO `pendaftaran_guru` (`id_pendaftaran`, `id_user`, `dir_cv`, `pm_gap_s
 --
 
 CREATE TABLE `rating` (
-  `id_rating` int(11) NOT NULL,
-  `id_pembayaran` int(11) NOT NULL,
-  `jumlah_rating` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_rating` bigint(20) UNSIGNED NOT NULL,
+  `id_pembayaran` int(11) DEFAULT NULL,
+  `jumlah_rating` double(8,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `rating`
+-- Table structure for table `season`
 --
 
-INSERT INTO `rating` (`id_rating`, `id_pembayaran`, `jumlah_rating`) VALUES
-(1, 1, 4);
+CREATE TABLE `season` (
+  `id_season` bigint(20) UNSIGNED NOT NULL,
+  `start` date NOT NULL,
+  `end` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -416,12 +469,14 @@ INSERT INTO `rating` (`id_rating`, `id_pembayaran`, `jumlah_rating`) VALUES
 --
 
 CREATE TABLE `upah_guru` (
-  `id_upah_guru` int(11) NOT NULL,
-  `id_guru` int(11) NOT NULL,
-  `id_jenjang` int(11) NOT NULL,
-  `jumlah_upah` int(11) NOT NULL,
-  `tanggal_upah` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_upah_guru` bigint(20) UNSIGNED NOT NULL,
+  `id_guru` int(11) DEFAULT NULL,
+  `jumlah_upah` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `tanggal_upah` int(11) DEFAULT NULL,
+  `periode_bulan` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `periode_tahun` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -440,6 +495,7 @@ CREATE TABLE `users` (
   `tanggal_lahir` date DEFAULT NULL,
   `no_handphone` varchar(14) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `role` int(11) DEFAULT NULL,
+  `universitas` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -447,18 +503,32 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `users`
---
+-- --------------------------------------------------------
 
-INSERT INTO `users` (`id`, `socialite_id`, `socialite_name`, `avatar`, `name`, `email`, `jenis_kelamin`, `tanggal_lahir`, `no_handphone`, `role`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GiFmPv-D5PpYgTv9BLuiukJyZh7Alo_1ZSyLLFywg', 'Muhammad Reza Pahlevi', 'rezarubik17@gmail.com', 'laki-laki', '1996-04-17', '089501011011', 0, NULL, NULL, 'Mc9SKGnzAArfhbMhKTsDKNhqj5tRFCDr2geZJmUeNJeJOaLPAl7xzYVNa4YN', '2020-03-01 09:12:47', '2020-03-25 06:42:31'),
-(2, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GhS1ETgrm04vNvoOeYgtUWtupkcC3UfxjwI5_tqxQ', 'Muhammad Reza Pahlevi Y', 'muhammad.reza.pahlevi.y@gmail.com', 'laki-laki', '1996-04-17', '089699179002', 1, NULL, NULL, 'knxjo190gT4E6629bM0pvUuoZKmD9xcj4EeEdgjlXqcuNuzpHqQSkbygoYPB', '2020-03-04 03:14:31', '2020-03-04 03:14:31'),
-(9, NULL, NULL, 'https://lh3.googleusercontent.com/-9ULkHhZfMFQ/AAAAAAAAAAI/AAAAAAAAAAA/AKF05nAP8MT_SBQZAVN9DUgWtWnOw0OgtA/photo.jpg', 'Nadiah Tsp', 'tspnadiah@gmail.com', 'perempuan', '1998-09-14', '089799179002', 2, NULL, NULL, 'cjhfTyzCys64cLNyjZMu1A1q8nlp6pKwoFLhxT2VJ6q8ZzmilVwKfLDtlSx3', '2020-03-25 08:49:25', '2020-03-25 10:01:24'),
-(10, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GgwVwrMPKv_Cl_5p6mO5ov17NyOJehSy7QAgMkH', 'itsliza14', 'lizaconan2@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, 'X1SueeExr1vQrBmVgp78Kv20t4OM6jZFzbAt5bIqtBn0eyZUmnszxGg9R5fH', '2020-03-25 08:50:20', '2020-03-25 08:50:20'),
-(11, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GhtyWTOVvaJi6svRko32-coNW-yegA8w6k7Ccn0', 'Muhammad Reza Pahlevi Y Guru', 'reza.pahlevi.oa@gmail.com', 'laki-laki', '2020-03-18', '089799129002', 2, NULL, NULL, 'Y9XIIkCVU7uis5dSRroArXQSNymfD3fh4FsWeZG3cOAlGH8OmDXTGi2GVkrU', '2020-03-25 08:50:58', '2020-03-25 09:08:48'),
-(12, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GgESZJE3qYF18m9XYY1q5KDYpUe6gJ3QXKjYs8eEA', 'M. Rafi Nugroho', 'mrafiapex96@gmail.com', NULL, NULL, '31531358', 0, NULL, NULL, '3283iyHezaOefbmg2OUkiq8lcyL0C3PZ4YL1f0e32lAR816LrAV1oOnNqEMW', '2020-04-02 07:32:51', '2020-04-02 07:32:51'),
-(13, NULL, NULL, 'https://lh4.googleusercontent.com/-Jv_CRvUzISA/AAAAAAAAAAI/AAAAAAAAAAA/AAKWJJN2g7jjT7DC5xnLbYMdykpm-OVPYQ/photo.jpg', 'nur mailis', 'nurmailis2407@gmail.com', 'perempuan', '1974-07-25', '082114254075', 0, NULL, NULL, 'tlgcBg3WwgXdyJ2bBGTlM8g634PILwoalX5hgpVo6wkWHCLDzPuXPvl9MxGb', '2020-04-18 08:49:11', '2020-04-18 09:50:28');
+--
+-- Structure for view `absen_pembayaran`
+--
+DROP TABLE IF EXISTS `absen_pembayaran`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`easypriv`@`localhost` SQL SECURITY DEFINER VIEW `absen_pembayaran`  AS  select `p`.`id_murid` AS `id_murid`,`p`.`id_pemesanan` AS `id_pemesanan`,`p`.`id_guru` AS `id_guru`,count(0) AS `jumlah_absen`,extract(year from `absen`.`waktu_absen`) AS `tahun`,extract(month from `absen`.`waktu_absen`) AS `bulan` from (`absen` join `pemesanan` `p` on(`p`.`id_pemesanan` = `absen`.`id_pemesanan`)) group by extract(year from `absen`.`waktu_absen`),extract(month from `absen`.`waktu_absen`),`p`.`id_pemesanan`,`p`.`id_guru`,`p`.`id_murid` ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `grafikguru`
+--
+DROP TABLE IF EXISTS `grafikguru`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`easypriv`@`localhost` SQL SECURITY DEFINER VIEW `grafikguru`  AS  select `table_a`.`counts` - count(0) AS `jumlah_guru_belum_dapat`,count(0) AS `jumlah_guru_sudah_dapat`,concat(monthname(`pemesanan`.`waktu_pemesanan`),' ',extract(year from `pemesanan`.`waktu_pemesanan`)) AS `bulan_tahun` from (`pemesanan` join (select count(0) AS `counts` from `users` where `users`.`role` = 2) `table_a`) group by concat(monthname(`pemesanan`.`waktu_pemesanan`),' ',extract(year from `pemesanan`.`waktu_pemesanan`)),`table_a`.`counts` ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `grafikpemesanan`
+--
+DROP TABLE IF EXISTS `grafikpemesanan`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`easypriv`@`localhost` SQL SECURITY DEFINER VIEW `grafikpemesanan`  AS  select `tablesd`.`PemesananPerBulan` AS `Pemesanan_SD`,`tablesmp`.`PemesananPerBulan` AS `Pemesanan_SMP`,`tablesma`.`PemesananPerBulan` AS `Pemesanan_SMA`,concat(`tablesd`.`NAMA_BULAN`,' ',`tablesd`.`TAHUN`) AS `BULAN_TAHUN` from (((select count(0) AS `PemesananPerBulan`,monthname(`pemesanan`.`waktu_pemesanan`) AS `NAMA_BULAN`,extract(year from `pemesanan`.`waktu_pemesanan`) AS `TAHUN`,extract(month from `pemesanan`.`waktu_pemesanan`) AS `BULAN`,extract(year_month from `pemesanan`.`waktu_pemesanan`) AS `BULAN_TAHUN` from ((`pemesanan` join `mata_pelajaran` on(`mata_pelajaran`.`id_mapel` = `pemesanan`.`id_mapel`)) join `jenjang` on(`mata_pelajaran`.`id_jenjang` = `jenjang`.`id_jenjang`)) where `jenjang`.`id_jenjang` = 1 group by extract(year_month from `pemesanan`.`waktu_pemesanan`),`pemesanan`.`waktu_pemesanan`) `tablesd` left join (select count(0) AS `PemesananPerBulan`,monthname(`pemesanan`.`waktu_pemesanan`) AS `NAMA_BULAN`,extract(year from `pemesanan`.`waktu_pemesanan`) AS `TAHUN`,extract(month from `pemesanan`.`waktu_pemesanan`) AS `BULAN`,extract(year_month from `pemesanan`.`waktu_pemesanan`) AS `BULAN_TAHUN` from ((`pemesanan` join `mata_pelajaran` on(`mata_pelajaran`.`id_mapel` = `pemesanan`.`id_mapel`)) join `jenjang` on(`mata_pelajaran`.`id_jenjang` = `jenjang`.`id_jenjang`)) where `jenjang`.`id_jenjang` = 2 group by extract(year_month from `pemesanan`.`waktu_pemesanan`),`pemesanan`.`waktu_pemesanan`) `tablesmp` on(`tablesmp`.`BULAN_TAHUN` = `tablesd`.`BULAN_TAHUN`)) left join (select count(0) AS `PemesananPerBulan`,monthname(`pemesanan`.`waktu_pemesanan`) AS `NAMA_BULAN`,extract(year from `pemesanan`.`waktu_pemesanan`) AS `TAHUN`,extract(month from `pemesanan`.`waktu_pemesanan`) AS `BULAN`,extract(year_month from `pemesanan`.`waktu_pemesanan`) AS `BULAN_TAHUN` from ((`pemesanan` join `mata_pelajaran` on(`mata_pelajaran`.`id_mapel` = `pemesanan`.`id_mapel`)) join `jenjang` on(`mata_pelajaran`.`id_jenjang` = `jenjang`.`id_jenjang`)) where `jenjang`.`id_jenjang` = 3 group by extract(year_month from `pemesanan`.`waktu_pemesanan`),`pemesanan`.`waktu_pemesanan`) `tablesma` on(`tablesma`.`BULAN_TAHUN` = `tablesmp`.`BULAN_TAHUN`)) union select `tablesd`.`PemesananPerBulan` AS `Pemesanan_SD`,`tablesmp`.`PemesananPerBulan` AS `Pemesanan_SMP`,`tablesma`.`PemesananPerBulan` AS `Pemesanan_SMA`,concat(`tablesd`.`NAMA_BULAN`,' ',`tablesd`.`TAHUN`) AS `BULAN_TAHUN` from ((select count(0) AS `PemesananPerBulan`,monthname(`pemesanan`.`waktu_pemesanan`) AS `NAMA_BULAN`,extract(year from `pemesanan`.`waktu_pemesanan`) AS `TAHUN`,extract(month from `pemesanan`.`waktu_pemesanan`) AS `BULAN`,extract(year_month from `pemesanan`.`waktu_pemesanan`) AS `BULAN_TAHUN` from ((`pemesanan` join `mata_pelajaran` on(`mata_pelajaran`.`id_mapel` = `pemesanan`.`id_mapel`)) join `jenjang` on(`mata_pelajaran`.`id_jenjang` = `jenjang`.`id_jenjang`)) where `jenjang`.`id_jenjang` = 3 group by extract(year_month from `pemesanan`.`waktu_pemesanan`),`pemesanan`.`waktu_pemesanan`) `tablesma` left join ((select count(0) AS `PemesananPerBulan`,monthname(`pemesanan`.`waktu_pemesanan`) AS `NAMA_BULAN`,extract(year from `pemesanan`.`waktu_pemesanan`) AS `TAHUN`,extract(month from `pemesanan`.`waktu_pemesanan`) AS `BULAN`,extract(year_month from `pemesanan`.`waktu_pemesanan`) AS `BULAN_TAHUN` from ((`pemesanan` join `mata_pelajaran` on(`mata_pelajaran`.`id_mapel` = `pemesanan`.`id_mapel`)) join `jenjang` on(`mata_pelajaran`.`id_jenjang` = `jenjang`.`id_jenjang`)) where `jenjang`.`id_jenjang` = 2 group by extract(year_month from `pemesanan`.`waktu_pemesanan`),`pemesanan`.`waktu_pemesanan`) `tablesmp` left join (select count(0) AS `PemesananPerBulan`,monthname(`pemesanan`.`waktu_pemesanan`) AS `NAMA_BULAN`,extract(year from `pemesanan`.`waktu_pemesanan`) AS `TAHUN`,extract(month from `pemesanan`.`waktu_pemesanan`) AS `BULAN`,extract(year_month from `pemesanan`.`waktu_pemesanan`) AS `BULAN_TAHUN` from ((`pemesanan` join `mata_pelajaran` on(`mata_pelajaran`.`id_mapel` = `pemesanan`.`id_mapel`)) join `jenjang` on(`mata_pelajaran`.`id_jenjang` = `jenjang`.`id_jenjang`)) where `jenjang`.`id_jenjang` = 1 group by extract(year_month from `pemesanan`.`waktu_pemesanan`),`pemesanan`.`waktu_pemesanan`) `tablesd` on(`tablesmp`.`BULAN_TAHUN` = `tablesd`.`BULAN_TAHUN`)) on(`tablesma`.`BULAN_TAHUN` = `tablesmp`.`BULAN_TAHUN`)) ;
 
 --
 -- Indexes for dumped tables
@@ -469,6 +539,13 @@ INSERT INTO `users` (`id`, `socialite_id`, `socialite_name`, `avatar`, `name`, `
 --
 ALTER TABLE `absen`
   ADD PRIMARY KEY (`id_absen`);
+
+--
+-- Indexes for table `admins`
+--
+ALTER TABLE `admins`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `admins_email_unique` (`email`);
 
 --
 -- Indexes for table `alamat`
@@ -489,12 +566,6 @@ ALTER TABLE `guru_mapel`
   ADD PRIMARY KEY (`id_guru_mapel`);
 
 --
--- Indexes for table `jadwal_ajar`
---
-ALTER TABLE `jadwal_ajar`
-  ADD PRIMARY KEY (`id_jadwal_ajar`);
-
---
 -- Indexes for table `jadwal_available`
 --
 ALTER TABLE `jadwal_available`
@@ -507,22 +578,28 @@ ALTER TABLE `jadwal_pemesanan_perminggu`
   ADD PRIMARY KEY (`id_jadwal_pemesanan_perminggu`);
 
 --
+-- Indexes for table `jadwal_penggantis`
+--
+ALTER TABLE `jadwal_penggantis`
+  ADD PRIMARY KEY (`id_jadwal_pengganti`);
+
+--
 -- Indexes for table `jenjang`
 --
 ALTER TABLE `jenjang`
   ADD PRIMARY KEY (`id_jenjang`);
 
 --
+-- Indexes for table `kriteria_bobot_targets`
+--
+ALTER TABLE `kriteria_bobot_targets`
+  ADD PRIMARY KEY (`id_kriteria_bobot_target`);
+
+--
 -- Indexes for table `mata_pelajaran`
 --
 ALTER TABLE `mata_pelajaran`
   ADD PRIMARY KEY (`id_mapel`);
-
---
--- Indexes for table `microteaching`
---
-ALTER TABLE `microteaching`
-  ADD PRIMARY KEY (`id_microteaching`);
 
 --
 -- Indexes for table `migrations`
@@ -555,10 +632,22 @@ ALTER TABLE `pendaftaran_guru`
   ADD PRIMARY KEY (`id_pendaftaran`);
 
 --
+-- Indexes for table `profile_matching`
+--
+ALTER TABLE `profile_matching`
+  ADD PRIMARY KEY (`id_profile_matching`);
+
+--
 -- Indexes for table `rating`
 --
 ALTER TABLE `rating`
   ADD PRIMARY KEY (`id_rating`);
+
+--
+-- Indexes for table `season`
+--
+ALTER TABLE `season`
+  ADD PRIMARY KEY (`id_season`);
 
 --
 -- Indexes for table `upah_guru`
@@ -581,13 +670,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `absen`
 --
 ALTER TABLE `absen`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_absen` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `admins`
+--
+ALTER TABLE `admins`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `alamat`
 --
 ALTER TABLE `alamat`
-  MODIFY `id_alamat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_alamat` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -599,85 +694,97 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `guru_mapel`
 --
 ALTER TABLE `guru_mapel`
-  MODIFY `id_guru_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
-
---
--- AUTO_INCREMENT for table `jadwal_ajar`
---
-ALTER TABLE `jadwal_ajar`
-  MODIFY `id_jadwal_ajar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_guru_mapel` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `jadwal_available`
 --
 ALTER TABLE `jadwal_available`
-  MODIFY `id_jadwal_available` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_jadwal_available` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `jadwal_pemesanan_perminggu`
 --
 ALTER TABLE `jadwal_pemesanan_perminggu`
-  MODIFY `id_jadwal_pemesanan_perminggu` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_jadwal_pemesanan_perminggu` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `jadwal_penggantis`
+--
+ALTER TABLE `jadwal_penggantis`
+  MODIFY `id_jadwal_pengganti` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `jenjang`
 --
 ALTER TABLE `jenjang`
-  MODIFY `id_jenjang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_jenjang` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `kriteria_bobot_targets`
+--
+ALTER TABLE `kriteria_bobot_targets`
+  MODIFY `id_kriteria_bobot_target` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `mata_pelajaran`
 --
 ALTER TABLE `mata_pelajaran`
-  MODIFY `id_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
-
---
--- AUTO_INCREMENT for table `microteaching`
---
-ALTER TABLE `microteaching`
-  MODIFY `id_microteaching` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_mapel` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pembayaran` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `id_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pemesanan` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pendaftaran_guru`
 --
 ALTER TABLE `pendaftaran_guru`
-  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_pendaftaran` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `profile_matching`
+--
+ALTER TABLE `profile_matching`
+  MODIFY `id_profile_matching` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rating`
 --
 ALTER TABLE `rating`
-  MODIFY `id_rating` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_rating` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `season`
+--
+ALTER TABLE `season`
+  MODIFY `id_season` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `upah_guru`
 --
 ALTER TABLE `upah_guru`
-  MODIFY `id_upah_guru` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_upah_guru` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

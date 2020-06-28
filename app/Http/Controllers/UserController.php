@@ -8,6 +8,7 @@ use App\User;
 use App\PendaftaranGuru;
 use App\GuruMapel;
 use App\Alamat;
+use App\Http\Requests\PendaftaranProfileRequest;
 use App\Jenjang;
 use App\MataPelajaran;
 use App\ProfileMatching;
@@ -139,6 +140,7 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * todo Pendaftaran Guru
      */
     public function store(PendaftaranRequest $request)
     {
@@ -286,9 +288,9 @@ class UserController extends Controller
         return redirect('/user/create')->with('status', 'Aplikasi Anda berhasil di simpan!');
     }
     /**
-     * Store Profile Guru
+     * todo Store Profile Guru
      */
-    public function storeProfile(Request $request)
+    public function storeProfile(PendaftaranProfileRequest $request)
     {
         // dd($request->get('hari'));
         $user = User::findOrFail(Auth()->user()->id);
