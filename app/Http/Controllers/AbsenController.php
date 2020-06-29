@@ -208,7 +208,7 @@ class AbsenController extends Controller
     {
         // DB::enableQueryLog(); // Enable query log
         $where =[];
-        $relationshipPembayaranAbsen = ['murid','guru','pemesanan','pemesanan.mataPelajaran','pemesanan.mataPelajaran.jenjang'];
+        $relationshipPembayaranAbsen = ['pembayaran','murid','guru','pemesanan','pemesanan.mataPelajaran','pemesanan.mataPelajaran.jenjang'];
         if(isset($r->id_pemesanan)){
             $where['id_pemesanan'] = $r->id_pemesanan;
         }
@@ -273,6 +273,8 @@ class AbsenController extends Controller
         }
         // $absenQuery= $absenQuery->get();
         //dd(DB::getQueryLog());
+        $absenQuery = $absenQuery->orderBy('tahun', 'desc');
+        $absenQuery = $absenQuery->orderBy('bulan', 'desc');
         return $absenQuery->get();
     }
 
