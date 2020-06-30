@@ -45,3 +45,14 @@ group by periode_bulan, periode_tahun
 
 Query untuk grafik Profit
 select *, inflow.total_bayar - outflow.total_upah as Profit from (select sum(jumlah_bayar) as "total_bayar", periode_bulan, periode_tahun from pembayaran where status = 1 group by periode_bulan, periode_tahun) as inflow, (select sum(jumlah_upah) as "total_upah", periode_bulan, periode_tahun from upah_guru where status = 1 group by periode_bulan, periode_tahun) as outflow WHERE inflow.periode_bulan = outflow.periode_bulan AND inflow.periode_tahun = outflow.periode_tahun
+
+Query untuk grafik Cashflow
+SELECT sum(jenjang.harga_per_pertemuan) as Inflow, sum(jenjang.upah_guru_per_pertemuan) as Outflow, extract(YEAR from pembayaran.tanggal_bayar) as Tahun,
+extract(MONTH from pembayaran.tanggal_bayar) as Bulan
+FROM `absen_pembayaran` join pemesanan on pemesanan.id_pemesanan = absen_pembayaran.id_pemesanan
+join mata_pelajaran on pemesanan.id_mapel = mata_pelajaran.id_mapel 
+join jenjang on mata_pelajaran.id_jenjang = jenjang.id_jenjang
+join pembayaran on pembayaran.id_pembayaran = absen_pembayaran.id_pembayaran
+where absen_pembayaran.id_pembayaran is not null
+group by extract(YEAR from pembayaran.tanggal_bayar),
+extract(MONTH from pembayaran.tanggal_bayar)
