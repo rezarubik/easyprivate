@@ -54,8 +54,8 @@
     <!-- Modal Menampilkan Video Microteaching -->
     <!-- Form -->
     @foreach($pendaftaranGuru as $pg)
-    <form action="/score-video-microteaching" method="post">
-    @csrf
+    <form action="{{route('penilaian.video.microteaching')}}" method="post">
+        @csrf
         <div class="row">
             <div class="col-md-12">
                 <div class="row">

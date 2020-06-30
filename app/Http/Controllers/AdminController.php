@@ -8,6 +8,7 @@ use App\Pemesanan;
 use App\PendaftaranGuru;
 use App\GuruMapel;
 use App\Absen;
+use App\AbsenPembayaran;
 use App\Alamat;
 use App\GrafikGuru;
 use App\Jenjang;
@@ -67,6 +68,30 @@ class AdminController extends Controller
         $grafikGuru = GrafikGuru::all();
         // dd($grafikGuru);
         return $grafikGuru;
+    }
+
+    public function getGrafikCashflow()
+    {
+        //         SELECT sum(jenjang.harga_per_pertemuan) as Inflow, sum(jenjang.upah_guru_per_pertemuan) as Outflow, extract(YEAR from pembayaran.tanggal_bayar) as Tahun,
+        // extract(MONTH from pembayaran.tanggal_bayar) as Bulan
+        // FROM `absen_pembayaran` join pemesanan on pemesanan.id_pemesanan = absen_pembayaran.id_pemesanan
+        // join mata_pelajaran on pemesanan.id_mapel = mata_pelajaran.id_mapel 
+        // join jenjang on mata_pelajaran.id_jenjang = jenjang.id_jenjang
+        // join pembayaran on pembayaran.id_pembayaran = absen_pembayaran.id_pembayaran
+        // where absen_pembayaran.id_pembayaran is not null
+        // group by extract(YEAR from pembayaran.tanggal_bayar),
+        // extract(MONTH from pembayaran.tanggal_bayar)
+        // fisika sma 4
+        $query = AbsenPembayaran::join('pemesanan', 'pemesanan.id_pemesanan', 'absen_pembayaran.id_pemesanan')
+            ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'pemesanan.id_pemesanan')
+            ->join('jenjang', 'jenjang.id_jenjang', 'mata_pelajaran.id_jenjang')
+            ->join('pembayaran', 'pembayaran.id_pembayaran', 'absen_pembayaran.id_pembayaran')
+            ->whereNotNull('absen_pembayaran.id_pembayaran')
+            ->selectRaw('sum(jenjang.harga_per_pertemuan) as Inflow, sum(jenjang.upah_guru_per_pertemuan) as Outflow, extract(YEAR from pembayaran.tanggal_bayar) as Tahun, extract(MONTH from pembayaran.tanggal_bayar) as Bulan')
+            ->groupByRaw('extract(YEAR from pembayaran.tanggal_bayar),extract(MONTH from pembayaran.tanggal_bayar)')
+            ->get();
+        // dd($query);
+        return $query;
     }
 
     /**
@@ -259,7 +284,7 @@ class AdminController extends Controller
         ];
         $profileMatching = ProfileMatching::where('id_pendaftaran_guru', $request->id_pendaftaran)
             ->update($data);
-        return redirect('video-microteaching');
+        return redirect()->route('video.microteaching');
     }
     // todo perhitungan profile matching
     public function hitungProfileMatching()
@@ -393,7 +418,7 @@ class AdminController extends Controller
         $pesertaLulus = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
             ->join('profile_matching', 'pendaftaran_guru.id_pendaftaran', 'profile_matching.id_pendaftaran_guru')
             ->orderBy('profile_matching.pm_result')
-            ->limit(3)
+            ->limit(13)
             ->select('pendaftaran_guru.*')
             ->get();
         foreach ($pesertaLulus as $pl) {
@@ -406,6 +431,7 @@ class AdminController extends Controller
         $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
             ->where('pendaftaran_guru.status', 0)
             ->update(['pendaftaran_guru.status' => 2]);
+        $user = User::whereIn('id', $id_peserta_lulus)->update(['role' => 2]);
         // dd($pendaftaranGuru);
     }
 

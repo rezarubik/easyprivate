@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 30 Jun 2020 pada 08.38
+-- Waktu pembuatan: 30 Jun 2020 pada 22.33
 -- Versi server: 10.3.23-MariaDB-log-cll-lve
 -- Versi PHP: 7.3.6
 
@@ -105,7 +105,8 @@ INSERT INTO `alamat` (`id_alamat`, `id_user`, `latitude`, `longitude`, `alamat_l
 (8, 7, -6.22, 106.83, 'Jl. pedurenan masjid 2 no. 25'),
 (9, 9, -6.32, 106.88, 'Jalan Tanah Merdeka X Rt019 Rw 06 kelurahan rambutan, kecamatan ciracas, Jakarta Timur'),
 (10, 10, -6.23, 106.82, 'Jalan Bappenas No A1'),
-(11, 11, -6.25, 106.84, 'Jalan Pancoran Barat IXE/31, Pancoran, Jakarta Selatan');
+(11, 11, -6.25, 106.84, 'Jalan Pancoran Barat IXE/31, Pancoran, Jakarta Selatan'),
+(12, 14, -6.36, 106.88, 'Lembah Nirmala 1, Jl. Mushola RT 11/14. Mekarsari, Cimanggis, Depok.');
 
 -- --------------------------------------------------------
 
@@ -184,7 +185,12 @@ INSERT INTO `guru_mapel` (`id_guru_mapel`, `id_guru`, `id_mapel`) VALUES
 (26, 10, 34),
 (27, 11, 13),
 (28, 2, 5),
-(29, 2, 15);
+(29, 2, 15),
+(30, 14, 10),
+(31, 14, 31),
+(32, 14, 21),
+(33, 14, 15),
+(34, 14, 12);
 
 -- --------------------------------------------------------
 
@@ -667,7 +673,49 @@ INSERT INTO `jadwal_available` (`id_jadwal_available`, `id_user`, `hari`, `start
 (459, 11, 'Minggu', '13:00:00', '14:30:00', 0),
 (460, 11, 'Minggu', '15:00:00', '16:30:00', 0),
 (461, 11, 'Minggu', '17:00:00', '18:30:00', 0),
-(462, 11, 'Minggu', '19:00:00', '20:30:00', 0);
+(462, 11, 'Minggu', '19:00:00', '20:30:00', 0),
+(463, 14, 'Senin', '09:00:00', '10:30:00', 0),
+(464, 14, 'Senin', '11:00:00', '12:30:00', 0),
+(465, 14, 'Senin', '13:00:00', '14:30:00', 0),
+(466, 14, 'Senin', '15:00:00', '16:30:00', 0),
+(467, 14, 'Senin', '17:00:00', '18:30:00', 0),
+(468, 14, 'Senin', '19:00:00', '20:30:00', 0),
+(469, 14, 'Selasa', '09:00:00', '10:30:00', 0),
+(470, 14, 'Selasa', '11:00:00', '12:30:00', 0),
+(471, 14, 'Selasa', '13:00:00', '14:30:00', 0),
+(472, 14, 'Selasa', '15:00:00', '16:30:00', 0),
+(473, 14, 'Selasa', '17:00:00', '18:30:00', 0),
+(474, 14, 'Selasa', '19:00:00', '20:30:00', 0),
+(475, 14, 'Rabu', '09:00:00', '10:30:00', 0),
+(476, 14, 'Rabu', '11:00:00', '12:30:00', 0),
+(477, 14, 'Rabu', '13:00:00', '14:30:00', 0),
+(478, 14, 'Rabu', '15:00:00', '16:30:00', 0),
+(479, 14, 'Rabu', '17:00:00', '18:30:00', 0),
+(480, 14, 'Rabu', '19:00:00', '20:30:00', 0),
+(481, 14, 'Kamis', '09:00:00', '10:30:00', 0),
+(482, 14, 'Kamis', '11:00:00', '12:30:00', 0),
+(483, 14, 'Kamis', '13:00:00', '14:30:00', 0),
+(484, 14, 'Kamis', '15:00:00', '16:30:00', 0),
+(485, 14, 'Kamis', '17:00:00', '18:30:00', 0),
+(486, 14, 'Kamis', '19:00:00', '20:30:00', 0),
+(487, 14, 'Jumat', '09:00:00', '10:30:00', 0),
+(488, 14, 'Jumat', '11:00:00', '12:30:00', 0),
+(489, 14, 'Jumat', '13:00:00', '14:30:00', 0),
+(490, 14, 'Jumat', '15:00:00', '16:30:00', 0),
+(491, 14, 'Jumat', '17:00:00', '18:30:00', 0),
+(492, 14, 'Jumat', '19:00:00', '20:30:00', 0),
+(493, 14, 'Sabtu', '09:00:00', '10:30:00', 0),
+(494, 14, 'Sabtu', '11:00:00', '12:30:00', 0),
+(495, 14, 'Sabtu', '13:00:00', '14:30:00', 0),
+(496, 14, 'Sabtu', '15:00:00', '16:30:00', 0),
+(497, 14, 'Sabtu', '17:00:00', '18:30:00', 0),
+(498, 14, 'Sabtu', '19:00:00', '20:30:00', 0),
+(499, 14, 'Minggu', '09:00:00', '10:30:00', 0),
+(500, 14, 'Minggu', '11:00:00', '12:30:00', 0),
+(501, 14, 'Minggu', '13:00:00', '14:30:00', 0),
+(502, 14, 'Minggu', '15:00:00', '16:30:00', 0),
+(503, 14, 'Minggu', '17:00:00', '18:30:00', 0),
+(504, 14, 'Minggu', '19:00:00', '20:30:00', 0);
 
 -- --------------------------------------------------------
 
@@ -927,7 +975,8 @@ INSERT INTO `pendaftaran_guru` (`id_pendaftaran`, `id_season`, `id_user`, `dir_c
 (8, NULL, 7, 'file_cv_8.pdf', 'video_microteaching_8.mp4', NULL, 18, 3.30),
 (9, NULL, 9, NULL, 'video_microteaching_9.mp4', NULL, 4, 3.53),
 (10, NULL, 10, 'file_cv_10.pdf', 'video_microteaching_10.mp4', NULL, 60, 3.67),
-(11, NULL, 11, 'file_cv_11.pdf', 'video_microteaching_11.mp4', NULL, 36, 3.64);
+(11, NULL, 11, 'file_cv_11.pdf', 'video_microteaching_11.mp4', NULL, 36, 3.64),
+(12, NULL, 14, 'file_cv_12.pdf', 'video_microteaching_12.mp4', NULL, 24, 3.70);
 
 -- --------------------------------------------------------
 
@@ -985,7 +1034,8 @@ INSERT INTO `profile_matching` (`id_profile_matching`, `id_pendaftaran_guru`, `p
 (11, 9, 1.00, NULL, NULL, NULL, NULL, 5.00, NULL, 1.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (12, 10, 5.00, NULL, NULL, NULL, NULL, 5.00, 4.00, 5.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (13, 11, 5.00, NULL, NULL, NULL, NULL, 5.00, 4.00, 1.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(14, 2, 4.00, NULL, NULL, NULL, NULL, 5.00, 4.00, 3.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(14, 2, 4.00, NULL, NULL, NULL, NULL, 5.00, 4.00, 3.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(15, 12, 4.00, NULL, NULL, NULL, NULL, 5.00, 5.00, 5.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1069,7 +1119,8 @@ INSERT INTO `users` (`id`, `socialite_id`, `socialite_name`, `avatar`, `name`, `
 (10, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GiwoX4lFExVpJIZfIxuAMmPpG1cUko7iYUewIN2Ug', 'Hikmah Insani', 'hikmahinzaghi@gmail.com', 'perempuan', '1992-04-27', '085722040470', 0, 'UPI', NULL, NULL, 'iNmo4ZeXAxj5Q8OeEtEzC6z2mFsvEMv3GzT2xEmhLvQk3tm02Kpkhj4OEZQ7', '2020-06-29 00:23:51', '2020-06-29 00:30:16'),
 (11, NULL, NULL, 'https://lh5.googleusercontent.com/-Un9Cgtu_xcA/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuckShoB1n6-p70DlK__Dn9_nUjAJLA/photo.jpg', 'ega nanda', 'enanda295@gmail.com', 'perempuan', '1994-03-05', '085730189789', 0, 'Universitas Negeri Surabaya', NULL, NULL, 'pX0KSNEc34LUNUudnNOsRwf1coy0iiaPRidrtyqoVnIBL4zKShcC8VmAgSxW', '2020-06-29 00:24:51', '2020-06-29 00:30:43'),
 (12, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GhlCzZfQeL8Wm8ug3prrVj4yPT8Ll0O33i921tqAw', 'Dimas Pratama', 'dimaspratama22@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '3FxCKig6jdUwcPEUlNQdwcU11CAlN35t3Fx6c6dplB7sshoiHLxSwm2QkwDb', '2020-06-29 02:38:23', '2020-06-29 02:38:23'),
-(13, NULL, NULL, 'https://lh3.googleusercontent.com/-nNizq8ANJhs/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclTPodfu5btnrhjhwQ13Vpu4SFEtA/photo.jpg', 'Sita Sinthya', 'sinthyasita@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '7tG9nLhTBwNt1t7sHvLO1rbBz9mjawB6XGZpd7fL6Jat24z6jbyxNX9VwTqT', '2020-06-29 02:42:54', '2020-06-29 02:42:54');
+(13, NULL, NULL, 'https://lh3.googleusercontent.com/-nNizq8ANJhs/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclTPodfu5btnrhjhwQ13Vpu4SFEtA/photo.jpg', 'Sita Sinthya', 'sinthyasita@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '7tG9nLhTBwNt1t7sHvLO1rbBz9mjawB6XGZpd7fL6Jat24z6jbyxNX9VwTqT', '2020-06-29 02:42:54', '2020-06-29 02:42:54'),
+(14, NULL, NULL, 'foto_profile_14.PNG', 'Asymala Permata Sari', 'asymalapsari@gmail.com', 'perempuan', '1998-04-11', '081807879100', 0, 'Politeknik Negeri Jakarta', NULL, NULL, '3FOpVcWRLqc2HAspzxvdDvCAo0XZYRahZJiv0q10tjfvREmYlq52MjqVdccv', '2020-06-30 08:08:43', '2020-06-30 08:15:34');
 
 -- --------------------------------------------------------
 
@@ -1249,7 +1300,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT untuk tabel `alamat`
 --
 ALTER TABLE `alamat`
-  MODIFY `id_alamat` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_alamat` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `failed_jobs`
@@ -1261,13 +1312,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT untuk tabel `guru_mapel`
 --
 ALTER TABLE `guru_mapel`
-  MODIFY `id_guru_mapel` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_guru_mapel` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT untuk tabel `jadwal_available`
 --
 ALTER TABLE `jadwal_available`
-  MODIFY `id_jadwal_available` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=463;
+  MODIFY `id_jadwal_available` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=505;
 
 --
 -- AUTO_INCREMENT untuk tabel `jadwal_pemesanan_perminggu`
@@ -1321,13 +1372,13 @@ ALTER TABLE `pemesanan`
 -- AUTO_INCREMENT untuk tabel `pendaftaran_guru`
 --
 ALTER TABLE `pendaftaran_guru`
-  MODIFY `id_pendaftaran` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_pendaftaran` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `profile_matching`
 --
 ALTER TABLE `profile_matching`
-  MODIFY `id_profile_matching` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_profile_matching` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT untuk tabel `rating`
@@ -1351,7 +1402,7 @@ ALTER TABLE `upah_guru`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
