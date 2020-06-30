@@ -20,5 +20,10 @@ class AbsenPembayaran extends Model
     {
         return $this->hasOne('App\Pemesanan', 'id_pemesanan', 'id_pemesanan');
     }
+    public function pembayaran()
+    {
+        return $this->hasOne('App\Pembayaran', 'id_pembayaran', 'id_pembayaran');
+    }
+    
 }
 
