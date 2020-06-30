@@ -21,6 +21,7 @@ class PemesananController extends Controller
     public function __construct()
     {
         $this->relationship = ['murid', 'guru', 'murid.alamat','guru.alamat', 'mataPelajaran', 'mataPelajaran.jenjang', 'jadwalPemesananPerminggu', 'jadwalPemesananPerminggu.jadwalAvailable'];
+        $this->relationshipPemesanan=['murid', 'guru', 'murid.alamat','guru.alamat', 'mataPelajaran', 'mataPelajaran.jenjang', 'jadwalPemesananPerminggu', 'jadwalPemesananPerminggu.jadwalAvailable','guru.pendaftaranGuru','guru.guruMapel','guru.guruMapel.mataPelajaran','guru.guruMapel.mataPelajaran.jenjang'];
         $this->datetimeFormat = "Y-m-d H:i:s";
         date_default_timezone_set('Asia/Jakarta');
     }
@@ -53,7 +54,7 @@ class PemesananController extends Controller
 
     public function getPemesananById($id)
     {
-        return Pemesanan::with($this->relationship)->find($id);
+        return Pemesanan::with($this->relationshipPemesanan)->find($id);
         // return Pemesanan::with($this->relationship)->where(['id_pemesanan'=>$id])->first();
 
         //->where(['id' => $id]);

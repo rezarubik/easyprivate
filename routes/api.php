@@ -65,6 +65,7 @@ Route::get('pembayaran', 'PembayaranController@getPembayaran'); //Udah bisa
 Route::get('pembayaran/guru/{id}', 'PembayaranController@getPembayaranByIdGuru'); //Udah bisa
 Route::get('pembayaran/murid/{id}', 'PembayaranController@getPembayaranByIdMurid'); //Udah bisa
 Route::post('pembayaran/store','PembayaranController@storeDetailPembayaran');
+Route::post('pembayaran/filter','PembayaranController@getPembayaranFiltered');
 
 //Login guru
 Route::post('login/guru', 'UserController@loginGuru'); //Udah bisa

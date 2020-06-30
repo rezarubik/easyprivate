@@ -26,7 +26,7 @@ class UserController extends Controller
         // $this->middleware('auth');
         $this->relationshipGuru = ['alamat'];
         $this->relationshipMurid = ['alamat'];
-        $this->relationshipCariGuru = ['alamat', 'guruMapel.mataPelajaran', 'guruMapel.mataPelajaran.jenjang', 'guruMapel','pendaftaranGuru'];
+        $this->relationshipCariGuru = ['alamat', 'guruMapel.mataPelajaran', 'guruMapel.mataPelajaran.jenjang', 'guruMapel', 'pendaftaranGuru'];
         $this->relationshipPendaftaranGuru = ['user', 'season', 'profileMatching'];
         $this->realationshipGuruMapel = ['mataPelajaran', 'mataPelajaran.jenjang'];
     }
@@ -748,10 +748,10 @@ class UserController extends Controller
     public function detailGuru($id)
     {
         $guru = User::with($this->relationshipCariGuru)
-            ->join('pendaftaran_guru','pendaftaran_guru.id_user','users.id')
+            ->join('pendaftaran_guru', 'pendaftaran_guru.id_user', 'users.id')
             ->where([
-                'pendaftaran_guru.status'=>1,
-                'users.id'=>$id,
+                'pendaftaran_guru.status' => 1,
+                'users.id' => $id,
             ])
             ->select('users.*')
             ->first();
@@ -900,24 +900,20 @@ class UserController extends Controller
             $where['jenis_kelamin'] = $r->jenis_kelamin;
         }
 
-        if (isset($r->hari)) {
-            $jadwalAvailable = $r->hari;
-        }
         $cariGuruQuery = User::with($this->relationshipCariGuru)
             ->join('guru_mapel', 'guru_mapel.id_guru', 'users.id')
             ->join('mata_pelajaran', 'mata_pelajaran.id_mapel', 'guru_mapel.id_mapel')
             ->join('jadwal_available', 'jadwal_available.id_user', 'users.id')
             ->where($where)
-            ->select('users.*')
-            ->distinct();
+            ->select('users.*');
 
         //dd($jadwalAvailable);
         if (isset($r->hari) && sizeOf($r->hari) > 0) {
-            $cariGuruQuery = $cariGuruQuery->whereIn('jadwal_available.hari', $jadwalAvailable);
+            $cariGuruQuery = $cariGuruQuery->whereIn('jadwal_available.hari', $r->hari);
             //dd($cariGuru);    
         }
         $id_guru = [];
-        $cariGuru = $cariGuruQuery->get();
+        $cariGuru = $cariGuruQuery->distinct()->get();
         foreach ($cariGuru as $idG) {
             array_push($id_guru, $idG->id);
         }
@@ -964,8 +960,14 @@ class UserController extends Controller
 
         $minJarak = min($jarakArray);
         $maxResult = max($resultArray);
-
+        if($maxResult==0){
+            $maxResult=1;
+            
+        }
         foreach ($jarak as $key => $j) {
+            if($j->jarak_haversine==0){
+                $j->jarak_haversine =1;
+            }
             $jarak[$key]->saw_result = $this->methodSAW($j->jarak_haversine, $j->pm_result, $minJarak, $maxResult);
         }
 
