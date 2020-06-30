@@ -208,7 +208,7 @@ class AbsenController extends Controller
     {
         // DB::enableQueryLog(); // Enable query log
         $where =[];
-        $relationshipPembayaranAbsen = ['murid','guru','pemesanan','pemesanan.mataPelajaran','pemesanan.mataPelajaran.jenjang'];
+        $relationshipPembayaranAbsen = ['pembayaran','murid','guru','pemesanan','pemesanan.mataPelajaran','pemesanan.mataPelajaran.jenjang'];
         if(isset($r->id_pemesanan)){
             $where['id_pemesanan'] = $r->id_pemesanan;
         }
@@ -246,12 +246,35 @@ class AbsenController extends Controller
                 $absenQuery = $absenQuery->whereRaw('concat(bulan,tahun) not in '.$bulanTahun);
             }
         }
+        if(isset($r->paid)){
+            $pembayaran = Pembayaran::select('*');
+            $pembayaran = $pembayaran->where('status','200')->get();
+           // dd($pembayaran);
+            $bulanTahun="(";
+            $idMurid="(";
+            foreach($pembayaran as $key=>$value){
+                $idMurid = $bulanTahun." '".$value->id_user."'";
+                $bulanTahun = $bulanTahun." '".$value->periode_bulan.$value->periode_tahun."'" ;
+                if ($key < sizeof($pembayaran) - 1) {
+                    $bulanTahun = $bulanTahun . ",";
+                    $idMurid = $idMurid . ",";
+                } else {
+                    $bulanTahun = $bulanTahun . ")";
+                    $idMurid = $idMurid . ")";
+                }
+            }
+            if(sizeof($pembayaran)>0){
+                $absenQuery = $absenQuery->whereRaw('concat(bulan,tahun) in '.$bulanTahun. ' AND id_murid in '.$idMurid);
+            }
+        }
         if(isset($r->distinct)){
             $absenQuery = $absenQuery->groupBy('bulan','tahun',$r->distinct);
             $absenQuery = $absenQuery->select('bulan','tahun',$r->distinct);
         }
         // $absenQuery= $absenQuery->get();
         //dd(DB::getQueryLog());
+        $absenQuery = $absenQuery->orderBy('tahun', 'desc');
+        $absenQuery = $absenQuery->orderBy('bulan', 'desc');
         return $absenQuery->get();
     }
 

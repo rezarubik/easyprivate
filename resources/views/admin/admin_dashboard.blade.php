@@ -117,8 +117,8 @@
             Pemesanan_SMP.push(data.Pemesanan_SMP);
             Pemesanan_SMA.push(data.Pemesanan_SMA);
         });
-        console.log(url);
-        console.log(Pemesanan_SMA);
+        // console.log(url);
+        // console.log(Pemesanan_SMA);
         var ctx = document.getElementById('pemesanan').getContext('2d');
         // var ctx
         var chart = new Chart(ctx, {
@@ -176,47 +176,107 @@
 <!-- end grafik pemesanan -->
 <!-- start grafik pendapatan dan pengeluaran -->
 <script>
+    var url = "{{url('/getGrafikCashflow')}}";
+    console.log(url);
+    var inflow = new Array();
+    var outflow = new Array();
+    var tahun = new Array();
+    var bulan = new Array();
     var ctx = document.getElementById('pendapatan-pemasukan').getContext('2d');
-    var chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'line',
-
-        // The data for our dataset
-        data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [{
-                    label: 'Data Pemasukan',
-                    backgroundColor: 'lightblue', //rgb(255, 99, 132)
-                    borderWidth: 4,
-                    borderColor: '#777', //rgb(255, 99, 132)
-                    data: [10, 10, 5, 2, 20, 30, 45]
-                },
-                {
-                    label: 'Data Pengeluaran',
-                    backgroundColor: 'yellow', //rgb(255, 99, 132)
-                    borderWidth: 4,
-                    borderColor: '#777', //rgb(255, 99, 132)
-                    data: [20, 30, 40, 50, 60, 70, 80]
-                },
-            ]
-        },
-
-        // Configuration options go here
-        options: {
-            title: {
-                display: true,
-                text: 'Data Pemasukan dan Pengeluaran',
-                fontSize: 25
+    $.get(url, function(response) {
+        response.forEach(function(data) {
+            inflow.push(data.Inflow);
+            outflow.push(data.Outflow);
+            tahun.push(data.Tahun);
+            bulan.push(data.Bulan);
+        });
+        console.log(outflow);
+        // console.log(Pemesanan_SMA);
+        var ctx = document.getElementById('pendapatan-pemasukan').getContext('2d');
+        // var ctx
+        var chart = new Chart(ctx, {
+            // The type of chartPemesanan we want to create
+            type: 'line',
+            // The data for our dataset
+            data: {
+                labels: bulan,
+                // labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                        label: 'Data Pemasukan',
+                        backgroundColor: 'lightblue', //rgb(255, 99, 132)
+                        borderWidth: 4,
+                        borderColor: '#777', //rgb(255, 99, 132)
+                        data: inflow
+                        // data: [10, 10, 5, 2, 20, 30, 45]
+                    },
+                    {
+                        label: 'Data Pengeluaran',
+                        backgroundColor: 'yellow', //rgb(255, 99, 132)
+                        borderWidth: 4,
+                        borderColor: '#777', //rgb(255, 99, 132)
+                        data: outflow
+                        // data: [20, 30, 40, 50, 60, 70, 80]
+                    },
+                ]
             },
-            legend: {
-                display: true,
-                position: 'bottom',
-                labels: {
-                    fontColor: 'blue',
+            // Configuration options go here
+            options: {
+                title: {
+                    display: true,
+                    text: 'Data Pemasukan dan Pengeluaran',
+                    fontSize: 25
+                },
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        fontColor: 'blue',
+                    }
                 }
             }
-        }
+        });
+        // console.log(chartPemesanan);
     });
+    // var chart = new Chart(ctx, {
+    //     // The type of chart we want to create
+    //     type: 'line',
+
+    //     // The data for our dataset
+    //     data: {
+    //         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    //         datasets: [{
+    //                 label: 'Data Pemasukan',
+    //                 backgroundColor: 'lightblue', //rgb(255, 99, 132)
+    //                 borderWidth: 4,
+    //                 borderColor: '#777', //rgb(255, 99, 132)
+    //                 data: [10, 10, 5, 2, 20, 30, 45]
+    //             },
+    //             {
+    //                 label: 'Data Pengeluaran',
+    //                 backgroundColor: 'yellow', //rgb(255, 99, 132)
+    //                 borderWidth: 4,
+    //                 borderColor: '#777', //rgb(255, 99, 132)
+    //                 data: [20, 30, 40, 50, 60, 70, 80]
+    //             },
+    //         ]
+    //     },
+
+    //     // Configuration options go here
+    //     options: {
+    //         title: {
+    //             display: true,
+    //             text: 'Data Pemasukan dan Pengeluaran',
+    //             fontSize: 25
+    //         },
+    //         legend: {
+    //             display: true,
+    //             position: 'bottom',
+    //             labels: {
+    //                 fontColor: 'blue',
+    //             }
+    //         }
+    //     }
+    // });
 </script>
 <!-- end grafik pendapatan dan pengeluaran -->
 
@@ -234,8 +294,8 @@
             jumlah_guru_sudah_dapat.push(data.jumlah_guru_sudah_dapat);
             bulan_tahun.push(data.bulan_tahun);
         });
-        console.log(url);
-        console.log(Pemesanan_SMA);
+        // console.log(url);
+        // console.log(Pemesanan_SMA);
         var ctx = document.getElementById('data-guru').getContext('2d');
         // var ctx
         var chart = new Chart(ctx, {
@@ -280,48 +340,5 @@
         // console.log(chartPemesanan);
     });
 </script>
-<!-- <script>
-    var ctx = document.getElementById('data-guru').getContext('2d');
-    var chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'bar',
-
-        // The data for our dataset
-        data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [{
-                    label: 'Data Guru Sudah Dapat Pemesanan',
-                    backgroundColor: 'blue', //rgb(255, 99, 132)
-                    borderWidth: 4,
-                    borderColor: '#777', //rgb(255, 99, 132)
-                    data: [10, 10, 5, 2, 20, 30, 45]
-                },
-                {
-                    label: 'Data Guru Belum Dapat Pemesanan',
-                    backgroundColor: 'red', //rgb(255, 99, 132)
-                    borderWidth: 4,
-                    borderColor: '#777', //rgb(255, 99, 132)
-                    data: [10, 10, 5, 2, 20, 30, 45]
-                }
-            ]
-        },
-
-        // Configuration options go here
-        options: {
-            title: {
-                display: true,
-                text: 'Data Guru',
-                fontSize: 25
-            },
-            legend: {
-                display: true,
-                position: 'bottom',
-                labels: {
-                    fontColor: 'blue',
-                }
-            }
-        }
-    });
-</script> -->
 <!-- end grafik data guru -->
 @stop

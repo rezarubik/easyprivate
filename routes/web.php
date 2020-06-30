@@ -66,7 +66,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/pembobotan-nilai-gap', 'AdminController@pembobotanNilaiGAP')->name('pembobotan.nilai.gap');
     Route::get('/hasil-seleksi', 'AdminController@hasilSeleksi')->name('hasil.seleksi');
     Route::get('/video-microteaching', 'AdminController@videoMicroteaching')->name('video.microteaching');
-    Route::post('/score-video-microteaching', 'AdminController@scoreVideoMicroteaching')->name('pemesanan');
+    Route::post('/score-video-microteaching', 'AdminController@scoreVideoMicroteaching')->name('penilaian.video.microteaching');
     Route::get('/pemesanan', 'AdminController@indexPemesanan')->name('pemesanan');
     Route::get('/absensi', 'AdminController@indexAbsensi')->name('absensi');
     Route::get('/profile-matching', 'AdminController@hitungProfileMatching')->name('profile.matching');
@@ -78,4 +78,5 @@ Route::group(['prefix' => 'admin'], function () {
 // ? Pemesanan Per Bulan dan Per Jenjang
 Route::get('/getGrafikPemesanan', 'AdminController@getGrafikPemesanan')->name('grafik.pemesanan');
 Route::get('/getGrafikGuru', 'AdminController@getGrafikGuru')->name('grafik.guru');
+Route::get('/getGrafikCashflow', 'AdminController@getGrafikCashflow')->name('grafik.cashflow');
 // Route::get('pemesananPerJenjang', 'AdminController@pemesananPerJenjang');

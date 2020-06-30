@@ -75,7 +75,7 @@
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="birthday">Tanggal Lahir <span class="symbol required"></span></label>
                                                     <p class="input-group input-append datepicker date">
-                                                        <input type="text" name="birthday" placeholder="Pilih Tanggal Lahir Anda" class="form-control @error('birthday') symbol required @enderror" readonly @if(isset($pendaftaranGuru)) value=" {{$pendaftaranGuru->user->tanggal_lahir}} " @else value="" @endif />
+                                                        <input type="text" name="birthday" placeholder="Pilih Tanggal Lahir Anda" class="form-control @error('birthday') symbol required @enderror" readonly @if(isset($pendaftaranGuru->user->tanggal_lahir)) value=" {{$pendaftaranGuru->user->tanggal_lahir}} " @else value="" @endif />
                                                         <span class="input-group-btn">
                                                             <button type="button" class="btn btn-default">
                                                                 <i class="glyphicon glyphicon-calendar"></i>
@@ -92,14 +92,14 @@
                                                     <select id="jenis_kelamin" name="gender" class=" form-control" required>
                                                         <option selected>Pilih Jenis Kelamin</option>
                                                         <option value="laki-laki" <?php
-                                                                                    if (isset($pendaftaranGuru)) {
+                                                                                    if (isset($pendaftaranGuru->user->jenis_kelamin)) {
                                                                                         if ($pendaftaranGuru->user->jenis_kelamin == 'laki-laki') {
                                                                                             echo 'selected';
                                                                                         }
                                                                                     }
                                                                                     ?>>Laki-Laki</option>
                                                         <option value="perempuan" <?php
-                                                                                    if (isset($pendaftaranGuru)) {
+                                                                                    if (isset($pendaftaranGuru->user->jenis_kelamin)) {
                                                                                         if ($pendaftaranGuru->user->jenis_kelamin == 'perempuan') {
                                                                                             echo 'selected';
                                                                                         }
@@ -109,7 +109,7 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="no_hp">Nomor <i>Handphone</i> yang dapat dihubungi </label>
-                                                    <input type="text" name="handphone_number" class="form-control @error('handphone_number') symbol required @enderror " placeholder="Contoh: 089501011011" @if(isset($pendaftaranGuru)) value="{{$pendaftaranGuru->user->no_handphone}}" @else value="" @endif />
+                                                    <input type="text" name="handphone_number" class="form-control @error('handphone_number') symbol required @enderror " placeholder="Contoh: 089501011011" @if(isset($pendaftaranGuru->user->no_handphone)) value="{{$pendaftaranGuru->user->no_handphone}}" @else value="" @endif />
                                                     @error('handphone_number')
                                                     <div class="help-block"> {{$message}} </div>
                                                     @enderror
@@ -118,7 +118,7 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label" for="universitas">Asal Universitas</label>
-                                                    <input type="text" name="universitas" class="form-control @error('universitas') symbol required @enderror " placeholder="Contoh: Universitas Indonesia" @if(isset($pendaftaranGuru)) value=" {{$pendaftaranGuru->user->universitas}} " @else value="" @endif />
+                                                    <input type="text" name="universitas" class="form-control @error('universitas') symbol required @enderror " placeholder="Contoh: Universitas Indonesia" @if(isset($pendaftaranGuru->user->universitas)) value=" {{$pendaftaranGuru->user->universitas}} " @else value="" @endif />
                                                     @error('universitas')
                                                     <div class="help-block"> {{$message}} </div>
                                                     @enderror
