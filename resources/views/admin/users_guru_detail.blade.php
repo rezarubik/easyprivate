@@ -121,13 +121,11 @@
                 <div class="row">
                   <div class="form-group col-md-6">
                     <label for="">Usia</label>
-                    <input type="text" placeholder="Readonly" value="
-                    <?php \Carbon\Carbon::parse($p->user->tanggal_lahir)->age; ?> Belum
-                    " id="form-field-21" class="form-control" readonly>
+                    <input type="text" placeholder="Readonly" value="{{$age}} tahun" id="form-field-21" class="form-control" readonly>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="">Jumlah Ketersediaan Mata Pelajaran</label>
-                    <input type="text" placeholder="Readonly" value="belum" id="form-field-21" class="form-control" readonly>
+                    <input type="text" placeholder="Readonly" value="{{$guruMapels[0]->jumlah_guru_mapel}}" id="form-field-21" class="form-control" readonly>
                   </div>
                 </div>
               </div>

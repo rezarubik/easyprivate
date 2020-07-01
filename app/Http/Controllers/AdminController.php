@@ -178,10 +178,16 @@ class AdminController extends Controller
      */
     public function show(PendaftaranGuru $p)
     {
-        // $pendaftaranGuru = $p;
-        // dd($pendaftaranGuru);
-        // $profileMatching = ProfileMatching::with(['']);
-        return view('admin.users_guru_detail', compact('p'));
+        $guruMapels = GuruMapel::selectRaw('count(id_guru_mapel) as jumlah_guru_mapel')
+            ->groupBy('id_guru')
+            ->where('id_guru', $p->user->id)
+            ->get();
+        // dd($guruMapels);
+        $currentYear = Carbon::now();
+        $tanggal_lahir = new Carbon($p->user->tanggal_lahir);
+        $age = $currentYear->diffInYears($tanggal_lahir);
+        // dd($age);
+        return view('admin.users_guru_detail', compact('p', 'guruMapels', 'age'));
     }
 
     /**
