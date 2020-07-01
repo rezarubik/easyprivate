@@ -174,10 +174,14 @@ class AdminController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * todo Detail Pendaftaran Data Guru
      */
-    public function show($id)
+    public function show(PendaftaranGuru $p)
     {
-        //
+        // $pendaftaranGuru = $p;
+        // dd($pendaftaranGuru);
+        // $profileMatching = ProfileMatching::with(['']);
+        return view('admin.users_guru_detail', compact('p'));
     }
 
     /**
@@ -284,7 +288,7 @@ class AdminController extends Controller
         ];
         $profileMatching = ProfileMatching::where('id_pendaftaran_guru', $request->id_pendaftaran)
             ->update($data);
-        return redirect()->route('video.microteaching');
+        return redirect()->route('video.microteaching')->with('status', 'Anda telah memberikan nilai video microteaching!');
     }
     // todo perhitungan profile matching
     public function hitungProfileMatching()

@@ -13,6 +13,14 @@
 @section('active-pages', 'Video Microteaching')
 @section('content')
 <div class="container-fluid container-fullw bg-white">
+    @if(session('status'))
+    <div class="alert alert-success">
+        {{session('status')}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
     <div class="row">
         <div class="col-md-12">
             <h5 class="over-title margin-bottom-15">
@@ -78,19 +86,31 @@
                                         </div>
                                         <div class="form-group col-md-12">
                                             <label for="vas" class="control-label">Volume dan Artikulasi Suara</label>
-                                            <input type="number" name="vas" class="form-control underline" min=0 max=5 placeholder="Penilaian Volume dan Artikulasi Suara">
+                                            <input type="number" name="vas" class="form-control underline" min=0 max=5 placeholder="Penilaian Volume dan Artikulasi Suara" @if(isset($pg->profileMatching->pm_vas))
+                                            value="{{$pg->profileMatching->pm_vas}}"
+                                            @endif
+                                            />
                                         </div>
                                         <div class="form-group col-md-12">
                                             <label for="km" class="control-label">Keefektifan Kalimat</label>
-                                            <input type="number" name="kk" class="form-control underline" min=0 max=5 placeholder="Penilaian Keefektifan Kalimat">
+                                            <input type="number" name="kk" class="form-control underline" min=0 max=5 placeholder="Penilaian Keefektifan Kalimat" @if(isset($pg->profileMatching->pm_kk))
+                                            value="{{$pg->profileMatching->pm_kk}}"
+                                            @endif
+                                            >
                                         </div>
                                         <div class="form-group col-md-12">
                                             <label for="cm" class="control-label">Cara Mengajar</label>
-                                            <input type="number" name="cm" class="form-control underline" min=0 max=5 placeholder="Penilaian Cara Mengajar">
+                                            <input type="number" name="cm" class="form-control underline" min=0 max=5 placeholder="Penilaian Cara Mengajar" @if(isset($pg->profileMatching->pm_cm))
+                                            value="{{$pg->profileMatching->pm_cm}}"
+                                            @endif
+                                            >
                                         </div>
                                         <div class="form-group col-md-12">
                                             <label for="pemat" class="control-label">Penguasaan Materi</label>
-                                            <input type="number" name="pemat" class="form-control underline" min=0 max=5 placeholder="Penilaian Penguasaan Materi">
+                                            <input type="number" name="pemat" class="form-control underline" min=0 max=5 placeholder="Penilaian Penguasaan Materi" @if(isset($pg->profileMatching->pm_pemat))
+                                            value="{{$pg->profileMatching->pm_pemat}}"
+                                            @endif
+                                            >
                                         </div>
                                     </div>
                                 </div>

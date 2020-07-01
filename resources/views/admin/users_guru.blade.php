@@ -45,7 +45,7 @@
                         ?>
                         <tr>
                             <td>{{$p->user->id}}</td>
-                            <td>{{$p->user->name}}</td>
+                            <td> <a href="{{route('users.guru.detail', $p)}}" class="">{{$p->user->name}}</a> </td>
                             <td>{{$p->user->email}}</td>
                             <td>
                                 <ol>
