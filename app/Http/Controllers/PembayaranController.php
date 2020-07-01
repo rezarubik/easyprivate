@@ -28,14 +28,25 @@ class PembayaranController extends Controller
             ->get();
     }
 
-    public function getPembayaranByIdMurid($id)
+    public function getPembayaranFiltered(Request $r)
     {
-        return Pembayaran::with($this->relationship)
-            ->join('pemesanan', 'pemesanan.id_pemesanan', 'pembayaran.id_pemesanan')
-            ->where([
-                'pemesanan.id_murid' => $id
-            ])
-            ->get();
+        $where = [];
+        if(isset($r->id_pembayaran)){
+            $where['id_pembayaran'] = $r->id_pembayaran;
+        }
+        if(isset($r->id_user)){
+            $where['id_user'] = $r->id_user;
+        }
+        if(isset($r->status)){
+            $where['status'] = $r->status;
+        }
+        if(isset($r->periode_bulan)){
+            $where['periode_bulan'] = $r->periode_bulan;
+        }
+        if(isset($r->periode_tahun)){
+            $where['periode_tahun'] = $r->periode_tahun;
+        }
+        return Pembayaran::where($where)->get();
     }
     public function storeDetailPembayaran(Request $r)
     {
