@@ -948,7 +948,7 @@ class UserController extends Controller
            $c = 2 * atan2(sqrt($a),sqrt(1-$a));
            $d = $earth_radius * $c;
        
-           echo $d;
+           return $d;
     
 }
 
@@ -959,7 +959,7 @@ class UserController extends Controller
         // dd([
         //     $rad_lat_guru,$rad_lat_murid,$rad_sel_long
         // ]);
-        $jarak = User::select(DB::raw('users.id, (' . $radius_bumi . ' * ACOS(SIN(RADIANS(alamat.latitude)) * SIN(RADIANS(' . $latitude_murid . ')) + COS(RADIANS(alamat.longitude - '. $longitude_murid.')) * COS(RADIANS(alamat.latitude)) * COS(RADIANS(' . $latitude_murid . ')))) AS jarak_haversine , profile_matching.pm_result'))
+        $jarak = User::select(DB::raw('users.id, profile_matching.pm_result,alamat.latitude,alamat.longitude'))
             ->join('alamat', 'users.id', 'alamat.id_user')
             ->join('pendaftaran_guru', 'users.id', 'pendaftaran_guru.id_user')
             ->join('profile_matching', 'pendaftaran_guru.id_pendaftaran', 'profile_matching.id_pendaftaran_guru')
@@ -967,6 +967,12 @@ class UserController extends Controller
             ->whereIn('id', $id_guru)->get();
         //   $jarak->sortBy('saw_result');
         // var_dump($jarak);
+       
+        foreach ($jarak as $key => $j) {
+
+            $jarak[$key]->jarak_haversine=$this->getDistance($latitude_murid,$longitude_murid,$j->latitude,$j->longitude);
+            
+        }
         $jarakArray = [];
         $resultArray = [];
         foreach ($jarak as $j) {
@@ -980,12 +986,14 @@ class UserController extends Controller
             $maxResult=1;
             
         }
-        foreach ($jarak as $key => $j) {
-            if($j->jarak_haversine==0){
-                $j->jarak_haversine =1;
+        foreach($jarak as $key=>$j){
+            if($jarak[$key]->jarak_haversine==0){
+                $jarak[$key]->jarak_haversine =1;
             }
             $jarak[$key]->saw_result = $this->methodSAW($j->jarak_haversine, $j->pm_result, $minJarak, $maxResult);
         }
+    
+        
 
         //  $collect = [];
         // foreach($jarak as $key => $i){
