@@ -58,6 +58,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/dashboard', 'AdminController@index')->name('admin.home'); // todo dashboard admin
     Route::get('/logout', 'AuthAdmin\LoginController@logoutAdmin')->name('admin.logout');
     Route::get('/users/data-guru', 'AdminController@dataGuru')->name('admin.users.guru');
+    Route::get('/users/data-guru/{p}/detail', 'AdminController@show')->name('users.guru.detail');
     Route::get('/users/data-murid', 'AdminController@dataMurid')->name('admin.users.murid');
     Route::get('/kriteria-bobot', 'KriteriaBobotController@index')->name('kriteria.bobot');
     Route::get('/kriteria-bobot/{kbt}/edit', 'KriteriaBobotController@edit')->name('kriteria.bobot.edit');
