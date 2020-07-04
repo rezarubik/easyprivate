@@ -935,6 +935,22 @@ class UserController extends Controller
             'saw_guru' => $jarak
         ]);
     }
+    
+
+    function getDistance($latitude1, $longitude1, $latitude2, $longitude2) {
+    
+        $earth_radius = 6371;
+       
+           $dLat = deg2rad($latitude2 - $latitude1);
+           $dLon = deg2rad($longitude2 - $longitude1);
+       
+           $a = sin($dLat/2) * sin($dLat/2) + cos(deg2rad($latitude1)) * cos(deg2rad($latitude2)) * sin($dLon/2) * sin($dLon/2);
+           $c = 2 * atan2(sqrt($a),sqrt(1-$a));
+           $d = $earth_radius * $c;
+       
+           echo $d;
+    
+}
 
     public function jarakFilter($latitude_murid, $longitude_murid, $id_guru)
     {
@@ -943,7 +959,7 @@ class UserController extends Controller
         // dd([
         //     $rad_lat_guru,$rad_lat_murid,$rad_sel_long
         // ]);
-        $jarak = User::select(DB::raw('users.id, (' . $radius_bumi . ' * ACOS(SIN(RADIANS(alamat.latitude)) * SIN(RADIANS(' . $latitude_murid . ')) + COS(RADIANS(alamat.longitude - ' . $longitude_murid . ')) * COS(RADIANS(alamat.latitude)) * COS(RADIANS(' . $latitude_murid . ')))) AS jarak_haversine , profile_matching.pm_result'))
+        $jarak = User::select(DB::raw('users.id, (' . $radius_bumi . ' * ACOS(SIN(RADIANS(alamat.latitude)) * SIN(RADIANS(' . $latitude_murid . ')) + COS(RADIANS(alamat.longitude - '. $longitude_murid.')) * COS(RADIANS(alamat.latitude)) * COS(RADIANS(' . $latitude_murid . ')))) AS jarak_haversine , profile_matching.pm_result'))
             ->join('alamat', 'users.id', 'alamat.id_user')
             ->join('pendaftaran_guru', 'users.id', 'pendaftaran_guru.id_user')
             ->join('profile_matching', 'pendaftaran_guru.id_pendaftaran', 'profile_matching.id_pendaftaran_guru')
@@ -1008,9 +1024,8 @@ class UserController extends Controller
 
         $matrixJarak = $minJarak / $jarak;
         $matrixKompetensi = $kompetensi / $maxKom;
-
         $hasil = ($matrixJarak * $jarakCri) + ($matrixKompetensi * $kompetensiCri);
-
+        //dd($hasil);
         return $hasil;
     }
 }
