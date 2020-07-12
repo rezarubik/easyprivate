@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class AbsenPembayaran extends Model
 {
     protected $table = 'absen_pembayaran';
-    
+
     public function murid()
     {
         return $this->hasOne('App\User', 'id', 'id_murid');
@@ -24,6 +24,4 @@ class AbsenPembayaran extends Model
     {
         return $this->hasOne('App\Pembayaran', 'id_pembayaran', 'id_pembayaran');
     }
-    
 }
-

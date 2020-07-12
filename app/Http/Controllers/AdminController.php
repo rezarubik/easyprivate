@@ -43,6 +43,7 @@ class AdminController extends Controller
             'pemesanan.mataPelajaran',
             'pemesanan.mataPelajaran.jenjang'
         ];
+        $this->relationshipPembayaranAbsen = ['murid', 'guru', 'pemesanan', 'pemesanan.mataPelajaran', 'pemesanan.mataPelajaran.jenjang', 'pembayaran'];
     }
     /**
      * Display a listing of the resource.
@@ -272,7 +273,14 @@ class AdminController extends Controller
      */
     public function hasilSeleksi()
     {
-        $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)->get();
+        // $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)->get();
+        // sudah di sorting dari yang terbesar
+        $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
+            ->join('profile_matching', 'pendaftaran_guru.id_pendaftaran', 'profile_matching.id_pendaftaran_guru')
+            ->orderBy('profile_matching.pm_result', 'DESC')
+            ->select('pendaftaran_guru.*')
+            ->get();
+        // dd($pendaftaranGuru);
         return view('admin.hasil_seleksi', compact('pendaftaranGuru'));
     }
     /**
@@ -352,6 +360,7 @@ class AdminController extends Controller
                 $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_kk'] +
                 $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_cm'] +
                 $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_pemat']) / 5;
+            // todo average SCF
             $pht[$pg->profileMatching->id_profile_matching]['scf'] = ($pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_ipk'] +
                 $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_usia'] +
                 $pht[$pg->profileMatching->id_profile_matching]['nilai_bobot']['pm_km']) / 3;
@@ -427,8 +436,8 @@ class AdminController extends Controller
         $id_peserta_lulus = array();
         $pesertaLulus = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
             ->join('profile_matching', 'pendaftaran_guru.id_pendaftaran', 'profile_matching.id_pendaftaran_guru')
-            ->orderBy('profile_matching.pm_result')
-            ->limit(13)
+            ->orderBy('profile_matching.pm_result', 'desc')
+            ->limit(10)
             ->select('pendaftaran_guru.*')
             ->get();
         foreach ($pesertaLulus as $pl) {
@@ -437,8 +446,10 @@ class AdminController extends Controller
 
         $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
             ->whereIn('pendaftaran_guru.id_pendaftaran', $id_peserta_lulus)
+            ->where('pendaftaran_guru.status', 0)
             ->update(['pendaftaran_guru.status' => 1]);
         $pendaftaranGuru = PendaftaranGuru::with($this->relationshipPendaftaranGuru)
+            ->whereNotIn('pendaftaran_guru.id_pendaftaran', $id_peserta_lulus)
             ->where('pendaftaran_guru.status', 0)
             ->update(['pendaftaran_guru.status' => 2]);
         $user = User::whereIn('id', $id_peserta_lulus)->update(['role' => 2]);
@@ -450,7 +461,11 @@ class AdminController extends Controller
      */
     public function cashflow()
     {
-        return view('admin.cashflow');
+        $absenPembayaran = AbsenPembayaran::with($this->relationshipPembayaranAbsen)
+            ->whereNotNull('id_pembayaran')
+            ->get();
+        // dd($absenPembayaran);
+        return view('admin.cashflow', compact('absenPembayaran'));
     }
 
     /**

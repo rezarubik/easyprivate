@@ -48,19 +48,35 @@
                   <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
                     <thead>
                       <tr>
-                        <th class="text-center">ID</th>
+                        <!--<th class="text-center">ID</th>-->
                         <th class="text-center">Keterangan</th>
                         <th class="text-center">Periode</th>
                         <th class="text-center">Total</th>
                       </tr>
                     </thead>
                     <tbody>
+                      @foreach($absenPembayaran as $inflow)
                       <tr>
-                        <td>1</td>
-                        <td>Pembayaran Murid A</td>
-                        <td>April 2020</td>
-                        <td>Rp600.000,00</td>
+                        <!--<td>{{$inflow->id}}</td>-->
+                        <td>Pembayaran Murid {{$inflow->murid->name}}</td>
+                        <td>
+                          <?php
+                          $monthNum  = $inflow->bulan;
+                          $dateObj   = DateTime::createFromFormat('!m', $monthNum);
+                          $monthName = $dateObj->format('F'); // March
+                          echo $monthName;
+                          ?>
+                          , {{$inflow->tahun}}
+                        </td>
+                        <td>
+                          Rp<?php
+                            $total = 0;
+                            $total = $inflow->jumlah_absen * $inflow->pemesanan->mataPelajaran->jenjang->harga_per_pertemuan;
+                            echo number_format($total, 2, ',', '.')
+                            ?>
+                        </td>
                       </tr>
+                      @endforeach
                     </tbody>
                   </table>
                 </div>
@@ -78,19 +94,35 @@
                   <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
                     <thead>
                       <tr>
-                        <th class="text-center">ID</th>
+                        <!--<th class="text-center">ID</th>-->
                         <th class="text-center">Keterangan</th>
                         <th class="text-center">Periode</th>
                         <th class="text-center">Total</th>
                       </tr>
                     </thead>
                     <tbody>
+                      @foreach($absenPembayaran as $outflow)
                       <tr>
-                        <td>1</td>
-                        <td>Fee Guru A</td>
-                        <td>April 2020</td>
-                        <td>Rp400.000,00</td>
+                        <!--<td>1</td>-->
+                        <td>Fee Guru {{$outflow->guru->name}}</td>
+                        <td>
+                          <?php
+                          $monthNum  = $outflow->bulan;
+                          $dateObj   = DateTime::createFromFormat('!m', $monthNum);
+                          $monthName = $dateObj->format('F'); // March
+                          echo $monthName;
+                          ?>
+                          , {{$outflow->tahun}}
+                        </td>
+                        <td>
+                          Rp<?php
+                            $total = 0;
+                            $total = $outflow->jumlah_absen * $outflow->pemesanan->mataPelajaran->jenjang->upah_guru_per_pertemuan;
+                            echo number_format($total, 2, ',', '.')
+                            ?>
+                        </td>
                       </tr>
+                      @endforeach
                     </tbody>
                   </table>
                 </div>
@@ -99,12 +131,52 @@
           </div>
           <!-- todo Profit -->
           <div class="tab-pane fade" id="profit">
-            <p>
-              Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin.
-            </p>
-            <p>
-              Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
-            </p>
+            <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+              <thead>
+                <tr>
+                  <th class="text-center">Inflow</th>
+                  <th class="text-center">Outflow</th>
+                  <th class="text-center">Periode</th>
+                  <th class="text-center">Profit</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($absenPembayaran as $ap)
+                <tr>
+                  <td>
+                    Rp<?php
+                      $profitInflow = 0;
+                      $profitInflow = $ap->jumlah_absen * $ap->pemesanan->mataPelajaran->jenjang->harga_per_pertemuan;
+                      echo number_format($profitInflow, 2, ',', '.');
+                      ?>
+                  </td>
+                  <td>
+                    Rp<?php
+                      $profitOutflow = 0;
+                      $profitOutflow = $ap->jumlah_absen * $ap->pemesanan->mataPelajaran->jenjang->upah_guru_per_pertemuan;
+                      echo number_format($profitOutflow, 2, ',', '.');
+                      ?>
+                  </td>
+                  <td>
+                    <?php
+                    $monthNum  = $outflow->bulan;
+                    $dateObj   = DateTime::createFromFormat('!m', $monthNum);
+                    $monthName = $dateObj->format('F'); // March
+                    echo $monthName;
+                    ?>
+                    , {{$outflow->tahun}}
+                  </td>
+                  <td>
+                    Rp<?php
+                      $profit = 0;
+                      $profit = $profitInflow - $profitOutflow;
+                      echo number_format($profit, 2, ',', '.');
+                      ?>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

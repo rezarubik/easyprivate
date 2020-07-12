@@ -42,6 +42,7 @@
                             <th>ID</th>
                             <th>Nama Peserta</th>
                             <th>Email</th>
+                            <th>Nilai Akhir</th>
                             <th>Hasil</th>
                             <th>Aksi</th>
                         </tr>
@@ -52,6 +53,7 @@
                             <td>{{$pg->user->id}}</td>
                             <td>{{$pg->user->name}}</td>
                             <td>{{$pg->user->email}}</td>
+                            <td>{{$pg->profileMatching->pm_result}}</td>
                             <td>
                                 @if($pg->status == null)
                                 <label class="badge badge-warning">
